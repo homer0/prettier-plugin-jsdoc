@@ -1,0 +1,21 @@
+{
+  "name": "@homer0/prettier-plugin-jsdoc",
+  "description": "A Prettier plugin to format JSDoc blocks",
+  "version": "0.0.0-development",
+  "repository": "homer0/packages",
+  "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
+  "license": "MIT",
+  "dependencies": {
+    "comment-parser": "0.7.6",
+    "linguist-languages": "^7.11.0",
+    "prettier": "^2.1.2"
+  },
+  "devDependencies": {
+    "jest": "^26.4.2"
+  },
+  "engine-strict": true,
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "main": "src/index.js"
+}
