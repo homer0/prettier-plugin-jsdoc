@@ -98,3 +98,23 @@
  * @typedef {PJPDescriptionTagOptions & PJPAccessTagOptions & PJPStringLiteralsOptions & PJPTypesOptions & PJPTagsOptions & PJPStyleOptions } PJPOptions
  */
 /* eslint-enable max-len */
+
+// =========================================
+// Parser
+// =========================================
+
+/**
+ * @typedef {Object} CommentTag
+ * @property {string}  tag          The name of the tag.
+ * @property {string}  type         The type of what the tag represents, without the curly brackets.
+ * @property {string}  name         The name of what the tag represents.
+ * @property {string}  description  The description of what the tag represents.
+ * @property {boolean} optional     Whether or not what the tag represents is optional.
+ * @property {string}  [default]    The default value of what the tag represents.
+ */
+
+/**
+ * @typedef {Object} CommentBlock
+ * @property {string}       description  The description on the body of the block.
+ * @property {CommentTag[]} tags         The list of tags on the block.
+ */
