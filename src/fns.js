@@ -41,7 +41,7 @@ const findTagIndex = R.curry((targetTag, propName, step) => {
  *
  * @param {CommentTag[]}        tags     The list of tags where the transformations should happen.
  * @param {PJPAccessTagOptions} options  The plugin options for the access tag.
- * @return {CommentTag[]
+ * @returns {CommentTag[]}
  */
 const formatAccessTag = (tags, options) => {
   const indexes = tags.reduce(
