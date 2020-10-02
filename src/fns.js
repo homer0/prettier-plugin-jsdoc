@@ -99,7 +99,7 @@ const formatAccessTag = (tags, options) => {
    * both, remove the first one declared.
    */
   if (indexes.accessTag > -1 && indexes.typeTag > -1) {
-    const removeIndex = Math.min(indexes.accessTag, indexes.typeTag);
+    const removeIndex = R.min(indexes.accessTag, indexes.typeTag);
     result = R.remove(removeIndex, 1, tags);
   }
 
