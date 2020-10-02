@@ -1,4 +1,8 @@
 /**
+ * @typedef {import('./types').PrettierSupportOption} PrettierSupportOption
+ */
+
+/**
  * A dictionary with the plugin options.
  *
  * @type {Object.<string,PrettierSupportOption>}

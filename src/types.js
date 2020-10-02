@@ -118,3 +118,6 @@
  * @property {string}       description  The description on the body of the block.
  * @property {CommentTag[]} tags         The list of tags on the block.
  */
+
+// eslint-disable-next-line
+export {};
