@@ -1,0 +1,88 @@
+jest.unmock('../../src/fns/splitText');
+
+const { splitText } = require('../../src/fns/splitText');
+
+describe('splitText', () => {
+  it('should return a single line when the text doesn\'t exceed the length', () => {
+    // Given
+    const input = 'Some text';
+    const output = ['Some text'];
+    let result = null;
+    // When
+    result = splitText(input, 20);
+    // Then
+    expect(result).toEqual(output);
+  });
+
+  it('should return two lines when the text exceeds the length by 1', () => {
+    // Given
+    const input = 'Some lorem ipsum text';
+    const output = ['Some lorem ipsum', 'text'];
+    let result = null;
+    // When
+    result = splitText(input, input.length - 1);
+    // Then
+    expect(result).toEqual(output);
+  });
+
+  it('should respect intentional line breaks after a symbol', () => {
+    // Given
+    const input = [
+      'Some title:',
+      ' - Some list item.',
+      ' - Some other list item.',
+    ].join('\n');
+    const output = [
+      'Some title:',
+      '- Some list item.',
+      '- Some other list item.',
+    ];
+    let result = null;
+    // When
+    result = splitText(input, 25);
+    // Then
+    expect(result).toEqual(output);
+  });
+
+  it('should fix line breaks to match the expected length', () => {
+    // Given
+    const input = [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus\nlobortis',
+      'erat molestie posuere dictum. Integer libero justo, viverra\nquis efficitur',
+      'in, condimentum congue lorem.',
+    ].join(' ');
+    const output = [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing',
+      'elit. Phasellus lobortis erat molestie posuere',
+      'dictum. Integer libero justo, viverra quis',
+      'efficitur in, condimentum congue lorem.',
+    ];
+    let result = null;
+    // When
+    result = splitText(input, 50);
+    // Then
+    expect(result).toEqual(output);
+  });
+
+  it('should respect empty lines', () => {
+    // Given
+    const input = [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus\nlobortis',
+      'erat molestie posuere dictum. Integer libero justo, viverra\nquis efficitur',
+      'in, condimentum\n\ncongue lorem.',
+    ].join(' ');
+    const output = [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing',
+      'elit. Phasellus lobortis erat molestie posuere',
+      'dictum. Integer libero justo, viverra quis',
+      'efficitur in, condimentum',
+      '',
+      'congue lorem.',
+    ];
+    let result = null;
+    // When
+    result = splitText(input, 50);
+    // Then
+    expect(result).toEqual(output);
+  });
+});
