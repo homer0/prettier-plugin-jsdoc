@@ -89,27 +89,8 @@ const replaceLastItem = R.curry((item, list) => R.compose(
   R.dropLast(1),
 )(list));
 
-/**
- * Ponyfill of `RegExp.matchAll` on Node 10.
- *
- * @param {string} str         The text where the expression will be executed.
- * @param {RegExp} expression  The expression to execute.
- * @returns {string[]}
- */
-const matchAll = (str, expression) => {
-  const result = [];
-  let match = expression.exec(str);
-  while (match) {
-    result.push(match);
-    match = expression.exec(str);
-  }
-
-  return result;
-};
-
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
 module.exports.appendIfNotPresent = appendIfNotPresent;
 module.exports.joinIfNotEmpty = joinIfNotEmpty;
 module.exports.replaceLastItem = replaceLastItem;
-module.exports.matchAll = matchAll;

@@ -1,5 +1,4 @@
 jest.unmock('../../src/fns/formatStringLiterals');
-jest.unmock('../../src/fns/utils');
 
 const { formatStringLiterals } = require('../../src/fns/formatStringLiterals');
 
@@ -10,7 +9,10 @@ describe('formatStringLiterals', () => {
     const output = 'string';
     let result = null;
     // When
-    result = formatStringLiterals(input);
+    result = formatStringLiterals(input, {
+      jsdocUseSingleQuotesForStringLiterals: true,
+      jsdocSpacesBetweenStringLiterals: 0,
+    });
     // Then
     expect(result).toBe(output);
   });
