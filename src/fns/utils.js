@@ -43,7 +43,7 @@ const findTagIndex = R.curry((targetTag, propName, step) => {
  *
  * @callback AppendIfNotPresentFn
  * @param {*}     item  The item to add.
- * @param {Array} list  The list where it should be added.
+ * @param {Array} list  The list where the item should be added.
  * @returns {Array}
  */
 
@@ -72,7 +72,25 @@ const joinIfNotEmpty = R.curry((glue, str) => R.pipe(
   R.join(glue),
 )(str));
 
+/**
+ * Replaces the last item on an array.
+ *
+ * @callback ReplaceLastItemFn
+ * @param {*}     item  The "new last item".
+ * @param {Array} list  The list where the item will be replaced.
+ * @returns {Array}
+ */
+
+/**
+ * @type {ReplaceLastItemFn}
+ */
+const replaceLastItem = R.curry((item, list) => R.compose(
+  R.append(item),
+  R.dropLast(1),
+)(list));
+
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
 module.exports.appendIfNotPresent = appendIfNotPresent;
 module.exports.joinIfNotEmpty = joinIfNotEmpty;
+module.exports.replaceLastItem = replaceLastItem;
