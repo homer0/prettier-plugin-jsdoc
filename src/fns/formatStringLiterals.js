@@ -73,10 +73,10 @@ const extractLiterals = R.match(/['"][\w\|\-\s'"]+['"](?:\s+)?/g);
  * @returns {string}
  */
 const formatStringLiterals = (type, options) => R.compose(
-  R.ifElse(
-    R.prop('length'),
-    R.reduce(getReducer(options), type),
-    R.always(type),
+  (literals) => (
+    literals.length ?
+      R.reduce(getReducer(options), type, literals) :
+      type
   ),
   extractLiterals,
 )(type);
