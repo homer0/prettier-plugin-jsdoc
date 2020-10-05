@@ -1,27 +1,8 @@
 const R = require('ramda');
-const { isMatch } = require('./utils');
+const { isMatch, replaceDotOnTypeGeneric } = require('./utils');
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
  */
-
-/**
- * Depending on whether dots before array generics are allowed or not, this method will remove
- * them or add them if not present.
- *
- * @callback ReplaceDotFn
- * @param {boolean} useDot  Whether or not the dots should be present.
- * @param {string}  type    The actual type where the dots will be added or removed.
- * @returns {string}
- */
-
-/**
- * @type {ReplaceDotFn}
- */
-const replaceDot = R.curry((useDot, type) => R.ifElse(
-  R.always(useDot),
-  R.replace(/([^\w]|^)Array\s*</g, '$1Array.<'),
-  R.replace(/([^\w]|^)Array\s*\.\s*</g, '$1Array<'),
-)(type));
 
 /**
  * This is the function that actuall processes the types and the options of {@link formatArrays}.
@@ -40,7 +21,7 @@ const replaceDot = R.curry((useDot, type) => R.ifElse(
 const processType = R.curry((options, type) => R.compose(
   R.when(
     R.always(options.jsdocFormatDotForArraysAndObjects),
-    replaceDot(options.jsdocUseDotForArraysAndObjects),
+    replaceDotOnTypeGeneric('Array', options.jsdocUseDotForArraysAndObjects),
   ),
   R.when(
     R.always(options.jsdocUseShortArrays),

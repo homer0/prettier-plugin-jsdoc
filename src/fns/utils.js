@@ -124,6 +124,29 @@ const isMatch = R.curry((expression, str) => R.compose(
   R.match(expression),
 )(str));
 
+/**
+ * Depending on `useDot`, this function will ensure that the type name and the generics for a
+ * target type are separated, or not, with a dot.
+ * For the use of generics, JSDoc recommends the use a dot before listing them
+ * (i.e. `Array.<string>`), but that is unnecessary if you are using JSDoc for TypeScript
+ * annotations.
+ *
+ * @callback ReplaceDotOnTypeGeneric
+ * @param {string}  targetType  The type that should/shouldn't have a dot before generics.
+ * @param {boolean} useDot      Whether or not the dots should be present.
+ * @param {string}  type        The actual type where the dots will be added or removed.
+ * @returns {string}
+ */
+
+/**
+ * @type {ReplaceDotOnTypeGeneric}
+ */
+const replaceDotOnTypeGeneric = R.curry((targetType, useDot, type) => R.ifElse(
+  R.always(useDot),
+  R.replace(new RegExp(`([^\\w]|^)${targetType}\\s*<`, 'g'), `$1${targetType}.<`),
+  R.replace(new RegExp(`([^\\w]|^)${targetType}\\s*\\.\\s*<`, 'g'), `$1${targetType}<`),
+)(type));
+
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
 module.exports.appendIfNotPresent = appendIfNotPresent;
@@ -131,3 +154,4 @@ module.exports.joinIfNotEmpty = joinIfNotEmpty;
 module.exports.replaceLastItem = replaceLastItem;
 module.exports.hasItems = hasItems;
 module.exports.isMatch = isMatch;
+module.exports.replaceDotOnTypeGeneric = replaceDotOnTypeGeneric;
