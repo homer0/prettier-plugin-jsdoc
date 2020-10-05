@@ -147,6 +147,22 @@ const replaceDotOnTypeGeneric = R.curry((targetType, useDot, type) => R.ifElse(
   R.replace(new RegExp(`([^\\w]|^)${targetType}\\s*\\.\\s*<`, 'g'), `$1${targetType}<`),
 )(type));
 
+/**
+ * Capitalizes a string.
+ *
+ * @callback CapitalizeFn
+ * @param {string} str  The string to capitalize.
+ * @returns {string}
+ */
+
+/**
+ * @type {CapitalizeFn}
+ */
+const capitalize = R.compose(
+  R.join(''),
+  R.juxt([R.compose(R.toUpper, R.head), R.tail]),
+);
+
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
 module.exports.appendIfNotPresent = appendIfNotPresent;
@@ -155,3 +171,4 @@ module.exports.replaceLastItem = replaceLastItem;
 module.exports.hasItems = hasItems;
 module.exports.isMatch = isMatch;
 module.exports.replaceDotOnTypeGeneric = replaceDotOnTypeGeneric;
+module.exports.capitalize = capitalize;
