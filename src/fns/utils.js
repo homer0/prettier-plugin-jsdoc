@@ -89,8 +89,45 @@ const replaceLastItem = R.curry((item, list) => R.compose(
   R.dropLast(1),
 )(list));
 
+/**
+ * Validates that the `length` of an object is a positive number.
+ *
+ * @callback HasItemsFn
+ * @param {*} item  The item to validate.
+ * @returns {boolean}
+ */
+
+/**
+ * @type {HasItemsFn}
+ */
+const hasItems = R.compose(
+  R.gt(R.__, 0),
+  R.length,
+);
+
+/**
+ * Validates if a string matches a regular expression. This utility function exists because
+ * `R.match` returns an array even if there are no matches, so the call to `R.match` has to be
+ * composed with a function to validate the result `.length`.
+ *
+ * @callback IsMatchFn
+ * @param {RegExp} expression  The regular expression the string has to match.
+ * @param {string} str         The string to validate.
+ * @returns {boolean}
+ */
+
+/**
+ * @type {IsMatchFn}
+ */
+const isMatch = R.curry((expression, str) => R.compose(
+  hasItems,
+  R.match(expression),
+)(str));
+
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
 module.exports.appendIfNotPresent = appendIfNotPresent;
 module.exports.joinIfNotEmpty = joinIfNotEmpty;
 module.exports.replaceLastItem = replaceLastItem;
+module.exports.hasItems = hasItems;
+module.exports.isMatch = isMatch;

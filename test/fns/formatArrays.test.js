@@ -1,4 +1,5 @@
 jest.unmock('../../src/fns/formatArrays');
+jest.unmock('../../src/fns/utils');
 
 const { formatArrays } = require('../../src/fns/formatArrays');
 
