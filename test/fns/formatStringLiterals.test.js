@@ -3,7 +3,7 @@ jest.unmock('../../src/fns/formatStringLiterals');
 const { formatStringLiterals } = require('../../src/fns/formatStringLiterals');
 
 describe('formatStringLiterals', () => {
-  it('should ignore a type that doesnt use string literals', () => {
+  it('should ignore a type that doesn\'t use string literals', () => {
     // Given
     const input = 'string';
     const output = 'string';
