@@ -9,7 +9,7 @@ describe('formatStringLiterals', () => {
     const output = 'string';
     let result = null;
     // When
-    result = formatStringLiterals(input);
+    result = formatStringLiterals(input, {});
     // Then
     expect(result).toBe(output);
   });

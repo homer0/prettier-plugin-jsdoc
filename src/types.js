@@ -30,16 +30,6 @@
  */
 
 /**
- * @typedef {Object} PJPStringLiteralsOptions
- * @property {boolean} jsdocFormatStringLiterals
- * Whether or not to apply transformations to string literal types. Default `true`.
- * @property {boolean} jsdocUseSingleQuotesForStringLiterals
- * Whether or not to use single quotes for string literals' types. Default `true`.
- * @property {number} jsdocSpacesBetweenStringLiterals
- * How many spaces should there be between string literals on a type. Default `0`.
- */
-
-/**
  * @typedef {Object} PJPTypesOptions
  * @property {boolean} jsdocUseTypeScriptTypesCasing
  * Whether or not to transform the casing of the basic types to make them compatible with
@@ -53,6 +43,12 @@
  * @property {boolean} jsdocUseDotForArraysAndObjects
  * If the formatting for dots is enabled, this options will specify whether the dot is added or
  * removed. Default `true`.
+ * @property {boolean} jsdocFormatStringLiterals
+ * Whether or not to apply transformations to string literal types. Default `true`.
+ * @property {boolean} jsdocUseSingleQuotesForStringLiterals
+ * Whether or not to use single quotes for string literals' types. Default `true`.
+ * @property {number} jsdocSpacesBetweenStringLiterals
+ * How many spaces should there be between string literals on a type. Default `0`.
  */
 
 /**
@@ -95,7 +91,7 @@
 
 /* eslint-disable max-len */
 /**
- * @typedef {PJPDescriptionTagOptions & PJPAccessTagOptions & PJPStringLiteralsOptions & PJPTypesOptions & PJPTagsOptions & PJPStyleOptions } PJPOptions
+ * @typedef {PJPDescriptionTagOptions & PJPAccessTagOptions & PJPTypesOptions & PJPTagsOptions & PJPStyleOptions } PJPOptions
  */
 /* eslint-enable max-len */
 

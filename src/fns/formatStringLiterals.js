@@ -1,6 +1,6 @@
 const R = require('ramda');
 /**
- * @typedef {import('../types').PJPStringLiteralsOptions} PJPStringLiteralsOptions
+ * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
  */
 
 /**
@@ -41,7 +41,7 @@ const getFormatter = (padding, quote) => R.compose(
 /**
  * Generates the reducer to update a type and format any string literal type inside it.
  *
- * @param {PJPStringLiteralsOptions} options  The options for the formatter.
+ * @param {PJPTypesOptions} options  The options for the formatter.
  * @returns {StringLiteralsReducer}
  */
 const getReducer = (options) => {
@@ -67,18 +67,22 @@ const extractLiterals = R.match(/['"][\w\|\-\s'"]+['"](?:\s+)?/g);
  * Formats the styling of string literals inside a type. If the type doesn't use string literals,
  * it will be returned without modification.
  *
- * @param {string}                   type     The type to format.
- * @param {PJPStringLiteralsOptions} options  The options that tell the function how to format the
- *                                            type.
+ * @callback FormatStringLiteralsFn
+ * @param {string}          type     The type to format.
+ * @param {PJPTypesOptions} options  The options that tell the function how to format the type.
  * @returns {string}
  */
-const formatStringLiterals = (type, options) => R.compose(
+
+/**
+ * @type {FormatStringLiteralsFn}
+ */
+const formatStringLiterals = R.curry((type, options) => R.compose(
   (literals) => (
     literals.length ?
       R.reduce(getReducer(options), type, literals) :
       type
   ),
   extractLiterals,
-)(type);
+)(type));
 
 module.exports.formatStringLiterals = formatStringLiterals;

@@ -26,13 +26,18 @@ const processType = R.curry((options, type) => R.when(
  * Formats array types depending on the customization options. If the type doesn't contain an
  * array, it will be returned without modifications.
  *
+ * @callback FormatObjectsFn
  * @param {string}          type     The type to format.
  * @param {PJPTypesOptions} options  The customization options.
  * @returns {string}
  */
-const formatObjects = (type, options) => R.when(
+
+/**
+ * @type {FormatObjectsFn}
+ */
+const formatObjects = R.curry((type, options) => R.when(
   isMatch(/Object\s*\.?\s*</),
   processType(options),
-)(type);
+)(type));
 
 module.exports.formatObjects = formatObjects;

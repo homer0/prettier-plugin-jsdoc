@@ -11,7 +11,7 @@ describe('formatArrays', () => {
       const output = 'string';
       let result = null;
       // When
-      result = formatArrays(input);
+      result = formatArrays(input, {});
       // Then
       expect(result).toBe(output);
     });
