@@ -56,6 +56,8 @@
  * @property {boolean} jsdocReplaceTagsSynonyms
  * Whether or not to replace tags synonyms with their _official_ tag. For example: `extends`
  * would become `augments`. Default `true`.
+ * @property {boolean}  jsdocSortTags
+ * Whether or not to sort the tags of a JSDoc block. Default `true`.
  * @property {string[]} jsdocTagsOrder
  * A list specifing the order in which the the tags of a JSDoc block should be sorted. It supports
  * an `other` item to place tags that are not on the list.

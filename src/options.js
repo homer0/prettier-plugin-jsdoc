@@ -97,6 +97,12 @@ const options = {
       'Whether or not to replace tags synonyms with their _official_ tag. For example: ' +
       '@extends would become @augments.',
   },
+  jsdocSortTags: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: true,
+    description: 'Whether or not to sort the tags of a JSDoc block',
+  },
   jsdocTagsOrder: {
     type: 'path',
     category: 'jsdoc',
