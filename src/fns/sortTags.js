@@ -1,0 +1,29 @@
+const R = require('ramda');
+const { getIndexOrFallback } = require('./utils');
+/**
+ * @typedef {import('../types').CommentTag} CommentTag
+ * @typedef {import('../types').PJPTagsOptions} PJPTagsOptions
+ */
+
+/**
+ * Creates the function used by `Array.sort` to actually sort the tags based on a reference list.
+ *
+ * @param {string[]} ref  The reference list with the order for the tags.
+ * @returns {Function}
+ */
+const createSorter = (ref) => {
+  const fallback = getIndexOrFallback(ref, ref.length, 'other');
+  const getTagWeight = getIndexOrFallback(ref, fallback);
+  return (a, b) => getTagWeight(a.tag) - getTagWeight(b.tag);
+};
+
+/**
+ * Sorts a list of tags based on reference list from the plugin options.
+ *
+ * @param {CommentTag[]}   tags     The list of tags to sort.
+ * @param {PJPTagsOptions} options  The options that tell the function how to sort them.
+ * @returns {CommentTag[]}
+ */
+const sortTags = R.curry((tags, options) => R.sort(createSorter(options.jsdocTagsOrder))(tags));
+
+module.exports.sortTags = sortTags;

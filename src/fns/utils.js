@@ -163,6 +163,27 @@ const capitalize = R.compose(
   R.juxt([R.compose(R.toUpper, R.head), R.tail]),
 );
 
+/**
+ * Gets the item of an item of a list or a fallback value.
+ *
+ * @callback GetIndexOrFallbackFn
+ * @param {Array}  list      The list where the function will look for the item.
+ * @param {number} fallback  The fallback index in case one is not found for the item.
+ * @param {*}      item      The item to look for.
+ * @returns {number}
+ */
+
+/**
+ * @type {GetIndexOrFallbackFn}
+ */
+const getIndexOrFallback = R.curry((list, fallback, item) => R.compose(
+  R.when(
+    R.equals(-1),
+    R.always(fallback),
+  ),
+  R.indexOf(item),
+)(list));
+
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
 module.exports.appendIfNotPresent = appendIfNotPresent;
@@ -172,3 +193,4 @@ module.exports.hasItems = hasItems;
 module.exports.isMatch = isMatch;
 module.exports.replaceDotOnTypeGeneric = replaceDotOnTypeGeneric;
 module.exports.capitalize = capitalize;
+module.exports.getIndexOrFallback = getIndexOrFallback;
