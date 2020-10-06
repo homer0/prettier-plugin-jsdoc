@@ -4,6 +4,7 @@
 
 /**
  * @typedef {import('prettier').SupportOption} PrettierSupportOption
+ * @typedef {import('prettier').Options} PrettierBaseOptions
  */
 
 // =========================================
@@ -96,6 +97,10 @@
  * @typedef {PJPDescriptionTagOptions & PJPAccessTagOptions & PJPTypesOptions & PJPTagsOptions & PJPStyleOptions } PJPOptions
  */
 /* eslint-enable max-len */
+
+/**
+ * @typedef {PrettierBaseOptions & PJPOptions} PrettierOptions
+ */
 
 // =========================================
 // Parser
