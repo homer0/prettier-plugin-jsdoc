@@ -1,23 +1,28 @@
-jest.unmock('../../src/fns/preparePrettyType');
+jest.unmock('../../src/fns/prepareTagPrettyType');
+jest.unmock('../../src/fns/utils');
 jest.mock('prettier');
 
 const { format } = require('prettier');
-const { preparePrettyType } = require('../../src/fns/preparePrettyType');
+const { prepareTagPrettyType } = require('../../src/fns/prepareTagPrettyType');
 
-describe('preparePrettyType', () => {
+describe('prepareTagPrettyType', () => {
   beforeEach(() => {
     format.mockClear();
   });
 
   it('should ignore a basic type', () => {
     // Given
-    const input = 'string';
-    const output = 'string';
+    const input = {
+      type: 'string',
+    };
+    const output = {
+      type: 'string',
+    };
     let result = null;
     // When
-    result = preparePrettyType(input, {});
+    result = prepareTagPrettyType(input, {});
     // Then
-    expect(result).toBe(output);
+    expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(0);
   });
 
@@ -25,18 +30,23 @@ describe('preparePrettyType', () => {
     // Given
     const prettierResponse = 'prettier-response';
     format.mockImplementationOnce((code) => code.replace(/=.*?$/, `= ${prettierResponse};`));
-    const input = 'React.FC<string>';
+    const input = {
+      type: 'React.FC<string>',
+    };
+    const output = {
+      type: prettierResponse,
+    };
     const options = {
       semi: true,
       indent: 2,
     };
     let result = null;
     // When
-    result = preparePrettyType(input, options);
+    result = prepareTagPrettyType(input, options);
     // Then
-    expect(result).toBe(prettierResponse);
+    expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
-    expect(format).toHaveBeenCalledWith(`type complex = ${input}`, {
+    expect(format).toHaveBeenCalledWith(`type complex = ${input.type}`, {
       ...options,
       parser: 'typescript',
     });
@@ -47,17 +57,21 @@ describe('preparePrettyType', () => {
     format.mockImplementationOnce(() => {
       throw new Error();
     });
-    const input = 'React.FC<string>';
-    const output = 'React.FC<string>';
+    const input = {
+      type: 'React.FC<string>',
+    };
+    const output = {
+      type: 'React.FC<string>',
+    };
     const options = {
       semi: true,
       indent: 2,
     };
     let result = null;
     // When
-    result = preparePrettyType(input, options);
+    result = prepareTagPrettyType(input, options);
     // Then
-    expect(result).toBe(output);
+    expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
   });
 });
