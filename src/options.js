@@ -1,5 +1,6 @@
 /**
  * @typedef {import('./types').PrettierSupportOption} PrettierSupportOption
+ * @typedef {import('./types').PJPOptions} PJPOptions
  */
 
 /**
@@ -220,5 +221,16 @@ const options = {
     description: 'How many lines should there be between a description body and the tags.',
   },
 };
+/**
+ * @type {PJPOptions}
+ */
+const defaultOptions = Object.entries(options).reduce(
+  (acc, [key, value]) => ({
+    ...acc,
+    [key]: Array.isArray(value.default) ? value.default[0].value : value.default,
+  }),
+  {},
+);
 
-module.exports = options;
+module.exports.options = options;
+module.exports.defaultOptions = defaultOptions;
