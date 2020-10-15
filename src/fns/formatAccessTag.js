@@ -9,11 +9,16 @@ const { findTagIndex } = require('./utils');
 /**
  * Formats and normalizes the use of the access tag based on the plugin options.
  *
+ * @callback FormatAccessTagFn
  * @param {CommentTag[]}        tags     The list of tags where the transformations should happen.
  * @param {PJPAccessTagOptions} options  The plugin options for the access tag.
  * @returns {CommentTag[]}
  */
-const formatAccessTag = (tags, options) => {
+
+/**
+ * @type {FormatAccessTagFn}
+ */
+const formatAccessTag = R.curry((tags, options) => {
   const indexes = tags.reduce(
     R.compose(
       findTagIndex('access', 'accessTag'),
@@ -79,6 +84,6 @@ const formatAccessTag = (tags, options) => {
    * a clone, no matter if no modification was made.
    */
   return result || R.clone(tags);
-};
+});
 
 module.exports.formatAccessTag = formatAccessTag;

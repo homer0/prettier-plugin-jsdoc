@@ -1,4 +1,5 @@
 const R = require('ramda');
+const { formatAccessTag } = require('./formatAccessTag');
 const { replaceTagsSynonyms } = require('./replaceTagsSynonyms');
 const { sortTags } = require('./sortTags');
 
@@ -13,13 +14,14 @@ const { sortTags } = require('./sortTags');
  * @callback FormatTagsFn
  * @param {CommentTag[]}   tags     The list to format.
  * @param {PJPTagsOptions} options  The customization options for the formatter.
+ * @returns {CommentTag[]}
  */
 
 /**
  * @type {FormatTagsFn}
  */
 const formatTags = R.curry((tags, options) => {
-  const fns = [];
+  const fns = [formatAccessTag(R.__, options)];
 
   if (options.jsdocReplaceTagsSynonyms) {
     fns.push(replaceTagsSynonyms);
@@ -29,7 +31,6 @@ const formatTags = R.curry((tags, options) => {
     fns.push(sortTags(R.__, options));
   }
 
-  if (!fns.length) return tags;
   return R.compose(...fns.reverse())(tags);
 });
 
