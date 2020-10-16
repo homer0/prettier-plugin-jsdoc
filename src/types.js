@@ -2,9 +2,17 @@
 // Imports
 // =========================================
 
+/* eslint-disable jsdoc/valid-types */
+/**
+ * @typedef {PrettierParser['parse']} PrettierParseFn
+ */
+/* eslint-enable jsdoc/valid-types */
+
 /**
  * @typedef {import('prettier').SupportOption} PrettierSupportOption
  * @typedef {import('prettier').Options} PrettierBaseOptions
+ * @typedef {import('prettier').AST} AST
+ * @typedef {import('prettier').Parser} PrettierParser
  */
 
 // =========================================
