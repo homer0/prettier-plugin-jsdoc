@@ -99,12 +99,17 @@ const processTag = (descriptionProperty, saveIndex = false) => {
  * Finds all possible descriptions of a block (body, description tag, after a definition, etc.),
  * puts them together, and, depending on the options, it adds it on the body or a description tag.
  *
+ * @callback FormatDescriptionFn
  * @param {CommentBlock}             block    The block to format.
  * @param {PJPDescriptionTagOptions} options  The options that will tell the method how to handle
  *                                            the description.
  * @returns {CommentBlock}
  */
-const formatDescription = (block, options) => {
+
+/**
+ * @type {FormatDescriptionFn}
+ */
+const formatDescription = R.curry((block, options) => {
   /**
    * A handler for when a tag wasn't match; it just pushes it to the accumulator.
    *
@@ -173,6 +178,6 @@ const formatDescription = (block, options) => {
     description: blockDescription,
     tags: blockTags,
   };
-};
+});
 
 module.exports.formatDescription = formatDescription;
