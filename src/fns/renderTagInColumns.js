@@ -24,6 +24,7 @@ const { splitText } = require('./splitText');
 
 /**
  * @type {RenderTagInColumnsFn}
+ * @todo Add option to keep the space of the type column even if there's no type.
  */
 const renderTagInColumns = R.curry((
   tagColumnWidth,
