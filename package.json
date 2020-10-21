@@ -20,13 +20,6 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
-  },
-  "jest": {
-    "automock": true,
-    "collectCoverage": true,
-    "testPathIgnorePatterns": ["/node_modules/", "/utils/scripts/", "/mocks/"],
-    "unmockedModulePathPatterns": ["/node_modules/", "/mocks/"],
-    "testEnvironment": "node"
+    "test": "jest -c ./.jestrc-unit.js"
   }
 }
