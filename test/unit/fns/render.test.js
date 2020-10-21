@@ -1,11 +1,11 @@
-jest.unmock('../../src/fns/render');
-jest.unmock('../../src/fns/renderTagInLine');
-jest.unmock('../../src/fns/renderTagInColumns');
-jest.unmock('../../src/fns/splitText');
-jest.unmock('../../src/fns/utils');
+jest.unmock('../../../src/fns/render');
+jest.unmock('../../../src/fns/renderTagInLine');
+jest.unmock('../../../src/fns/renderTagInColumns');
+jest.unmock('../../../src/fns/splitText');
+jest.unmock('../../../src/fns/utils');
 
-const { render } = require('../../src/fns/render');
-const { defaultOptions } = require('../../src/options');
+const { render } = require('../../../src/fns/render');
+const { defaultOptions } = require('../../../src/options');
 
 describe('render', () => {
   const cases = [

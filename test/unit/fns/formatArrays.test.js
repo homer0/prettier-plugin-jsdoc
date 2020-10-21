@@ -1,7 +1,7 @@
-jest.unmock('../../src/fns/formatArrays');
-jest.unmock('../../src/fns/utils');
+jest.unmock('../../../src/fns/formatArrays');
+jest.unmock('../../../src/fns/utils');
 
-const { formatArrays } = require('../../src/fns/formatArrays');
+const { formatArrays } = require('../../../src/fns/formatArrays');
 
 describe('formatArrays', () => {
   describe('shortForm', () => {

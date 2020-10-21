@@ -1,6 +1,6 @@
-jest.unmock('../../src/fns/formatStringLiterals');
+jest.unmock('../../../src/fns/formatStringLiterals');
 
-const { formatStringLiterals } = require('../../src/fns/formatStringLiterals');
+const { formatStringLiterals } = require('../../../src/fns/formatStringLiterals');
 
 describe('formatStringLiterals', () => {
   it('should ignore a type that doesn\'t use string literals', () => {

@@ -1,7 +1,7 @@
-jest.unmock('../../src/fns/utils');
-jest.unmock('../../src/fns/formatAccessTag');
+jest.unmock('../../../src/fns/utils');
+jest.unmock('../../../src/fns/formatAccessTag');
 
-const { formatAccessTag } = require('../../src/fns/formatAccessTag');
+const { formatAccessTag } = require('../../../src/fns/formatAccessTag');
 
 describe('formatAccessTag', () => {
   it('should replace "@access public" with "@public"', () => {

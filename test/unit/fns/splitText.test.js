@@ -1,7 +1,7 @@
-jest.unmock('../../src/fns/splitText');
-jest.unmock('../../src/fns/utils');
+jest.unmock('../../../src/fns/splitText');
+jest.unmock('../../../src/fns/utils');
 
-const { splitText } = require('../../src/fns/splitText');
+const { splitText } = require('../../../src/fns/splitText');
 
 describe('splitText', () => {
   it('should return a single line when the text doesn\'t exceed the length', () => {

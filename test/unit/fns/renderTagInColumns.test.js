@@ -1,8 +1,8 @@
-jest.unmock('../../src/fns/renderTagInColumns');
-jest.unmock('../../src/fns/utils');
-jest.unmock('../../src/fns/splitText');
+jest.unmock('../../../src/fns/renderTagInColumns');
+jest.unmock('../../../src/fns/utils');
+jest.unmock('../../../src/fns/splitText');
 
-const { renderTagInColumns } = require('../../src/fns/renderTagInColumns');
+const { renderTagInColumns } = require('../../../src/fns/renderTagInColumns');
 
 describe('renderTagInColumns', () => {
   const cases = [

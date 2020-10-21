@@ -1,7 +1,7 @@
-jest.unmock('../../src/fns/formatObjects');
-jest.unmock('../../src/fns/utils');
+jest.unmock('../../../src/fns/formatObjects');
+jest.unmock('../../../src/fns/utils');
 
-const { formatObjects } = require('../../src/fns/formatObjects');
+const { formatObjects } = require('../../../src/fns/formatObjects');
 
 describe('formatObjects', () => {
   it('should add a dot before objects\' generics', () => {

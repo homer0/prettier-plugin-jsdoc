@@ -1,7 +1,7 @@
-jest.unmock('../../src/fns/formatDescription');
-jest.unmock('../../src/fns/utils');
+jest.unmock('../../../src/fns/formatDescription');
+jest.unmock('../../../src/fns/utils');
 
-const { formatDescription } = require('../../src/fns/formatDescription');
+const { formatDescription } = require('../../../src/fns/formatDescription');
 
 describe('formatDescription', () => {
   it('should keep the description on the body of the block', () => {

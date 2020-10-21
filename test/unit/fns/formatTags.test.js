@@ -1,16 +1,19 @@
-jest.unmock('../../src/fns/sortTags');
-jest.unmock('../../src/fns/utils');
+jest.unmock('../../../src/fns/formatTags');
+jest.unmock('../../../src/fns/utils');
+jest.unmock('../../../src/fns/formatAccessTag');
+jest.unmock('../../../src/fns/replaceTagsSynonyms');
+jest.unmock('../../../src/fns/sortTags');
 
-const { sortTags } = require('../../src/fns/sortTags');
+const { formatTags } = require('../../../src/fns/formatTags');
 
-describe('sortTags', () => {
+describe('formatTags', () => {
   const cases = [
     {
-      it: 'should sort the tags and correctly use \'other\' as fallback',
+      it: 'should apply all the transformations',
       input: [
-        { tag: 'param' },
-        { tag: 'description' },
-        { tag: 'param' },
+        { tag: 'arg' },
+        { tag: 'desc' },
+        { tag: 'argument' },
         { tag: 'returns' },
         { tag: 'todo' },
         { tag: 'throws' },
@@ -24,6 +27,8 @@ describe('sortTags', () => {
         { tag: 'todo' },
       ],
       options: {
+        jsdocReplaceTagsSynonyms: true,
+        jsdocSortTags: true,
         jsdocTagsOrder: [
           'description',
           'param',
@@ -34,30 +39,26 @@ describe('sortTags', () => {
       },
     },
     {
-      it: 'should send the tag to the end of the list of \'other\' is not present',
+      it: 'shouldn\'t apply any transformations',
       input: [
-        { tag: 'throws' },
-        { tag: 'param' },
-        { tag: 'description' },
-        { tag: 'param' },
+        { tag: 'arg' },
+        { tag: 'desc' },
+        { tag: 'argument' },
         { tag: 'returns' },
         { tag: 'todo' },
+        { tag: 'throws' },
       ],
       output: [
-        { tag: 'description' },
-        { tag: 'param' },
-        { tag: 'param' },
+        { tag: 'arg' },
+        { tag: 'desc' },
+        { tag: 'argument' },
         { tag: 'returns' },
         { tag: 'todo' },
         { tag: 'throws' },
       ],
       options: {
-        jsdocTagsOrder: [
-          'description',
-          'param',
-          'returns',
-          'todo',
-        ],
+        jsdocReplaceTagsSynonyms: false,
+        jsdocSortTags: false,
       },
     },
   ];
@@ -66,7 +67,7 @@ describe('sortTags', () => {
     // Given
     let result = null;
     // When
-    result = sortTags(caseInfo.input, caseInfo.options);
+    result = formatTags(caseInfo.input, caseInfo.options);
     // Then
     expect(result).toEqual(caseInfo.output);
   });

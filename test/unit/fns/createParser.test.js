@@ -1,15 +1,15 @@
 jest.mock('comment-parser');
-jest.unmock('../../src/fns/utils');
-jest.unmock('../../src/fns/createParser');
+jest.unmock('../../../src/fns/utils');
+jest.unmock('../../../src/fns/createParser');
 
 const R = require('ramda');
 const commentParser = require('comment-parser');
-const { createParser } = require('../../src/fns/createParser');
-const { formatDescription } = require('../../src/fns/formatDescription');
-const { formatTags } = require('../../src/fns/formatTags');
-const { formatTagsTypes } = require('../../src/fns/formatTagsTypes');
-const { prepareTags } = require('../../src/fns/prepareTags');
-const { render } = require('../../src/fns/render');
+const { createParser } = require('../../../src/fns/createParser');
+const { formatDescription } = require('../../../src/fns/formatDescription');
+const { formatTags } = require('../../../src/fns/formatTags');
+const { formatTagsTypes } = require('../../../src/fns/formatTagsTypes');
+const { prepareTags } = require('../../../src/fns/prepareTags');
+const { render } = require('../../../src/fns/render');
 
 describe('createParser', () => {
   beforeEach(() => {

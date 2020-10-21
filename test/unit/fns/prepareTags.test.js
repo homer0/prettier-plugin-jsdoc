@@ -1,11 +1,11 @@
-jest.unmock('../../src/fns/prepareTags');
-jest.unmock('../../src/fns/prepareTagName');
-jest.unmock('../../src/fns/prepareTagPrettyType');
-jest.unmock('../../src/fns/utils');
+jest.unmock('../../../src/fns/prepareTags');
+jest.unmock('../../../src/fns/prepareTagName');
+jest.unmock('../../../src/fns/prepareTagPrettyType');
+jest.unmock('../../../src/fns/utils');
 jest.mock('prettier');
 
 const { format } = require('prettier');
-const { prepareTags } = require('../../src/fns/prepareTags');
+const { prepareTags } = require('../../../src/fns/prepareTags');
 
 describe('prepareTags', () => {
   beforeEach(() => {

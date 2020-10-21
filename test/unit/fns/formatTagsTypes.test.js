@@ -1,11 +1,11 @@
-jest.unmock('../../src/fns/formatTagsTypes');
-jest.unmock('../../src/fns/utils');
-jest.unmock('../../src/fns/formatTSTypes');
-jest.unmock('../../src/fns/formatStringLiterals');
-jest.unmock('../../src/fns/formatArrays');
-jest.unmock('../../src/fns/formatObjects');
+jest.unmock('../../../src/fns/formatTagsTypes');
+jest.unmock('../../../src/fns/utils');
+jest.unmock('../../../src/fns/formatTSTypes');
+jest.unmock('../../../src/fns/formatStringLiterals');
+jest.unmock('../../../src/fns/formatArrays');
+jest.unmock('../../../src/fns/formatObjects');
 
-const { formatTagsTypes } = require('../../src/fns/formatTagsTypes');
+const { formatTagsTypes } = require('../../../src/fns/formatTagsTypes');
 
 describe('formatTagsTypes', () => {
   const cases = [

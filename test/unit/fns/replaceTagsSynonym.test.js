@@ -1,6 +1,6 @@
-jest.unmock('../../src/fns/replaceTagsSynonyms');
+jest.unmock('../../../src/fns/replaceTagsSynonyms');
 
-const { replaceTagsSynonyms } = require('../../src/fns/replaceTagsSynonyms');
+const { replaceTagsSynonyms } = require('../../../src/fns/replaceTagsSynonyms');
 
 describe('replaceTagsSynonyms', () => {
   it('should replace tags synonyms', () => {

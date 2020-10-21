@@ -1,6 +1,6 @@
-jest.unmock('../../src/fns/createLanguage');
+jest.unmock('../../../src/fns/createLanguage');
 
-const { createLanguage } = require('../../src/fns/createLanguage');
+const { createLanguage } = require('../../../src/fns/createLanguage');
 
 describe('createLanguage', () => {
   it('should create a language definition for Prettier', () => {

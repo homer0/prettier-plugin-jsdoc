@@ -1,7 +1,7 @@
-jest.unmock('../../src/fns/formatTSTypes');
-jest.unmock('../../src/fns/utils');
+jest.unmock('../../../src/fns/formatTSTypes');
+jest.unmock('../../../src/fns/utils');
 
-const { formatTSTypes } = require('../../src/fns/formatTSTypes');
+const { formatTSTypes } = require('../../../src/fns/formatTSTypes');
 
 describe('formatTSTypes', () => {
   it

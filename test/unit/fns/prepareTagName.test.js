@@ -1,6 +1,6 @@
-jest.unmock('../../src/fns/prepareTagName');
+jest.unmock('../../../src/fns/prepareTagName');
 
-const { prepareTagName } = require('../../src/fns/prepareTagName');
+const { prepareTagName } = require('../../../src/fns/prepareTagName');
 
 describe('prepareTagName', () => {
   const cases = [

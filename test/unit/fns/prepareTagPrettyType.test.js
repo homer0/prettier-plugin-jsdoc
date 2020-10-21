@@ -1,9 +1,9 @@
-jest.unmock('../../src/fns/prepareTagPrettyType');
-jest.unmock('../../src/fns/utils');
+jest.unmock('../../../src/fns/prepareTagPrettyType');
+jest.unmock('../../../src/fns/utils');
 jest.mock('prettier');
 
 const { format } = require('prettier');
-const { prepareTagPrettyType } = require('../../src/fns/prepareTagPrettyType');
+const { prepareTagPrettyType } = require('../../../src/fns/prepareTagPrettyType');
 
 describe('prepareTagPrettyType', () => {
   beforeEach(() => {
