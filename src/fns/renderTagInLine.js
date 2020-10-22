@@ -22,13 +22,29 @@ const { splitText } = require('./splitText');
  * @type {RenderTagInLineFn}
  */
 const renderTagInLine = R.curry((width, typePadding, namePadding, tag) => {
+  const tagHeader = `@${tag.tag}`;
   const useNamePadding = ' '.repeat(namePadding);
-  const headerRest = tag.type ?
-    `${' '.repeat(typePadding)}{${tag.type}}${useNamePadding}${tag.name}` :
-    `${useNamePadding}${tag.name}`;
-  const header = `@${tag.tag}${headerRest}`;
+  let result;
+  if (tag.type) {
+    const useTypePadding = ' '.repeat(typePadding);
+    if (tag.type.includes('\n')) {
+      const typeLines = tag.type.split('\n');
+      const typeFirstLine = typeLines.shift();
+      const typeLastLine = typeLines.pop();
+      const header = `${tagHeader}${useTypePadding}`;
+      result = [
+        `${header}{${typeFirstLine}`,
+        ...typeLines,
+        `${typeLastLine}}${useNamePadding}${tag.name}`,
+      ];
+    } else {
+      const rest = `${useTypePadding}{${tag.type}}${useNamePadding}${tag.name}`.trimRight();
+      result = [`${tagHeader}${rest}`];
+    }
+  } else {
+    result = [`${tagHeader}${useNamePadding}${tag.name}`.trimRight()];
+  }
 
-  const result = [header.trimRight()];
   if (tag.description) {
     result.push(...splitText(tag.description, width));
   }

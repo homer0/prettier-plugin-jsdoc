@@ -72,6 +72,25 @@ describe('renderTagInLine', () => {
         namePadding: 2,
       },
     },
+    {
+      it: 'should render a tag with a multiline type',
+      input: {
+        tag: 'type',
+        type: '{\n  prop: boolean;\n}',
+        name: 'MyType',
+        description: '',
+      },
+      output: [
+        '@type {{',
+        '  prop: boolean;',
+        '}} MyType',
+      ],
+      options: {
+        width: 50,
+        typePadding: 1,
+        namePadding: 1,
+      },
+    },
   ];
 
   it.each(cases)('should correctly format the case %#', (caseInfo) => {
