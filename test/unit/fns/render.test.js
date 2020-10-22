@@ -1,6 +1,7 @@
 jest.unmock('../../../src/fns/render');
 jest.unmock('../../../src/fns/renderTagInLine');
 jest.unmock('../../../src/fns/renderTagInColumns');
+jest.unmock('../../../src/fns/renderExampleTag');
 jest.unmock('../../../src/fns/splitText');
 jest.unmock('../../../src/fns/utils');
 
@@ -399,6 +400,68 @@ describe('render', () => {
         ...defaultOptions,
         jsdocPrintWidth: 80,
         jsdocConsistentColumns: false,
+      },
+    },
+    {
+      it: 'should render inline if there\'s a type multiline',
+      input: {
+        description: '',
+        tags: [
+          {
+            tag: 'callback',
+            type: '',
+            name: 'LoremIpsumFn',
+            description: '',
+          },
+          {
+            tag: 'param',
+            type: '{\n  prop: boolean;\n}',
+            name: 'someWeirdMagicalArgName',
+            description: 'Lorem ipsum description for the name',
+          },
+          {
+            tag: 'param',
+            type: '{\n  length: number;\n}',
+            name: 'lengthData',
+            description: [
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+              'sollicitudin non justo quis placerat.',
+            ].join(' '),
+          },
+          {
+            tag: 'returns',
+            type: 'string',
+            name: '',
+            description: '',
+          },
+          {
+            tag: 'throws',
+            type: 'Error',
+            name: '',
+            description: 'If something goes wrong.',
+          },
+        ],
+      },
+      output: [
+        '@callback LoremIpsumFn',
+        '@param {{',
+        '  prop: boolean;',
+        '}} someWeirdMagicalArgName',
+        'Lorem ipsum description for the name',
+        '@param {{',
+        '  length: number;',
+        '}} lengthData',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+        'sollicitudin non justo quis placerat.',
+        '@returns {string}',
+        '@throws {Error}',
+        'If something goes wrong.',
+      ],
+      column: 0,
+      options: {
+        ...defaultOptions,
+        jsdocPrintWidth: 80,
+        jsdocGroupColumnsByTag: false,
       },
     },
   ];

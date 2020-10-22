@@ -1,5 +1,7 @@
 const R = require('ramda');
 const { splitText } = require('./splitText');
+const { isTag } = require('./utils');
+const { renderExampleTag } = require('./renderExampleTag');
 const { renderTagInLine } = require('./renderTagInLine');
 const { renderTagInColumns } = require('./renderTagInColumns');
 
@@ -17,9 +19,10 @@ const { renderTagInColumns } = require('./renderTagInColumns');
 
 /**
  * @typedef {Object} LengthData
- * @property {number} tag   The length of the longest tag name, in the current context.
- * @property {number} type  The length of the longest type, in the current context.
- * @property {number} name  The length of the longest name, in the current context.
+ * @property {number}  tag               The length of the longest tag name, in the current context.
+ * @property {number}  type              The length of the longest type, in the current context.
+ * @property {number}  name              The length of the longest name, in the current context.
+ * @property {boolean} hasMultilineType  Whether or not, one of the types is multiline.
  */
 
 /**
@@ -57,28 +60,41 @@ const TYPE_WRAPPERS_LENGTH = 2;
  */
 const renderTagsInlines = (width, options, tags) => R.compose(
   R.flatten,
-  R.map(renderTagInLine(
-    width,
-    options.jsdocMinSpacesBetweenTagAndType,
-    options.jsdocMinSpacesBetweenTypeAndName,
-  )),
+  R.map(
+    R.ifElse(
+      isTag('example'),
+      renderExampleTag(R.__, options),
+      renderTagInLine(
+        width,
+        options.jsdocMinSpacesBetweenTagAndType,
+        options.jsdocMinSpacesBetweenTypeAndName,
+      ),
+    ),
+  ),
 )(tags);
 
 /**
  * Renders a list of tags using the columns format.
  *
  * @param {Object.<string,number>} columnsWidth  A dictionary of the columns' widths.
+ * @param {PrettierOptions}        options       The options sent to the plugin.
  * @param {CommentTag[]}           tags          The list of tags to render.
  * @returns {string[]} The list of lines.
  */
-const renderTagsInColumns = (columnsWidth, tags) => R.compose(
+const renderTagsInColumns = (columnsWidth, options, tags) => R.compose(
   R.flatten,
-  R.map(renderTagInColumns(
-    columnsWidth.tag,
-    columnsWidth.type,
-    columnsWidth.name,
-    columnsWidth.description,
-  )),
+  R.map(
+    R.ifElse(
+      isTag('example'),
+      renderExampleTag(R.__, options),
+      renderTagInColumns(
+        columnsWidth.tag,
+        columnsWidth.type,
+        columnsWidth.name,
+        columnsWidth.description,
+      ),
+    ),
+  ),
 )(tags);
 
 /**
@@ -95,23 +111,29 @@ const renderTagsInColumns = (columnsWidth, tags) => R.compose(
  */
 const tryToRenderTagsInColums = (tagsData, width, options, tags) => R.compose(
   R.flatten,
-  R.map((tag) => {
-    const data = tagsData[tag.tag];
-    return data.canUseColumns ?
-      renderTagInColumns(
-        data.columnsWidth.tag,
-        data.columnsWidth.type,
-        data.columnsWidth.name,
-        data.columnsWidth.description,
-        tag,
-      ) :
-      renderTagInLine(
-        width,
-        options.jsdocMinSpacesBetweenTagAndType,
-        options.jsdocMinSpacesBetweenTypeAndName,
-        tag,
-      );
-  }),
+  R.map(
+    R.ifElse(
+      isTag('example'),
+      renderExampleTag(R.__, options),
+      (tag) => {
+        const data = tagsData[tag.tag];
+        return data.canUseColumns ?
+          renderTagInColumns(
+            data.columnsWidth.tag,
+            data.columnsWidth.type,
+            data.columnsWidth.name,
+            data.columnsWidth.description,
+            tag,
+          ) :
+          renderTagInLine(
+            width,
+            options.jsdocMinSpacesBetweenTagAndType,
+            options.jsdocMinSpacesBetweenTypeAndName,
+            tag,
+          );
+      },
+    ),
+  ),
 )(tags);
 
 /**
@@ -125,12 +147,16 @@ const getLengthsData = (tags) => tags.reduce(
   (acc, tag) => {
     const tagLength = tag.tag.length;
     const typeLength = tag.type.length;
+    const hasMultilineType = tag.type.includes('\n');
     const nameLength = tag.name.length;
     if (tagLength > acc.tag) {
       acc.tag = tagLength;
     }
     if (typeLength > acc.type) {
       acc.type = typeLength;
+    }
+    if (hasMultilineType) {
+      acc.hasMultilineType = hasMultilineType;
     }
     if (nameLength > acc.name) {
       acc.name = nameLength;
@@ -144,11 +170,15 @@ const getLengthsData = (tags) => tags.reduce(
       if (nameLength > tagInfo.name) {
         tagInfo.name = nameLength;
       }
+      if (hasMultilineType) {
+        tagInfo.hasMultilineType = hasMultilineType;
+      }
     } else {
       acc.byTag[tag.tag] = {
         tag: tagLength,
         type: typeLength,
         name: nameLength,
+        hasMultilineType,
       };
     }
 
@@ -158,6 +188,7 @@ const getLengthsData = (tags) => tags.reduce(
     tag: 0,
     type: 0,
     name: 0,
+    hasMultilineType: false,
     byTag: {},
   },
 );
@@ -210,7 +241,10 @@ const getTagsData = (lengthByTag, width, options) => Object.entries(lengthByTag)
     return {
       ...acc,
       [tagName]: {
-        canUseColumns: columnsWidth.description >= options.jsdocDescriptionColumnMinLength,
+        canUseColumns: (
+          !tagInfo.hasMultilineType &&
+          columnsWidth.description >= options.jsdocDescriptionColumnMinLength
+        ),
         columnsWidth,
       },
     };
@@ -256,7 +290,7 @@ const render = R.curry((options, column, block) => {
     } else {
       const columnsWidth = calculateColumnsWidth(options, data, width);
       if (columnsWidth.description >= options.jsdocDescriptionColumnMinLength) {
-        lines.push(...renderTagsInColumns(columnsWidth, block.tags));
+        lines.push(...renderTagsInColumns(columnsWidth, options, block.tags));
       } else {
         lines.push(...renderTagsInlines(width, options, block.tags));
       }
