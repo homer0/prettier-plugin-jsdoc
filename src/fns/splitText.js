@@ -45,17 +45,19 @@ const reduceWordsList = (list, word) => R.concat(
  * @param {number}   length  The length the lines can have.
  * @param {string[]} list    The current list of words (the accumulator).
  * @param {string}   word    The word to process.
+ * @param {number}   index   The current interation index; needed in order to check if it's the
+ *                           first iteration and avoid looking for the previous line.
  * @returns {string[]}
  */
 
 /**
  * @type {ReduceSentencesFn}
  */
-const reduceSentences = R.curry((length, list, word) => {
+const reduceSentences = R.curry((length, list, word, index) => {
   let newList;
   if (word === '\n') {
     newList = R.append('', list);
-  } else {
+  } else if (index) {
     const currentLine = R.last(list).trim();
     const newLine = `${currentLine} ${word}`;
     newList = R.ifElse(
@@ -63,7 +65,10 @@ const reduceSentences = R.curry((length, list, word) => {
       R.append(word),
       replaceLastItem(newLine),
     )(list);
+  } else {
+    newList = [word];
   }
+
   return newList;
 });
 /**
@@ -83,6 +88,7 @@ const reduceText = (text, line) => {
   } else {
     newText = useLine;
   }
+
   return newText;
 };
 
@@ -94,7 +100,7 @@ const reduceText = (text, line) => {
  * @returns {string[]}
  */
 const splitText = (text, length) => R.compose(
-  R.reduce(reduceSentences(length), ['']),
+  R.addIndex(R.reduce)(reduceSentences(length), ['']),
   R.reduce(reduceWordsList, []),
   R.split(/(?<!\{@\w+) /),
   R.reduce(reduceText, ''),

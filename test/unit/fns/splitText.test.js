@@ -86,4 +86,15 @@ describe('splitText', () => {
     // Then
     expect(result).toEqual(output);
   });
+
+  it('shouldn\'t add a leading space when there\'s only one word (bug)', () => {
+    // Given
+    const input = 'Description';
+    const output = ['Description'];
+    let result = null;
+    // When
+    result = splitText(input, 20);
+    // Then
+    expect(result).toEqual(output);
+  });
 });
