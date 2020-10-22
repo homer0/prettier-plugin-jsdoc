@@ -1,6 +1,10 @@
 const R = require('ramda');
 
 /**
+ * @typedef {import('../types').CommentTag} CommentTag
+ */
+
+/**
  * Ensures a given object is an array.
  *
  * @callback EnsureArrayFn
@@ -36,6 +40,28 @@ const findTagIndex = R.curry((targetTag, propName, step) => {
       acc;
     return step(nextAcc, tag, index);
   };
+});
+
+/**
+ * Checks if a tag is of an specified type (or types).
+ *
+ * @callback IsTagFn
+ * @param {string|string[]} targetTag  The name of the tag or tags the function should validate
+ *                                     against.
+ * @param {CommentTag}      tag        The tag to validate.
+ * @returns {boolean}
+ */
+
+/**
+ * @type {IsTagFn}
+ */
+const isTag = R.curry((targetTag, tag) => {
+  const targetTags = ensureArray(targetTag);
+  return R.propSatisfies(
+    R.includes(R.__, targetTags),
+    'tag',
+    tag,
+  );
 });
 
 /**
@@ -186,6 +212,7 @@ const getIndexOrFallback = R.curry((list, fallback, item) => R.compose(
 
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
+module.exports.isTag = isTag;
 module.exports.appendIfNotPresent = appendIfNotPresent;
 module.exports.joinIfNotEmpty = joinIfNotEmpty;
 module.exports.replaceLastItem = replaceLastItem;
