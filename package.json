@@ -12,7 +12,8 @@
     "ramda": "0.27.1"
   },
   "devDependencies": {
-    "jest": "^26.4.2"
+    "jest": "^26.4.2",
+    "jest-environment-node": "^26.6.0"
   },
   "engine-strict": true,
   "engines": {
@@ -20,6 +21,8 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "test": "jest -c ./.jestrc-unit.js"
+    "test:unit": "jest -c ./.jestrc-unit.js",
+    "test:e2e": "jest -c ./.jestrc-e2e.js",
+    "test": "yarn test:unit && yarn test:e2e"
   }
 }
