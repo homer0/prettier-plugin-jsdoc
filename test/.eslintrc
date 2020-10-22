@@ -3,5 +3,13 @@
   "plugins": ["@homer0"],
   "extends": [
     "plugin:@homer0/jest"
-  ]
+  ],
+  "globals": {
+    "global": true,
+    "__dirname": true
+  },
+  "ignorePatterns": "**/fixtures/*.js",
+  "rules": {
+    "import/no-extraneous-dependencies": "off"
+  }
 }
