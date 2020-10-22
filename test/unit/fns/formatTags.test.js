@@ -3,6 +3,7 @@ jest.unmock('../../../src/fns/utils');
 jest.unmock('../../../src/fns/formatAccessTag');
 jest.unmock('../../../src/fns/replaceTagsSynonyms');
 jest.unmock('../../../src/fns/sortTags');
+jest.unmock('../../../src/fns/trimTagsProperties');
 
 const { formatTags } = require('../../../src/fns/formatTags');
 

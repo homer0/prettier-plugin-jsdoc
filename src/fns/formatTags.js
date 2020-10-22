@@ -2,6 +2,7 @@ const R = require('ramda');
 const { formatAccessTag } = require('./formatAccessTag');
 const { replaceTagsSynonyms } = require('./replaceTagsSynonyms');
 const { sortTags } = require('./sortTags');
+const { trimTagsProperties } = require('./trimTagsProperties');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -9,7 +10,7 @@ const { sortTags } = require('./sortTags');
  */
 
 /**
- * Formats the tags' names and applies sorting, if enabled, to a list of tags.
+ * Formats the tags' names, trims the values, and applies sorting, if enabled, to a list of tags.
  *
  * @callback FormatTagsFn
  * @param {CommentTag[]}   tags     The list to format.
@@ -21,7 +22,10 @@ const { sortTags } = require('./sortTags');
  * @type {FormatTagsFn}
  */
 const formatTags = R.curry((tags, options) => {
-  const fns = [formatAccessTag(R.__, options)];
+  const fns = [
+    trimTagsProperties,
+    formatAccessTag(R.__, options),
+  ];
 
   if (options.jsdocReplaceTagsSynonyms) {
     fns.push(replaceTagsSynonyms);
