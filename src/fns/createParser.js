@@ -257,11 +257,12 @@ const prepareCommentTags = R.curry((options, info) => R.compose(
 const getRenderer = (options) => {
   const renderer = render(options);
   return (column, block) => {
-    const prefix = `${' '.repeat(column)} * `;
+    const padding = ' '.repeat(column + 1);
+    const prefix = `${padding}* `;
     const lines = renderer(column, block)
     .map((line) => `${prefix}${line}`)
     .join('\n');
-    return `*\n${lines}\n${prefix}`.trimEnd();
+    return `*\n${lines}\n${padding}`;
   };
 };
 
@@ -273,7 +274,7 @@ const getRenderer = (options) => {
  * @returns {PrettierParseFn}
  */
 const createParser = (originalParser) => (text, parsers, options) => {
-  const { comments } = originalParser(text, parsers, options);
+  const ast = originalParser(text, parsers, options);
   const formatter = R.compose(
     prepareCommentTags(options),
     formatCommentTags(options),
@@ -281,10 +282,14 @@ const createParser = (originalParser) => (text, parsers, options) => {
   );
   const renderer = getRenderer(options);
 
-  processComments(comments, formatter, (info) => {
-    const { comment, column, block } = info;
-    comment.value = renderer(column, block);
-  });
+  if (ast.comments && ast.comments.length) {
+    processComments(ast.comments, formatter, (info) => {
+      const { comment, column, block } = info;
+      comment.value = renderer(column, block);
+    });
+  }
+
+  return ast;
 };
 
 module.exports.createParser = createParser;

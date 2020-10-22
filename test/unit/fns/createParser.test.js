@@ -39,7 +39,7 @@ describe('createParser', () => {
 
   it('should render a comment', () => {
     // Given
-    const commentStr = '*\n * @typedef {string} MyStr\n *';
+    const commentStr = '*\n * @typedef {string} MyStr\n ';
     const column = 2;
     const astBase = {
       comments: [{
@@ -87,7 +87,7 @@ describe('createParser', () => {
     expect(ast).toEqual({
       comments: [{
         type: 'CommentBlock',
-        value: '*\n   * @typedef {string} MyFormattedStr\n   *',
+        value: '*\n   * @typedef {string} MyFormattedStr\n   ',
         loc: {
           start: {
             column,
