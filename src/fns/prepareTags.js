@@ -1,4 +1,5 @@
 const R = require('ramda');
+const { prepareExampleTag } = require('./prepareExampleTag');
 const { prepareTagName } = require('./prepareTagName');
 const { prepareTagPrettyType } = require('./prepareTagPrettyType');
 
@@ -22,12 +23,20 @@ const { prepareTagPrettyType } = require('./prepareTagPrettyType');
 /**
  * @type {PrepareTagsFn}
  */
-const prepareTags = R.curry((tags, options) => R.map(
-  R.compose(
-    prepareTagPrettyType(R.__, options),
+const prepareTags = R.curry((tags, options) => {
+  const fns = [
     prepareTagName,
-  ),
-  tags,
-));
+    prepareTagPrettyType(R.__, options),
+  ];
+
+  if (options.jsdocFormatExamples) {
+    fns.push(prepareExampleTag(R.__, options));
+  }
+
+  return R.map(
+    R.compose(...fns.reverse()),
+    tags,
+  );
+});
 
 module.exports.prepareTags = prepareTags;

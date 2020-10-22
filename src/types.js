@@ -29,6 +29,20 @@
  */
 
 /**
+ * @typedef {Object} PJPExamplesOptions
+ * @property {boolean} jsdocFormatExamples
+ * Whether or not to attemp to format the `example` tags using Prettier. Default `true`.
+ * @property {number} jsdocLinesBetweenExampleTagAndCode
+ * How many lines should there be between an `example` tag and its code. Default `1`.
+ * @property {boolean} jsdocIndentFormattedExamples
+ * Whether or not to add an indentation level to the code snippets of `example` tags. The
+ * indentation space will be taken from the `tabWidth` option. Default `true`.
+ * @property {boolean} jsdocIndentUnformattedExamples
+ * Whether or not to add an indentation level to the code snippets of `example` tags that
+ * couldn't be formatted with Prettier. Default `false`.
+ */
+
+/**
  * @typedef {Object} PJPAccessTagOptions
  * @property {boolean} jsdocAllowAccessTag
  * Whether or not the `access` tag can be used; if `false`, when a tag is found, it will replaced
@@ -102,7 +116,7 @@
 
 /* eslint-disable max-len */
 /**
- * @typedef {PJPDescriptionTagOptions & PJPAccessTagOptions & PJPTypesOptions & PJPTagsOptions & PJPStyleOptions } PJPOptions
+ * @typedef {PJPDescriptionTagOptions & PJPExamplesOptions & PJPAccessTagOptions & PJPTypesOptions & PJPTagsOptions & PJPStyleOptions } PJPOptions
  */
 /* eslint-enable max-len */
 

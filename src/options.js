@@ -24,6 +24,34 @@ const options = {
       'Whether or not to use the @description tag when a description is found in the "body" ' +
       'or following a type/callback definition.',
   },
+  jsdocFormatExamples: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: true,
+    description: 'Whether or not to attemp to format the @example tags using Prettier.',
+  },
+  jsdocLinesBetweenExampleTagAndCode: {
+    type: 'int',
+    category: 'jsdoc',
+    default: 1,
+    description: 'How many lines should there be between an @example tag and its code.',
+  },
+  jsdocIndentFormattedExamples: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: true,
+    description:
+      'Whether or not to add an indentation level to the code snippets of @example tags. The ' +
+      'indentation space will be taken from the `tabWidth` option.',
+  },
+  jsdocIndentUnformattedExamples: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: false,
+    description:
+      'Whether or not to add an indentation level to the code snippets of @example tags that ' +
+      'couldn\'t be formatted with Prettier. This is only valid if `jsdocFormatExamples` is `true`',
+  },
   jsdocAllowAccessTag: {
     type: 'boolean',
     category: 'jsdoc',
