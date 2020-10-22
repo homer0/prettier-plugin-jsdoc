@@ -18,6 +18,7 @@ const TAGS_SYNONYMS = {
   return: 'returns',
   exception: 'throws',
   yield: 'yields',
+  examples: 'example',
 };
 
 module.exports.TAGS_SYNONYMS = TAGS_SYNONYMS;
