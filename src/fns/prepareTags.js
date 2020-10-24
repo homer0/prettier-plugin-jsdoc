@@ -1,7 +1,6 @@
 const R = require('ramda');
 const { prepareExampleTag } = require('./prepareExampleTag');
 const { prepareTagName } = require('./prepareTagName');
-const { prepareTagPrettyType } = require('./prepareTagPrettyType');
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions
@@ -26,7 +25,6 @@ const { prepareTagPrettyType } = require('./prepareTagPrettyType');
 const prepareTags = R.curry((tags, options) => {
   const fns = [
     prepareTagName,
-    prepareTagPrettyType(R.__, options),
   ];
 
   if (options.jsdocFormatExamples) {

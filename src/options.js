@@ -83,7 +83,7 @@ const options = {
   jsdocSpacesBetweenStringLiterals: {
     type: 'int',
     category: 'jsdoc',
-    default: 0,
+    default: 1,
     description: 'ow many spaces should there be between string literals on a type.',
   },
   jsdocUseTypeScriptTypesCasing: {
@@ -93,6 +93,14 @@ const options = {
     description:
       'Whether or not to transform the casing of the basic types to make them compatible with ' +
       'TypeScript. This applies to `string`, `number`, `boolean`, `Object` and `Array`.',
+  },
+  jsdocFormatComplexTypesWithPrettier: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: true,
+    description:
+      'Whether or not to format complex type definitions (compatibles with TypeScript) using ' +
+      'Prettier.',
   },
   jsdocUseShortArrays: {
     type: 'boolean',

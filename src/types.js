@@ -57,6 +57,9 @@
  * @property {boolean} jsdocUseTypeScriptTypesCasing
  * Whether or not to transform the casing of the basic types to make them compatible with
  * TypeScript. This applies to `string`, `number`, `boolean`, `Object` and `Array`. Default `true`.
+ * @property {boolean} jsdocFormatComplexTypesWithPrettier
+ * Whether or not to format complex type definitions (compatibles with TypeScript) using Prettier.
+ * Default `true`.
  * @property {boolean} jsdocUseShortArrays
  * Whether or not to transform the type `Array<type>` into `type[]` when possible. If inside the
  * symbols there's more than a type, the transformation won't happen. Default `true`.

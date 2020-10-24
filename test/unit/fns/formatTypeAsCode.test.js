@@ -1,26 +1,22 @@
-jest.unmock('../../../src/fns/prepareTagPrettyType');
+jest.unmock('../../../src/fns/formatTypeAsCode');
 jest.unmock('../../../src/fns/utils');
 jest.mock('prettier');
 
 const { format } = require('prettier');
-const { prepareTagPrettyType } = require('../../../src/fns/prepareTagPrettyType');
+const { formatTypeAsCode } = require('../../../src/fns/formatTypeAsCode');
 
-describe('prepareTagPrettyType', () => {
+describe('formatTypeAsCode', () => {
   beforeEach(() => {
     format.mockClear();
   });
 
   it('should ignore a basic type', () => {
     // Given
-    const input = {
-      type: 'string',
-    };
-    const output = {
-      type: 'string',
-    };
+    const input = 'string';
+    const output = 'string';
     let result = null;
     // When
-    result = prepareTagPrettyType(input, {});
+    result = formatTypeAsCode(input, {});
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(0);
@@ -30,23 +26,19 @@ describe('prepareTagPrettyType', () => {
     // Given
     const prettierResponse = 'prettier-response';
     format.mockImplementationOnce((code) => code.replace(/=.*?$/, `= ${prettierResponse};`));
-    const input = {
-      type: 'React.FC<string>',
-    };
-    const output = {
-      type: prettierResponse,
-    };
+    const input = 'React.FC<string>';
+    const output = prettierResponse;
     const options = {
       semi: true,
       indent: 2,
     };
     let result = null;
     // When
-    result = prepareTagPrettyType(input, options);
+    result = formatTypeAsCode(input, options);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
-    expect(format).toHaveBeenCalledWith(`type complex = ${input.type}`, {
+    expect(format).toHaveBeenCalledWith(`type complex = ${input}`, {
       ...options,
       parser: 'typescript',
     });
@@ -57,19 +49,15 @@ describe('prepareTagPrettyType', () => {
     format.mockImplementationOnce(() => {
       throw new Error();
     });
-    const input = {
-      type: 'React.FC<string>',
-    };
-    const output = {
-      type: 'React.FC<string>',
-    };
+    const input = 'React.FC<string>';
+    const output = 'React.FC<string>';
     const options = {
       semi: true,
       indent: 2,
     };
     let result = null;
     // When
-    result = prepareTagPrettyType(input, options);
+    result = formatTypeAsCode(input, options);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);

@@ -3,6 +3,7 @@ const { formatTSTypes } = require('./formatTSTypes');
 const { formatStringLiterals } = require('./formatStringLiterals');
 const { formatArrays } = require('./formatArrays');
 const { formatObjects } = require('./formatObjects');
+const { formatTypeAsCode } = require('./formatTypeAsCode');
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
@@ -29,6 +30,10 @@ const getTypeFormatter = (options) => {
   const fns = [];
   if (options.jsdocUseTypeScriptTypesCasing) {
     fns.push(formatTSTypes);
+  }
+
+  if (options.jsdocFormatComplexTypesWithPrettier) {
+    fns.push(formatTypeAsCode(R.__, options));
   }
 
   if (options.jsdocFormatStringLiterals) {
@@ -77,7 +82,7 @@ const formatTagType = R.curry((formatter, tag) => R.compose(
  * @type {FormatTagsTypes}
  */
 const formatTagsTypes = R.curry((tags, options) => R.map(R.when(
-  R.has('type'),
+  R.propSatisfies(R.complement(R.either(R.isEmpty, R.isNil)), 'type'),
   formatTagType(getTypeFormatter(options)),
 ))(tags));
 
