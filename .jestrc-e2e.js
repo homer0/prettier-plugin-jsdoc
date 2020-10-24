@@ -1,5 +1,5 @@
 module.exports = {
-  collectCoverage: false,
+  collectCoverage: true,
   testPathIgnorePatterns: ['/node_modules/'],
   unmockedModulePathPatterns: ['/node_modules/', '/utils/'],
   testEnvironment: './test/e2e/utils/environment.js',
