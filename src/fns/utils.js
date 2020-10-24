@@ -151,6 +151,32 @@ const isMatch = R.curry((expression, str) => R.compose(
 )(str));
 
 /**
+ * This is a utility function to make regular expression replacements where a group can capture
+ * part of other group. The function will replace the text and it won't stop until there are no
+ * matches.
+ *
+ * @callback ReplaceAdjacentFn
+ * @param {RegExp} expression   The expression to match and replace.
+ * @param {string} replacement  The replacement text.
+ * @param {string} text         The target text.
+ * @returns {string}
+ */
+
+/**
+ * @type {ReplaceAdjacentFn}
+ */
+const replaceAdjacent = R.curry((expression, replacement, text) => {
+  let useText = text;
+  let match = useText.match(expression);
+  while (match) {
+    useText = useText.replace(expression, replacement);
+    match = useText.match(expression);
+  }
+
+  return useText;
+});
+
+/**
  * Depending on `useDot`, this function will ensure that the type name and the generics for a
  * target type are separated, or not, with a dot.
  * For the use of generics, JSDoc recommends the use a dot before listing them
@@ -169,8 +195,8 @@ const isMatch = R.curry((expression, str) => R.compose(
  */
 const replaceDotOnTypeGeneric = R.curry((targetType, useDot, type) => R.ifElse(
   R.always(useDot),
-  R.replace(new RegExp(`([^\\w]|^)${targetType}\\s*<`, 'g'), `$1${targetType}.<`),
-  R.replace(new RegExp(`([^\\w]|^)${targetType}\\s*\\.\\s*<`, 'g'), `$1${targetType}<`),
+  replaceAdjacent(new RegExp(`([^\\w]|^)${targetType}\\s*<`), `$1${targetType}.<`),
+  replaceAdjacent(new RegExp(`([^\\w]|^)${targetType}\\s*\\.\\s*<`), `$1${targetType}<`),
 )(type));
 
 /**
@@ -210,6 +236,61 @@ const getIndexOrFallback = R.curry((list, fallback, item) => R.compose(
   R.indexOf(item),
 )(list));
 
+/**
+ * The predicate function that will be used by {@link LimitAdjacentRepetitionsFn} in order to
+ * validate the items.
+ *
+ * @callback LimitAdjacentRepetitionsPredFn
+ * @param {*} item  The list item to validate.
+ * @returns {boolean}
+ */
+
+/**
+ * Formats a list in order to remove items repeated items next to each other.
+ *
+ * @example
+ * limitAdjacentRepetitions(
+ *   R.equals('\n'),
+ *   1,
+ *   ['hello', '\n', '\n', 'world'],
+ * );
+ * // ['hello', '\n', 'world']
+ *
+ * @callback LimitAdjacentRepetitionsFn
+ * @param {LimitAdjacentRepetitionsPredFn} pred   The function to validate if an item should be
+ *                                                considered and start the count.
+ * @param {number}                         limit  How many times an item that was validated with
+ *                                                predicate function can be adjacently repeated.
+ * @param {Array}                          list   The list to format.
+ */
+
+/**
+ * @type {LimitAdjacentRepetitionsFn}
+ */
+const limitAdjacentRepetitions = R.curry((pred, limit, list) => R.compose(
+  R.prop('list'),
+  R.reduce(
+    (acc, item) => {
+      if (pred(item)) {
+        const newCount = acc.count + 1;
+        if (newCount <= limit) {
+          acc.count = newCount;
+          acc.list.push(item);
+        }
+      } else {
+        acc.count = 0;
+        acc.list.push(item);
+      }
+
+      return acc;
+    },
+    {
+      count: 0,
+      list: [],
+    },
+  ),
+)(list));
+
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
 module.exports.isTag = isTag;
@@ -221,3 +302,4 @@ module.exports.isMatch = isMatch;
 module.exports.replaceDotOnTypeGeneric = replaceDotOnTypeGeneric;
 module.exports.capitalize = capitalize;
 module.exports.getIndexOrFallback = getIndexOrFallback;
+module.exports.limitAdjacentRepetitions = limitAdjacentRepetitions;
