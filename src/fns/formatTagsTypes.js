@@ -1,4 +1,5 @@
 const R = require('ramda');
+const { hasValidProperty } = require('./utils');
 const { formatTSTypes } = require('./formatTSTypes');
 const { formatStringLiterals } = require('./formatStringLiterals');
 const { formatArrays } = require('./formatArrays');
@@ -82,7 +83,7 @@ const formatTagType = R.curry((formatter, tag) => R.compose(
  * @type {FormatTagsTypes}
  */
 const formatTagsTypes = R.curry((tags, options) => R.map(R.when(
-  R.propSatisfies(R.complement(R.either(R.isEmpty, R.isNil)), 'type'),
+  hasValidProperty('type'),
   formatTagType(getTypeFormatter(options)),
 ))(tags));
 

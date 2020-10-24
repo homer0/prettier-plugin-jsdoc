@@ -3,6 +3,7 @@ const { formatAccessTag } = require('./formatAccessTag');
 const { replaceTagsSynonyms } = require('./replaceTagsSynonyms');
 const { sortTags } = require('./sortTags');
 const { trimTagsProperties } = require('./trimTagsProperties');
+const { formatTagsDescription } = require('./formatTagsDescription');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -23,6 +24,7 @@ const { trimTagsProperties } = require('./trimTagsProperties');
  */
 const formatTags = R.curry((tags, options) => {
   const fns = [
+    formatTagsDescription,
     trimTagsProperties,
     formatAccessTag(R.__, options),
   ];

@@ -291,6 +291,23 @@ const limitAdjacentRepetitions = R.curry((pred, limit, list) => R.compose(
   ),
 )(list));
 
+/**
+ * Checks if an object was a specific property and is not _empty_.
+ *
+ * @callback HasValidPropertyFn
+ * @param {string} property  The name of the property to validate.
+ * @param {Object} obj       The object where the property will be validated.
+ * @returns {boolean}
+ */
+
+/**
+ * @type {HasValidPropertyFn}
+ */
+const hasValidProperty = R.curry((property, obj) => R.propSatisfies(
+  R.complement(R.either(R.isEmpty, R.isNil)),
+  property,
+)(obj));
+
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
 module.exports.isTag = isTag;
@@ -303,3 +320,4 @@ module.exports.replaceDotOnTypeGeneric = replaceDotOnTypeGeneric;
 module.exports.capitalize = capitalize;
 module.exports.getIndexOrFallback = getIndexOrFallback;
 module.exports.limitAdjacentRepetitions = limitAdjacentRepetitions;
+module.exports.hasValidProperty = hasValidProperty;
