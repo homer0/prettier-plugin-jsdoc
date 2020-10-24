@@ -63,7 +63,7 @@
  * The formatted message or the `function` that generates one.
  * @property {RegExp | string} condition
  * A `string` or a expression to match against an error that could be parsed.
- * @property {?Object<string, ParserLike>} parsers
+ * @property {?Object.<string, ParserLike>} parsers
  * A map of reusable parsers. Each parser can be an `object` map, a `function` or an instance of
  * {@link CaseParser}.
  * @property {?InstructionListLikeAndSomeLongNameToForceInLinesMode} parse

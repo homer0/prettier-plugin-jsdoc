@@ -5,7 +5,7 @@ module.exports = {
 //# input
 
 /**
- * @param {  string   }    param0 description
+ * @param {  String   }    param0 description
  */
 function fun(param0) {}
 
@@ -56,7 +56,7 @@ const Component = memo(({ message }) => {
  * @typedef {{
  *   userId: {
  *     profileImageLink: any;
- *     isBusinessUser: "isResellerUser" | "isBoolean" | "isSubUser" | "isNot";
+ *     isBusinessUser: 'isResellerUser' | 'isBoolean' | 'isSubUser' | 'isNot';
  *     shareCode: number;
  *     referredBy: any;
  *   };
