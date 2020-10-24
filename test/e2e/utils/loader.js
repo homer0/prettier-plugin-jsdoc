@@ -72,7 +72,7 @@ const parseFixture = async (filename) => {
 
   const options = rest.length ?
     // eslint-disable-next-line no-eval
-    eval(rest.join('\n').trim()) :
+    (eval(rest.join('\n').trim()) || {}) :
     {};
 
   options.filepath = path.join(FIXTURES_PATH, 'index.js');
