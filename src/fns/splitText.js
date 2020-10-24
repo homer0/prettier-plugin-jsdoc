@@ -1,5 +1,14 @@
 const R = require('ramda');
-const { ensureArray, replaceLastItem } = require('./utils');
+const { ensureArray, replaceLastItem, limitAdjacentRepetitions } = require('./utils');
+
+/**
+ * This is used when splitting lines that contain linebreaks; it's used as a filter so a text won't
+ * include multiple empty lines.
+ *
+ * @type {number}
+ */
+const ADJACENT_LINEBREAKS_LIMIT = 2;
+
 /**
  * This is a utility used inside the reducers in order to take "words" that include line breaks
  * and split them into multiple "words".
@@ -13,6 +22,7 @@ const { ensureArray, replaceLastItem } = require('./utils');
  * @type {SplitLineBreaksFn}
  */
 const splitLineBreaks = R.compose(
+  limitAdjacentRepetitions(R.equals('\n'), ADJACENT_LINEBREAKS_LIMIT),
   R.dropLast(1),
   R.reduce((sacc, item) => [...sacc, item, '\n'], []),
   R.map(R.when(R.isEmpty, R.always('\n'))),
@@ -59,7 +69,7 @@ const reduceSentences = R.curry((length, list, word, index) => {
     newList = R.append('', list);
   } else if (index) {
     const currentLine = R.last(list).trim();
-    const newLine = `${currentLine} ${word}`;
+    const newLine = `${currentLine} ${word}`.trim();
     newList = R.ifElse(
       R.always(newLine.length > length),
       R.append(word),

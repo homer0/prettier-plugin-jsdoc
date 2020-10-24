@@ -87,6 +87,28 @@ describe('splitText', () => {
     expect(result).toEqual(output);
   });
 
+  it('should only allow one empty line between paragraphs', () => {
+    // Given
+    const input = [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus\nlobortis',
+      'erat molestie posuere dictum. Integer libero justo, viverra\nquis efficitur',
+      'in, condimentum\n\n\ncongue lorem.',
+    ].join(' ');
+    const output = [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing',
+      'elit. Phasellus lobortis erat molestie posuere',
+      'dictum. Integer libero justo, viverra quis',
+      'efficitur in, condimentum',
+      '',
+      'congue lorem.',
+    ];
+    let result = null;
+    // When
+    result = splitText(input, 50);
+    // Then
+    expect(result).toEqual(output);
+  });
+
   it('shouldn\'t add a leading space when there\'s only one word (bug)', () => {
     // Given
     const input = 'Description';
