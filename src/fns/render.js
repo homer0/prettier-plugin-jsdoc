@@ -63,7 +63,7 @@ const renderTagsInlines = (width, options, tags) => R.compose(
   R.map(
     R.ifElse(
       isTag('example'),
-      renderExampleTag(R.__, options),
+      renderExampleTag(R.__, width, options),
       renderTagInLine(
         width,
         options.jsdocMinSpacesBetweenTagAndType,
@@ -77,16 +77,18 @@ const renderTagsInlines = (width, options, tags) => R.compose(
  * Renders a list of tags using the columns format.
  *
  * @param {Object.<string,number>} columnsWidth  A dictionary of the columns' widths.
+ * @param {number}                 fullWidth     The full width available, for content that can't
+ *                                               be rendered on a column.
  * @param {PrettierOptions}        options       The options sent to the plugin.
  * @param {CommentTag[]}           tags          The list of tags to render.
  * @returns {string[]} The list of lines.
  */
-const renderTagsInColumns = (columnsWidth, options, tags) => R.compose(
+const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) => R.compose(
   R.flatten,
   R.map(
     R.ifElse(
       isTag('example'),
-      renderExampleTag(R.__, options),
+      renderExampleTag(R.__, fullWidth, options),
       renderTagInColumns(
         columnsWidth.tag,
         columnsWidth.type,
@@ -114,7 +116,7 @@ const tryToRenderTagsInColums = (tagsData, width, options, tags) => R.compose(
   R.map(
     R.ifElse(
       isTag('example'),
-      renderExampleTag(R.__, options),
+      renderExampleTag(R.__, width, options),
       (tag) => {
         const data = tagsData[tag.tag];
         return data.canUseColumns ?
@@ -290,7 +292,7 @@ const render = R.curry((options, column, block) => {
     } else {
       const columnsWidth = calculateColumnsWidth(options, data, width);
       if (columnsWidth.description >= options.jsdocDescriptionColumnMinLength) {
-        lines.push(...renderTagsInColumns(columnsWidth, options, block.tags));
+        lines.push(...renderTagsInColumns(columnsWidth, width, options, block.tags));
       } else {
         lines.push(...renderTagsInlines(width, options, block.tags));
       }
