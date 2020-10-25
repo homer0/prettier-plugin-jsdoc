@@ -100,7 +100,7 @@ describe('createParser', () => {
       dotted_names: false,
     });
     expect(formatTagsTypes).toHaveBeenCalledTimes(1);
-    expect(formatTagsTypes).toHaveBeenCalledWith(R.__, options);
+    expect(formatTagsTypes).toHaveBeenCalledWith(R.__, options, column);
     expect(formatTagsTypesRest).toHaveBeenCalledTimes(1);
     expect(formatTagsTypesRest).toHaveBeenCalledWith(tagsList);
     expect(formatTags).toHaveBeenCalledTimes(1);
@@ -108,7 +108,7 @@ describe('createParser', () => {
     expect(formatTagsRest).toHaveBeenCalledTimes(1);
     expect(formatTagsRest).toHaveBeenCalledWith(tagsList);
     expect(prepareTags).toHaveBeenCalledTimes(1);
-    expect(prepareTags).toHaveBeenCalledWith(R.__, options);
+    expect(prepareTags).toHaveBeenCalledWith(R.__, options, column);
     expect(prepareTagsRest).toHaveBeenCalledTimes(1);
     expect(prepareTagsRest).toHaveBeenCalledWith(tagsList);
     expect(formatDescription).toHaveBeenCalledTimes(1);

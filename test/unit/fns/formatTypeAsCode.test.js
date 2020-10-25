@@ -16,7 +16,7 @@ describe('formatTypeAsCode', () => {
     const output = 'string';
     let result = null;
     // When
-    result = formatTypeAsCode(input, {});
+    result = formatTypeAsCode(input, {}, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(0);
@@ -31,15 +31,17 @@ describe('formatTypeAsCode', () => {
     const options = {
       semi: true,
       indent: 2,
+      printWidth: 80,
     };
     let result = null;
     // When
-    result = formatTypeAsCode(input, options);
+    result = formatTypeAsCode(input, options, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
     expect(format).toHaveBeenCalledWith(`type complex = ${input}`, {
       ...options,
+      printWidth: 77,
       parser: 'typescript',
     });
   });
@@ -54,12 +56,18 @@ describe('formatTypeAsCode', () => {
     const options = {
       semi: true,
       indent: 2,
+      printWidth: 80,
     };
     let result = null;
     // When
-    result = formatTypeAsCode(input, options);
+    result = formatTypeAsCode(input, options, 2);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
+    expect(format).toHaveBeenCalledWith(`type complex = ${input}`, {
+      ...options,
+      printWidth: 75,
+      parser: 'typescript',
+    });
   });
 });

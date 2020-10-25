@@ -41,10 +41,11 @@ describe('prepareTags', () => {
     const options = {
       semi: true,
       indent: 2,
+      printWidth: 80,
     };
     let result = null;
     // When
-    result = prepareTags(input, options);
+    result = prepareTags(input, options, 0);
     // Then
     expect(result).toEqual(output);
   });
@@ -67,8 +68,8 @@ describe('prepareTags', () => {
       {
         tag: 'example',
         type: '',
-        name: 'const',
-        description: 'x = \'something\';',
+        name: '',
+        description: 'const x = \'something\';',
       },
     ];
     const output = [
@@ -86,20 +87,27 @@ describe('prepareTags', () => {
         tag: 'example',
         type: '',
         name: '',
-        description: prettierResponse,
+        description: '',
+        examples: [{
+          code: prettierResponse,
+        }],
       },
     ];
     const options = {
       semi: true,
       indent: 2,
       jsdocFormatExamples: true,
+      printWidth: 80,
     };
     let result = null;
     // When
-    result = prepareTags(input, options);
+    result = prepareTags(input, options, 2);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
-    expect(format).toHaveBeenCalledWith(`${input[2].name} ${input[2].description}`, options);
+    expect(format).toHaveBeenCalledWith(`${input[2].description}`, {
+      ...options,
+      printWidth: 75,
+    });
   });
 });

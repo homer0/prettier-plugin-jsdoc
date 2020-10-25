@@ -53,23 +53,27 @@ describe('formatTagsTypes', () => {
       jsdocFormatDotForArraysAndObjects: true,
       jsdocFormatComplexTypesWithPrettier: true,
       jsdocUseDotForArraysAndObjects: false,
+      printWidth: 80,
     };
     let result = null;
     // When
-    result = formatTagsTypes(input, options);
+    result = formatTagsTypes(input, options, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(3);
     expect(format).toHaveBeenNthCalledWith(1, 'type complex = Array.<string>', {
       ...options,
+      printWidth: 77,
       parser: 'typescript',
     });
     expect(format).toHaveBeenNthCalledWith(2, `type complex = ${input[2].type}`, {
       ...options,
+      printWidth: 77,
       parser: 'typescript',
     });
     expect(format).toHaveBeenNthCalledWith(3, 'type complex = Object.<string, Array<string>>', {
       ...options,
+      printWidth: 77,
       parser: 'typescript',
     });
   });
@@ -111,10 +115,11 @@ describe('formatTagsTypes', () => {
       jsdocUseShortArrays: false,
       jsdocFormatDotForArraysAndObjects: true,
       jsdocUseDotForArraysAndObjects: true,
+      printWidth: 80,
     };
     let result = null;
     // When
-    result = formatTagsTypes(input, options);
+    result = formatTagsTypes(input, options, 2);
     // Then
     expect(result).toEqual(output);
   });
@@ -157,10 +162,11 @@ describe('formatTagsTypes', () => {
       jsdocFormatDotForArraysAndObjects: false,
       jsdocUseDotForArraysAndObjects: true,
       jsdocFormatComplexTypesWithPrettier: false,
+      printWidth: 70,
     };
     let result = null;
     // When
-    result = formatTagsTypes(input, options);
+    result = formatTagsTypes(input, options, 4);
     // Then
     expect(result).toEqual(output);
   });
@@ -202,10 +208,11 @@ describe('formatTagsTypes', () => {
       jsdocUseShortArrays: false,
       jsdocFormatDotForArraysAndObjects: false,
       jsdocUseDotForArraysAndObjects: false,
+      printWidth: 80,
     };
     let result = null;
     // When
-    result = formatTagsTypes(input, options);
+    result = formatTagsTypes(input, options, 2);
     // Then
     expect(result).toEqual(output);
   });

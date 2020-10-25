@@ -16,19 +16,21 @@ const { prepareTagName } = require('./prepareTagName');
  * @param {CommentTag[]}    tags    The list of tags to format.
  * @param {PrettierOptions} options The options sent to the plugin, in case they're needed for
  *                                  Prettier.
+ * @param {number}          column  The column where the comment will be rendered; this is necessary
+ *                                  for some of the functions that may need to call Prettier.
  * @returns {CommentTag[]}
  */
 
 /**
  * @type {PrepareTagsFn}
  */
-const prepareTags = R.curry((tags, options) => {
+const prepareTags = R.curry((tags, options, column) => {
   const fns = [
     prepareTagName,
   ];
 
   if (options.jsdocFormatExamples) {
-    fns.push(prepareExampleTag(R.__, options));
+    fns.push(prepareExampleTag(R.__, options, column));
   }
 
   return R.map(

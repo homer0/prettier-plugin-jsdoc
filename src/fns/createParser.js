@@ -214,7 +214,7 @@ const formatCommentBlock = R.curry((options, info) => R.compose(
  */
 const formatCommentTags = R.curry((options, info) => R.compose(
   R.assocPath(['block', 'tags'], R.__, info),
-  formatTagsTypes(R.__, options),
+  formatTagsTypes(R.__, options, info.column),
   formatTags(R.__, options),
   R.path(['block', 'tags']),
 )(info));
@@ -236,7 +236,7 @@ const formatCommentTags = R.curry((options, info) => R.compose(
  */
 const prepareCommentTags = R.curry((options, info) => R.compose(
   R.assocPath(['block', 'tags'], R.__, info),
-  prepareTags(R.__, options),
+  prepareTags(R.__, options, info.column),
   R.path(['block', 'tags']),
 )(info));
 

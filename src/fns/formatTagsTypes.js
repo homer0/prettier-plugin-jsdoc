@@ -25,16 +25,17 @@ const { formatTypeAsCode } = require('./formatTypeAsCode');
  *
  * @param {PJPTypesOptions} options  The options that tell the function which formatters should
  *                                   be included and which don't.
+ * @param {number}          column   The column where the comment will be rendered.
  * @returns {TypeFormatter}
  */
-const getTypeFormatter = (options) => {
+const getTypeFormatter = (options, column) => {
   const fns = [];
   if (options.jsdocUseTypeScriptTypesCasing) {
     fns.push(formatTSTypes);
   }
 
   if (options.jsdocFormatComplexTypesWithPrettier) {
-    fns.push(formatTypeAsCode(R.__, options));
+    fns.push(formatTypeAsCode(R.__, options, column));
   }
 
   if (options.jsdocFormatStringLiterals) {
@@ -76,15 +77,18 @@ const formatTagType = R.curry((formatter, tag) => R.compose(
  * @callback FormatTagsTypes
  * @param {CommentTag[]}    tags     The list of tags to format.
  * @param {PJPTypesOptions} options  The customization options for the formatter.
+ * @param {number}          column   The column where the comment will be rendered. This is
+ *                                   necessary for some transformations that can involve Prettier
+ *                                   itself.
  * @returns {CommentTag[]}
  */
 
 /**
  * @type {FormatTagsTypes}
  */
-const formatTagsTypes = R.curry((tags, options) => R.map(R.when(
+const formatTagsTypes = R.curry((tags, options, column) => R.map(R.when(
   hasValidProperty('type'),
-  formatTagType(getTypeFormatter(options)),
+  formatTagType(getTypeFormatter(options, column)),
 ))(tags));
 
 module.exports.formatTagsTypes = formatTagsTypes;

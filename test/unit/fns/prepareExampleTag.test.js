@@ -20,7 +20,7 @@ describe('prepareExampleTag', () => {
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, {});
+    result = prepareExampleTag(input, {}, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(0);
@@ -44,14 +44,18 @@ describe('prepareExampleTag', () => {
     const options = {
       semi: true,
       indent: 2,
+      printWidth: 80,
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, options);
+    result = prepareExampleTag(input, options, 2);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
-    expect(format).toHaveBeenCalledWith(`${input.description}`, options);
+    expect(format).toHaveBeenCalledWith(`${input.description}`, {
+      ...options,
+      printWidth: 75,
+    });
   });
 
   it('should indent formatted text', () => {
@@ -72,14 +76,18 @@ describe('prepareExampleTag', () => {
     const options = {
       jsdocIndentFormattedExamples: true,
       tabWidth: 2,
+      printWidth: 80,
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, options);
+    result = prepareExampleTag(input, options, 2);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
-    expect(format).toHaveBeenCalledWith(`${input.description}`, options);
+    expect(format).toHaveBeenCalledWith(`${input.description}`, {
+      ...options,
+      printWidth: 73,
+    });
   });
 
   it('should indent unformatted text', () => {
@@ -101,14 +109,18 @@ describe('prepareExampleTag', () => {
     const options = {
       jsdocIndentUnformattedExamples: true,
       tabWidth: 2,
+      printWidth: 80,
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, options);
+    result = prepareExampleTag(input, options, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
-    expect(format).toHaveBeenCalledWith(`${input.description}`, options);
+    expect(format).toHaveBeenCalledWith(`${input.description}`, {
+      ...options,
+      printWidth: 77,
+    });
   });
 
   it('should detect an example caption', () => {
@@ -130,14 +142,18 @@ describe('prepareExampleTag', () => {
     const options = {
       jsdocIndentFormattedExamples: true,
       tabWidth: 2,
+      printWidth: 80,
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, options);
+    result = prepareExampleTag(input, options, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
-    expect(format).toHaveBeenCalledWith('const x = \'something\';', options);
+    expect(format).toHaveBeenCalledWith('const x = \'something\';', {
+      ...options,
+      printWidth: 75,
+    });
   });
 
   it('should detect multiple captions', () => {
@@ -168,14 +184,22 @@ describe('prepareExampleTag', () => {
         },
       ],
     };
-    const options = {};
+    const options = {
+      printWidth: 80,
+    };
     let result = null;
     // When
-    result = prepareExampleTag(input, options);
+    result = prepareExampleTag(input, options, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(2);
-    expect(format).toHaveBeenNthCalledWith(1, 'const x = \'fist example\';', options);
-    expect(format).toHaveBeenNthCalledWith(2, 'const y = \'second example\';', options);
+    expect(format).toHaveBeenNthCalledWith(1, 'const x = \'fist example\';', {
+      ...options,
+      printWidth: 77,
+    });
+    expect(format).toHaveBeenNthCalledWith(2, 'const y = \'second example\';', {
+      ...options,
+      printWidth: 77,
+    });
   });
 });
