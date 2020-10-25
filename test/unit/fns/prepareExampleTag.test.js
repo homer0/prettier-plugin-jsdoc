@@ -32,13 +32,14 @@ describe('prepareExampleTag', () => {
     format.mockImplementationOnce(() => prettierResponse);
     const input = {
       tag: 'example',
-      name: 'const',
-      description: 'x = \'something\';',
+      description: 'const x = \'something\';',
     };
     const output = {
       tag: 'example',
-      name: '',
-      description: prettierResponse,
+      description: '',
+      examples: [{
+        code: prettierResponse,
+      }],
     };
     const options = {
       semi: true,
@@ -50,7 +51,7 @@ describe('prepareExampleTag', () => {
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
-    expect(format).toHaveBeenCalledWith(`${input.name} ${input.description}`, options);
+    expect(format).toHaveBeenCalledWith(`${input.description}`, options);
   });
 
   it('should indent formatted text', () => {
@@ -59,13 +60,14 @@ describe('prepareExampleTag', () => {
     format.mockImplementationOnce(() => prettierResponse);
     const input = {
       tag: 'example',
-      name: 'const',
-      description: 'x = \'something\';',
+      description: 'const x = \'something\';',
     };
     const output = {
       tag: 'example',
-      name: '',
-      description: `  ${prettierResponse}`,
+      description: '',
+      examples: [{
+        code: `  ${prettierResponse}`,
+      }],
     };
     const options = {
       jsdocIndentFormattedExamples: true,
@@ -77,7 +79,7 @@ describe('prepareExampleTag', () => {
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
-    expect(format).toHaveBeenCalledWith(`${input.name} ${input.description}`, options);
+    expect(format).toHaveBeenCalledWith(`${input.description}`, options);
   });
 
   it('should indent unformatted text', () => {
@@ -87,13 +89,14 @@ describe('prepareExampleTag', () => {
     });
     const input = {
       tag: 'example',
-      name: 'const',
-      description: 'x = \'something\';',
+      description: 'const x = \'something\';',
     };
     const output = {
       tag: 'example',
-      name: '',
-      description: `  ${input.name} ${input.description}`,
+      description: '',
+      examples: [{
+        code: `  ${input.description}`,
+      }],
     };
     const options = {
       jsdocIndentUnformattedExamples: true,
@@ -105,6 +108,74 @@ describe('prepareExampleTag', () => {
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
-    expect(format).toHaveBeenCalledWith(`${input.name} ${input.description}`, options);
+    expect(format).toHaveBeenCalledWith(`${input.description}`, options);
+  });
+
+  it('should detect an example caption', () => {
+    // Given
+    const prettierResponse = 'prettier-response';
+    format.mockImplementationOnce(() => prettierResponse);
+    const input = {
+      tag: 'example',
+      description: '<caption>Some caption</caption>\nconst x = \'something\';',
+    };
+    const output = {
+      tag: 'example',
+      description: '',
+      examples: [{
+        caption: 'Some caption',
+        code: `  ${prettierResponse}`,
+      }],
+    };
+    const options = {
+      jsdocIndentFormattedExamples: true,
+      tabWidth: 2,
+    };
+    let result = null;
+    // When
+    result = prepareExampleTag(input, options);
+    // Then
+    expect(result).toEqual(output);
+    expect(format).toHaveBeenCalledTimes(1);
+    expect(format).toHaveBeenCalledWith('const x = \'something\';', options);
+  });
+
+  it('should detect multiple captions', () => {
+    // Given
+    const prettierResponse = 'prettier-response';
+    format.mockImplementationOnce(() => prettierResponse);
+    format.mockImplementationOnce(() => prettierResponse);
+    const input = {
+      tag: 'example',
+      description: [
+        '<caption>\nThe first\ncaption</caption>',
+        'const x = \'fist example\';',
+        '<caption>The second\ncaption\n</caption>',
+        'const y = \'second example\';',
+      ].join('\n'),
+    };
+    const output = {
+      tag: 'example',
+      description: '',
+      examples: [
+        {
+          caption: 'The first\ncaption',
+          code: prettierResponse,
+        },
+        {
+          caption: 'The second\ncaption',
+          code: prettierResponse,
+        },
+      ],
+    };
+    const options = {};
+    let result = null;
+    // When
+    result = prepareExampleTag(input, options);
+    // Then
+    expect(result).toEqual(output);
+    expect(format).toHaveBeenCalledTimes(2);
+    expect(format).toHaveBeenNthCalledWith(1, 'const x = \'fist example\';', options);
+    expect(format).toHaveBeenNthCalledWith(2, 'const y = \'second example\';', options);
   });
 });

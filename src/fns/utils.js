@@ -308,6 +308,43 @@ const hasValidProperty = R.curry((property, obj) => R.propSatisfies(
   property,
 )(obj));
 
+/**
+ * Adds a prefix on all the lines from a text.
+ *
+ * @callback PrefixLinesFn
+ * @param {string} prefix  The prefix to add on every line.
+ * @param {string} text    The target text that will be prefixed.
+ * @returns {string}
+ */
+
+/**
+ * @type {PrefixLinesFn}
+ */
+const prefixLines = R.curry((prefix, text) => R.compose(
+  R.join('\n'),
+  R.map(R.concat(prefix)),
+  R.split('\n'),
+  R.trim(),
+)(text));
+
+/**
+ * Splits the lines of a text and removes the empty ones.
+ *
+ * @callback SplitLinesAndCleanFn
+ * @param {string|RegExp} splitter  The string or expression to use on `String.split`.
+ * @param {string}        text      The text to split.
+ * @returns {string[]}
+ */
+
+/**
+ * @type {SplitLinesAndCleanFn}
+ */
+const splitLinesAndClean = R.curry((splitter, text) => R.compose(
+  R.reject(R.isEmpty),
+  R.map(R.trim),
+  R.split(splitter),
+)(text));
+
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
 module.exports.isTag = isTag;
@@ -321,3 +358,5 @@ module.exports.capitalize = capitalize;
 module.exports.getIndexOrFallback = getIndexOrFallback;
 module.exports.limitAdjacentRepetitions = limitAdjacentRepetitions;
 module.exports.hasValidProperty = hasValidProperty;
+module.exports.prefixLines = prefixLines;
+module.exports.splitLinesAndClean = splitLinesAndClean;
