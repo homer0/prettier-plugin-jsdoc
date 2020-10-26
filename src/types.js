@@ -123,6 +123,8 @@
  * @property {boolean} jsdocIgnoreNewLineDescriptionsForConsistentColumns
  * If enabled, when evaluating the rule for consistent columns, tags with description on a new line,
  * allowed by `jsdocAllowDescriptionOnNewLinesForTags`, will be ignored. Default `true`.
+ * @property {boolean} jsdocUseInlineCommentForASingleTagBlock
+ * Whether or not to use a single line JSDoc block when there's only one tag. Default `false`.
  */
 
 /* eslint-disable max-len */

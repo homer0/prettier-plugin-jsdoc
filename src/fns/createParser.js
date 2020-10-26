@@ -259,10 +259,17 @@ const getRenderer = (options) => {
   return (column, block) => {
     const padding = ' '.repeat(column + 1);
     const prefix = `${padding}* `;
-    const lines = renderer(column, block)
+    const lines = renderer(column, block);
+
+    if (lines.length === 1 && options.jsdocUseInlineCommentForASingleTagBlock) {
+      return `* ${lines[0]} `;
+    }
+
+    const useLines = lines
     .map((line) => `${prefix}${line}`)
     .join('\n');
-    return `*\n${lines}\n${padding}`;
+
+    return `*\n${useLines}\n${padding}`;
   };
 };
 

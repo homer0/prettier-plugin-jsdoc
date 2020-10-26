@@ -290,6 +290,12 @@ const options = {
       'If enabled, when evaluating the rule for consistent columns, tags with description ' +
       'on a new line, allowed by `jsdocAllowDescriptionOnNewLinesForTags`, will be ignored.',
   },
+  jsdocUseInlineCommentForASingleTagBlock: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: false,
+    description: 'Whether or not to use a single line JSDoc block when there\'s only one tag.',
+  },
 };
 /**
  * @type {PJPOptions}

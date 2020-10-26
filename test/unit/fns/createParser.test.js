@@ -116,4 +116,67 @@ describe('createParser', () => {
     expect(formatDescriptionRest).toHaveBeenCalledTimes(1);
     expect(formatDescriptionRest).toHaveBeenCalledWith(parsed[0]);
   });
+
+  it('should render an inline comment', () => {
+    // Given
+    const commentStr = '*\n * @type {MyStr}\n ';
+    const column = 2;
+    const astBase = {
+      comments: [{
+        type: 'CommentBlock',
+        value: commentStr,
+        loc: {
+          start: {
+            column,
+          },
+        },
+      }],
+    };
+    const ast = R.clone(astBase);
+    const tagsList = [{
+      tag: 'type',
+      type: 'MyStr',
+      name: '',
+      description: '',
+    }];
+    const parsed = [{
+      description: '',
+      tags: tagsList,
+    }];
+    commentParser.mockImplementationOnce(() => parsed);
+    const formatTagsTypesRest = jest.fn((tags) => tags);
+    formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
+    const formatTagsRest = jest.fn((tags) => tags);
+    formatTags.mockImplementationOnce(() => formatTagsRest);
+    const formatDescriptionRest = jest.fn((tags) => tags);
+    formatDescription.mockImplementationOnce(() => formatDescriptionRest);
+    const prepareTagsRest = jest.fn((tags) => tags);
+    prepareTags.mockImplementationOnce(() => prepareTagsRest);
+    const renderRest = jest.fn(() => [
+      '@type {MyFormattedStr}',
+    ]);
+    render.mockImplementationOnce(() => renderRest);
+
+    const originalParser = jest.fn(() => ast);
+    const text = 'lorem ipsum';
+    const parsers = ['babel'];
+    const options = {
+      printWidth: 80,
+      jsdocUseInlineCommentForASingleTagBlock: true,
+    };
+    // When
+    createParser(originalParser)(text, parsers, options);
+    // Then
+    expect(ast).toEqual({
+      comments: [{
+        type: 'CommentBlock',
+        value: '* @type {MyFormattedStr} ',
+        loc: {
+          start: {
+            column,
+          },
+        },
+      }],
+    });
+  });
 });
