@@ -91,6 +91,57 @@ describe('renderTagInLine', () => {
         namePadding: 1,
       },
     },
+    {
+      it: 'should render a tag with a multiline name',
+      input: {
+        tag: 'throws',
+        type: 'Error',
+        name: [
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+          'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut',
+          'sodales lectus.',
+        ].join(' '),
+        description: '',
+      },
+      output: [
+        '@throws {Error} Lorem ipsum dolor sit amet,',
+        '                consectetur adipiscing elit.',
+        '                Maecenas sollicitudin non justo',
+        '                quis placerat. Quisque eu',
+        '                dignissim tellus, ut sodales',
+        '                lectus.',
+      ],
+      options: {
+        width: 50,
+        typePadding: 1,
+        namePadding: 1,
+      },
+    },
+    {
+      it: 'should render a tag, without type, with a multiline name',
+      input: {
+        tag: 'see',
+        type: '',
+        name: [
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+          'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut',
+          'sodales lectus.',
+        ].join(' '),
+        description: '',
+      },
+      output: [
+        '@see Lorem ipsum dolor sit amet,',
+        '     consectetur adipiscing elit.',
+        '     Maecenas sollicitudin non justo',
+        '     quis placerat. Quisque eu dignissim',
+        '     tellus, ut sodales lectus.',
+      ],
+      options: {
+        width: 40,
+        typePadding: 1,
+        namePadding: 1,
+      },
+    },
   ];
 
   it.each(cases)('should correctly format the case %#', (caseInfo) => {

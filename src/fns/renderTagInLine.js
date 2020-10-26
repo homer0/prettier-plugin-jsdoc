@@ -20,6 +20,7 @@ const { splitText } = require('./splitText');
 
 /**
  * @type {RenderTagInLineFn}
+ * @todo Refactor how the multiline names are handled.
  */
 const renderTagInLine = R.curry((width, typePadding, namePadding, tag) => {
   const tagHeader = `@${tag.tag}`;
@@ -38,11 +39,24 @@ const renderTagInLine = R.curry((width, typePadding, namePadding, tag) => {
         `${typeLastLine}}${useNamePadding}${tag.name}`,
       ];
     } else {
-      const rest = `${useTypePadding}{${tag.type}}${useNamePadding}${tag.name}`.trimRight();
-      result = [`${tagHeader}${rest}`];
+      const tagHeaderWithSpace = `${tagHeader}${useTypePadding}{${tag.type}}${useNamePadding}`;
+      const nameWidth = width - tagHeaderWithSpace.length;
+      const nameLines = splitText(tag.name, nameWidth);
+      result = [`${tagHeaderWithSpace}${nameLines.shift()}`.trimRight()];
+      if (nameLines.length) {
+        const namePaddingForLine = ' '.repeat(tagHeaderWithSpace.length);
+        result.push(...nameLines.map((line) => `${namePaddingForLine}${line}`));
+      }
     }
   } else {
-    result = [`${tagHeader}${useNamePadding}${tag.name}`.trimRight()];
+    const tagHeaderWithSpace = `${tagHeader}${useNamePadding}`;
+    const nameWidth = width - tagHeaderWithSpace.length;
+    const nameLines = splitText(tag.name, nameWidth);
+    result = [`${tagHeaderWithSpace}${nameLines.shift()}`.trimRight()];
+    if (nameLines.length) {
+      const namePaddingForLine = ' '.repeat(tagHeaderWithSpace.length);
+      result.push(...nameLines.map((line) => `${namePaddingForLine}${line}`));
+    }
   }
 
   if (tag.description) {

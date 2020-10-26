@@ -103,6 +103,33 @@ describe('renderTagInColumns', () => {
         descriptionColumnWidth: 27,
       },
     },
+    {
+      it: 'should render a tag with a multiline name',
+      input: {
+        tag: 'throws',
+        type: 'Error',
+        name: [
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+          'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut',
+          'sodales lectus.',
+        ].join(' '),
+        description: '',
+      },
+      output: [
+        '@throws {Error} Lorem ipsum dolor sit amet,',
+        '                consectetur adipiscing',
+        '                elit. Maecenas sollicitudin',
+        '                non justo quis placerat.',
+        '                Quisque eu dignissim',
+        '                tellus, ut sodales lectus.',
+      ],
+      options: {
+        tagColumnWidth: 8,
+        typeColumnWidth: 8,
+        nameColumnWidth: 27,
+        descriptionColumnWidth: 14,
+      },
+    },
   ];
 
   it.each(cases)('should correctly format the case %#', (caseInfo) => {

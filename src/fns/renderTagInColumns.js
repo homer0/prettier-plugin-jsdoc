@@ -6,6 +6,44 @@ const { splitText } = require('./splitText');
  */
 
 /**
+ * When a tag has a multiline description and/or multiline name, this function will take care of
+ * rendering the rest of lines, respecting each property column space and add the necessary padding.
+ *
+ * @param {number}   column            The column where the lines should start.
+ * @param {boolean}  hasName           Whether or not there was a valid `name` property. Based on
+ *                                     that, the function will decide if the space for the 'name
+ *                                     column' should be padding or if it should be just removed.
+ * @param {number}   nameColumnWidth   The width of the column for the name.
+ * @param {string[]} nameLines         The lines for the name.
+ * @param {string[]} descriptionLines  The lines for the description.
+ * @returns {string[]}
+ */
+const renderRest = (
+  column,
+  hasName,
+  nameColumnWidth,
+  nameLines,
+  descriptionLines,
+) => {
+  const result = [];
+  const limit = Math.max(nameLines.length, descriptionLines.length);
+  const padding = ' '.repeat(column);
+  const namePadding = hasName ? ' '.repeat(nameColumnWidth) : '';
+  for (let i = 0; i < limit; i++) {
+    const nameLine = nameLines[i] ?
+      nameLines[i].padEnd(nameColumnWidth) :
+      namePadding;
+    const descriptionLine = descriptionLines[i] ?
+      descriptionLines[i] :
+      '';
+
+    result.push(`${padding}${nameLine}${descriptionLine}`);
+  }
+
+  return result;
+};
+
+/**
  * Renders a JSDoc tag using the `columns` style: there's a column for the tag, the type, the
  * name and the description, and if the description is longer than the available space, it will
  * be splitted in multiple lines, with padding for the other columns on each new line.
@@ -36,29 +74,37 @@ const renderTagInColumns = R.curry((
   const descriptionLines = tag.description ?
     splitText(tag.description, descriptionColumnWidth) :
     [''];
+  const descriptionFirstLine = descriptionLines.shift();
+  let nameLines = [];
 
   const firstLineParts = [
     `@${tag.tag}`.padEnd(tagColumnWidth, ' '),
   ];
 
-  let descriptionPaddingWidth = tagColumnWidth;
+  let restColumn = tagColumnWidth;
   if (tag.type) {
     firstLineParts.push(`{${tag.type}}`.padEnd(typeColumnWidth));
-    descriptionPaddingWidth += typeColumnWidth;
+    restColumn += typeColumnWidth;
   }
 
   if (tag.name) {
-    firstLineParts.push(tag.name.padEnd(nameColumnWidth));
-    descriptionPaddingWidth += nameColumnWidth;
+    nameLines = splitText(tag.name, nameColumnWidth);
+    firstLineParts.push(nameLines.shift().padEnd(nameColumnWidth));
   }
 
-  firstLineParts.push(descriptionLines.shift());
+  firstLineParts.push(descriptionFirstLine);
   const firstLine = firstLineParts.join('').trim();
-  const descriptionPadding = ' '.repeat(descriptionPaddingWidth);
   return [
     firstLine,
-    ...descriptionLines.map((line) => `${descriptionPadding}${line}`),
-  ];
+    ...renderRest(
+      restColumn,
+      !!tag.name,
+      nameColumnWidth,
+      nameLines,
+      descriptionLines,
+    ),
+  ]
+  .map((line) => line.trimEnd());
 });
 
 module.exports.renderTagInColumns = renderTagInColumns;
