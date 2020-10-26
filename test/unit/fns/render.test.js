@@ -524,6 +524,12 @@ describe('render', () => {
             description: 'Lorem ipsum description for the age.',
             descriptionParagrah: true,
           },
+          {
+            tag: 'version',
+            type: '',
+            name: '1.0.0',
+            description: '',
+          },
         ],
       },
       output: [
@@ -532,6 +538,7 @@ describe('render', () => {
         'Lorem ipsum description for the name.',
         '@property {number} age',
         'Lorem ipsum description for the age.',
+        '@version 1.0.0',
       ],
       column: 0,
       options: {
@@ -540,6 +547,59 @@ describe('render', () => {
         jsdocAllowDescriptionOnNewLinesForTags: [
           ...defaultOptions.jsdocAllowDescriptionOnNewLinesForTags,
           'property',
+        ],
+      },
+    },
+    {
+      it: 'should consider inline tags for consistent columns',
+      input: {
+        description: '',
+        tags: [
+          {
+            tag: 'callback',
+            type: '',
+            name: 'LoremIpsumFn',
+            description: '',
+          },
+          {
+            tag: 'param',
+            type: 'string',
+            name: 'name',
+            description: 'Lorem ipsum description for the name.',
+            descriptionParagrah: true,
+          },
+          {
+            tag: 'param',
+            type: 'number',
+            name: 'age',
+            description: 'Lorem ipsum description for the age.',
+            descriptionParagrah: true,
+          },
+          {
+            tag: 'returns',
+            type: 'Person',
+            name: '',
+            description: 'A new person.',
+          },
+        ],
+      },
+      output: [
+        '@callback LoremIpsumFn',
+        '@param {string} name',
+        'Lorem ipsum description for the name.',
+        '@param {number} age',
+        'Lorem ipsum description for the age.',
+        '@returns {Person}',
+        'A new person.',
+      ],
+      column: 0,
+      options: {
+        ...defaultOptions,
+        jsdocPrintWidth: 80,
+        jsdocIgnoreNewLineDescriptionsForConsistentColumns: false,
+        jsdocAllowDescriptionOnNewLinesForTags: [
+          ...defaultOptions.jsdocAllowDescriptionOnNewLinesForTags,
+          'param',
         ],
       },
     },

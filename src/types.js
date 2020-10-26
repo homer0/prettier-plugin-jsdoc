@@ -120,6 +120,9 @@
  * period. Default `true`.
  * @property {string[]} jsdocAllowDescriptionOnNewLinesForTags
  * A list of tags that are allowed to have their description on a new line.
+ * @property {boolean} jsdocIgnoreNewLineDescriptionsForConsistentColumns
+ * If enabled, when evaluating the rule for consistent columns, tags with description on a new line,
+ * allowed by `jsdocAllowDescriptionOnNewLinesForTags`, will be ignored. Default `true`.
  */
 
 /* eslint-disable max-len */

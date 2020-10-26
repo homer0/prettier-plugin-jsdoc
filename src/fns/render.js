@@ -307,10 +307,16 @@ const render = R.curry((options, column, block) => {
     const data = getLengthsData(block.tags);
     if (options.jsdocGroupColumnsByTag) {
       const tagsData = getTagsData(data.byTag, width, options);
-      const atLeastOneCannot = Object.entries(tagsData).find(([tagName, info]) => (
-        !options.jsdocAllowDescriptionOnNewLinesForTags.includes(tagName) &&
-        !info.canUseColumns
-      ));
+      let atLeastOneCannot;
+      if (options.jsdocIgnoreNewLineDescriptionsForConsistentColumns) {
+        atLeastOneCannot = Object.entries(tagsData).find(([tagName, info]) => (
+          !options.jsdocAllowDescriptionOnNewLinesForTags.includes(tagName) &&
+          !info.canUseColumns
+        ));
+      } else {
+        atLeastOneCannot = Object.values(tagsData).find((info) => !info.canUseColumns);
+      }
+
       if (atLeastOneCannot && options.jsdocConsistentColumns) {
         lines.push(...renderTagsInlines(width, options, block.tags));
       } else {

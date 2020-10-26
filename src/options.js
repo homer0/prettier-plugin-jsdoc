@@ -282,6 +282,14 @@ const options = {
       ],
     }],
   },
+  jsdocIgnoreNewLineDescriptionsForConsistentColumns: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: true,
+    description:
+      'If enabled, when evaluating the rule for consistent columns, tags with description ' +
+      'on a new line, allowed by `jsdocAllowDescriptionOnNewLinesForTags`, will be ignored.',
+  },
 };
 /**
  * @type {PJPOptions}
