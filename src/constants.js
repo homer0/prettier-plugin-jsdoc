@@ -45,6 +45,7 @@ const TAGS_WITH_DESCRIPTION_AS_NAME = [
   'description',
   'desc',
   'example',
+  'examples',
   'file',
   'license',
   'summary',
