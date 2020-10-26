@@ -16,6 +16,11 @@ describe('formatTagsDescription', () => {
         },
         {
           tag: 'description',
+          name: '',
+          description: 'Some description that was already joined by the block formatter.',
+        },
+        {
+          tag: 'description',
           type: '@link OtherType',
           name: '<-',
           description: 'read that.',
@@ -48,6 +53,12 @@ describe('formatTagsDescription', () => {
           tag: 'description',
           name: '',
           description: 'Some description.',
+          descriptionParagrah: false,
+        },
+        {
+          tag: 'description',
+          name: '',
+          description: 'Some description that was already joined by the block formatter.',
           descriptionParagrah: false,
         },
         {

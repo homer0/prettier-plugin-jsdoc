@@ -65,14 +65,11 @@ const joinProperties = R.curry((propA, propB, prop, tag) => {
  * @param {CommentTag} tag The tag to fix.
  * @returns {CommentTag}
  */
-const addLinkToDescription = (tag) => {
-  const prop = TAGS_WITH_NAME_AS_DESCRIPTION.includes(tag.tag) ? 'description' : 'name';
-  return {
-    ...tag,
-    type: '',
-    [prop]: `{${tag.type}} ${tag[prop]}`.trimRight(),
-  };
-};
+const addLinkToDescription = (tag) => ({
+  ...tag,
+  type: '',
+  name: `{${tag.type}} ${tag.name}`.trimRight(),
+});
 
 /**
  * Formats the descriptions of a list of tags in order to fix those texts the parser may have
