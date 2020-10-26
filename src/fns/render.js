@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { splitText } = require('./splitText');
-const { isTag } = require('./utils');
+const { isTag, ensureSentence } = require('./utils');
 const { renderExampleTag } = require('./renderExampleTag');
 const { renderTagInLine } = require('./renderTagInLine');
 const { renderTagInColumns } = require('./renderTagInColumns');
@@ -275,7 +275,12 @@ const render = R.curry((options, column, block) => {
   const lines = [];
 
   if (block.description) {
-    lines.push(...splitText(block.description, width));
+    let { description } = block;
+    if (options.jsdocEnsureDescriptionsAreSentences) {
+      description = ensureSentence(description);
+    }
+
+    lines.push(...splitText(description, width));
     lines.push(...(new Array(options.jsdocLinesBetweenDescriptionAndTags)).fill(''));
   }
 

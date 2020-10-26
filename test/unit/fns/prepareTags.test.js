@@ -1,5 +1,6 @@
 jest.unmock('../../../src/fns/prepareTags');
 jest.unmock('../../../src/fns/prepareTagName');
+jest.unmock('../../../src/fns/prepareTagDescription');
 jest.unmock('../../../src/fns/prepareExampleTag');
 jest.unmock('../../../src/fns/utils');
 jest.mock('prettier');
@@ -109,5 +110,38 @@ describe('prepareTags', () => {
       ...options,
       printWidth: 75,
     });
+  });
+
+  it('should prepare descriptions', () => {
+    // Given
+    const input = [
+      {
+        name: 'rest',
+        description: 'something',
+      },
+      {
+        description: ' something else ',
+      },
+    ];
+    const output = [
+      {
+        name: 'rest',
+        description: 'Something.',
+      },
+      {
+        description: ' Something else. ',
+      },
+    ];
+    const options = {
+      semi: true,
+      indent: 2,
+      printWidth: 80,
+      jsdocEnsureDescriptionsAreSentences: true,
+    };
+    let result = null;
+    // When
+    result = prepareTags(input, options, 0);
+    // Then
+    expect(result).toEqual(output);
   });
 });

@@ -1,5 +1,6 @@
 const R = require('ramda');
 const { prepareExampleTag } = require('./prepareExampleTag');
+const { prepareTagDescription } = require('./prepareTagDescription');
 const { prepareTagName } = require('./prepareTagName');
 
 /**
@@ -25,12 +26,14 @@ const { prepareTagName } = require('./prepareTagName');
  * @type {PrepareTagsFn}
  */
 const prepareTags = R.curry((tags, options, column) => {
-  const fns = [
-    prepareTagName,
-  ];
+  const fns = [prepareTagName];
 
   if (options.jsdocFormatExamples) {
     fns.push(prepareExampleTag(R.__, options, column));
+  }
+
+  if (options.jsdocEnsureDescriptionsAreSentences) {
+    fns.push(prepareTagDescription);
   }
 
   return R.map(

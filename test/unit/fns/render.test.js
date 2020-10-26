@@ -14,9 +14,9 @@ describe('render', () => {
       it: 'should render a callback with columns',
       input: {
         description: [
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+          'lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
           'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut',
-          'sodales lectus.',
+          'sodales lectus',
         ].join(' '),
         tags: [
           {
@@ -462,6 +462,31 @@ describe('render', () => {
         ...defaultOptions,
         jsdocPrintWidth: 80,
         jsdocGroupColumnsByTag: false,
+      },
+    },
+    {
+      it: 'should\'nt transform the description into a sentence',
+      input: {
+        description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        tags: [
+          {
+            tag: 'typedef',
+            type: 'Object',
+            name: 'LoremIpsumObj',
+            description: '',
+          },
+        ],
+      },
+      output: [
+        'lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        '',
+        '@typedef {Object} LoremIpsumObj',
+      ],
+      column: 0,
+      options: {
+        ...defaultOptions,
+        printWidth: 80,
+        jsdocEnsureDescriptionsAreSentences: false,
       },
     },
   ];

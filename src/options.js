@@ -256,6 +256,14 @@ const options = {
     default: 1,
     description: 'How many lines should there be between a description body and the tags.',
   },
+  jsdocEnsureDescriptionsAreSentences: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: true,
+    description:
+      'If enabled, it will make sure descriptions start with an upper case letter and ' +
+      'end with a period.',
+  },
 };
 /**
  * @type {PJPOptions}

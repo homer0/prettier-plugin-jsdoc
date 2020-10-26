@@ -115,6 +115,9 @@
  * How many spaces should there be between a name and a description column. Default `2`.
  * @property {number} jsdocLinesBetweenDescriptionAndTags
  * How many lines should there be between a description body and the tags. Default `1`.
+ * @property {boolean} jsdocEnsureDescriptionsAreSentences
+ * If enabled, it will make sure descriptions start with an upper case letter and  end with a
+ * period. Default `true`.
  */
 
 /* eslint-disable max-len */

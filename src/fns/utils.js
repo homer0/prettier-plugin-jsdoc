@@ -345,6 +345,28 @@ const splitLinesAndClean = R.curry((splitter, text) => R.compose(
   R.split(splitter),
 )(text));
 
+/**
+ * Ensures a text starts with an uppercase and ends with a period.
+ *
+ * @callback EnsureSentenceFn
+ * @param {string} text  The text to format.
+ * @returns {string}
+ */
+
+/**
+ * @type {EnsureSentenceFn}
+ */
+const ensureSentence = R.compose(
+  R.replace(
+    /(\.)?(\s*)$/,
+    (full, dot, padding) => `.${padding}`,
+  ),
+  R.replace(
+    /^(\s*)(\w)/,
+    (full, padding, letter) => `${padding}${letter.toUpperCase()}`,
+  ),
+);
+
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
 module.exports.isTag = isTag;
@@ -360,3 +382,4 @@ module.exports.limitAdjacentRepetitions = limitAdjacentRepetitions;
 module.exports.hasValidProperty = hasValidProperty;
 module.exports.prefixLines = prefixLines;
 module.exports.splitLinesAndClean = splitLinesAndClean;
+module.exports.ensureSentence = ensureSentence;
