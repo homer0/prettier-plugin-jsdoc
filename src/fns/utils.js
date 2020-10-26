@@ -195,8 +195,8 @@ const replaceAdjacent = R.curry((expression, replacement, text) => {
  */
 const replaceDotOnTypeGeneric = R.curry((targetType, useDot, type) => R.ifElse(
   R.always(useDot),
-  replaceAdjacent(new RegExp(`([^\\w]|^)${targetType}\\s*<`), `$1${targetType}.<`),
-  replaceAdjacent(new RegExp(`([^\\w]|^)${targetType}\\s*\\.\\s*<`), `$1${targetType}<`),
+  replaceAdjacent(new RegExp(`([^\\w]|^)(${targetType})\\s*<`, 'i'), '$1$2.<'),
+  replaceAdjacent(new RegExp(`([^\\w]|^)(${targetType})\\s*\\.\\s*<`, 'i'), '$1$2<'),
 )(type));
 
 /**

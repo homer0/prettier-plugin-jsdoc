@@ -36,7 +36,7 @@ const processType = R.curry((options, type) => R.when(
  * @type {FormatObjectsFn}
  */
 const formatObjects = R.curry((type, options) => R.when(
-  isMatch(/Object\s*\.?\s*</),
+  isMatch(/Object\s*\.?\s*</i),
   processType(options),
 )(type));
 
