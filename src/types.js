@@ -118,6 +118,8 @@
  * @property {boolean} jsdocEnsureDescriptionsAreSentences
  * If enabled, it will make sure descriptions start with an upper case letter and  end with a
  * period. Default `true`.
+ * @property {string[]} jsdocAllowDescriptionOnNewLinesForTags
+ * A list of tags that are allowed to have their description on a new line.
  */
 
 /* eslint-disable max-len */

@@ -4,6 +4,7 @@ jest.unmock('../../../src/fns/renderTagInColumns');
 jest.unmock('../../../src/fns/renderExampleTag');
 jest.unmock('../../../src/fns/splitText');
 jest.unmock('../../../src/fns/utils');
+jest.unmock('../../../src/options');
 
 const { render } = require('../../../src/fns/render');
 const { defaultOptions } = require('../../../src/options');
@@ -46,6 +47,13 @@ describe('render', () => {
             name: '',
             description: '',
           },
+          {
+            tag: 'license',
+            type: '',
+            name: '',
+            description: 'Copyright (c) 2015 Example Corporation Inc.',
+            descriptionParagrah: true,
+          },
         ],
       },
       output: [
@@ -58,6 +66,8 @@ describe('render', () => {
         '@param {number} length  Lorem ipsum dolor sit amet, consectetur adipiscing',
         '                        elit. Maecenas sollicitudin non justo quis placerat.',
         '@returns {string}',
+        '@license',
+        'Copyright (c) 2015 Example Corporation Inc.',
       ],
       column: 0,
       options: {
@@ -487,6 +497,50 @@ describe('render', () => {
         ...defaultOptions,
         printWidth: 80,
         jsdocEnsureDescriptionsAreSentences: false,
+      },
+    },
+    {
+      it: 'should render properties in line when configured',
+      input: {
+        description: '',
+        tags: [
+          {
+            tag: 'typedef',
+            type: 'Object',
+            name: 'LoremIpsumObj',
+            description: '',
+          },
+          {
+            tag: 'property',
+            type: 'string',
+            name: 'name',
+            description: 'Lorem ipsum description for the name.',
+            descriptionParagrah: true,
+          },
+          {
+            tag: 'property',
+            type: 'number',
+            name: 'age',
+            description: 'Lorem ipsum description for the age.',
+            descriptionParagrah: true,
+          },
+        ],
+      },
+      output: [
+        '@typedef {Object} LoremIpsumObj',
+        '@property {string} name',
+        'Lorem ipsum description for the name.',
+        '@property {number} age',
+        'Lorem ipsum description for the age.',
+      ],
+      column: 0,
+      options: {
+        ...defaultOptions,
+        jsdocPrintWidth: 80,
+        jsdocAllowDescriptionOnNewLinesForTags: [
+          ...defaultOptions.jsdocAllowDescriptionOnNewLinesForTags,
+          'property',
+        ],
       },
     },
   ];

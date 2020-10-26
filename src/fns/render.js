@@ -19,10 +19,16 @@ const { renderTagInColumns } = require('./renderTagInColumns');
 
 /**
  * @typedef {Object} LengthData
- * @property {number}  tag               The length of the longest tag name, in the current context.
- * @property {number}  type              The length of the longest type, in the current context.
- * @property {number}  name              The length of the longest name, in the current context.
- * @property {boolean} hasMultilineType  Whether or not, one of the types is multiline.
+ * @property {number}  tag                       The length of the longest tag name, in the current
+ *                                               context.
+ * @property {number}  type                      The length of the longest type, in the current
+ *                                               context.
+ * @property {number}  name                      The length of the longest name, in the current
+ *                                               context.
+ * @property {boolean} hasMultilineType          Whether or not, one of the types is multiline.
+ * @property {boolean} hasADescriptionParagraph  Whether or not, one of the descriptions is ona new
+ *                                               paragraph (detected with the `descriptionParagraph`
+ *                                               flag).
  */
 
 /**
@@ -150,6 +156,7 @@ const getLengthsData = (tags) => tags.reduce(
     const tagLength = tag.tag.length;
     const typeLength = tag.type.length;
     const hasMultilineType = tag.type.includes('\n');
+    const hasADescriptionParagraph = tag.descriptionParagrah;
     const nameLength = tag.name.length;
     if (tagLength > acc.tag) {
       acc.tag = tagLength;
@@ -159,6 +166,9 @@ const getLengthsData = (tags) => tags.reduce(
     }
     if (hasMultilineType) {
       acc.hasMultilineType = hasMultilineType;
+    }
+    if (hasADescriptionParagraph) {
+      acc.hasADescriptionParagraph = hasADescriptionParagraph;
     }
     if (nameLength > acc.name) {
       acc.name = nameLength;
@@ -175,12 +185,16 @@ const getLengthsData = (tags) => tags.reduce(
       if (hasMultilineType) {
         tagInfo.hasMultilineType = hasMultilineType;
       }
+      if (hasADescriptionParagraph) {
+        tagInfo.hasADescriptionParagraph = hasADescriptionParagraph;
+      }
     } else {
       acc.byTag[tag.tag] = {
         tag: tagLength,
         type: typeLength,
         name: nameLength,
         hasMultilineType,
+        hasADescriptionParagraph,
       };
     }
 
@@ -191,6 +205,7 @@ const getLengthsData = (tags) => tags.reduce(
     type: 0,
     name: 0,
     hasMultilineType: false,
+    hasADescriptionParagraph: false,
     byTag: {},
   },
 );
@@ -245,6 +260,10 @@ const getTagsData = (lengthByTag, width, options) => Object.entries(lengthByTag)
       [tagName]: {
         canUseColumns: (
           !tagInfo.hasMultilineType &&
+          (
+            !options.jsdocAllowDescriptionOnNewLinesForTags.includes(tagName) ||
+            !tagInfo.hasADescriptionParagraph
+          ) &&
           columnsWidth.description >= options.jsdocDescriptionColumnMinLength
         ),
         columnsWidth,
@@ -288,7 +307,10 @@ const render = R.curry((options, column, block) => {
     const data = getLengthsData(block.tags);
     if (options.jsdocGroupColumnsByTag) {
       const tagsData = getTagsData(data.byTag, width, options);
-      const atLeastOneCannot = Object.values(tagsData).find((info) => !info.canUseColumns);
+      const atLeastOneCannot = Object.entries(tagsData).find(([tagName, info]) => (
+        !options.jsdocAllowDescriptionOnNewLinesForTags.includes(tagName) &&
+        !info.canUseColumns
+      ));
       if (atLeastOneCannot && options.jsdocConsistentColumns) {
         lines.push(...renderTagsInlines(width, options, block.tags));
       } else {
