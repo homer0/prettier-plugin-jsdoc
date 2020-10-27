@@ -1,3 +1,7 @@
+/**
+ * This fixture will validate the examples of the original plugin in which this was inspired.
+ */
+
 module.exports = {
   jsdocLinesBetweenExampleTagAndCode: 0,
 };
@@ -41,7 +45,7 @@ const Component = memo(({ message }) => {
 //# output
 
 /**
- * @param {string} param0  description
+ * @param {string} param0  Description.
  */
 function fun(param0) {}
 
@@ -72,4 +76,5 @@ const Component = memo(({ message }) => {
  *   if (one > 2) {
  *     two += one;
  *   }
+ *
  */

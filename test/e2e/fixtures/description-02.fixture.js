@@ -10,7 +10,7 @@ module.exports = {
 
 /**
  * @typedef {Object} MyType
- * @description Lorem ipsum dolor.
+ * @description Something
  */
 
 const context = () => {
@@ -24,11 +24,13 @@ const context = () => {
  * @callback MyCallbackFn Lorem ipsum dolor.
  */
 
+
+
 //# output
 
 /**
  * @typedef {Object} MyType
- * @description Lorem ipsum dolor.
+ * @description Something.
  */
 
 const context = () => {

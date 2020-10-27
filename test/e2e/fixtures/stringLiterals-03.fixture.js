@@ -23,11 +23,11 @@ module.exports = {
 //# output
 
 /**
- * @typedef {"batman" | "superman" | "flash"} Superhero
+ * @typedef {'batman' | 'superman' | 'flash'} Superhero
  */
 
 /**
  * @callback IsAvailable
- * @param {"blue" | "red" | "purple" | "orange"} color  Something.
+ * @param {'blue' | 'red' | 'purple' | 'orange'} color  Something.
  * @returns {boolean}
  */

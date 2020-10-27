@@ -1,3 +1,8 @@
+/**
+ * This fixture will validate the formatting of columns, based on the plugin default
+ * options.
+ */
+
 //# input
 
 /**
@@ -21,6 +26,22 @@
  * of {@link CaseParser}.
  * @property {?InstructionListLikeAndSomeLongNameToForceInLinesMode} parse A list of parsers the case should use on extracted parameters. Each item of the list can be either the name of a parser defined on `parsers`, the name of a parser on the scope, a `function` to parse a value, or an `array` of all the thing previously mentioned.
  * @property {?boolean} useOriginal Whether or not the case should use the original message when matched.
+ */
+
+/**
+ * @typedef {Object} LocationCoordinates
+ * @property {number} column    The column on the AST.
+ */
+
+/**
+ * @typedef {Object} CommentNodeLocation
+ * @property    {LocationCoordinates}    start The coordinates of where the block starts.
+ */
+
+/**
+ * @typedef {Object} CommentNode
+ * @property {string} value    The content of the block. Without the leading `/*` and trailing `*\/`.
+ * @property { CommentNodeLocation} loc The location of the block on the AST.
  */
 
 //# output
@@ -72,4 +93,21 @@
  * to parse a value, or an `array` of all the thing previously mentioned.
  * @property {?boolean} useOriginal
  * Whether or not the case should use the original message when matched.
+ */
+
+/**
+ * @typedef {Object} LocationCoordinates
+ * @property {number} column  The column on the AST.
+ */
+
+/**
+ * @typedef {Object} CommentNodeLocation
+ * @property {LocationCoordinates} start  The coordinates of where the block starts.
+ */
+
+/**
+ * @typedef {Object} CommentNode
+ * @property {string}              value  The content of the block. Without the leading `/*` and
+ *                                        trailing `*\/`.
+ * @property {CommentNodeLocation} loc    The location of the block on the AST.
  */
