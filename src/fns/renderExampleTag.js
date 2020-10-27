@@ -61,9 +61,12 @@ const renderExample = R.curry((width, options, example) => {
  * @returns {string[]}
  */
 const renderExampleTag = R.curry((tag, width, options) => {
-  const lines = [`@${tag.tag}`];
+  const lines = [
+    `@${tag.tag}`,
+    ...(new Array(options.jsdocLinesBetweenExampleTagAndCode)).fill(''),
+  ];
+
   if (tag.examples && tag.examples.length) {
-    lines.push(...(new Array(options.jsdocLinesBetweenExampleTagAndCode)).fill(''));
     const examplesLines = tag.examples.map(renderExample(width, options)).reduce(
       (acc, example) => [
         ...acc,
@@ -72,7 +75,9 @@ const renderExampleTag = R.curry((tag, width, options) => {
       ],
       [],
     );
-    lines.push(...examplesLines);
+    lines.push(...examplesLines, '');
+  } else if (tag.description.trim()) {
+    lines.push(...tag.description.split('\n'), '');
   }
 
   return lines;

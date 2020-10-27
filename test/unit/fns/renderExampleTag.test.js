@@ -10,6 +10,7 @@ describe('renderExampleTag', () => {
       it: 'should only render the @example without any code',
       input: {
         tag: 'example',
+        description: '',
         examples: [],
       },
       output: [
@@ -32,6 +33,7 @@ describe('renderExampleTag', () => {
         '@example',
         'const fn = (msg) => console.log(msg);',
         'fn(\'hello world!\');',
+        '',
       ],
       width: 80,
       options: {
@@ -53,6 +55,7 @@ describe('renderExampleTag', () => {
         '',
         'const fn = (msg) => console.log(msg);',
         'fn(\'hello world!\');',
+        '',
       ],
       width: 80,
       options: {
@@ -81,6 +84,7 @@ describe('renderExampleTag', () => {
         '',
         'const fn = (msg) => console.log(msg);',
         'fn(\'hello world!\');',
+        '',
       ],
       width: 60,
       options: {
@@ -122,6 +126,26 @@ describe('renderExampleTag', () => {
         '',
         'const fn = (msg) => console.log(msg);',
         'fn(\'hello world!\');',
+        '',
+      ],
+      width: 60,
+      options: {
+        jsdocLinesBetweenExampleTagAndCode: 1,
+        tabWidth: 2,
+      },
+    },
+    {
+      it: 'should render an @example that wasn\'t formatted',
+      input: {
+        tag: 'example',
+        description: 'const fn = (msg) => console.info(msg);\nfn(\'are you there world?\');',
+      },
+      output: [
+        '@example',
+        '',
+        'const fn = (msg) => console.info(msg);',
+        'fn(\'are you there world?\');',
+        '',
       ],
       width: 60,
       options: {
