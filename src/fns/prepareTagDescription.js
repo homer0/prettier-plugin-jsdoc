@@ -1,5 +1,5 @@
 const R = require('ramda');
-const { ensureSentence, hasValidProperty } = require('./utils');
+const { ensureSentence, hasValidProperty, isTag } = require('./utils');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -12,7 +12,7 @@ const { ensureSentence, hasValidProperty } = require('./utils');
  * @returns {CommentTag}
  */
 const prepareTagDescription = (tag) => R.when(
-  hasValidProperty('description'),
+  R.allPass([hasValidProperty('description'), R.complement(isTag(['example', 'examples']))]),
   R.compose(
     R.assoc('description', R.__, tag),
     ensureSentence,

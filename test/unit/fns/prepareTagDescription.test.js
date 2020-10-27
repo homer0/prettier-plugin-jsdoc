@@ -34,6 +34,17 @@ describe('prepareTagDescription', () => {
         description: '  Something else.  ',
       },
     },
+    {
+      it: 'should ignore an @example tag',
+      input: {
+        tag: 'example',
+        description: '  something else  ',
+      },
+      output: {
+        tag: 'example',
+        description: '  something else  ',
+      },
+    },
   ];
 
   it.each(cases)('should correctly format the case %#', (caseInfo) => {
