@@ -47,7 +47,7 @@ const formatExample = (options, column, example) => {
     code = prefixLines(' '.repeat(options.tabWidth), code);
   }
 
-  return code;
+  return code.trimEnd();
 };
 
 /**
@@ -85,9 +85,14 @@ const splitExamples = (options, column, example) => R.compose(
  * @type {FormatExampleTagFn}
  */
 const formatExampleTag = R.curry((options, column, tag) => {
-  const examples = tag.description.match(/<\s*caption\s*>/i) ?
-    splitExamples(options, column, tag.description) :
-    [{ code: formatExample(options, column, tag.description) }];
+  let examples;
+  if (tag.description.match(/<\s*caption\s*>/i)) {
+    examples = splitExamples(options, column, tag.description);
+  } else if (tag.description.trim()) {
+    examples = [{ code: formatExample(options, column, tag.description) }];
+  } else {
+    examples = [];
+  }
 
   return {
     ...tag,

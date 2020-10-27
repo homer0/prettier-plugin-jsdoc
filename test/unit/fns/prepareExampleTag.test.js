@@ -202,4 +202,25 @@ describe('prepareExampleTag', () => {
       printWidth: 77,
     });
   });
+
+  it('should detect an empty example tag', () => {
+    // Given
+    const input = {
+      tag: 'example',
+      description: ' ',
+    };
+    const output = {
+      tag: 'example',
+      description: '',
+      examples: [],
+    };
+    const options = {
+      printWidth: 80,
+    };
+    let result = null;
+    // When
+    result = prepareExampleTag(input, options, 0);
+    // Then
+    expect(result).toEqual(output);
+  });
 });
