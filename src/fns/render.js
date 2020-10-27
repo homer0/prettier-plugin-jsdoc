@@ -4,6 +4,7 @@ const { isTag, ensureSentence } = require('./utils');
 const { renderExampleTag } = require('./renderExampleTag');
 const { renderTagInLine } = require('./renderTagInLine');
 const { renderTagInColumns } = require('./renderTagInColumns');
+const { TAGS_WITH_NAME_AS_DESCRIPTION } = require('../constants');
 
 /**
  * @typedef {import('../types').CommentBlock} CommentBlock
@@ -255,6 +256,10 @@ const calculateColumnsWidth = (options, data, width) => {
 const getTagsData = (lengthByTag, width, options) => Object.entries(lengthByTag).reduce(
   (acc, [tagName, tagInfo]) => {
     const columnsWidth = calculateColumnsWidth(options, tagInfo, width);
+    if (TAGS_WITH_NAME_AS_DESCRIPTION.includes(tagName)) {
+      columnsWidth.description = 0;
+      columnsWidth.name = width - columnsWidth.tag - columnsWidth.type;
+    }
     return {
       ...acc,
       [tagName]: {
@@ -264,7 +269,10 @@ const getTagsData = (lengthByTag, width, options) => Object.entries(lengthByTag)
             !options.jsdocAllowDescriptionOnNewLinesForTags.includes(tagName) ||
             !tagInfo.hasADescriptionParagraph
           ) &&
-          columnsWidth.description >= options.jsdocDescriptionColumnMinLength
+          (
+            !columnsWidth.description ||
+            columnsWidth.description >= options.jsdocDescriptionColumnMinLength
+          )
         ),
         columnsWidth,
       },

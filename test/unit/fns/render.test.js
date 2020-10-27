@@ -5,6 +5,7 @@ jest.unmock('../../../src/fns/renderExampleTag');
 jest.unmock('../../../src/fns/splitText');
 jest.unmock('../../../src/fns/utils');
 jest.unmock('../../../src/options');
+jest.unmock('../../../src/constants');
 
 const { render } = require('../../../src/fns/render');
 const { defaultOptions } = require('../../../src/options');
@@ -601,6 +602,77 @@ describe('render', () => {
           ...defaultOptions.jsdocAllowDescriptionOnNewLinesForTags,
           'param',
         ],
+      },
+    },
+    {
+      it: 'something',
+      input: {
+        description: [
+          'lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+          'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut',
+          'sodales lectus',
+        ].join(' '),
+        tags: [
+          {
+            tag: 'callback',
+            type: '',
+            name: 'LoremIpsumFn',
+            description: '',
+          },
+          {
+            tag: 'param',
+            type: 'string',
+            name: 'name',
+            description: 'Lorem ipsum description for the name',
+          },
+          {
+            tag: 'param',
+            type: 'number',
+            name: 'length',
+            description: [
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+              'sollicitudin non justo quis placerat.',
+            ].join(' '),
+          },
+          {
+            tag: 'returns',
+            type: 'string',
+            name: '',
+            description: '',
+          },
+          {
+            tag: 'license',
+            type: '',
+            name: '',
+            description: 'Copyright (c) 2015 Example Corporation Inc.',
+            descriptionParagrah: true,
+          },
+          {
+            tag: 'see',
+            type: '',
+            name: 'Lorem ipsum description for the see tag and something else.',
+            description: '',
+          },
+        ],
+      },
+      output: [
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+        'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut sodales',
+        'lectus.',
+        '',
+        '@callback LoremIpsumFn',
+        '@param {string} name    Lorem ipsum description for the name',
+        '@param {number} length  Lorem ipsum dolor sit amet, consectetur adipiscing',
+        '                        elit. Maecenas sollicitudin non justo quis placerat.',
+        '@returns {string}',
+        '@license',
+        'Copyright (c) 2015 Example Corporation Inc.',
+        '@see Lorem ipsum description for the see tag and something else.',
+      ],
+      column: 0,
+      options: {
+        ...defaultOptions,
+        jsdocPrintWidth: 80,
       },
     },
   ];
