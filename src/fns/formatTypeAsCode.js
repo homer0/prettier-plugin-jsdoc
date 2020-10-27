@@ -68,7 +68,7 @@ const formatPrettyType = R.curry((options, column, type) => {
  * @type {FormatTypeAsCodeFn}
  */
 const formatTypeAsCode = R.curry((type, options, column) => R.when(
-  isMatch(/[&<\.\|]/),
+  isMatch(/[\{&<\.\|]/),
   formatPrettyType(options, column),
   type,
 ));
