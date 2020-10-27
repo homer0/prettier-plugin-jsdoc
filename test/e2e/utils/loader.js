@@ -41,6 +41,7 @@ const FIXTURES_FORMAT = /\.fixture\.js$/;
  */
 const DEFAULT_OPTIONS = {
   printWidth: 100,
+  singleQuote: true,
 };
 
 /**
