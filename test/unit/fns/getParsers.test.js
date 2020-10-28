@@ -1,7 +1,7 @@
 jest.mock('comment-parser');
 jest.mock('prettier/parser-babel');
 jest.mock('prettier/parser-flow');
-jest.mock('prettier/parser-typescript')
+jest.mock('prettier/parser-typescript');
 jest.unmock('../../../src/fns/getParsers');
 
 const R = require('ramda');
