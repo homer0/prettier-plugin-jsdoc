@@ -4,6 +4,7 @@ const {
   TAGS_WITH_NAME_AS_DESCRIPTION,
 } = require('../constants');
 const { isTag, hasValidProperty } = require('./utils');
+const { getFn, provider } = require('../app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -77,31 +78,36 @@ const addLinkToDescription = (tag) => ({
  * `link` tags mistaken as types to the description, and  then it adds the `descriptionParagrah`
  * flag to the tags.
  *
- * @callback FormatTagsDescriptionFn
  * @param {CommentTag[]} tags  The list of tags to format.
  * @returns {CommentTag[]}
  */
-
-/**
- * @type {FormatTagsDescriptionFn}
- */
-const formatTagsDescription = R.map(R.compose(
-  addParagraphFlag,
-  R.when(
-    isTag(TAGS_WITH_NAME_AS_DESCRIPTION),
-    joinProperties('name', 'description', 'name'),
-  ),
-  R.when(
-    isTag(TAGS_WITH_DESCRIPTION_AS_NAME),
-    joinProperties('name', 'description', 'description'),
-  ),
-  R.when(
-    R.allPass([
-      hasValidProperty('type'),
-      R.propSatisfies(R.startsWith('@link'), 'type'),
-    ]),
-    addLinkToDescription,
-  ),
-));
+const formatTagsDescription = (tags) => {
+  const useIsTag = getFn(isTag);
+  const useJoinProperties = getFn(joinProperties);
+  return R.map(
+    R.compose(
+      addParagraphFlag,
+      R.when(
+        useIsTag(TAGS_WITH_NAME_AS_DESCRIPTION),
+        useJoinProperties('name', 'description', 'name'),
+      ),
+      R.when(
+        useIsTag(TAGS_WITH_DESCRIPTION_AS_NAME),
+        useJoinProperties('name', 'description', 'description'),
+      ),
+      R.when(
+        R.allPass([
+          getFn(hasValidProperty)('type'),
+          R.propSatisfies(R.startsWith('@link'), 'type'),
+        ]),
+        getFn(addLinkToDescription),
+      ),
+    ),
+    tags,
+  );
+};
 
 module.exports.formatTagsDescription = formatTagsDescription;
+module.exports.joinProperties = joinProperties;
+module.exports.addLinkToDescription = addLinkToDescription;
+module.exports.provider = provider('formatTagsDescription', module.exports);

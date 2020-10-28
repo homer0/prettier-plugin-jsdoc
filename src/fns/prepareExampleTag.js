@@ -1,6 +1,7 @@
 const { format } = require('prettier');
 const R = require('ramda');
 const { isTag, prefixLines, splitLinesAndClean } = require('./utils');
+const { getFn, provider } = require('../app');
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions
@@ -44,7 +45,7 @@ const formatExample = (options, column, example) => {
   }
 
   if (indent) {
-    code = prefixLines(' '.repeat(options.tabWidth), code);
+    code = getFn(prefixLines)(' '.repeat(options.tabWidth), code);
   }
 
   return code.trimEnd();
@@ -59,16 +60,19 @@ const formatExample = (options, column, example) => {
  * @param {string}          example  The example code.
  * @returns {CommentTagExample[]}
  */
-const splitExamples = (options, column, example) => R.compose(
-  R.map(R.compose(
-    ([caption, code]) => ({
-      caption,
-      code: formatExample(options, column, code),
-    }),
-    splitLinesAndClean(/<\s*\/\s*caption\s*>/i),
-  )),
-  splitLinesAndClean(/<\s*caption\s*>/i),
-)(example);
+const splitExamples = (options, column, example) => {
+  const useSplitLinesAndClean = getFn(splitLinesAndClean);
+  return R.compose(
+    R.map(R.compose(
+      ([caption, code]) => ({
+        caption,
+        code: getFn(formatExample)(options, column, code),
+      }),
+      useSplitLinesAndClean(/<\s*\/\s*caption\s*>/i),
+    )),
+    useSplitLinesAndClean(/<\s*caption\s*>/i),
+  )(example);
+};
 
 /**
  * Checks if an example tag uses a `<caption>` tag in order to, either format the code if the
@@ -87,9 +91,9 @@ const splitExamples = (options, column, example) => R.compose(
 const formatExampleTag = R.curry((options, column, tag) => {
   let examples;
   if (tag.description.match(/<\s*caption\s*>/i)) {
-    examples = splitExamples(options, column, tag.description);
+    examples = getFn(splitExamples)(options, column, tag.description);
   } else if (tag.description.trim()) {
-    examples = [{ code: formatExample(options, column, tag.description) }];
+    examples = [{ code: getFn(formatExample)(options, column, tag.description) }];
   } else {
     examples = [];
   }
@@ -116,9 +120,13 @@ const formatExampleTag = R.curry((options, column, tag) => {
  * @type {PrepareExampleTagFn}
  */
 const prepareExampleTag = R.curry((tag, options, column) => R.when(
-  isTag('example'),
-  formatExampleTag(options, column),
+  getFn(isTag)('example'),
+  getFn(formatExampleTag)(options, column),
   tag,
 ));
 
 module.exports.prepareExampleTag = prepareExampleTag;
+module.exports.formatExample = formatExample;
+module.exports.splitExamples = splitExamples;
+module.exports.formatExampleTag = formatExampleTag;
+module.exports.provider = provider('prepareExampleTag', module.exports);

@@ -1,4 +1,5 @@
 const R = require('ramda');
+const { provider } = require('../app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -118,18 +119,13 @@ const replaceLastItem = R.curry((item, list) => R.compose(
 /**
  * Validates that the `length` of an object is a positive number.
  *
- * @callback HasItemsFn
  * @param {*} item  The item to validate.
  * @returns {boolean}
  */
-
-/**
- * @type {HasItemsFn}
- */
-const hasItems = R.compose(
+const hasItems = (item) => R.compose(
   R.gt(R.__, 0),
   R.length,
-);
+)(item);
 
 /**
  * Validates if a string matches a regular expression. This utility function exists because
@@ -202,18 +198,13 @@ const replaceDotOnTypeGeneric = R.curry((targetType, useDot, type) => R.ifElse(
 /**
  * Capitalizes a string.
  *
- * @callback CapitalizeFn
  * @param {string} str  The string to capitalize.
  * @returns {string}
  */
-
-/**
- * @type {CapitalizeFn}
- */
-const capitalize = R.compose(
+const capitalize = (str) => R.compose(
   R.join(''),
   R.juxt([R.compose(R.toUpper, R.head), R.tail]),
-);
+)(str);
 
 /**
  * Gets the item of an item of a list or a fallback value.
@@ -348,15 +339,10 @@ const splitLinesAndClean = R.curry((splitter, text) => R.compose(
 /**
  * Ensures a text starts with an uppercase and ends with a period.
  *
- * @callback EnsureSentenceFn
  * @param {string} text  The text to format.
  * @returns {string}
  */
-
-/**
- * @type {EnsureSentenceFn}
- */
-const ensureSentence = R.compose(
+const ensureSentence = (text) => R.compose(
   R.replace(
     /(\.)?(\s*)$/,
     (full, dot, padding) => `.${padding}`,
@@ -365,7 +351,7 @@ const ensureSentence = R.compose(
     /^(\s*)(\w)/,
     (full, padding, letter) => `${padding}${letter.toUpperCase()}`,
   ),
-);
+)(text);
 
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
@@ -383,3 +369,4 @@ module.exports.hasValidProperty = hasValidProperty;
 module.exports.prefixLines = prefixLines;
 module.exports.splitLinesAndClean = splitLinesAndClean;
 module.exports.ensureSentence = ensureSentence;
+module.exports.provider = provider('utils', module.exports);

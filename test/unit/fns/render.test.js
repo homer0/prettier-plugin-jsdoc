@@ -4,13 +4,14 @@ jest.unmock('../../../src/fns/renderTagInColumns');
 jest.unmock('../../../src/fns/renderExampleTag');
 jest.unmock('../../../src/fns/splitText');
 jest.unmock('../../../src/fns/utils');
-jest.unmock('../../../src/options');
+jest.unmock('../../../src/fns/getOptions');
 jest.unmock('../../../src/constants');
 
 const { render } = require('../../../src/fns/render');
-const { defaultOptions } = require('../../../src/options');
+const { getDefaultOptions } = require('../../../src/fns/getOptions');
 
 describe('render', () => {
+  const defaultOptions = getDefaultOptions();
   const cases = [
     {
       it: 'should render a callback with columns',

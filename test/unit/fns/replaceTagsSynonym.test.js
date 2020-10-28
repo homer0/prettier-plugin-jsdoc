@@ -21,13 +21,10 @@ describe('replaceTagsSynonyms', () => {
         tag: 'param',
       },
     ];
-    let resultOne = null;
-    let resultTwo = null;
+    let result = null;
     // When
-    resultOne = replaceTagsSynonyms(input);
-    resultTwo = replaceTagsSynonyms()(input);
+    result = replaceTagsSynonyms(input);
     // Then
-    expect(resultOne).toEqual(output);
-    expect(resultTwo).toEqual(output);
+    expect(result).toEqual(output);
   });
 });

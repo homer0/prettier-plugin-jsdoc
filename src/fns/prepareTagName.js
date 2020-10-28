@@ -1,4 +1,5 @@
 const R = require('ramda');
+const { getFn, provider } = require('../app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -24,8 +25,10 @@ const formatNameForOptionalTag = (tag) => ({
  */
 const prepareTagName = (tag) => R.when(
   R.prop('optional'),
-  formatNameForOptionalTag,
+  getFn(formatNameForOptionalTag),
   tag,
 );
 
 module.exports.prepareTagName = prepareTagName;
+module.exports.formatNameForOptionalTag = formatNameForOptionalTag;
+module.exports.provider = provider('prepareTagName', module.exports);

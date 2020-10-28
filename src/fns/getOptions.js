@@ -1,15 +1,16 @@
+const { getFn, provider } = require('../app');
+
 /**
- * @typedef {import('./types').PrettierSupportOption} PrettierSupportOption
- * @typedef {import('./types').PJPOptions} PJPOptions
+ * @typedef {import('../types').PrettierSupportOption} PrettierSupportOption
+ * @typedef {import('../types').PJPOptions} PJPOptions
  */
 
 /**
- * A dictionary with the plugin options.
+ * Gets a dictionary with the plugin options.
  *
- * @type {Object.<string,PrettierSupportOption>}
- * @todo Find a way to generate from the typedef or the other way around.
+ * @returns {Object.<string,PrettierSupportOption>}
  */
-const options = {
+const getOptions = () => ({
   jsdocAllowDescriptionTag: {
     type: 'boolean',
     category: 'jsdoc',
@@ -296,11 +297,14 @@ const options = {
     default: false,
     description: 'Whether or not to use a single line JSDoc block when there\'s only one tag.',
   },
-};
+});
+
 /**
- * @type {PJPOptions}
+ * Parsers the plugin options and generates a dictionary with the default values.
+ *
+ * @returns {PJPOptions}
  */
-const defaultOptions = Object.entries(options).reduce(
+const getDefaultOptions = () => Object.entries(getFn(getOptions)()).reduce(
   (acc, [key, value]) => ({
     ...acc,
     [key]: Array.isArray(value.default) ? value.default[0].value : value.default,
@@ -308,5 +312,6 @@ const defaultOptions = Object.entries(options).reduce(
   {},
 );
 
-module.exports.options = options;
-module.exports.defaultOptions = defaultOptions;
+module.exports.getOptions = getOptions;
+module.exports.getDefaultOptions = getDefaultOptions;
+module.exports.provider = provider('getOptions', module.exports);

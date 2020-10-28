@@ -5,6 +5,7 @@ const { formatStringLiterals } = require('./formatStringLiterals');
 const { formatArrays } = require('./formatArrays');
 const { formatObjects } = require('./formatObjects');
 const { formatTypeAsCode } = require('./formatTypeAsCode');
+const { getFn, provider } = require('../app');
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
@@ -31,21 +32,21 @@ const { formatTypeAsCode } = require('./formatTypeAsCode');
 const getTypeFormatter = (options, column) => {
   const fns = [];
   if (options.jsdocUseTypeScriptTypesCasing) {
-    fns.push(formatTSTypes);
+    fns.push(getFn(formatTSTypes));
   }
 
   if (options.jsdocFormatComplexTypesWithPrettier) {
-    fns.push(formatTypeAsCode(R.__, options, column));
+    fns.push(getFn(formatTypeAsCode)(R.__, options, column));
   }
 
   if (options.jsdocFormatStringLiterals) {
-    fns.push(formatStringLiterals(R.__, options));
+    fns.push(getFn(formatStringLiterals)(R.__, options));
   }
 
   if (options.jsdocUseShortArrays || options.jsdocFormatDotForArraysAndObjects) {
-    fns.push(formatArrays(R.__, options));
+    fns.push(getFn(formatArrays)(R.__, options));
     if (options.jsdocFormatDotForArraysAndObjects) {
-      fns.push(formatObjects(R.__, options));
+      fns.push(getFn(formatObjects)(R.__, options));
     }
   }
 
@@ -87,8 +88,11 @@ const formatTagType = R.curry((formatter, tag) => R.compose(
  * @type {FormatTagsTypes}
  */
 const formatTagsTypes = R.curry((tags, options, column) => R.map(R.when(
-  hasValidProperty('type'),
-  formatTagType(getTypeFormatter(options, column)),
+  getFn(hasValidProperty)('type'),
+  getFn(formatTagType)(getFn(getTypeFormatter)(options, column)),
 ))(tags));
 
 module.exports.formatTagsTypes = formatTagsTypes;
+module.exports.getTypeFormatter = getTypeFormatter;
+module.exports.formatTagType = formatTagType;
+module.exports.provider = provider('formatTagsTypes', module.exports);

@@ -1,3 +1,9 @@
+const jsLang = require('linguist-languages/data/JavaScript.json');
+const jsxLang = require('linguist-languages/data/JSX.json');
+const tsLang = require('linguist-languages/data/TypeScript.json');
+const tsxLang = require('linguist-languages/data/TSX.json');
+const { getFn, provider } = require('../app');
+
 /**
  * @typedef {LinguistLanguageProperties & LanguageSharedProperties} LinguistLanguage
  */
@@ -52,4 +58,47 @@ const createLanguage = (linguistLanguage, overrides) => {
   };
 };
 
+/**
+ * Generates the list of languages the plugin supports.
+ *
+ * @returns {Language[]}
+ */
+const getLanguages = () => {
+  const useCreateLanguage = getFn(createLanguage);
+  return [
+    useCreateLanguage(jsLang, {
+      since: '0.0.0',
+      parsers: ['babel', 'babel-flow', 'babel-ts', 'flow', 'typescript'],
+      vscodeLanguageIds: ['javascript', 'mongo'],
+      extensions: [...jsLang.extensions, '.wxs'],
+    }),
+    useCreateLanguage(jsLang, {
+      name: 'Flow',
+      since: '0.0.0',
+      parsers: ['flow', 'babel-flow'],
+      vscodeLanguageIds: ['javascript'],
+      aliases: [],
+      filenames: [],
+      extensions: ['.js.flow'],
+    }),
+    useCreateLanguage(jsxLang, {
+      since: '0.0.0',
+      parsers: ['babel', 'babel-flow', 'babel-ts', 'flow', 'typescript'],
+      vscodeLanguageIds: ['javascriptreact'],
+    }),
+    useCreateLanguage(tsLang, {
+      since: '1.4.0',
+      parsers: ['typescript', 'babel-ts'],
+      vscodeLanguageIds: ['typescript'],
+    }),
+    useCreateLanguage(tsxLang, {
+      since: '1.4.0',
+      parsers: ['typescript', 'babel-ts'],
+      vscodeLanguageIds: ['typescriptreact'],
+    }),
+  ];
+};
+
+module.exports.getLanguages = getLanguages;
 module.exports.createLanguage = createLanguage;
+module.exports.provider = provider('getLanguages', module.exports);

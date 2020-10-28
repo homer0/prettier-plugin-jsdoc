@@ -1,4 +1,6 @@
 const R = require('ramda');
+const { getFn, provider } = require('../app');
+
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
  */
@@ -47,22 +49,17 @@ const getFormatter = (padding, quote) => R.compose(
 const getReducer = (options) => {
   const quote = options.jsdocUseSingleQuotesForStringLiterals ? '\'' : '"';
   const padding = ' '.repeat(options.jsdocSpacesBetweenStringLiterals);
-  const formatter = getFormatter(padding, quote);
+  const formatter = getFn(getFormatter)(padding, quote);
   return (type, literal) => R.replace(literal, formatter(literal), type);
 };
 
 /**
  * Finds and extracts all the string literals on a type.
  *
- * @callback ExtractLiteralsFn
  * @param {string} type  The type that will be used to find the string literals.
  * @returns {string[]}
  */
-
-/**
- * @type {ExtractLiteralsFn}
- */
-const extractLiterals = R.match(/['"][\w\|\-\s'"]+['"](?:\s+)?/g);
+const extractLiterals = (type) => R.match(/['"][\w\|\-\s'"]+['"](?:\s+)?/g, type);
 /**
  * Formats the styling of string literals inside a type. If the type doesn't use string literals,
  * it will be returned without modification.
@@ -79,10 +76,14 @@ const extractLiterals = R.match(/['"][\w\|\-\s'"]+['"](?:\s+)?/g);
 const formatStringLiterals = R.curry((type, options) => R.compose(
   (literals) => (
     literals.length ?
-      R.reduce(getReducer(options), type, literals) :
+      R.reduce(getFn(getReducer)(options), type, literals) :
       type
   ),
-  extractLiterals,
+  getFn(extractLiterals),
 )(type));
 
 module.exports.formatStringLiterals = formatStringLiterals;
+module.exports.getFormatter = getFormatter;
+module.exports.getReducer = getReducer;
+module.exports.extractLiterals = extractLiterals;
+module.exports.provider = provider('formatStringLiterals', module.exports);

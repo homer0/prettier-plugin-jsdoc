@@ -4,6 +4,8 @@ const {
   joinIfNotEmpty,
   appendIfNotPresent,
 } = require('./utils');
+const { getFn, provider } = require('../app');
+
 /**
  * @typedef {import('../types').PJPDescriptionTagOptions} PJPDescriptionTagOptions
  * @typedef {import('../types').CommentTag} CommentTag
@@ -44,7 +46,7 @@ const findTag = R.curry((
   unmatchHandlerFn,
   step,
 ) => {
-  const targetTags = ensureArray(targetTag);
+  const targetTags = getFn(ensureArray)(targetTag);
   return (acc, tag, index) => {
     const nextAcc = targetTags.includes(tag.tag) ?
       matchHandlerFn(acc, tag, index) :
@@ -73,9 +75,9 @@ const findTag = R.curry((
  * @returns {FindTagHandlerFn<ProcessTagAccumulator>}
  */
 const processTag = (descriptionProperty, saveIndex = false) => {
-  const descriptionProperties = ensureArray(descriptionProperty);
+  const descriptionProperties = getFn(ensureArray)(descriptionProperty);
   const generateDescription = R.compose(
-    joinIfNotEmpty(' '),
+    getFn(joinIfNotEmpty)(' '),
     R.values,
     R.pick(descriptionProperties),
   );
@@ -87,7 +89,7 @@ const processTag = (descriptionProperty, saveIndex = false) => {
 
   return (acc, tag, index) => R.evolve(
     {
-      parts: appendIfNotPresent(generateDescription(tag)),
+      parts: getFn(appendIfNotPresent)(generateDescription(tag)),
       tags: R.append(R.mergeRight(tag, emptyProps)),
       tagIndex: R.when(R.always(saveIndex), R.always(index)),
     },
@@ -116,19 +118,21 @@ const formatDescription = R.curry((block, options) => {
    * @type {FindTagHandlerFn<ProcessTagAccumulator>}
    */
   const pushTag = (acc, tag) => R.evolve({ tags: R.append(tag) }, acc);
+  const useFindTag = getFn(findTag);
+  const useProcessTag = getFn(processTag);
   const { parts, tags, tagIndex } = block.tags.reduce(
     R.compose(
-      findTag(
+      useFindTag(
         ['typedef', 'callback', 'function'],
-        processTag('description'),
+        useProcessTag('description'),
         R.identity,
       ),
-      findTag(
+      useFindTag(
         'description',
-        processTag(['name', 'description'], true),
+        useProcessTag(['name', 'description'], true),
         R.identity,
       ),
-      findTag(
+      useFindTag(
         ['description', 'typedef', 'callback', 'function'],
         R.identity,
         pushTag,
@@ -141,7 +145,7 @@ const formatDescription = R.curry((block, options) => {
     },
   );
 
-  const description = joinIfNotEmpty('\n\n', parts);
+  const description = getFn(joinIfNotEmpty)('\n\n', parts);
   let blockDescription = block.description;
   let blockTags = tags;
   if (options.jsdocAllowDescriptionTag) {
@@ -181,3 +185,6 @@ const formatDescription = R.curry((block, options) => {
 });
 
 module.exports.formatDescription = formatDescription;
+module.exports.findTag = findTag;
+module.exports.processTag = processTag;
+module.exports.provider = provider('formatDescription', module.exports);

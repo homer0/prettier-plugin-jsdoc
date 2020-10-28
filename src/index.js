@@ -1,8 +1,35 @@
-const { languages } = require('./languages');
-const { options, defaultOptions } = require('./options');
-const { parsers } = require('./parsers');
+const path = require('path');
+const { loadProviders, getFn } = require('./app');
+const { getPlugin } = require('./fns/getPlugin');
 
-module.exports.languages = languages;
-module.exports.options = options;
-module.exports.parsers = parsers;
-module.exports.defaultOptions = defaultOptions;
+loadProviders(path.join(__dirname, 'fns'), [
+  'formatAccessTag',
+  'formatArrays',
+  'formatDescription',
+  'formatObjects',
+  'formatStringLiterals',
+  'formatTSTypes',
+  'formatTags',
+  'formatTagsDescription',
+  'formatTagsTypes',
+  'formatTypeAsCode',
+  'getLanguages',
+  'getOptions',
+  'getParsers',
+  'getPlugin',
+  'prepareExampleTag',
+  'prepareTagDescription',
+  'prepareTagName',
+  'prepareTags',
+  'render',
+  'renderExampleTag',
+  'renderTagInColumns',
+  'renderTagInLine',
+  'replaceTagsSynonyms',
+  'sortTags',
+  'splitText',
+  'trimTagsProperties',
+  'utils',
+]);
+
+module.exports = getFn(getPlugin)();

@@ -1,3 +1,5 @@
+const { provider } = require('../app');
+
 /**
  * @typedef {import('../types').CommentTag} CommentTag
  */
@@ -21,3 +23,4 @@ const trimTagsProperties = (tags) => {
 };
 
 module.exports.trimTagsProperties = trimTagsProperties;
+module.exports.provider = provider('trimTagsProperties', module.exports);

@@ -1,5 +1,6 @@
 const R = require('ramda');
 const { splitText } = require('./splitText');
+const { getFn, provider } = require('../app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -41,7 +42,7 @@ const renderTagInLine = R.curry((width, typePadding, namePadding, tag) => {
     } else {
       const tagHeaderWithSpace = `${tagHeader}${useTypePadding}{${tag.type}}${useNamePadding}`;
       const nameWidth = width - tagHeaderWithSpace.length;
-      const nameLines = splitText(tag.name, nameWidth);
+      const nameLines = getFn(splitText)(tag.name, nameWidth);
       result = [`${tagHeaderWithSpace}${nameLines.shift()}`.trimRight()];
       if (nameLines.length) {
         const namePaddingForLine = ' '.repeat(tagHeaderWithSpace.length);
@@ -51,7 +52,7 @@ const renderTagInLine = R.curry((width, typePadding, namePadding, tag) => {
   } else {
     const tagHeaderWithSpace = `${tagHeader}${useNamePadding}`;
     const nameWidth = width - tagHeaderWithSpace.length;
-    const nameLines = splitText(tag.name, nameWidth);
+    const nameLines = getFn(splitText)(tag.name, nameWidth);
     result = [`${tagHeaderWithSpace}${nameLines.shift()}`.trimRight()];
     if (nameLines.length) {
       const namePaddingForLine = ' '.repeat(tagHeaderWithSpace.length);
@@ -67,3 +68,4 @@ const renderTagInLine = R.curry((width, typePadding, namePadding, tag) => {
 });
 
 module.exports.renderTagInLine = renderTagInLine;
+module.exports.provider = provider('renderTagInLine', module.exports);

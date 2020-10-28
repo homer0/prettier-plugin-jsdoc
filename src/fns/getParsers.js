@@ -1,13 +1,17 @@
 const R = require('ramda');
 const commentParser = require('comment-parser');
+const babelParser = require('prettier/parser-babel');
+const flowParser = require('prettier/parser-flow');
+const tsParser = require('prettier/parser-typescript');
 const { isMatch } = require('./utils');
 const { formatDescription } = require('./formatDescription');
 const { formatTags } = require('./formatTags');
 const { formatTagsTypes } = require('./formatTagsTypes');
 const { prepareTags } = require('./prepareTags');
 const { render } = require('./render');
-
+const { getFn, provider } = require('../app');
 /**
+ * @typedef {import('../types').PrettierParser} PrettierParser
  * @typedef {import('../types').PrettierParseFn} PrettierParseFn
  * @typedef {import('../types').PrettierOptions} PrettierOptions
  * @typedef {import('../types').CommentBlock} CommentBlock
@@ -16,18 +20,13 @@ const { render } = require('./render');
 /**
  * Validates whether an AST node is a valid comment block or not.
  *
- * @callback IsCommentFn
  * @param {Object} node  The node to validate.
  * @returns {boolean}
  */
-
-/**
- * @type {IsCommentFn}
- */
-const isComment = R.compose(
+const isComment = (node) => R.compose(
   R.includes(R.__, ['CommentBlock', 'Block']),
   R.prop('type'),
-);
+)(node);
 
 /**
  * @typedef {Object} LocationCoordinates
@@ -49,19 +48,14 @@ const isComment = R.compose(
 /**
  * Validates whether a comment block is formatted like a JSDoc block.
  *
- * @callback MatchesBlockFn
  * @param {CommentNode} node  The node to validate.
  * @returns {boolean}
  */
-
-/**
- * @type {MatchesBlockFn}
- */
-const matchesBlock = R.compose(
-  isMatch(/\/\*\*[\s\S]+?\*\//),
+const matchesBlock = (node) => R.compose(
+  getFn(isMatch)(/\/\*\*[\s\S]+?\*\//),
   (value) => `/*${value}*/`,
   R.prop('value'),
-);
+)(node);
 
 /**
  * @typedef {Object} ParsingInformation
@@ -96,47 +90,35 @@ const generateCommentData = (comment) => {
 /**
  * Checks if the tag that tells the plugin to ingore the comment is present.
  *
- * @callback HasIgnoreTagFn
  * @param {ParsingInformation} info  The parsed information of the comment.
  * @returns {boolean}
  */
-
-/**
- * @type {HasIgnoreTagFn}
- */
-const hasIgnoreTag = R.compose(
+const hasIgnoreTag = (info) => R.compose(
   R.any(R.propSatisfies(R.equals('prettierignore'), 'tag')),
   R.path(['block', 'tags']),
-);
+)(info);
 
 /**
  * Checks if a comment is empty or not (it doesn't have tags).
  *
- * @callback HasNoTagsFn
  * @param {ParsingInformation} info  The parsed information of the comment.
  * @returns {boolean}
  */
-
-/**
- * @type {HasNoTagsFn}
- */
-const hasNoTags = R.compose(
+const hasNoTags = (info) => R.compose(
   R.equals(0),
   R.path(['block', 'tags', 'length']),
-);
+)(info);
 
 /**
  * Checks whether or not a comment should be ignored.
  *
- * @callback ShouldIgnoreCommentFn
  * @param {ParsingInformation} info  The parsed information of the comment.
  * @returns {boolean}
  */
-
-/**
- * @type {ShouldIgnoreCommentFn}
- */
-const shouldIgnoreComment = R.anyPass([hasNoTags, hasIgnoreTag]);
+const shouldIgnoreComment = (info) => R.anyPass([
+  getFn(hasNoTags),
+  getFn(hasIgnoreTag),
+])(info);
 
 /**
  * A function that formats the block and/or tags on a comment before being processed and
@@ -175,9 +157,9 @@ const processComments = R.curry((nodes, formatterFn, processorFn) => R.compose(
       processorFn,
     ),
     formatterFn,
-    generateCommentData,
+    getFn(generateCommentData),
   )),
-  R.filter(R.and(isComment, matchesBlock)),
+  R.filter(R.allPass([getFn(isComment), getFn(matchesBlock)])),
 )(nodes));
 
 /**
@@ -196,7 +178,7 @@ const processComments = R.curry((nodes, formatterFn, processorFn) => R.compose(
 const formatCommentBlock = R.curry((options, info) => R.compose(
   R.mergeRight(info),
   R.assocPath(['block'], R.__, {}),
-  formatDescription(R.__, options),
+  getFn(formatDescription)(R.__, options),
   R.prop('block'),
 )(info));
 
@@ -214,8 +196,8 @@ const formatCommentBlock = R.curry((options, info) => R.compose(
  */
 const formatCommentTags = R.curry((options, info) => R.compose(
   R.assocPath(['block', 'tags'], R.__, info),
-  formatTagsTypes(R.__, options, info.column),
-  formatTags(R.__, options),
+  getFn(formatTagsTypes)(R.__, options, info.column),
+  getFn(formatTags)(R.__, options),
   R.path(['block', 'tags']),
 )(info));
 
@@ -236,7 +218,7 @@ const formatCommentTags = R.curry((options, info) => R.compose(
  */
 const prepareCommentTags = R.curry((options, info) => R.compose(
   R.assocPath(['block', 'tags'], R.__, info),
-  prepareTags(R.__, options, info.column),
+  getFn(prepareTags)(R.__, options, info.column),
   R.path(['block', 'tags']),
 )(info));
 
@@ -255,7 +237,7 @@ const prepareCommentTags = R.curry((options, info) => R.compose(
  * @returns {RenderBlockFn}
  */
 const getRenderer = (options) => {
-  const renderer = render(options);
+  const renderer = getFn(render)(options);
   return (column, block) => {
     const padding = ' '.repeat(column + 1);
     const prefix = `${padding}* `;
@@ -283,14 +265,14 @@ const getRenderer = (options) => {
 const createParser = (originalParser) => (text, parsers, options) => {
   const ast = originalParser(text, parsers, options);
   const formatter = R.compose(
-    prepareCommentTags(options),
-    formatCommentTags(options),
-    formatCommentBlock(options),
+    getFn(prepareCommentTags)(options),
+    getFn(formatCommentTags)(options),
+    getFn(formatCommentBlock)(options),
   );
   const renderer = getRenderer(options);
 
   if (ast.comments && ast.comments.length) {
-    processComments(ast.comments, formatter, (info) => {
+    getFn(processComments)(ast.comments, formatter, (info) => {
       const { comment, column, block } = info;
       comment.value = renderer(column, block);
     });
@@ -299,4 +281,48 @@ const createParser = (originalParser) => (text, parsers, options) => {
   return ast;
 };
 
+/**
+ * A dictionary with the supported parsers the plugin can use.
+ *
+ * @returns {Object.<string,PrettierParser>}
+ */
+const getParsers = () => {
+  const useCreateParser = getFn(createParser);
+  return {
+    get babel() {
+      const parser = babelParser.parsers.babel;
+      return { ...parser, parse: useCreateParser(parser.parse) };
+    },
+    get 'babel-flow'() {
+      const parser = babelParser.parsers['babel-flow'];
+      return { ...parser, parse: useCreateParser(parser.parse) };
+    },
+    get 'babel-ts'() {
+      const parser = babelParser.parsers['babel-ts'];
+      return { ...parser, parse: useCreateParser(parser.parse) };
+    },
+    get flow() {
+      const parser = flowParser.parsers.flow;
+      return { ...parser, parse: useCreateParser(parser.parse) };
+    },
+    get typescript() {
+      const parser = tsParser.parsers.typescript;
+      return { ...parser, parse: useCreateParser(parser.parse) };
+    },
+  };
+};
+
+module.exports.getParsers = getParsers;
 module.exports.createParser = createParser;
+module.exports.isComment = isComment;
+module.exports.matchesBlock = matchesBlock;
+module.exports.generateCommentData = generateCommentData;
+module.exports.hasIgnoreTag = hasIgnoreTag;
+module.exports.hasNoTags = hasNoTags;
+module.exports.shouldIgnoreComment = shouldIgnoreComment;
+module.exports.processComments = processComments;
+module.exports.formatCommentBlock = formatCommentBlock;
+module.exports.formatCommentTags = formatCommentTags;
+module.exports.prepareCommentTags = prepareCommentTags;
+module.exports.getRenderer = getRenderer;
+module.exports.provider = provider('getParsers', module.exports);

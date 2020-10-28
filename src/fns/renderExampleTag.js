@@ -1,5 +1,6 @@
 const R = require('ramda');
 const { splitText } = require('./splitText');
+const { getFn, provider } = require('../app');
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions
@@ -35,7 +36,7 @@ const renderExample = R.curry((width, options, example) => {
     if ((CAPTION_TAGS_LENGTH + example.caption.length) >= width) {
       const captionLines = R.map(
         R.concat(' '.repeat(options.tabWidth)),
-        splitText(example.caption, width - options.tabWidth),
+        getFn(splitText)(example.caption, width - options.tabWidth),
       );
       lines.push('<caption>');
       lines.push(...captionLines);
@@ -67,7 +68,9 @@ const renderExampleTag = R.curry((tag, width, options) => {
   ];
 
   if (tag.examples && tag.examples.length) {
-    const examplesLines = tag.examples.map(renderExample(width, options)).reduce(
+    const examplesLines = tag.examples
+    .map(getFn(renderExample)(width, options))
+    .reduce(
       (acc, example) => [
         ...acc,
         ...(acc.length ? [''] : []),
@@ -84,3 +87,5 @@ const renderExampleTag = R.curry((tag, width, options) => {
 });
 
 module.exports.renderExampleTag = renderExampleTag;
+module.exports.renderExample = renderExample;
+module.exports.provider = provider('renderExampleTag', module.exports);

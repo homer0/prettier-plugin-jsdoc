@@ -1,5 +1,6 @@
 const R = require('ramda');
 const { ensureArray, replaceLastItem, limitAdjacentRepetitions } = require('./utils');
+const { getFn, provider } = require('../app');
 
 /**
  * This is used when splitting lines that contain linebreaks; it's used as a filter so a text won't
@@ -13,21 +14,16 @@ const ADJACENT_LINEBREAKS_LIMIT = 2;
  * This is a utility used inside the reducers in order to take "words" that include line breaks
  * and split them into multiple "words".
  *
- * @callback SplitLineBreaksFn
  * @param {string} text  The text to process.
  * @returns {string[]}
  */
-
-/**
- * @type {SplitLineBreaksFn}
- */
-const splitLineBreaks = R.compose(
-  limitAdjacentRepetitions(R.equals('\n'), ADJACENT_LINEBREAKS_LIMIT),
+const splitLineBreaks = (text) => R.compose(
+  getFn(limitAdjacentRepetitions)(R.equals('\n'), ADJACENT_LINEBREAKS_LIMIT),
   R.dropLast(1),
   R.reduce((sacc, item) => [...sacc, item, '\n'], []),
   R.map(R.when(R.isEmpty, R.always('\n'))),
   R.split('\n'),
-);
+)(text);
 /**
  * This is a reducer function that validates words before adding them to a list. By "validates",
  * it checks if the words include a line break, in order to process them with
@@ -41,8 +37,8 @@ const reduceWordsList = (list, word) => R.concat(
   list,
   R.ifElse(
     R.includes('\n'),
-    splitLineBreaks,
-    ensureArray,
+    getFn(splitLineBreaks),
+    getFn(ensureArray),
   )(word),
 );
 
@@ -73,7 +69,7 @@ const reduceSentences = R.curry((length, list, word, index) => {
     newList = R.ifElse(
       R.always(newLine.length > length),
       R.append(word),
-      replaceLastItem(newLine),
+      getFn(replaceLastItem)(newLine),
     )(list);
   } else {
     newList = [word];
@@ -110,11 +106,16 @@ const reduceText = (text, line) => {
  * @returns {string[]}
  */
 const splitText = (text, length) => R.compose(
-  R.addIndex(R.reduce)(reduceSentences(length), ['']),
-  R.reduce(reduceWordsList, []),
+  R.addIndex(R.reduce)(getFn(reduceSentences)(length), ['']),
+  R.reduce(getFn(reduceWordsList), []),
   R.split(/(?<!\{@\w+) /),
-  R.reduce(reduceText, ''),
+  R.reduce(getFn(reduceText), ''),
   R.split('\n'),
 )(text);
 
 module.exports.splitText = splitText;
+module.exports.splitLineBreaks = splitLineBreaks;
+module.exports.reduceWordsList = reduceWordsList;
+module.exports.reduceSentences = reduceSentences;
+module.exports.reduceText = reduceText;
+module.exports.provider = provider('splitText', module.exports);
