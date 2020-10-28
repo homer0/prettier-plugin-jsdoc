@@ -1,7 +1,7 @@
 const { format } = require('prettier');
 const R = require('ramda');
 const { isTag, prefixLines, splitLinesAndClean } = require('./utils');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions
@@ -45,7 +45,7 @@ const formatExample = (options, column, example) => {
   }
 
   if (indent) {
-    code = getFn(prefixLines)(' '.repeat(options.tabWidth), code);
+    code = get(prefixLines)(' '.repeat(options.tabWidth), code);
   }
 
   return code.trimEnd();
@@ -61,12 +61,12 @@ const formatExample = (options, column, example) => {
  * @returns {CommentTagExample[]}
  */
 const splitExamples = (options, column, example) => {
-  const useSplitLinesAndClean = getFn(splitLinesAndClean);
+  const useSplitLinesAndClean = get(splitLinesAndClean);
   return R.compose(
     R.map(R.compose(
       ([caption, code]) => ({
         caption,
-        code: getFn(formatExample)(options, column, code),
+        code: get(formatExample)(options, column, code),
       }),
       useSplitLinesAndClean(/<\s*\/\s*caption\s*>/i),
     )),
@@ -91,9 +91,9 @@ const splitExamples = (options, column, example) => {
 const formatExampleTag = R.curry((options, column, tag) => {
   let examples;
   if (tag.description.match(/<\s*caption\s*>/i)) {
-    examples = getFn(splitExamples)(options, column, tag.description);
+    examples = get(splitExamples)(options, column, tag.description);
   } else if (tag.description.trim()) {
-    examples = [{ code: getFn(formatExample)(options, column, tag.description) }];
+    examples = [{ code: get(formatExample)(options, column, tag.description) }];
   } else {
     examples = [];
   }
@@ -120,8 +120,8 @@ const formatExampleTag = R.curry((options, column, tag) => {
  * @type {PrepareExampleTagFn}
  */
 const prepareExampleTag = R.curry((tag, options, column) => R.when(
-  getFn(isTag)('example'),
-  getFn(formatExampleTag)(options, column),
+  get(isTag)('example'),
+  get(formatExampleTag)(options, column),
   tag,
 ));
 

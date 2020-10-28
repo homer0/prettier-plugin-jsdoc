@@ -4,7 +4,7 @@ const {
   TAGS_WITH_NAME_AS_DESCRIPTION,
 } = require('../constants');
 const { isTag, hasValidProperty } = require('./utils');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -82,8 +82,8 @@ const addLinkToDescription = (tag) => ({
  * @returns {CommentTag[]}
  */
 const formatTagsDescription = (tags) => {
-  const useIsTag = getFn(isTag);
-  const useJoinProperties = getFn(joinProperties);
+  const useIsTag = get(isTag);
+  const useJoinProperties = get(joinProperties);
   return R.map(
     R.compose(
       addParagraphFlag,
@@ -97,10 +97,10 @@ const formatTagsDescription = (tags) => {
       ),
       R.when(
         R.allPass([
-          getFn(hasValidProperty)('type'),
+          get(hasValidProperty)('type'),
           R.propSatisfies(R.startsWith('@link'), 'type'),
         ]),
-        getFn(addLinkToDescription),
+        get(addLinkToDescription),
       ),
     ),
     tags,

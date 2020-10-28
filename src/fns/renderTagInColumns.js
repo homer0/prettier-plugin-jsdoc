@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { splitText } = require('./splitText');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -72,7 +72,7 @@ const renderTagInColumns = R.curry((
   descriptionColumnWidth,
   tag,
 ) => {
-  const useSplitText = getFn(splitText);
+  const useSplitText = get(splitText);
   const descriptionLines = tag.description ?
     useSplitText(tag.description, descriptionColumnWidth) :
     [''];
@@ -98,7 +98,7 @@ const renderTagInColumns = R.curry((
   const firstLine = firstLineParts.join('').trim();
   return [
     firstLine,
-    ...getFn(renderRest)(
+    ...get(renderRest)(
       restColumn,
       !!tag.name,
       nameColumnWidth,

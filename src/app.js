@@ -8,7 +8,7 @@ const providerKey = Symbol('provider-secret');
  *
  * @param {Function} originalFn  The original function to add.
  */
-const addFn = (originalFn) => {
+const register = (originalFn) => {
   container.set(originalFn, originalFn);
 };
 /**
@@ -18,7 +18,7 @@ const addFn = (originalFn) => {
  * @param {OG} fn          The override function.
  * @template OG
  */
-const setFn = (originalFn, fn) => {
+const override = (originalFn, fn) => {
   container.set(originalFn, fn);
 };
 /**
@@ -28,7 +28,7 @@ const setFn = (originalFn, fn) => {
  * @returns {OG}
  * @template OG
  */
-const getFn = (originalFn) => container.get(originalFn) || originalFn;
+const get = (originalFn) => container.get(originalFn) || originalFn;
 
 const registerModule = (id, fns) => {
   const useFns = Array.isArray(fns) ? fns : Object.values(fns);
@@ -37,7 +37,7 @@ const registerModule = (id, fns) => {
   .forEach((fn) => {
     // eslint-disable-next-line no-param-reassign
     fn.moduleId = id;
-    addFn(fn);
+    register(fn);
   });
 };
 
@@ -58,9 +58,9 @@ const loadProviders = (directoryPath, list) => list
   modProvider();
 });
 
-module.exports.addFn = addFn;
-module.exports.setFn = setFn;
-module.exports.getFn = getFn;
+module.exports.register = register;
+module.exports.override = override;
+module.exports.get = get;
 module.exports.container = container;
 module.exports.registerModule = registerModule;
 module.exports.provider = provider;

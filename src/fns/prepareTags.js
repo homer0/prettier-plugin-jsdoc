@@ -2,7 +2,7 @@ const R = require('ramda');
 const { prepareExampleTag } = require('./prepareExampleTag');
 const { prepareTagDescription } = require('./prepareTagDescription');
 const { prepareTagName } = require('./prepareTagName');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions
@@ -27,14 +27,14 @@ const { getFn, provider } = require('../app');
  * @type {PrepareTagsFn}
  */
 const prepareTags = R.curry((tags, options, column) => {
-  const fns = [getFn(prepareTagName)];
+  const fns = [get(prepareTagName)];
 
   if (options.jsdocFormatExamples) {
-    fns.push(getFn(prepareExampleTag)(R.__, options, column));
+    fns.push(get(prepareExampleTag)(R.__, options, column));
   }
 
   if (options.jsdocEnsureDescriptionsAreSentences) {
-    fns.push(getFn(prepareTagDescription));
+    fns.push(get(prepareTagDescription));
   }
 
   return R.map(

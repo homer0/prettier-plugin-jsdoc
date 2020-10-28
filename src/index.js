@@ -1,5 +1,5 @@
 const path = require('path');
-const { loadProviders, getFn } = require('./app');
+const { loadProviders, get } = require('./app');
 const { getPlugin } = require('./fns/getPlugin');
 
 loadProviders(path.join(__dirname, 'fns'), [
@@ -32,4 +32,4 @@ loadProviders(path.join(__dirname, 'fns'), [
   'utils',
 ]);
 
-module.exports = getFn(getPlugin)();
+module.exports = get(getPlugin)();

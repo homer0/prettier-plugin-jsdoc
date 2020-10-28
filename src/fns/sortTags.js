@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { getIndexOrFallback } = require('./utils');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -14,7 +14,7 @@ const { getFn, provider } = require('../app');
  * @returns {Function}
  */
 const createSorter = (ref) => {
-  const useGetIndexOrFallback = getFn(getIndexOrFallback);
+  const useGetIndexOrFallback = get(getIndexOrFallback);
   const fallback = useGetIndexOrFallback(ref, ref.length, 'other');
   const getTagWeight = useGetIndexOrFallback(ref, fallback);
   return (a, b) => getTagWeight(a.tag) - getTagWeight(b.tag);
@@ -28,7 +28,7 @@ const createSorter = (ref) => {
  * @returns {CommentTag[]}
  */
 const sortTags = R.curry((tags, options) => R.sort(
-  getFn(createSorter)(options.jsdocTagsOrder),
+  get(createSorter)(options.jsdocTagsOrder),
 )(tags));
 
 module.exports.sortTags = sortTags;

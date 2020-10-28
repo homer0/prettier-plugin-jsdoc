@@ -2,7 +2,7 @@ const jsLang = require('linguist-languages/data/JavaScript.json');
 const jsxLang = require('linguist-languages/data/JSX.json');
 const tsLang = require('linguist-languages/data/TypeScript.json');
 const tsxLang = require('linguist-languages/data/TSX.json');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {LinguistLanguageProperties & LanguageSharedProperties} LinguistLanguage
@@ -64,7 +64,7 @@ const createLanguage = (linguistLanguage, overrides) => {
  * @returns {Language[]}
  */
 const getLanguages = () => {
-  const useCreateLanguage = getFn(createLanguage);
+  const useCreateLanguage = get(createLanguage);
   return [
     useCreateLanguage(jsLang, {
       since: '0.0.0',

@@ -9,7 +9,7 @@ const { formatTags } = require('./formatTags');
 const { formatTagsTypes } = require('./formatTagsTypes');
 const { prepareTags } = require('./prepareTags');
 const { render } = require('./render');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 /**
  * @typedef {import('../types').PrettierParser} PrettierParser
  * @typedef {import('../types').PrettierParseFn} PrettierParseFn
@@ -52,7 +52,7 @@ const isComment = (node) => R.compose(
  * @returns {boolean}
  */
 const matchesBlock = (node) => R.compose(
-  getFn(isMatch)(/\/\*\*[\s\S]+?\*\//),
+  get(isMatch)(/\/\*\*[\s\S]+?\*\//),
   (value) => `/*${value}*/`,
   R.prop('value'),
 )(node);
@@ -116,8 +116,8 @@ const hasNoTags = (info) => R.compose(
  * @returns {boolean}
  */
 const shouldIgnoreComment = (info) => R.anyPass([
-  getFn(hasNoTags),
-  getFn(hasIgnoreTag),
+  get(hasNoTags),
+  get(hasIgnoreTag),
 ])(info);
 
 /**
@@ -157,9 +157,9 @@ const processComments = R.curry((nodes, formatterFn, processorFn) => R.compose(
       processorFn,
     ),
     formatterFn,
-    getFn(generateCommentData),
+    get(generateCommentData),
   )),
-  R.filter(R.allPass([getFn(isComment), getFn(matchesBlock)])),
+  R.filter(R.allPass([get(isComment), get(matchesBlock)])),
 )(nodes));
 
 /**
@@ -178,7 +178,7 @@ const processComments = R.curry((nodes, formatterFn, processorFn) => R.compose(
 const formatCommentBlock = R.curry((options, info) => R.compose(
   R.mergeRight(info),
   R.assocPath(['block'], R.__, {}),
-  getFn(formatDescription)(R.__, options),
+  get(formatDescription)(R.__, options),
   R.prop('block'),
 )(info));
 
@@ -196,8 +196,8 @@ const formatCommentBlock = R.curry((options, info) => R.compose(
  */
 const formatCommentTags = R.curry((options, info) => R.compose(
   R.assocPath(['block', 'tags'], R.__, info),
-  getFn(formatTagsTypes)(R.__, options, info.column),
-  getFn(formatTags)(R.__, options),
+  get(formatTagsTypes)(R.__, options, info.column),
+  get(formatTags)(R.__, options),
   R.path(['block', 'tags']),
 )(info));
 
@@ -218,7 +218,7 @@ const formatCommentTags = R.curry((options, info) => R.compose(
  */
 const prepareCommentTags = R.curry((options, info) => R.compose(
   R.assocPath(['block', 'tags'], R.__, info),
-  getFn(prepareTags)(R.__, options, info.column),
+  get(prepareTags)(R.__, options, info.column),
   R.path(['block', 'tags']),
 )(info));
 
@@ -237,7 +237,7 @@ const prepareCommentTags = R.curry((options, info) => R.compose(
  * @returns {RenderBlockFn}
  */
 const getRenderer = (options) => {
-  const renderer = getFn(render)(options);
+  const renderer = get(render)(options);
   return (column, block) => {
     const padding = ' '.repeat(column + 1);
     const prefix = `${padding}* `;
@@ -265,14 +265,14 @@ const getRenderer = (options) => {
 const createParser = (originalParser) => (text, parsers, options) => {
   const ast = originalParser(text, parsers, options);
   const formatter = R.compose(
-    getFn(prepareCommentTags)(options),
-    getFn(formatCommentTags)(options),
-    getFn(formatCommentBlock)(options),
+    get(prepareCommentTags)(options),
+    get(formatCommentTags)(options),
+    get(formatCommentBlock)(options),
   );
   const renderer = getRenderer(options);
 
   if (ast.comments && ast.comments.length) {
-    getFn(processComments)(ast.comments, formatter, (info) => {
+    get(processComments)(ast.comments, formatter, (info) => {
       const { comment, column, block } = info;
       comment.value = renderer(column, block);
     });
@@ -287,7 +287,7 @@ const createParser = (originalParser) => (text, parsers, options) => {
  * @returns {Object.<string,PrettierParser>}
  */
 const getParsers = () => {
-  const useCreateParser = getFn(createParser);
+  const useCreateParser = get(createParser);
   return {
     get babel() {
       const parser = babelParser.parsers.babel;

@@ -8,9 +8,9 @@ jest.mock('../../src/fns/splitText', () => ({
 
 const path = require('path');
 const {
-  addFn,
-  setFn,
-  getFn,
+  register,
+  override,
+  get,
   container,
   registerModule,
   provider,
@@ -37,8 +37,8 @@ describe('app', () => {
     let sut = null;
     let result = null;
     // When
-    addFn(originalFn);
-    sut = getFn(originalFn);
+    register(originalFn);
+    sut = get(originalFn);
     result = sut();
     // Then
     expect(result).toBe(originalValue);
@@ -51,7 +51,7 @@ describe('app', () => {
     let sut = null;
     let result = null;
     // When
-    sut = getFn(originalFn);
+    sut = get(originalFn);
     result = sut();
     // Then
     expect(result).toBe(originalValue);
@@ -66,10 +66,10 @@ describe('app', () => {
     let result = null;
     let resultAfterOverride = null;
     // When
-    addFn(originalFn);
-    result = getFn(originalFn)();
-    setFn(originalFn, customFn);
-    resultAfterOverride = getFn(originalFn)();
+    register(originalFn);
+    result = get(originalFn)();
+    override(originalFn, customFn);
+    resultAfterOverride = get(originalFn)();
     // Then
     expect(result).toBe(originalValue);
     expect(resultAfterOverride).toBe(customValue);

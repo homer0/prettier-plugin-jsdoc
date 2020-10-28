@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { isMatch, replaceDotOnTypeGeneric } = require('./utils');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
@@ -21,7 +21,7 @@ const { getFn, provider } = require('../app');
  */
 const processType = R.curry((options, type) => R.when(
   R.always(options.jsdocFormatDotForArraysAndObjects),
-  getFn(replaceDotOnTypeGeneric)('Object', options.jsdocUseDotForArraysAndObjects),
+  get(replaceDotOnTypeGeneric)('Object', options.jsdocUseDotForArraysAndObjects),
 )(type));
 
 /**
@@ -38,8 +38,8 @@ const processType = R.curry((options, type) => R.when(
  * @type {FormatObjectsFn}
  */
 const formatObjects = R.curry((type, options) => R.when(
-  getFn(isMatch)(/Object\s*\.?\s*</i),
-  getFn(processType)(options),
+  get(isMatch)(/Object\s*\.?\s*</i),
+  get(processType)(options),
 )(type));
 
 module.exports.formatObjects = formatObjects;

@@ -3,13 +3,13 @@
 const { getLanguages } = require('./getLanguages');
 const { getParsers } = require('./getParsers');
 const { getOptions, getDefaultOptions } = require('./getOptions');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 const getPlugin = () => ({
-  languages: getFn(getLanguages)(),
-  options: getFn(getOptions)(),
-  defaultOptions: getFn(getDefaultOptions)(),
-  parsers: getFn(getParsers)(),
+  languages: get(getLanguages)(),
+  options: get(getOptions)(),
+  defaultOptions: get(getDefaultOptions)(),
+  parsers: get(getParsers)(),
 });
 
 module.exports.getPlugin = getPlugin;

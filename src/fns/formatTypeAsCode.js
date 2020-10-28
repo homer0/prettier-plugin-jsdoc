@@ -1,7 +1,7 @@
 const { format } = require('prettier');
 const R = require('ramda');
 const { isMatch } = require('./utils');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions
@@ -69,8 +69,8 @@ const formatPrettyType = R.curry((options, column, type) => {
  * @type {FormatTypeAsCodeFn}
  */
 const formatTypeAsCode = R.curry((type, options, column) => R.when(
-  getFn(isMatch)(/[\{&<\.\|]/),
-  getFn(formatPrettyType)(options, column),
+  get(isMatch)(/[\{&<\.\|]/),
+  get(formatPrettyType)(options, column),
   type,
 ));
 

@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { ensureArray, replaceLastItem, limitAdjacentRepetitions } = require('./utils');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * This is used when splitting lines that contain linebreaks; it's used as a filter so a text won't
@@ -18,7 +18,7 @@ const ADJACENT_LINEBREAKS_LIMIT = 2;
  * @returns {string[]}
  */
 const splitLineBreaks = (text) => R.compose(
-  getFn(limitAdjacentRepetitions)(R.equals('\n'), ADJACENT_LINEBREAKS_LIMIT),
+  get(limitAdjacentRepetitions)(R.equals('\n'), ADJACENT_LINEBREAKS_LIMIT),
   R.dropLast(1),
   R.reduce((sacc, item) => [...sacc, item, '\n'], []),
   R.map(R.when(R.isEmpty, R.always('\n'))),
@@ -37,8 +37,8 @@ const reduceWordsList = (list, word) => R.concat(
   list,
   R.ifElse(
     R.includes('\n'),
-    getFn(splitLineBreaks),
-    getFn(ensureArray),
+    get(splitLineBreaks),
+    get(ensureArray),
   )(word),
 );
 
@@ -69,7 +69,7 @@ const reduceSentences = R.curry((length, list, word, index) => {
     newList = R.ifElse(
       R.always(newLine.length > length),
       R.append(word),
-      getFn(replaceLastItem)(newLine),
+      get(replaceLastItem)(newLine),
     )(list);
   } else {
     newList = [word];
@@ -106,10 +106,10 @@ const reduceText = (text, line) => {
  * @returns {string[]}
  */
 const splitText = (text, length) => R.compose(
-  R.addIndex(R.reduce)(getFn(reduceSentences)(length), ['']),
-  R.reduce(getFn(reduceWordsList), []),
+  R.addIndex(R.reduce)(get(reduceSentences)(length), ['']),
+  R.reduce(get(reduceWordsList), []),
   R.split(/(?<!\{@\w+) /),
-  R.reduce(getFn(reduceText), ''),
+  R.reduce(get(reduceText), ''),
   R.split('\n'),
 )(text);
 

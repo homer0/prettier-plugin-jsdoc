@@ -4,7 +4,7 @@ const {
   joinIfNotEmpty,
   appendIfNotPresent,
 } = require('./utils');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').PJPDescriptionTagOptions} PJPDescriptionTagOptions
@@ -46,7 +46,7 @@ const findTag = R.curry((
   unmatchHandlerFn,
   step,
 ) => {
-  const targetTags = getFn(ensureArray)(targetTag);
+  const targetTags = get(ensureArray)(targetTag);
   return (acc, tag, index) => {
     const nextAcc = targetTags.includes(tag.tag) ?
       matchHandlerFn(acc, tag, index) :
@@ -75,9 +75,9 @@ const findTag = R.curry((
  * @returns {FindTagHandlerFn<ProcessTagAccumulator>}
  */
 const processTag = (descriptionProperty, saveIndex = false) => {
-  const descriptionProperties = getFn(ensureArray)(descriptionProperty);
+  const descriptionProperties = get(ensureArray)(descriptionProperty);
   const generateDescription = R.compose(
-    getFn(joinIfNotEmpty)(' '),
+    get(joinIfNotEmpty)(' '),
     R.values,
     R.pick(descriptionProperties),
   );
@@ -89,7 +89,7 @@ const processTag = (descriptionProperty, saveIndex = false) => {
 
   return (acc, tag, index) => R.evolve(
     {
-      parts: getFn(appendIfNotPresent)(generateDescription(tag)),
+      parts: get(appendIfNotPresent)(generateDescription(tag)),
       tags: R.append(R.mergeRight(tag, emptyProps)),
       tagIndex: R.when(R.always(saveIndex), R.always(index)),
     },
@@ -118,8 +118,8 @@ const formatDescription = R.curry((block, options) => {
    * @type {FindTagHandlerFn<ProcessTagAccumulator>}
    */
   const pushTag = (acc, tag) => R.evolve({ tags: R.append(tag) }, acc);
-  const useFindTag = getFn(findTag);
-  const useProcessTag = getFn(processTag);
+  const useFindTag = get(findTag);
+  const useProcessTag = get(processTag);
   const { parts, tags, tagIndex } = block.tags.reduce(
     R.compose(
       useFindTag(
@@ -145,7 +145,7 @@ const formatDescription = R.curry((block, options) => {
     },
   );
 
-  const description = getFn(joinIfNotEmpty)('\n\n', parts);
+  const description = get(joinIfNotEmpty)('\n\n', parts);
   let blockDescription = block.description;
   let blockTags = tags;
   if (options.jsdocAllowDescriptionTag) {

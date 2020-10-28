@@ -4,7 +4,7 @@ const { replaceTagsSynonyms } = require('./replaceTagsSynonyms');
 const { sortTags } = require('./sortTags');
 const { trimTagsProperties } = require('./trimTagsProperties');
 const { formatTagsDescription } = require('./formatTagsDescription');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -25,17 +25,17 @@ const { getFn, provider } = require('../app');
  */
 const formatTags = R.curry((tags, options) => {
   const fns = [
-    getFn(formatTagsDescription),
-    getFn(trimTagsProperties),
-    getFn(formatAccessTag)(R.__, options),
+    get(formatTagsDescription),
+    get(trimTagsProperties),
+    get(formatAccessTag)(R.__, options),
   ];
 
   if (options.jsdocReplaceTagsSynonyms) {
-    fns.push(getFn(replaceTagsSynonyms));
+    fns.push(get(replaceTagsSynonyms));
   }
 
   if (options.jsdocSortTags) {
-    fns.push(getFn(sortTags)(R.__, options));
+    fns.push(get(sortTags)(R.__, options));
   }
 
   return R.compose(...fns.reverse())(tags);

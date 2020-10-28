@@ -5,7 +5,7 @@ const { renderExampleTag } = require('./renderExampleTag');
 const { renderTagInLine } = require('./renderTagInLine');
 const { renderTagInColumns } = require('./renderTagInColumns');
 const { TAGS_WITH_NAME_AS_DESCRIPTION } = require('../constants');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').CommentBlock} CommentBlock
@@ -70,9 +70,9 @@ const renderTagsInlines = (width, options, tags) => R.compose(
   R.flatten,
   R.map(
     R.ifElse(
-      getFn(isTag)('example'),
-      getFn(renderExampleTag)(R.__, width, options),
-      getFn(renderTagInLine)(
+      get(isTag)('example'),
+      get(renderExampleTag)(R.__, width, options),
+      get(renderTagInLine)(
         width,
         options.jsdocMinSpacesBetweenTagAndType,
         options.jsdocMinSpacesBetweenTypeAndName,
@@ -95,9 +95,9 @@ const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) => R.compos
   R.flatten,
   R.map(
     R.ifElse(
-      getFn(isTag)('example'),
-      getFn(renderExampleTag)(R.__, fullWidth, options),
-      getFn(renderTagInColumns)(
+      get(isTag)('example'),
+      get(renderExampleTag)(R.__, fullWidth, options),
+      get(renderTagInColumns)(
         columnsWidth.tag,
         columnsWidth.type,
         columnsWidth.name,
@@ -123,19 +123,19 @@ const tryToRenderTagsInColums = (tagsData, width, options, tags) => R.compose(
   R.flatten,
   R.map(
     R.ifElse(
-      getFn(isTag)('example'),
-      getFn(renderExampleTag)(R.__, width, options),
+      get(isTag)('example'),
+      get(renderExampleTag)(R.__, width, options),
       (tag) => {
         const data = tagsData[tag.tag];
         return data.canUseColumns ?
-          getFn(renderTagInColumns)(
+          get(renderTagInColumns)(
             data.columnsWidth.tag,
             data.columnsWidth.type,
             data.columnsWidth.name,
             data.columnsWidth.description,
             tag,
           ) :
-          getFn(renderTagInLine)(
+          get(renderTagInLine)(
             width,
             options.jsdocMinSpacesBetweenTagAndType,
             options.jsdocMinSpacesBetweenTypeAndName,
@@ -256,7 +256,7 @@ const calculateColumnsWidth = (options, data, width) => {
  */
 const getTagsData = (lengthByTag, width, options) => Object.entries(lengthByTag).reduce(
   (acc, [tagName, tagInfo]) => {
-    const columnsWidth = getFn(calculateColumnsWidth)(options, tagInfo, width);
+    const columnsWidth = get(calculateColumnsWidth)(options, tagInfo, width);
     if (TAGS_WITH_NAME_AS_DESCRIPTION.includes(tagName)) {
       columnsWidth.description = 0;
       columnsWidth.name = width - columnsWidth.tag - columnsWidth.type;
@@ -305,17 +305,17 @@ const render = R.curry((options, column, block) => {
   if (block.description) {
     let { description } = block;
     if (options.jsdocEnsureDescriptionsAreSentences) {
-      description = getFn(ensureSentence)(description);
+      description = get(ensureSentence)(description);
     }
 
-    lines.push(...getFn(splitText)(description, width));
+    lines.push(...get(splitText)(description, width));
     lines.push(...(new Array(options.jsdocLinesBetweenDescriptionAndTags)).fill(''));
   }
 
   if (options.jsdocUseColumns) {
-    const data = getFn(getLengthsData)(block.tags);
+    const data = get(getLengthsData)(block.tags);
     if (options.jsdocGroupColumnsByTag) {
-      const tagsData = getFn(getTagsData)(data.byTag, width, options);
+      const tagsData = get(getTagsData)(data.byTag, width, options);
       let atLeastOneCannot;
       if (options.jsdocIgnoreNewLineDescriptionsForConsistentColumns) {
         atLeastOneCannot = Object.entries(tagsData).find(([tagName, info]) => (
@@ -327,20 +327,20 @@ const render = R.curry((options, column, block) => {
       }
 
       if (atLeastOneCannot && options.jsdocConsistentColumns) {
-        lines.push(...getFn(renderTagsInlines)(width, options, block.tags));
+        lines.push(...get(renderTagsInlines)(width, options, block.tags));
       } else {
-        lines.push(...getFn(tryToRenderTagsInColums)(tagsData, width, options, block.tags));
+        lines.push(...get(tryToRenderTagsInColums)(tagsData, width, options, block.tags));
       }
     } else {
-      const columnsWidth = getFn(calculateColumnsWidth)(options, data, width);
+      const columnsWidth = get(calculateColumnsWidth)(options, data, width);
       if (columnsWidth.description >= options.jsdocDescriptionColumnMinLength) {
-        lines.push(...getFn(renderTagsInColumns)(columnsWidth, width, options, block.tags));
+        lines.push(...get(renderTagsInColumns)(columnsWidth, width, options, block.tags));
       } else {
-        lines.push(...getFn(renderTagsInlines)(width, options, block.tags));
+        lines.push(...get(renderTagsInlines)(width, options, block.tags));
       }
     }
   } else {
-    lines.push(...getFn(renderTagsInlines)(width, options, block.tags));
+    lines.push(...get(renderTagsInlines)(width, options, block.tags));
   }
 
   return lines;

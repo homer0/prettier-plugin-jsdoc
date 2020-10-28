@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { findTagIndex } = require('./utils');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').PJPAccessTagOptions} PJPAccessTagOptions
@@ -20,7 +20,7 @@ const { getFn, provider } = require('../app');
  * @type {FormatAccessTagFn}
  */
 const formatAccessTag = R.curry((tags, options) => {
-  const useFindTagIndex = getFn(findTagIndex);
+  const useFindTagIndex = get(findTagIndex);
   const indexes = tags.reduce(
     R.compose(
       useFindTagIndex('access', 'accessTag'),

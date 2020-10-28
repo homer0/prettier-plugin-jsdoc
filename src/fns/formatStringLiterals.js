@@ -1,5 +1,5 @@
 const R = require('ramda');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
@@ -49,7 +49,7 @@ const getFormatter = (padding, quote) => R.compose(
 const getReducer = (options) => {
   const quote = options.jsdocUseSingleQuotesForStringLiterals ? '\'' : '"';
   const padding = ' '.repeat(options.jsdocSpacesBetweenStringLiterals);
-  const formatter = getFn(getFormatter)(padding, quote);
+  const formatter = get(getFormatter)(padding, quote);
   return (type, literal) => R.replace(literal, formatter(literal), type);
 };
 
@@ -76,10 +76,10 @@ const extractLiterals = (type) => R.match(/['"][\w\|\-\s'"]+['"](?:\s+)?/g, type
 const formatStringLiterals = R.curry((type, options) => R.compose(
   (literals) => (
     literals.length ?
-      R.reduce(getFn(getReducer)(options), type, literals) :
+      R.reduce(get(getReducer)(options), type, literals) :
       type
   ),
-  getFn(extractLiterals),
+  get(extractLiterals),
 )(type));
 
 module.exports.formatStringLiterals = formatStringLiterals;

@@ -1,4 +1,4 @@
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 
 /**
  * @typedef {import('../types').PrettierSupportOption} PrettierSupportOption
@@ -304,7 +304,7 @@ const getOptions = () => ({
  *
  * @returns {PJPOptions}
  */
-const getDefaultOptions = () => Object.entries(getFn(getOptions)()).reduce(
+const getDefaultOptions = () => Object.entries(get(getOptions)()).reduce(
   (acc, [key, value]) => ({
     ...acc,
     [key]: Array.isArray(value.default) ? value.default[0].value : value.default,

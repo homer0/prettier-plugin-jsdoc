@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { isMatch, replaceDotOnTypeGeneric } = require('./utils');
-const { getFn, provider } = require('../app');
+const { get, provider } = require('../app');
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
  */
@@ -22,7 +22,7 @@ const { getFn, provider } = require('../app');
 const processType = R.curry((options, type) => R.compose(
   R.when(
     R.always(options.jsdocFormatDotForArraysAndObjects),
-    getFn(replaceDotOnTypeGeneric)('Array', options.jsdocUseDotForArraysAndObjects),
+    get(replaceDotOnTypeGeneric)('Array', options.jsdocUseDotForArraysAndObjects),
   ),
   R.when(
     R.always(options.jsdocUseShortArrays),
@@ -44,8 +44,8 @@ const processType = R.curry((options, type) => R.compose(
  * @type {FormatArraysFn}
  */
 const formatArrays = R.curry((type, options) => R.when(
-  getFn(isMatch)(/Array\s*\.?\s*</),
-  getFn(processType)(options),
+  get(isMatch)(/Array\s*\.?\s*</),
+  get(processType)(options),
 )(type));
 
 module.exports.formatArrays = formatArrays;
