@@ -1,9 +1,15 @@
 jest.mock('comment-parser');
-jest.unmock('../../../src/fns/utils');
+jest.mock('prettier/parser-babel');
+jest.mock('prettier/parser-flow');
+jest.mock('prettier/parser-typescript')
 jest.unmock('../../../src/fns/getParsers');
 
 const R = require('ramda');
 const commentParser = require('comment-parser');
+const babelParser = require('prettier/parser-babel');
+const flowParser = require('prettier/parser-flow');
+const tsParser = require('prettier/parser-typescript');
+
 const { getParsers } = require('../../../src/fns/getParsers');
 const { formatDescription } = require('../../../src/fns/formatDescription');
 const { formatTags } = require('../../../src/fns/formatTags');
@@ -11,9 +17,14 @@ const { formatTagsTypes } = require('../../../src/fns/formatTagsTypes');
 const { prepareTags } = require('../../../src/fns/prepareTags');
 const { render } = require('../../../src/fns/render');
 
-xdescribe('getParsers', () => {
+describe('getParsers', () => {
   beforeEach(() => {
     commentParser.mockReset();
+    babelParser.parsers.babel.parse.mockReset();
+    babelParser.parsers['babel-flow'].parse.mockReset();
+    babelParser.parsers['babel-ts'].parse.mockReset();
+    flowParser.parsers.flow.parse.mockReset();
+    tsParser.parsers.typescript.parse.mockReset();
     formatDescription.mockReset();
     formatTags.mockReset();
     formatTagsTypes.mockReset();
@@ -26,15 +37,46 @@ xdescribe('getParsers', () => {
     const astBase = {
       comments: [],
     };
-    const ast = R.clone(astBase);
-    const originalParser = jest.fn(() => ast);
+    const parsersToTest = [
+      {
+        name: 'babel',
+        ast: R.clone(astBase),
+        uses: babelParser.parsers.babel,
+      },
+      {
+        name: 'babel-flow',
+        ast: R.clone(astBase),
+        uses: babelParser.parsers['babel-flow'],
+      },
+      {
+        name: 'babel-ts',
+        ast: R.clone(astBase),
+        uses: babelParser.parsers['babel-ts'],
+      },
+      {
+        name: 'flow',
+        ast: R.clone(astBase),
+        uses: flowParser.parsers.flow,
+      },
+      {
+        name: 'typescript',
+        ast: R.clone(astBase),
+        uses: tsParser.parsers.typescript,
+      },
+    ];
+    parsersToTest.forEach((info) => {
+      info.uses.parse.mockImplementationOnce(() => info.ast);
+    });
     const text = 'lorem ipsum';
     const parsers = ['babel'];
     const options = { printWidth: 80 };
-    // When
-    getParsers(originalParser)(text, parsers, options);
-    // Then
-    expect(ast).toEqual(astBase);
+    let sut = null;
+    // When/Then
+    sut = getParsers();
+    parsersToTest.forEach((info) => {
+      sut[info.name].parse(text, parsers, options);
+      expect(info.ast).toEqual(astBase);
+    });
   });
 
   it('should render a comment', () => {
@@ -76,13 +118,14 @@ xdescribe('getParsers', () => {
       '@typedef {string} MyFormattedStr',
     ]);
     render.mockImplementationOnce(() => renderRest);
-
-    const originalParser = jest.fn(() => ast);
+    tsParser.parsers.typescript.parse.mockImplementationOnce(() => ast);
     const text = 'lorem ipsum';
-    const parsers = ['babel'];
+    const parsers = ['ts'];
     const options = { printWidth: 80 };
+    let sut = null;
     // When
-    getParsers(originalParser)(text, parsers, options);
+    sut = getParsers();
+    sut.typescript.parse(text, parsers, options);
     // Then
     expect(ast).toEqual({
       comments: [{
@@ -157,15 +200,17 @@ xdescribe('getParsers', () => {
     ]);
     render.mockImplementationOnce(() => renderRest);
 
-    const originalParser = jest.fn(() => ast);
+    babelParser.parsers['babel-flow'].parse.mockImplementationOnce(() => ast);
     const text = 'lorem ipsum';
     const parsers = ['babel'];
     const options = {
       printWidth: 80,
       jsdocUseInlineCommentForASingleTagBlock: true,
     };
+    let sut = null;
     // When
-    getParsers(originalParser)(text, parsers, options);
+    sut = getParsers();
+    sut['babel-flow'].parse(text, parsers, options);
     // Then
     expect(ast).toEqual({
       comments: [{
