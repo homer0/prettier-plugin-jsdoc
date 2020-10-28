@@ -1,34 +1,34 @@
 /* eslint-disable jsdoc/require-jsdoc */
 const path = require('path');
 
-const registry = new Map();
+const container = new Map();
 const providerKey = Symbol('provider-secret');
 /**
- * Adds a new function to the app registry.
+ * Adds a new function to the app container.
  *
  * @param {Function} originalFn  The original function to add.
  */
 const addFn = (originalFn) => {
-  registry.set(originalFn, originalFn);
+  container.set(originalFn, originalFn);
 };
 /**
- * Overrides a function on the app registry.
+ * Overrides a function on the app container.
  *
  * @param {OG} originalFn  The reference to the original function that will be overriden.
  * @param {OG} fn          The override function.
  * @template OG
  */
 const setFn = (originalFn, fn) => {
-  registry.set(originalFn, fn);
+  container.set(originalFn, fn);
 };
 /**
- * Gets a function or a function override from the app registry.
+ * Gets a function or a function override from the app container.
  *
  * @param {OG} originalFn  The reference to the original function.
  * @returns {OG}
  * @template OG
  */
-const getFn = (originalFn) => registry.get(originalFn) || originalFn;
+const getFn = (originalFn) => container.get(originalFn) || originalFn;
 
 const registerModule = (id, fns) => {
   const useFns = Array.isArray(fns) ? fns : Object.values(fns);
@@ -61,6 +61,7 @@ const loadProviders = (directoryPath, list) => list
 module.exports.addFn = addFn;
 module.exports.setFn = setFn;
 module.exports.getFn = getFn;
+module.exports.container = container;
 module.exports.registerModule = registerModule;
 module.exports.provider = provider;
 module.exports.loadProviders = loadProviders;
