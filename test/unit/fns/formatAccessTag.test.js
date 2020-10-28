@@ -1,4 +1,3 @@
-jest.unmock('../../../src/fns/utils');
 jest.unmock('../../../src/fns/formatAccessTag');
 
 const { formatAccessTag } = require('../../../src/fns/formatAccessTag');

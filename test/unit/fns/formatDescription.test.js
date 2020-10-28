@@ -1,5 +1,4 @@
 jest.unmock('../../../src/fns/formatDescription');
-jest.unmock('../../../src/fns/utils');
 
 const { formatDescription } = require('../../../src/fns/formatDescription');
 

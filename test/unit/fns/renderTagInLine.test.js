@@ -1,5 +1,4 @@
 jest.unmock('../../../src/fns/renderTagInLine');
-jest.unmock('../../../src/fns/utils');
 jest.unmock('../../../src/fns/splitText');
 
 const { renderTagInLine } = require('../../../src/fns/renderTagInLine');

@@ -1,5 +1,4 @@
 jest.unmock('../../../src/fns/sortTags');
-jest.unmock('../../../src/fns/utils');
 
 const { sortTags } = require('../../../src/fns/sortTags');
 

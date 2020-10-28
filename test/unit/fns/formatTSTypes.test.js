@@ -1,5 +1,4 @@
 jest.unmock('../../../src/fns/formatTSTypes');
-jest.unmock('../../../src/fns/utils');
 
 const { formatTSTypes } = require('../../../src/fns/formatTSTypes');
 

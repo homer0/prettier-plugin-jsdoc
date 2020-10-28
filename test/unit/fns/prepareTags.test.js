@@ -2,7 +2,6 @@ jest.unmock('../../../src/fns/prepareTags');
 jest.unmock('../../../src/fns/prepareTagName');
 jest.unmock('../../../src/fns/prepareTagDescription');
 jest.unmock('../../../src/fns/prepareExampleTag');
-jest.unmock('../../../src/fns/utils');
 jest.mock('prettier');
 
 const { format } = require('prettier');

@@ -1,5 +1,4 @@
 jest.unmock('../../../src/fns/formatTags');
-jest.unmock('../../../src/fns/utils');
 jest.unmock('../../../src/fns/formatAccessTag');
 jest.unmock('../../../src/fns/replaceTagsSynonyms');
 jest.unmock('../../../src/fns/sortTags');

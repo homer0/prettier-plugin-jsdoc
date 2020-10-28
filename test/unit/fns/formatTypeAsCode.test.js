@@ -1,5 +1,4 @@
 jest.unmock('../../../src/fns/formatTypeAsCode');
-jest.unmock('../../../src/fns/utils');
 jest.mock('prettier');
 
 const { format } = require('prettier');

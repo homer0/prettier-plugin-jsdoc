@@ -3,7 +3,6 @@ jest.unmock('../../../src/fns/renderTagInLine');
 jest.unmock('../../../src/fns/renderTagInColumns');
 jest.unmock('../../../src/fns/renderExampleTag');
 jest.unmock('../../../src/fns/splitText');
-jest.unmock('../../../src/fns/utils');
 jest.unmock('../../../src/fns/getOptions');
 jest.unmock('../../../src/constants');
 

@@ -1,5 +1,4 @@
 jest.unmock('../../../src/fns/prepareTagDescription');
-jest.unmock('../../../src/fns/utils');
 
 const { prepareTagDescription } = require('../../../src/fns/prepareTagDescription');
 

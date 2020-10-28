@@ -1,5 +1,4 @@
 jest.unmock('../../../src/fns/formatObjects');
-jest.unmock('../../../src/fns/utils');
 
 const { formatObjects } = require('../../../src/fns/formatObjects');
 

@@ -1,5 +1,4 @@
 jest.unmock('../../../src/fns/splitText');
-jest.unmock('../../../src/fns/utils');
 
 const { splitText } = require('../../../src/fns/splitText');
 

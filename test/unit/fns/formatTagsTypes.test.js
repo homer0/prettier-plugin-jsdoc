@@ -1,5 +1,4 @@
 jest.unmock('../../../src/fns/formatTagsTypes');
-jest.unmock('../../../src/fns/utils');
 jest.unmock('../../../src/fns/formatTSTypes');
 jest.unmock('../../../src/fns/formatStringLiterals');
 jest.unmock('../../../src/fns/formatArrays');
