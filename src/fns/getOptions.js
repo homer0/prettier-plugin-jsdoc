@@ -1,4 +1,4 @@
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').PrettierSupportOption} PrettierSupportOption

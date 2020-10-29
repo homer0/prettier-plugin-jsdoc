@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { isMatch, replaceDotOnTypeGeneric } = require('./utils');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions

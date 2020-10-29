@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { getTagsSynonyms } = require('./constants');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag

@@ -1,7 +1,7 @@
 const { getLanguages } = require('./getLanguages');
 const { getParsers } = require('./getParsers');
 const { getOptions, getDefaultOptions } = require('./getOptions');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').PrettierSupportOption} PrettierSupportOption

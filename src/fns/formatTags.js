@@ -4,7 +4,7 @@ const { replaceTagsSynonyms } = require('./replaceTagsSynonyms');
 const { sortTags } = require('./sortTags');
 const { trimTagsProperties } = require('./trimTagsProperties');
 const { formatTagsDescription } = require('./formatTagsDescription');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag

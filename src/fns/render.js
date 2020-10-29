@@ -5,7 +5,7 @@ const { renderExampleTag } = require('./renderExampleTag');
 const { renderTagInLine } = require('./renderTagInLine');
 const { renderTagInColumns } = require('./renderTagInColumns');
 const { getTagsWithNameAsDescription } = require('./constants');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').CommentBlock} CommentBlock

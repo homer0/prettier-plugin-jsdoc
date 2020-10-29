@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { findTagIndex } = require('./utils');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').PJPAccessTagOptions} PJPAccessTagOptions

@@ -2,7 +2,7 @@ const R = require('ramda');
 const { prepareExampleTag } = require('./prepareExampleTag');
 const { prepareTagDescription } = require('./prepareTagDescription');
 const { prepareTagName } = require('./prepareTagName');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions

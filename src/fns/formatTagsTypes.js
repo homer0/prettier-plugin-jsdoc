@@ -5,7 +5,7 @@ const { formatStringLiterals } = require('./formatStringLiterals');
 const { formatArrays } = require('./formatArrays');
 const { formatObjects } = require('./formatObjects');
 const { formatTypeAsCode } = require('./formatTypeAsCode');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions

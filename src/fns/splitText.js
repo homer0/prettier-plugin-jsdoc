@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { ensureArray, replaceLastItem, limitAdjacentRepetitions } = require('./utils');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * This is used when splitting lines that contain linebreaks; it's used as a filter so a text won't

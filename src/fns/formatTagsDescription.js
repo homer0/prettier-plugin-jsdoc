@@ -1,7 +1,7 @@
 const R = require('ramda');
 const { getTagsWithDescriptionAsName, getTagsWithNameAsDescription } = require('./constants');
 const { isTag, hasValidProperty } = require('./utils');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag

@@ -9,7 +9,7 @@ const { formatTags } = require('./formatTags');
 const { formatTagsTypes } = require('./formatTagsTypes');
 const { prepareTags } = require('./prepareTags');
 const { render } = require('./render');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 /**
  * @typedef {import('../types').PrettierParser} PrettierParser
  * @typedef {import('../types').PrettierParseFn} PrettierParseFn

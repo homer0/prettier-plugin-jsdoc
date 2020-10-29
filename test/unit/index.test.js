@@ -1,8 +1,8 @@
 jest.unmock('../../src/index');
-jest.mock('../../src/app');
+jest.mock('../../src/fns/app');
 
 const path = require('path');
-const { loadProviders, get } = require('../../src/app');
+const { loadProviders, get } = require('../../src/fns/app');
 const { getPlugin } = require('../../src/fns/getPlugin');
 
 describe('plugin', () => {

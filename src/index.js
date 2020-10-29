@@ -1,5 +1,5 @@
 const path = require('path');
-const { loadProviders, get } = require('./app');
+const { loadProviders, get } = require('./fns/app');
 const { getPlugin } = require('./fns/getPlugin');
 
 loadProviders(path.join(__dirname, 'fns'), [

@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { splitText } = require('./splitText');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag

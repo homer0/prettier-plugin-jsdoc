@@ -1,4 +1,4 @@
-const { provider } = require('../app');
+const { provider } = require('./app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag

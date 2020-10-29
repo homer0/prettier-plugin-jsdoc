@@ -1,4 +1,4 @@
-const { provider } = require('../app');
+const { provider } = require('./app');
 
 /**
  * Gets a dictionary where the keys are old tags' names, and values the current tag name for which

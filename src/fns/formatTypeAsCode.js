@@ -1,7 +1,7 @@
 const { format } = require('prettier');
 const R = require('ramda');
 const { isMatch } = require('./utils');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions

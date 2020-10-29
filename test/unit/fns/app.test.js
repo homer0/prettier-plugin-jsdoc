@@ -1,8 +1,8 @@
-jest.unmock('../../src/app');
-jest.mock('../../src/fns/sortTags', () => ({
+jest.unmock('../../../src/fns/app');
+jest.mock('../../../src/fns/sortTags', () => ({
   provider: jest.fn(),
 }));
-jest.mock('../../src/fns/splitText', () => ({
+jest.mock('../../../src/fns/splitText', () => ({
   provider: jest.fn(),
 }));
 
@@ -15,10 +15,10 @@ const {
   registerModule,
   provider,
   loadProviders,
-} = require('../../src/app');
+} = require('../../../src/fns/app');
 
-const { provider: sortTagsProvider } = require('../../src/fns/sortTags');
-const { provider: splitTextProvider } = require('../../src/fns/splitText');
+const { provider: sortTagsProvider } = require('../../../src/fns/sortTags');
+const { provider: splitTextProvider } = require('../../../src/fns/splitText');
 
 describe('app', () => {
   beforeEach(() => {
@@ -127,7 +127,7 @@ describe('app', () => {
 
   it('should load and execute the providers of a list of modules', () => {
     // Given
-    const directory = path.join(__dirname, '..', '..', 'src', 'fns');
+    const directory = path.join(__dirname, '..', '..', '..', 'src', 'fns');
     const mods = ['sortTags', 'splitText'];
     // When
     loadProviders(directory, mods);

@@ -1,6 +1,6 @@
 const R = require('ramda');
 const { getIndexOrFallback } = require('./utils');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag

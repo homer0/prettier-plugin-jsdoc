@@ -1,5 +1,5 @@
 const R = require('ramda');
-const { get, provider } = require('../app');
+const { get, provider } = require('./app');
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
