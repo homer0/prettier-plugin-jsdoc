@@ -1,4 +1,5 @@
 jest.unmock('../../src/index');
+jest.unmock('../../src/loader');
 jest.mock('../../src/fns/app');
 
 const path = require('path');
