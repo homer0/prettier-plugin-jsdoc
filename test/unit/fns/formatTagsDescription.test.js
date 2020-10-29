@@ -1,5 +1,4 @@
 jest.unmock('../../../src/fns/formatTagsDescription');
-jest.unmock('../../../src/constants');
 
 const { formatTagsDescription } = require('../../../src/fns/formatTagsDescription');
 

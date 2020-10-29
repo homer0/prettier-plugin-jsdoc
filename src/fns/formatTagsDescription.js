@@ -1,8 +1,5 @@
 const R = require('ramda');
-const {
-  TAGS_WITH_DESCRIPTION_AS_NAME,
-  TAGS_WITH_NAME_AS_DESCRIPTION,
-} = require('../constants');
+const { getTagsWithDescriptionAsName, getTagsWithNameAsDescription } = require('./constants');
 const { isTag, hasValidProperty } = require('./utils');
 const { get, provider } = require('../app');
 
@@ -88,11 +85,11 @@ const formatTagsDescription = (tags) => {
     R.compose(
       addParagraphFlag,
       R.when(
-        useIsTag(TAGS_WITH_NAME_AS_DESCRIPTION),
+        useIsTag(get(getTagsWithNameAsDescription)()),
         useJoinProperties('name', 'description', 'name'),
       ),
       R.when(
-        useIsTag(TAGS_WITH_DESCRIPTION_AS_NAME),
+        useIsTag(get(getTagsWithDescriptionAsName)()),
         useJoinProperties('name', 'description', 'description'),
       ),
       R.when(

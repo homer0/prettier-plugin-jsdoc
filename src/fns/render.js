@@ -4,7 +4,7 @@ const { isTag, ensureSentence } = require('./utils');
 const { renderExampleTag } = require('./renderExampleTag');
 const { renderTagInLine } = require('./renderTagInLine');
 const { renderTagInColumns } = require('./renderTagInColumns');
-const { TAGS_WITH_NAME_AS_DESCRIPTION } = require('../constants');
+const { getTagsWithNameAsDescription } = require('./constants');
 const { get, provider } = require('../app');
 
 /**
@@ -254,33 +254,36 @@ const calculateColumnsWidth = (options, data, width) => {
  * @param {PrettierOptions}            options      The options sent to the plugin.
  * @returns {Object.<string,TagColumnsWidthData>}
  */
-const getTagsData = (lengthByTag, width, options) => Object.entries(lengthByTag).reduce(
-  (acc, [tagName, tagInfo]) => {
-    const columnsWidth = get(calculateColumnsWidth)(options, tagInfo, width);
-    if (TAGS_WITH_NAME_AS_DESCRIPTION.includes(tagName)) {
-      columnsWidth.description = 0;
-      columnsWidth.name = width - columnsWidth.tag - columnsWidth.type;
-    }
-    return {
-      ...acc,
-      [tagName]: {
-        canUseColumns: (
-          !tagInfo.hasMultilineType &&
-          (
-            !options.jsdocAllowDescriptionOnNewLinesForTags.includes(tagName) ||
-            !tagInfo.hasADescriptionParagraph
-          ) &&
-          (
-            !columnsWidth.description ||
-            columnsWidth.description >= options.jsdocDescriptionColumnMinLength
-          )
-        ),
-        columnsWidth,
-      },
-    };
-  },
-  {},
-);
+const getTagsData = (lengthByTag, width, options) => {
+  const tagsWithNameAsDesc = get(getTagsWithNameAsDescription)();
+  return Object.entries(lengthByTag).reduce(
+    (acc, [tagName, tagInfo]) => {
+      const columnsWidth = get(calculateColumnsWidth)(options, tagInfo, width);
+      if (tagsWithNameAsDesc.includes(tagName)) {
+        columnsWidth.description = 0;
+        columnsWidth.name = width - columnsWidth.tag - columnsWidth.type;
+      }
+      return {
+        ...acc,
+        [tagName]: {
+          canUseColumns: (
+            !tagInfo.hasMultilineType &&
+            (
+              !options.jsdocAllowDescriptionOnNewLinesForTags.includes(tagName) ||
+              !tagInfo.hasADescriptionParagraph
+            ) &&
+            (
+              !columnsWidth.description ||
+              columnsWidth.description >= options.jsdocDescriptionColumnMinLength
+            )
+          ),
+          columnsWidth,
+        },
+      };
+    },
+    {},
+  );
+};
 
 /**
  * Renders a JSDoc block in a list of lines.
