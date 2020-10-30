@@ -25,6 +25,19 @@ describe('prepareTagDescription', () => {
       },
     },
     {
+      it: 'should transform a tag name',
+      input: {
+        tag: 'see',
+        name: 'something',
+        description: '',
+      },
+      output: {
+        tag: 'see',
+        name: 'Something.',
+        description: '',
+      },
+    },
+    {
       it: 'should transform a tag description, respecting any leading and/or trailing space',
       input: {
         description: '  something else  ',

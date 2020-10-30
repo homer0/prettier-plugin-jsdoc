@@ -1,3 +1,7 @@
+module.exports = {
+  only: true,
+};
+
 //# input
 
 /**
@@ -26,6 +30,7 @@ const log = (name = 'batman', logger) => {};
  * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada fermentum nibh, sed aliquet ante porta a. Nullam blandit posuere fringilla. Nullam vel risus vitae lectus luctus auctor a venenatis ante. In hac habitasse platea dictumst.
  * @summary
  * something else
+ * @returns {User} some description for the return value
  */
 
 //# output
@@ -71,6 +76,7 @@ const log = (name = 'batman', logger) => {};
  *   };
  * }} newUser
  * Something else.
+ * @returns {User} Some description for the return value.
  * @summary
  * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada fermentum nibh, sed
  * aliquet ante porta a. Nullam blandit posuere fringilla. Nullam vel risus vitae lectus luctus

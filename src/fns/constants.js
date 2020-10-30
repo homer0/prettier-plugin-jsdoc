@@ -65,6 +65,7 @@ const getTagsWithNameAsDescription = () => [
   'see',
   'borrows',
   'yields',
+  'returns',
 ];
 
 module.exports.getTagsSynonyms = getTagsSynonyms;
