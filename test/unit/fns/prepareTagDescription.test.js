@@ -57,6 +57,26 @@ describe('prepareTagDescription', () => {
         description: '  something else  ',
       },
     },
+    {
+      it: 'should ignore a URL-only description',
+      input: {
+        description: 'https://codear.org',
+      },
+      output: {
+        description: 'https://codear.org',
+      },
+    },
+    {
+      it: 'should ignore a URL-only name',
+      input: {
+        tag: 'see',
+        name: 'https://codear.org',
+      },
+      output: {
+        tag: 'see',
+        name: 'https://codear.org',
+      },
+    },
   ];
 
   it.each(cases)('should correctly format the case %#', (caseInfo) => {

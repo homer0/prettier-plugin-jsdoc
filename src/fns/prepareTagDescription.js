@@ -1,5 +1,10 @@
 const R = require('ramda');
-const { ensureSentence, hasValidProperty, isTag } = require('./utils');
+const {
+  ensureSentence,
+  hasValidProperty,
+  isTag,
+  isURL,
+} = require('./utils');
 const { getTagsWithNameAsDescription } = require('./constants');
 const { get, provider } = require('./app');
 
@@ -21,7 +26,10 @@ const { get, provider } = require('./app');
  */
 const makePropertyIntoSentence = R.curry((property, tag) => R.compose(
   R.assoc(property, R.__, tag),
-  get(ensureSentence),
+  R.when(
+    R.complement(get(isURL)),
+    get(ensureSentence),
+  ),
   R.prop(property),
 )(tag));
 

@@ -352,6 +352,16 @@ const ensureSentence = (text) => R.compose(
     (full, padding, letter) => `${padding}${letter.toUpperCase()}`,
   ),
 )(text);
+/**
+ * Validates if a text is a valid URL.
+ *
+ * @param {string} text The text to validate.
+ * @returns {boolean}
+ */
+const isURL = (text) => isMatch(
+  /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/i,
+  text,
+);
 
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
@@ -369,4 +379,5 @@ module.exports.hasValidProperty = hasValidProperty;
 module.exports.prefixLines = prefixLines;
 module.exports.splitLinesAndClean = splitLinesAndClean;
 module.exports.ensureSentence = ensureSentence;
+module.exports.isURL = isURL;
 module.exports.provider = provider('utils', module.exports);
