@@ -43,7 +43,16 @@ const renderTagInLine = R.curry((width, typePadding, namePadding, tag) => {
       const tagHeaderWithSpace = `${tagHeader}${useTypePadding}{${tag.type}}${useNamePadding}`;
       const nameWidth = width - tagHeaderWithSpace.length;
       const nameLines = get(splitText)(tag.name, nameWidth);
-      result = [`${tagHeaderWithSpace}${nameLines.shift()}`.trimRight()];
+      const nameFirstLine = nameLines.shift();
+      const topLine = `${tagHeaderWithSpace}${nameFirstLine}`.trimRight();
+      if (topLine.length > width) {
+        result = [
+          tagHeaderWithSpace.trimRight(),
+          nameFirstLine,
+        ];
+      } else {
+        result = [topLine];
+      }
       if (nameLines.length) {
         const namePaddingForLine = ' '.repeat(tagHeaderWithSpace.length);
         result.push(...nameLines.map((line) => `${namePaddingForLine}${line}`));

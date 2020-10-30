@@ -141,6 +141,24 @@ describe('renderTagInLine', () => {
         namePadding: 1,
       },
     },
+    {
+      it: 'should move the name to a new line when the type is too long',
+      input: {
+        tag: 'typedef',
+        type: 'StaticsControllerOptions & StaticsControllerWrapperOptionsProperties',
+        name: 'StaticsControllerWrapperOptions',
+        description: '',
+      },
+      output: [
+        '@typedef {StaticsControllerOptions & StaticsControllerWrapperOptionsProperties}',
+        'StaticsControllerWrapperOptions',
+      ],
+      options: {
+        width: 90,
+        typePadding: 1,
+        namePadding: 1,
+      },
+    },
   ];
 
   it.each(cases)('should correctly format the case %#', (caseInfo) => {

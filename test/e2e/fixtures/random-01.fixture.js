@@ -1,8 +1,9 @@
-module.exports = {
-  only: true,
-};
-
 //# input
+
+/**
+ * @external Jimple
+ * @see https://yarnpkg.com/en/package/jimple
+ */
 
 /**
  * @type {Object} Something
@@ -33,7 +34,17 @@ const log = (name = 'batman', logger) => {};
  * @returns {User} some description for the return value
  */
 
+/**
+ * @typedef {StaticsControllerOptions & StaticsControllerWrapperOptionsProperties} StaticsControllerWrapperOptions
+ * @parent module:controllers
+ */
+
 //# output
+
+/**
+ * @external Jimple
+ * @see https://yarnpkg.com/en/package/jimple
+ */
 
 /**
  * Transform this into a sentence.
@@ -83,4 +94,10 @@ const log = (name = 'batman', logger) => {};
  * auctor a venenatis ante. In hac habitasse platea dictumst.
  * @summary
  * Something else.
+ */
+
+/**
+ * @typedef {StaticsControllerOptions & StaticsControllerWrapperOptionsProperties}
+ * StaticsControllerWrapperOptions
+ * @parent module:controllers
  */
