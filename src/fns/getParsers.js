@@ -264,18 +264,20 @@ const getRenderer = (options) => {
  */
 const createParser = (originalParser) => (text, parsers, options) => {
   const ast = originalParser(text, parsers, options);
-  const formatter = R.compose(
-    get(prepareCommentTags)(options),
-    get(formatCommentTags)(options),
-    get(formatCommentBlock)(options),
-  );
-  const renderer = getRenderer(options);
+  if (options.jsdocPluginEnabled) {
+    const formatter = R.compose(
+      get(prepareCommentTags)(options),
+      get(formatCommentTags)(options),
+      get(formatCommentBlock)(options),
+    );
+    const renderer = getRenderer(options);
 
-  if (ast.comments && ast.comments.length) {
-    get(processComments)(ast.comments, formatter, (info) => {
-      const { comment, column, block } = info;
-      comment.value = renderer(column, block);
-    });
+    if (ast.comments && ast.comments.length) {
+      get(processComments)(ast.comments, formatter, (info) => {
+        const { comment, column, block } = info;
+        comment.value = renderer(column, block);
+      });
+    }
   }
 
   return ast;

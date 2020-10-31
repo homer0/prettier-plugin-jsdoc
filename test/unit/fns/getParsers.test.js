@@ -69,7 +69,60 @@ describe('getParsers', () => {
     });
     const text = 'lorem ipsum';
     const parsers = ['babel'];
-    const options = { printWidth: 80 };
+    const options = {
+      jsdocPluginEnabled: true,
+      printWidth: 80,
+    };
+    let sut = null;
+    // When/Then
+    sut = getParsers();
+    parsersToTest.forEach((info) => {
+      sut[info.name].parse(text, parsers, options);
+      expect(info.ast).toEqual(astBase);
+    });
+  });
+
+  it('shouldn\'t do anything if the plugin is disabled', () => {
+    // Given
+    const astBase = {
+      comments: [],
+    };
+    const parsersToTest = [
+      {
+        name: 'babel',
+        ast: R.clone(astBase),
+        uses: babelParser.parsers.babel,
+      },
+      {
+        name: 'babel-flow',
+        ast: R.clone(astBase),
+        uses: babelParser.parsers['babel-flow'],
+      },
+      {
+        name: 'babel-ts',
+        ast: R.clone(astBase),
+        uses: babelParser.parsers['babel-ts'],
+      },
+      {
+        name: 'flow',
+        ast: R.clone(astBase),
+        uses: flowParser.parsers.flow,
+      },
+      {
+        name: 'typescript',
+        ast: R.clone(astBase),
+        uses: tsParser.parsers.typescript,
+      },
+    ];
+    parsersToTest.forEach((info) => {
+      info.uses.parse.mockImplementationOnce(() => info.ast);
+    });
+    const text = 'lorem ipsum';
+    const parsers = ['babel'];
+    const options = {
+      jsdocPluginEnabled: false,
+      printWidth: 80,
+    };
     let sut = null;
     // When/Then
     sut = getParsers();
@@ -121,7 +174,10 @@ describe('getParsers', () => {
     tsParser.parsers.typescript.parse.mockImplementationOnce(() => ast);
     const text = 'lorem ipsum';
     const parsers = ['ts'];
-    const options = { printWidth: 80 };
+    const options = {
+      jsdocPluginEnabled: true,
+      printWidth: 80,
+    };
     let sut = null;
     // When
     sut = getParsers();
@@ -204,8 +260,9 @@ describe('getParsers', () => {
     const text = 'lorem ipsum';
     const parsers = ['babel'];
     const options = {
-      printWidth: 80,
+      jsdocPluginEnabled: true,
       jsdocUseInlineCommentForASingleTagBlock: true,
+      printWidth: 80,
     };
     let sut = null;
     // When

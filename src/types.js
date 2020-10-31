@@ -91,9 +91,6 @@
 
 /**
  * @typedef {Object} PJPStyleOptions
- * @property {number} jsdocPrintWidth
- * This is an override for the `printWidth` option, in case the length of the documentation lines
- * needs to be different. Default `0`.
  * @property {boolean} jsdocUseColumns
  * Whether or not to try to use columns for type, name and description when possible; if `false`,
  * the descriptions will be moved to a new line. Default `true`.
@@ -127,9 +124,18 @@
  * Whether or not to use a single line JSDoc block when there's only one tag. Default `false`.
  */
 
+/**
+ * @typedef {Object} PJPOtherOptions
+ * @property {number} jsdocPrintWidth
+ * This is an override for the `printWidth` option, in case the length of the documentation lines
+ * needs to be different. Default `0`.
+ * @property {boolean} jsdocPluginEnabled
+ * Whether or not the plugin will parse and transform JSDoc blocks. Default `true`.
+ */
+
 /* eslint-disable max-len */
 /**
- * @typedef {PJPDescriptionTagOptions & PJPExamplesOptions & PJPAccessTagOptions & PJPTypesOptions & PJPTagsOptions & PJPStyleOptions } PJPOptions
+ * @typedef {PJPDescriptionTagOptions & PJPExamplesOptions & PJPAccessTagOptions & PJPTypesOptions & PJPTagsOptions & PJPStyleOptions & PJPOtherOptions } PJPOptions
  */
 /* eslint-enable max-len */
 

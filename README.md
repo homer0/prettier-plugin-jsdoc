@@ -827,11 +827,11 @@ This is an override for the `printWidth` option, in case the length of the docum
 
 ##### Turn the plugin on and off
 
-Whether or not the plugin will parse and transform JSDoc blocks.
-
 | Option | Type | Default |
 | ------ | ---- | ------- |
 | `jsdocPluginEnabled` | boolean | `true` |
+
+Whether or not the plugin will parse and transform JSDoc blocks.
 
 ##### Let the plugin know that it's being extended
 
@@ -860,7 +860,7 @@ The entire plugin is (mostly) built around tiny functions inside a dependency in
 
 First, we have to enable the option `jsdocPluginExtended`, as it will prevent it from running from the original package, and create a JS file to work:
 
-`.prettierrc`: 
+`.prettierrc`:
 
 ```json
 {

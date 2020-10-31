@@ -11,6 +11,12 @@ const { get, provider } = require('./app');
  * @returns {Object.<string,PrettierSupportOption>}
  */
 const getOptions = () => ({
+  jsdocPluginEnabled: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: true,
+    description: 'Whether or not the plugin will parse and transform JSDoc blocks.',
+  },
   jsdocAllowDescriptionTag: {
     type: 'boolean',
     category: 'jsdoc',
