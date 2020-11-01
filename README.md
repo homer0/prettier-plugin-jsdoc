@@ -835,11 +835,11 @@ Whether or not the plugin will parse and transform JSDoc blocks.
 
 ##### Let the plugin know that it's being extended
 
-This will prevent the plugin from running from the original package. The idea is for it to be enabled when the plugin is being extended on the implementation.
-
 | Option | Type | Default |
 | ------ | ---- | ------- |
 | `jsdocPluginExtended` | boolean | `false` |
+
+This will prevent the plugin from running from the original package. The idea is for it to be enabled when the plugin is being extended on the implementation.
 
 ### 🚫 Ignoring blocks
 

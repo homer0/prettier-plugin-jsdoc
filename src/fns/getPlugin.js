@@ -25,13 +25,17 @@ const { get, provider } = require('./app');
 /**
  * Generates the plugin definition.
  *
+ * @param {boolean} [checkExtendOption]  Whether or not, the function that creates the parsers
+ *                                       should check for the option that tells the plugin that it's
+ *                                       being extended, thus, the original package shouldn't do
+ *                                       anything.
  * @returns {Plugin}
  */
-const getPlugin = () => ({
+const getPlugin = (checkExtendOption) => ({
   languages: get(getLanguages)(),
   options: get(getOptions)(),
   defaultOptions: get(getDefaultOptions)(),
-  parsers: get(getParsers)(),
+  parsers: get(getParsers)(checkExtendOption),
 });
 
 module.exports.getPlugin = getPlugin;

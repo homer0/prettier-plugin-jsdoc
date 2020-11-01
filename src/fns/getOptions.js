@@ -17,6 +17,14 @@ const getOptions = () => ({
     default: true,
     description: 'Whether or not the plugin will parse and transform JSDoc blocks.',
   },
+  jsdocPluginExtended: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: false,
+    description:
+      'This will prevent the plugin from running from the original package. The idea is for it ' +
+      'to be enabled when the plugin is being extended on the implementation.',
+  },
   jsdocAllowDescriptionTag: {
     type: 'boolean',
     category: 'jsdoc',

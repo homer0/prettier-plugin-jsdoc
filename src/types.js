@@ -131,6 +131,9 @@
  * needs to be different. Default `0`.
  * @property {boolean} jsdocPluginEnabled
  * Whether or not the plugin will parse and transform JSDoc blocks. Default `true`.
+ * @property {boolean} jsdocPluginExtended
+ * This will prevent the plugin from running from the original package. The idea is for it to be
+ * enabled when the plugin is being extended on the implementation.
  */
 
 /* eslint-disable max-len */

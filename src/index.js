@@ -4,4 +4,4 @@ const { loadFns } = require('./loader');
 
 loadFns();
 
-module.exports = get(getPlugin)();
+module.exports = get(getPlugin)(true);
