@@ -14,21 +14,21 @@ const { get, provider } = require('./app');
  * @typedef {Object} Plugin
  * @property {Language[]} languages
  * The list of supported languages.
- * @property {Object.<string,PrettierSupportOption>} options
+ * @property {Object.<string, PrettierSupportOption>} options
  * The options schema for the plugin.
  * @property {PJPOptions} defaultOptions
  * The plugin options with their default values.
- * @property {Object.<string,PrettierParser>} parsers
+ * @property {Object.<string, PrettierParser>} parsers
  * The dictionary of the parsers the plugin can use.
  */
 
 /**
  * Generates the plugin definition.
  *
- * @param {boolean} [checkExtendOption]  Whether or not, the function that creates the parsers
- *                                       should check for the option that tells the plugin that it's
- *                                       being extended, thus, the original package shouldn't do
- *                                       anything.
+ * @param {boolean} [checkExtendOption]  Whether or not, the function that creates the
+ *                                       parsers should check for the option that tells
+ *                                       the plugin that it's being extended, thus, the
+ *                                       original package shouldn't do anything.
  * @returns {Plugin}
  */
 const getPlugin = (checkExtendOption) => ({

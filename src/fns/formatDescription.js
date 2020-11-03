@@ -1,9 +1,5 @@
 const R = require('ramda');
-const {
-  ensureArray,
-  joinIfNotEmpty,
-  appendIfNotPresent,
-} = require('./utils');
+const { ensureArray, joinIfNotEmpty, appendIfNotPresent } = require('./utils');
 const { get, provider } = require('./app');
 
 /**
@@ -24,33 +20,30 @@ const { get, provider } = require('./app');
 /**
  * Creates a reducer that finds the last index of a tag on a list and saves it on the
  * accumulator using a custom property.
- * Creates a reducer that will try to match a tag (or a list of them) and execute a function
- * if it matches, or another if it doesn't.
+ * Creates a reducer that will try to match a tag (or a list of them) and execute a
+ * function if it matches, or another if it doesn't.
  *
  * @callback FindTagFn
- * @param {string|string[]}  targetTag            The name of the tag or tags the function should
- *                                                find.
- * @param {FindTagHandlerFn<*>} matchHandlerFn    The function called when the current tag matches
- *                                                with the one(s) the reducer is looking for.
- * @param {FindTagHandlerFn<*>} unmatchHandlerFn  The function called when the current tag doesn't
- *                                                match with the one(s) the reducer is looking for.
+ * @param {string | string[]}     targetTag         The name of the tag or tags the
+ *                                                  function should find.
+ * @param {FindTagHandlerFn<any>} matchHandlerFn    The function called when the current
+ *                                                  tag matches with the one(s) the
+ *                                                  reducer is looking for.
+ * @param {FindTagHandlerFn<any>} unmatchHandlerFn  The function called when the current
+ *                                                  tag doesn't match with the one(s) the
+ *                                                  reducer is looking for.
  * @returns {Function}
  */
 
 /**
  * @type {FindTagFn}
  */
-const findTag = R.curry((
-  targetTag,
-  matchHandlerFn,
-  unmatchHandlerFn,
-  step,
-) => {
+const findTag = R.curry((targetTag, matchHandlerFn, unmatchHandlerFn, step) => {
   const targetTags = get(ensureArray)(targetTag);
   return (acc, tag, index) => {
-    const nextAcc = targetTags.includes(tag.tag) ?
-      matchHandlerFn(acc, tag, index) :
-      unmatchHandlerFn(acc, tag, index);
+    const nextAcc = targetTags.includes(tag.tag)
+      ? matchHandlerFn(acc, tag, index)
+      : unmatchHandlerFn(acc, tag, index);
 
     return step(nextAcc, tag, index);
   };
@@ -58,9 +51,9 @@ const findTag = R.curry((
 
 /**
  * @typedef {Object} ProcessTagAccumulator
- * @property {string[]}     parts     All the description "parts" the reducer has found. One can
- *                                    be from the block body, other from a description tag, other
- *                                    from a typedef tag, etc.
+ * @property {string[]}     parts     All the description "parts" the reducer has found.
+ *                                    One can be from the block body, other from a
+ *                                    description tag, other from a typedef tag, etc.
  * @property {CommentTag[]} tags      The list of tags processed by the reducer.
  * @property {number}       tagIndex  The index, if found, of a descriptiont ag.
  */
@@ -68,10 +61,11 @@ const findTag = R.curry((
 /**
  * Generates a reducer handler for specific tags.
  *
- * @param {string|string[]} descriptionProperty  The property or properties that make the
- *                                               description of a tag.
- * @param {boolean}         saveIndex            Whether or not the tag index should be saved as
- *                                               the accumulator `tagIndex` property.
+ * @param {string | string[]} descriptionProperty  The property or properties that make
+ *                                                 the description of a tag.
+ * @param {boolean}           saveIndex            Whether or not the tag index should be
+ *                                                 saved as the accumulator `tagIndex`
+ *                                                 property.
  * @returns {FindTagHandlerFn<ProcessTagAccumulator>}
  */
 const processTag = (descriptionProperty, saveIndex = false) => {
@@ -87,24 +81,26 @@ const processTag = (descriptionProperty, saveIndex = false) => {
     {},
   );
 
-  return (acc, tag, index) => R.evolve(
-    {
-      parts: get(appendIfNotPresent)(generateDescription(tag)),
-      tags: R.append(R.mergeRight(tag, emptyProps)),
-      tagIndex: R.when(R.always(saveIndex), R.always(index)),
-    },
-    acc,
-  );
+  return (acc, tag, index) =>
+    R.evolve(
+      {
+        parts: get(appendIfNotPresent)(generateDescription(tag)),
+        tags: R.append(R.mergeRight(tag, emptyProps)),
+        tagIndex: R.when(R.always(saveIndex), R.always(index)),
+      },
+      acc,
+    );
 };
 
 /**
- * Finds all possible descriptions of a block (body, description tag, after a definition, etc.),
- * puts them together, and, depending on the options, it adds it on the body or a description tag.
+ * Finds all possible descriptions of a block (body, description tag, after a definition,
+ * etc.), puts them together, and, depending on the options, it adds it on the body or a
+ * description tag.
  *
  * @callback FormatDescriptionFn
  * @param {CommentBlock}             block    The block to format.
- * @param {PJPDescriptionTagOptions} options  The options that will tell the method how to handle
- *                                            the description.
+ * @param {PJPDescriptionTagOptions} options  The options that will tell the method how to
+ *                                            handle the description.
  * @returns {CommentBlock}
  */
 
@@ -127,16 +123,8 @@ const formatDescription = R.curry((block, options) => {
         useProcessTag('description'),
         R.identity,
       ),
-      useFindTag(
-        'description',
-        useProcessTag(['name', 'description'], true),
-        R.identity,
-      ),
-      useFindTag(
-        ['description', 'typedef', 'callback', 'function'],
-        R.identity,
-        pushTag,
-      ),
+      useFindTag('description', useProcessTag(['name', 'description'], true), R.identity),
+      useFindTag(['description', 'typedef', 'callback', 'function'], R.identity, pushTag),
     )(R.identity),
     {
       parts: [block.description],
@@ -151,9 +139,12 @@ const formatDescription = R.curry((block, options) => {
   if (options.jsdocAllowDescriptionTag) {
     if (tagIndex > -1) {
       blockDescription = '';
-      blockTags = R.adjust(tagIndex, R.evolve({
-        description: R.always(description),
-      }))(blockTags);
+      blockTags = R.adjust(
+        tagIndex,
+        R.evolve({
+          description: R.always(description),
+        }),
+      )(blockTags);
     } else if (options.jsdocUseDescriptionTag) {
       blockDescription = '';
       const descriptionTag = {

@@ -9,7 +9,9 @@ const { get, provider } = require('./app');
  */
 
 /**
- * @typedef {LanguagePrivateProperties & LanguageSharedProperties & LanguageProperties} Language
+ * @typedef {LanguagePrivateProperties &
+ *   LanguageSharedProperties &
+ *   LanguageProperties} Language
  */
 
 /**
@@ -21,7 +23,8 @@ const { get, provider } = require('./app');
  * @typedef {Object} LanguageSharedProperties
  * @property {string[]} extensions   The extensions of files that related to the language.
  * @property {string[]} [aliases]    A list of known aliases for the language.
- * @property {string[]} [filenames]  An Array of filenames commonly associated with the language.
+ * @property {string[]} [filenames]  An Array of filenames commonly associated with the
+ *                                   language.
  * @see https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
  */
 
@@ -33,7 +36,8 @@ const { get, provider } = require('./app');
 /**
  * @typedef {Object} LanguageProperties
  * @property {string}   since              Since which version of Prettier it can be used.
- * @property {string[]} parsers            The list of parsers that can parse the language.
+ * @property {string[]} parsers            The list of parsers that can parse the
+ *                                         language.
  * @property {string[]} vscodeLanguageIds  The ID for the language on VSCode.
  */
 
@@ -44,9 +48,11 @@ const { get, provider } = require('./app');
 /**
  * Creates the language definition for Prettier.
  *
- * @param {LinguistLanguage}  linguistLanguage  The base data for the language that will be used.
- * @param {LanguageOverrides} overrides         The information of the language for Prettier, and
- *                                              possible overrides for the Linguist data.
+ * @param {LinguistLanguage}  linguistLanguage  The base data for the language that will
+ *                                              be used.
+ * @param {LanguageOverrides} overrides         The information of the language for
+ *                                              Prettier, and possible overrides for the
+ *                                              Linguist data.
  * @returns {Language}
  */
 const createLanguage = (linguistLanguage, overrides) => {

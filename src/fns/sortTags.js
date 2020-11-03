@@ -8,7 +8,8 @@ const { get, provider } = require('./app');
  */
 
 /**
- * Creates the function used by `Array.sort` to actually sort the tags based on a reference list.
+ * Creates the function used by `Array.sort` to actually sort the tags based on a
+ * reference list.
  *
  * @param {string[]} ref  The reference list with the order for the tags.
  * @returns {Function}
@@ -27,9 +28,9 @@ const createSorter = (ref) => {
  * @param {PJPTagsOptions} options  The options that tell the function how to sort them.
  * @returns {CommentTag[]}
  */
-const sortTags = R.curry((tags, options) => R.sort(
-  get(createSorter)(options.jsdocTagsOrder),
-)(tags));
+const sortTags = R.curry((tags, options) =>
+  R.sort(get(createSorter)(options.jsdocTagsOrder))(tags),
+);
 
 module.exports.sortTags = sortTags;
 module.exports.createSorter = createSorter;

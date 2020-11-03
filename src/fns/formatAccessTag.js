@@ -11,7 +11,8 @@ const { get, provider } = require('./app');
  * Formats and normalizes the use of the access tag based on the plugin options.
  *
  * @callback FormatAccessTagFn
- * @param {CommentTag[]}        tags     The list of tags where the transformations should happen.
+ * @param {CommentTag[]}        tags     The list of tags where the transformations should
+ *                                       happen.
  * @param {PJPAccessTagOptions} options  The plugin options for the access tag.
  * @returns {CommentTag[]}
  */
@@ -24,10 +25,7 @@ const formatAccessTag = R.curry((tags, options) => {
   const indexes = tags.reduce(
     R.compose(
       useFindTagIndex('access', 'accessTag'),
-      useFindTagIndex(
-        ['public', 'protected', 'private'],
-        'typeTag',
-      ),
+      useFindTagIndex(['public', 'protected', 'private'], 'typeTag'),
     )(R.identity),
     {
       accessTag: -1,
@@ -46,15 +44,19 @@ const formatAccessTag = R.curry((tags, options) => {
         indexes.typeTag = -1;
       } else {
         // If there's a access type tag but no @access tag, replace the access type tag with one.
-        result = R.adjust(indexes.typeTag, (typeTag) => ({
-          tag: 'access',
-          type: '',
-          name: typeTag.tag,
-          description: '',
-        }), tags);
+        result = R.adjust(
+          indexes.typeTag,
+          (typeTag) => ({
+            tag: 'access',
+            type: '',
+            name: typeTag.tag,
+            description: '',
+          }),
+          tags,
+        );
       }
     }
-  // If @access tags are not allowed but there's one.
+    // If @access tags are not allowed but there's one.
   } else if (indexes.accessTag > -1) {
     // If there's also an access type tag, just remove the @access tag.
     if (indexes.typeTag > -1) {
@@ -62,12 +64,16 @@ const formatAccessTag = R.curry((tags, options) => {
       indexes.accessTag = -1;
     } else {
       // If there's an @access tag but not access type tag, replace the @access tag with one.
-      result = R.adjust(indexes.accessTag, (accessTag) => ({
-        tag: accessTag.name,
-        type: '',
-        name: '',
-        description: '',
-      }), tags);
+      result = R.adjust(
+        indexes.accessTag,
+        (accessTag) => ({
+          tag: accessTag.name,
+          type: '',
+          name: '',
+          description: '',
+        }),
+        tags,
+      );
     }
   }
 

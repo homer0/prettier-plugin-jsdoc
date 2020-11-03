@@ -10,16 +10,17 @@ const { get, provider } = require('./app');
  */
 
 /**
- * Takes a list of tags and runs them through all the preparations needed for them to be rendered.
- * Preparations include adding the brackes for optional parameters and running Prettier for
- * complex types.
+ * Takes a list of tags and runs them through all the preparations needed for them to be
+ * rendered. Preparations include adding the brackes for optional parameters and running
+ * Prettier for complex types.
  *
  * @callback PrepareTagsFn
- * @param {CommentTag[]}    tags    The list of tags to format.
- * @param {PrettierOptions} options The options sent to the plugin, in case they're needed for
- *                                  Prettier.
- * @param {number}          column  The column where the comment will be rendered; this is necessary
- *                                  for some of the functions that may need to call Prettier.
+ * @param {CommentTag[]}    tags     The list of tags to format.
+ * @param {PrettierOptions} options  The options sent to the plugin, in case they're
+ *                                   needed for Prettier.
+ * @param {number}          column   The column where the comment will be rendered; this
+ *                                   is necessary for some of the functions that may need
+ *                                   to call Prettier.
  * @returns {CommentTag[]}
  */
 
@@ -37,10 +38,7 @@ const prepareTags = R.curry((tags, options, column) => {
     fns.push(get(prepareTagDescription));
   }
 
-  return R.map(
-    R.compose(...fns.reverse()),
-    tags,
-  );
+  return R.map(R.compose(...fns.reverse()), tags);
 });
 
 module.exports.prepareTags = prepareTags;

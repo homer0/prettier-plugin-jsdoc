@@ -6,8 +6,8 @@ const { get, provider } = require('./app');
  */
 
 /**
- * This is the actual function that formats a string literal by adding the necessary padding
- * and updating the quotes.
+ * This is the actual function that formats a string literal by adding the necessary
+ * padding and updating the quotes.
  *
  * @callback StringLiteralFormatter
  * @param {string} type  The type to format.
@@ -24,22 +24,25 @@ const { get, provider } = require('./app');
  */
 
 /**
- * Generates a {@link StringLiteralFormatter} with the necessary padding and quotes so it can
- * be used ona reducer/map.
+ * Generates a {@link StringLiteralFormatter} with the necessary padding and quotes so it
+ * can be used ona reducer/map.
  *
  * @param {string} padding  The padding that should be around the literals.
  * @param {string} quote    The quote charater that should wrap the literals.
  * @returns {StringLiteralFormatter}
  */
-const getFormatter = (padding, quote) => R.compose(
-  R.trim,
-  R.join('|'),
-  R.map(R.compose(
-    R.replace(/['"]\s*([\w\-]+)\s*['"]/, `${padding}${quote}$1${quote}${padding}`),
+const getFormatter = (padding, quote) =>
+  R.compose(
     R.trim,
-  )),
-  R.split('|'),
-);
+    R.join('|'),
+    R.map(
+      R.compose(
+        R.replace(/['"]\s*([\w\-]+)\s*['"]/, `${padding}${quote}$1${quote}${padding}`),
+        R.trim,
+      ),
+    ),
+    R.split('|'),
+  );
 /**
  * Generates the reducer to update a type and format any string literal type inside it.
  *
@@ -47,7 +50,7 @@ const getFormatter = (padding, quote) => R.compose(
  * @returns {StringLiteralsReducer}
  */
 const getReducer = (options) => {
-  const quote = options.jsdocUseSingleQuotesForStringLiterals ? '\'' : '"';
+  const quote = options.jsdocUseSingleQuotesForStringLiterals ? "'" : '"';
   const padding = ' '.repeat(options.jsdocSpacesBetweenStringLiterals);
   const formatter = get(getFormatter)(padding, quote);
   return (type, literal) => R.replace(literal, formatter(literal), type);
@@ -61,26 +64,26 @@ const getReducer = (options) => {
  */
 const extractLiterals = (type) => R.match(/['"][\w\|\-\s'"]+['"](?:\s+)?/g, type);
 /**
- * Formats the styling of string literals inside a type. If the type doesn't use string literals,
- * it will be returned without modification.
+ * Formats the styling of string literals inside a type. If the type doesn't use string
+ * literals, it will be returned without modification.
  *
  * @callback FormatStringLiteralsFn
  * @param {string}          type     The type to format.
- * @param {PJPTypesOptions} options  The options that tell the function how to format the type.
+ * @param {PJPTypesOptions} options  The options that tell the function how to format the
+ *                                   type.
  * @returns {string}
  */
 
 /**
  * @type {FormatStringLiteralsFn}
  */
-const formatStringLiterals = R.curry((type, options) => R.compose(
-  (literals) => (
-    literals.length ?
-      R.reduce(get(getReducer)(options), type, literals) :
-      type
-  ),
-  get(extractLiterals),
-)(type));
+const formatStringLiterals = R.curry((type, options) =>
+  R.compose(
+    (literals) =>
+      literals.length ? R.reduce(get(getReducer)(options), type, literals) : type,
+    get(extractLiterals),
+  )(type),
+);
 
 module.exports.formatStringLiterals = formatStringLiterals;
 module.exports.getFormatter = getFormatter;

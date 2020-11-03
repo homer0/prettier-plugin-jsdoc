@@ -1,12 +1,12 @@
 const { provider } = require('./app');
 
 /**
- * Gets a dictionary where the keys are old tags' names, and values the current tag name for which
- * they are synonym.
+ * Gets a dictionary where the keys are old tags' names, and values the current tag name
+ * for which they are synonym.
  *
  * This is used by one of the plugin functionalitites that updates tags' names.
  *
- * @returns {Object.<string,string>}
+ * @returns {Object.<string, string>}
  */
 const getTagsSynonyms = () => ({
   virtual: 'abstract',
@@ -31,11 +31,11 @@ const getTagsSynonyms = () => ({
   examples: 'example',
 });
 /**
- * Gets a list of tags that shouldn't have a `name` property, like `summary`. This list exists
- * because the parser package, incorrectly, takes the first word of the description and assigns it
- * as the `name`.
- * This plugin has a functionality that, based on this list, will move the `name` word to the
- * `description` property.
+ * Gets a list of tags that shouldn't have a `name` property, like `summary`. This list
+ * exists because the parser package, incorrectly, takes the first word of the description
+ * and assigns it as the `name`.
+ * This plugin has a functionality that, based on this list, will move the `name` word to
+ * the `description` property.
  *
  * @returns {string[]}
  */
@@ -55,18 +55,14 @@ const getTagsWithDescriptionAsName = () => [
   'todo',
 ];
 /**
- * This is almost the same as {@link getTagsWithDescriptionAsName}; the difference here is that
- * after putting together the `name` and the `description`, instead of saving the result on
- * `description`, it will be saved on `name`, as it will be better for the rendering.
+ * This is almost the same as {@link getTagsWithDescriptionAsName}; the difference here is
+ * that after putting together the `name` and the `description`, instead of saving the
+ * result on `description`, it will be saved on `name`, as it will be better for the
+ * rendering.
  *
  * @returns {string[]}
  */
-const getTagsWithNameAsDescription = () => [
-  'see',
-  'borrows',
-  'yields',
-  'returns',
-];
+const getTagsWithNameAsDescription = () => ['see', 'borrows', 'yields', 'returns'];
 
 module.exports.getTagsSynonyms = getTagsSynonyms;
 module.exports.getTagsWithDescriptionAsName = getTagsWithDescriptionAsName;

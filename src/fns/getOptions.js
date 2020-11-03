@@ -8,7 +8,7 @@ const { get, provider } = require('./app');
 /**
  * Gets a dictionary with the plugin options.
  *
- * @returns {Object.<string,PrettierSupportOption>}
+ * @returns {Object.<string, PrettierSupportOption>}
  */
 const getOptions = () => ({
   jsdocPluginEnabled: {
@@ -65,7 +65,7 @@ const getOptions = () => ({
     default: false,
     description:
       'Whether or not to add an indentation level to the code snippets of @example tags that ' +
-      'couldn\'t be formatted with Prettier. This is only valid if `jsdocFormatExamples` is ' +
+      "couldn't be formatted with Prettier. This is only valid if `jsdocFormatExamples` is " +
       '`true`.',
   },
   jsdocAllowAccessTag: {
@@ -94,7 +94,7 @@ const getOptions = () => ({
     type: 'boolean',
     category: 'jsdoc',
     default: true,
-    description: 'Whether or not to use single quotes for string literals\' types.',
+    description: "Whether or not to use single quotes for string literals' types.",
   },
   jsdocSpacesBetweenStringLiterals: {
     type: 'int',
@@ -124,7 +124,7 @@ const getOptions = () => ({
     default: true,
     description:
       'Whether or not to transform the type `Array<type>` into `type[]` when possible. If ' +
-      'inside the symbols there\'s more than a type, the transformation won\'t happen.',
+      "inside the symbols there's more than a type, the transformation won't happen.",
   },
   jsdocFormatDotForArraysAndObjects: {
     type: 'boolean',
@@ -163,49 +163,51 @@ const getOptions = () => ({
     description:
       'A list specifing the order in which the the tags of a JSDoc block should be sorted. It ' +
       'supports an `other` item to place tags that are not on the list.',
-    default: [{
-      value: [
-        'type',
-        'typedef',
-        'callback',
-        'function',
-        'method',
-        'class',
-        'file',
-        'constant',
-        'description',
-        'classdesc',
-        'example',
-        'param',
-        'property',
-        'returns',
-        'template',
-        'augments',
-        'extends',
-        'throws',
-        'yields',
-        'fires',
-        'listens',
-        'async',
-        'abstract',
-        'override',
-        'private',
-        'protected',
-        'public',
-        'access',
-        'desprecated',
-        'author',
-        'version',
-        'since',
-        'member',
-        'memberof',
-        'category',
-        'external',
-        'see',
-        'other',
-        'todo',
-      ],
-    }],
+    default: [
+      {
+        value: [
+          'type',
+          'typedef',
+          'callback',
+          'function',
+          'method',
+          'class',
+          'file',
+          'constant',
+          'description',
+          'classdesc',
+          'example',
+          'param',
+          'property',
+          'returns',
+          'template',
+          'augments',
+          'extends',
+          'throws',
+          'yields',
+          'fires',
+          'listens',
+          'async',
+          'abstract',
+          'override',
+          'private',
+          'protected',
+          'public',
+          'access',
+          'desprecated',
+          'author',
+          'version',
+          'since',
+          'member',
+          'memberof',
+          'category',
+          'external',
+          'see',
+          'other',
+          'todo',
+        ],
+      },
+    ],
   },
   jsdocPrintWidth: {
     type: 'int',
@@ -236,7 +238,7 @@ const getOptions = () => ({
     category: 'jsdoc',
     default: true,
     description:
-      'This is for when the columns are algined by tags; if `true` and one tag can\'t use ' +
+      "This is for when the columns are algined by tags; if `true` and one tag can't use " +
       'columns, no other tag will use them either.',
   },
   jsdocDescriptionColumnMinLength: {
@@ -245,7 +247,7 @@ const getOptions = () => ({
     default: 35,
     description:
       'When using columns, this is the minimum available space the description column must ' +
-      'have; if it\'s less, the description will be moved to a new line and columns will be ' +
+      "have; if it's less, the description will be moved to a new line and columns will be " +
       'disabled for the tag, and if consistent columns are enabled, for the entire block.',
   },
   jsdocMinSpacesBetweenTagAndType: {
@@ -264,13 +266,15 @@ const getOptions = () => ({
     type: 'int',
     category: 'jsdoc',
     default: 2,
-    description: 'How many spaces should there be between a name and a description column.',
+    description:
+      'How many spaces should there be between a name and a description column.',
   },
   jsdocLinesBetweenDescriptionAndTags: {
     type: 'int',
     category: 'jsdoc',
     default: 1,
-    description: 'How many lines should there be between a description body and the tags.',
+    description:
+      'How many lines should there be between a description body and the tags.',
   },
   jsdocEnsureDescriptionsAreSentences: {
     type: 'boolean',
@@ -284,19 +288,22 @@ const getOptions = () => ({
     type: 'path',
     category: 'jsdoc',
     array: true,
-    description: 'A list of tags that are allowed to have their description on a new line.',
-    default: [{
-      value: [
-        'classdesc',
-        'license',
-        'desc',
-        'description',
-        'file',
-        'fileoverview',
-        'overview',
-        'summary',
-      ],
-    }],
+    description:
+      'A list of tags that are allowed to have their description on a new line.',
+    default: [
+      {
+        value: [
+          'classdesc',
+          'license',
+          'desc',
+          'description',
+          'file',
+          'fileoverview',
+          'overview',
+          'summary',
+        ],
+      },
+    ],
   },
   jsdocIgnoreNewLineDescriptionsForConsistentColumns: {
     type: 'boolean',
@@ -310,7 +317,8 @@ const getOptions = () => ({
     type: 'boolean',
     category: 'jsdoc',
     default: false,
-    description: 'Whether or not to use a single line JSDoc block when there\'s only one tag.',
+    description:
+      "Whether or not to use a single line JSDoc block when there's only one tag.",
   },
 });
 
@@ -319,13 +327,14 @@ const getOptions = () => ({
  *
  * @returns {PJPOptions}
  */
-const getDefaultOptions = () => Object.entries(get(getOptions)()).reduce(
-  (acc, [key, value]) => ({
-    ...acc,
-    [key]: Array.isArray(value.default) ? value.default[0].value : value.default,
-  }),
-  {},
-);
+const getDefaultOptions = () =>
+  Object.entries(get(getOptions)()).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      [key]: Array.isArray(value.default) ? value.default[0].value : value.default,
+    }),
+    {},
+  );
 
 module.exports.getOptions = getOptions;
 module.exports.getDefaultOptions = getDefaultOptions;

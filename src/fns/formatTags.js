@@ -12,7 +12,8 @@ const { get, provider } = require('./app');
  */
 
 /**
- * Formats the tags' names, trims the values, and applies sorting, if enabled, to a list of tags.
+ * Formats the tags' names, trims the values, and applies sorting, if enabled, to a list
+ * of tags.
  *
  * @callback FormatTagsFn
  * @param {CommentTag[]}   tags     The list to format.

@@ -1,5 +1,8 @@
 const R = require('ramda');
-const { getTagsWithDescriptionAsName, getTagsWithNameAsDescription } = require('./constants');
+const {
+  getTagsWithDescriptionAsName,
+  getTagsWithNameAsDescription,
+} = require('./constants');
 const { isTag, hasValidProperty } = require('./utils');
 const { get, provider } = require('./app');
 
@@ -11,7 +14,7 @@ const { get, provider } = require('./app');
  * Checks if a tag description starts with a new line or not in order to add the
  * `descriptionParagrah` flag property.
  *
- * @param {CommentTag} tag The tag where the flag will be added.
+ * @param {CommentTag} tag  The tag where the flag will be added.
  * @returns {CommentTag}
  */
 const addParagraphFlag = (tag) => ({
@@ -20,16 +23,18 @@ const addParagraphFlag = (tag) => ({
 });
 
 /**
- * Utility function that fixes texts from properties that were splitted incorrectly. For example,
- * the parser would take the text from a `description` text, set the first word as the tag `name`
+ * Utility function that fixes texts from properties that were splitted incorrectly. For
+ * example,
+ * the parser would take the text from a `description` text, set the first word as the tag
+ * `name`
  * and the rest as `description`.
  *
  * @callback JoinPropertiesFn
  * @param {string}     propA  The property that starts the text.
  * @param {string}     propB  The property that ends the text.
- * @param {string}     prop   The property where the text will be placed. This needs to be the
- *                            value of either `propA` or `propB`, and whichever you don't choose
- *                            will be left as an empty string.
+ * @param {string}     prop   The property where the text will be placed. This needs to be
+ *                            the value of either `propA` or `propB`, and whichever you
+ *                            don't choose will be left as an empty string.
  * @param {CommentTag} tag    The tag to format.
  * @returns {CommentTag}
  */
@@ -57,10 +62,10 @@ const joinProperties = R.curry((propA, propB, prop, tag) => {
 });
 
 /**
- * Takes a tag that has a link tag as a type and moves it to the property where the description
- * starts.
+ * Takes a tag that has a link tag as a type and moves it to the property where the
+ * description starts.
  *
- * @param {CommentTag} tag The tag to fix.
+ * @param {CommentTag} tag  The tag to fix.
  * @returns {CommentTag}
  */
 const addLinkToDescription = (tag) => ({
@@ -70,10 +75,10 @@ const addLinkToDescription = (tag) => ({
 });
 
 /**
- * Formats the descriptions of a list of tags in order to fix those texts the parser may have
- * incorrectly splitted (like the tag description that ends on `name` and `description`), moves
- * `link` tags mistaken as types to the description, and  then it adds the `descriptionParagrah`
- * flag to the tags.
+ * Formats the descriptions of a list of tags in order to fix those texts the parser may
+ * have incorrectly splitted (like the tag description that ends on `name` and
+ * `description`), moves `link` tags mistaken as types to the description, and then it
+ * adds the `descriptionParagrah` flag to the tags.
  *
  * @param {CommentTag[]} tags  The list of tags to format.
  * @returns {CommentTag[]}

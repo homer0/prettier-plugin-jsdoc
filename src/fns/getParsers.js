@@ -23,10 +23,8 @@ const { get, provider } = require('./app');
  * @param {Object} node  The node to validate.
  * @returns {boolean}
  */
-const isComment = (node) => R.compose(
-  R.includes(R.__, ['CommentBlock', 'Block']),
-  R.prop('type'),
-)(node);
+const isComment = (node) =>
+  R.compose(R.includes(R.__, ['CommentBlock', 'Block']), R.prop('type'))(node);
 
 /**
  * @typedef {Object} LocationCoordinates
@@ -40,8 +38,8 @@ const isComment = (node) => R.compose(
 
 /**
  * @typedef {Object} CommentNode
- * @property {string}              value  The content of the block. Without the leading `/*` and
- *                                        trailing `*\/`.
+ * @property {string}              value  The content of the block. Without the leading
+ *                                        `/*` and trailing `*\/`.
  * @property {CommentNodeLocation} loc    The location of the block on the AST.
  */
 
@@ -51,11 +49,12 @@ const isComment = (node) => R.compose(
  * @param {CommentNode} node  The node to validate.
  * @returns {boolean}
  */
-const matchesBlock = (node) => R.compose(
-  get(isMatch)(/\/\*\*[\s\S]+?\*\//),
-  (value) => `/*${value}*/`,
-  R.prop('value'),
-)(node);
+const matchesBlock = (node) =>
+  R.compose(
+    get(isMatch)(/\/\*\*[\s\S]+?\*\//),
+    (value) => `/*${value}*/`,
+    R.prop('value'),
+  )(node);
 
 /**
  * @typedef {Object} ParsingInformation
@@ -93,10 +92,11 @@ const generateCommentData = (comment) => {
  * @param {ParsingInformation} info  The parsed information of the comment.
  * @returns {boolean}
  */
-const hasIgnoreTag = (info) => R.compose(
-  R.any(R.propSatisfies(R.equals('prettierignore'), 'tag')),
-  R.path(['block', 'tags']),
-)(info);
+const hasIgnoreTag = (info) =>
+  R.compose(
+    R.any(R.propSatisfies(R.equals('prettierignore'), 'tag')),
+    R.path(['block', 'tags']),
+  )(info);
 
 /**
  * Checks if a comment is empty or not (it doesn't have tags).
@@ -104,10 +104,8 @@ const hasIgnoreTag = (info) => R.compose(
  * @param {ParsingInformation} info  The parsed information of the comment.
  * @returns {boolean}
  */
-const hasNoTags = (info) => R.compose(
-  R.equals(0),
-  R.path(['block', 'tags', 'length']),
-)(info);
+const hasNoTags = (info) =>
+  R.compose(R.equals(0), R.path(['block', 'tags', 'length']))(info);
 
 /**
  * Checks whether or not a comment should be ignored.
@@ -115,10 +113,8 @@ const hasNoTags = (info) => R.compose(
  * @param {ParsingInformation} info  The parsed information of the comment.
  * @returns {boolean}
  */
-const shouldIgnoreComment = (info) => R.anyPass([
-  get(hasNoTags),
-  get(hasIgnoreTag),
-])(info);
+const shouldIgnoreComment = (info) =>
+  R.anyPass([get(hasNoTags), get(hasIgnoreTag)])(info);
 
 /**
  * A function that formats the block and/or tags on a comment before being processed and
@@ -130,8 +126,8 @@ const shouldIgnoreComment = (info) => R.anyPass([
  */
 
 /**
- * A function that will recieve a validated, parsed and formatted comment. The idea is for the
- * function to actually do the final changes and update the AST.
+ * A function that will recieve a validated, parsed and formatted comment. The idea is for
+ * the function to actually do the final changes and update the AST.
  *
  * @callback CommentProcessorFn
  * @param {ParsingInformation} info  The parsed information of the comment.
@@ -140,31 +136,31 @@ const shouldIgnoreComment = (info) => R.anyPass([
 /**
  * @callback ProcessCommentsFn
  * @param {Array}              nodes        The list comments found on the AST.
- * @param {CommentFormatterFn} formatterFn  The function that formats and prepares the parsed
- *                                          information so it can be processed.
- * @param {CommentProcessorFn} processorFn  The function that processed the comments after they
- *                                          are validated, parsed and formatted.
+ * @param {CommentFormatterFn} formatterFn  The function that formats and prepares the
+ *                                          parsed information so it can be processed.
+ * @param {CommentProcessorFn} processorFn  The function that processed the comments after
+ *                                          they are validated, parsed and formatted.
  */
 
 /**
  * @type {ProcessCommentsFn}
  */
-const processComments = R.curry((nodes, formatterFn, processorFn) => R.compose(
-  R.forEach(R.compose(
-    R.ifElse(
-      shouldIgnoreComment,
-      R.identity,
-      processorFn,
+const processComments = R.curry((nodes, formatterFn, processorFn) =>
+  R.compose(
+    R.forEach(
+      R.compose(
+        R.ifElse(shouldIgnoreComment, R.identity, processorFn),
+        formatterFn,
+        get(generateCommentData),
+      ),
     ),
-    formatterFn,
-    get(generateCommentData),
-  )),
-  R.filter(R.allPass([get(isComment), get(matchesBlock)])),
-)(nodes));
+    R.filter(R.allPass([get(isComment), get(matchesBlock)])),
+  )(nodes),
+);
 
 /**
- * Runs all the formatting functions that require the context of a comment block, not only the
- * tags. For example, formats the block main description.
+ * Runs all the formatting functions that require the context of a comment block, not only
+ * the tags. For example, formats the block main description.
  *
  * @callback FormatCommentBlockFn
  * @param {PrettierOptions}    options  The options sent to the plugin.
@@ -175,12 +171,14 @@ const processComments = R.curry((nodes, formatterFn, processorFn) => R.compose(
 /**
  * @type {FormatCommentBlockFn}
  */
-const formatCommentBlock = R.curry((options, info) => R.compose(
-  R.mergeRight(info),
-  R.assocPath(['block'], R.__, {}),
-  get(formatDescription)(R.__, options),
-  R.prop('block'),
-)(info));
+const formatCommentBlock = R.curry((options, info) =>
+  R.compose(
+    R.mergeRight(info),
+    R.assocPath(['block'], R.__, {}),
+    get(formatDescription)(R.__, options),
+    R.prop('block'),
+  )(info),
+);
 
 /**
  * Runs all the formatting functions for a block tags.
@@ -194,18 +192,20 @@ const formatCommentBlock = R.curry((options, info) => R.compose(
 /**
  * @type {FormatCommentTagsFn}
  */
-const formatCommentTags = R.curry((options, info) => R.compose(
-  R.assocPath(['block', 'tags'], R.__, info),
-  get(formatTagsTypes)(R.__, options, info.column),
-  get(formatTags)(R.__, options),
-  R.path(['block', 'tags']),
-)(info));
+const formatCommentTags = R.curry((options, info) =>
+  R.compose(
+    R.assocPath(['block', 'tags'], R.__, info),
+    get(formatTagsTypes)(R.__, options, info.column),
+    get(formatTags)(R.__, options),
+    R.path(['block', 'tags']),
+  )(info),
+);
 
 /**
- * Runs all the formatting functions that prepare the block tags in order to be rendered. They're
- * not together with the other formatting functions because the "prepare functions" can change
- * properties just for the rendering. For example, an optional parameter would end up with a name
- * `[name]`.
+ * Runs all the formatting functions that prepare the block tags in order to be rendered.
+ * They're not together with the other formatting functions because the "prepare
+ * functions" can change properties just for the rendering. For example, an optional
+ * parameter would end up with a name `[name]`.
  *
  * @callback PrepareCommentTagsFn
  * @param {PrettierOptions}    options  The options sent to the plugin.
@@ -216,11 +216,13 @@ const formatCommentTags = R.curry((options, info) => R.compose(
 /**
  * @type {PrepareCommentTagsFn}
  */
-const prepareCommentTags = R.curry((options, info) => R.compose(
-  R.assocPath(['block', 'tags'], R.__, info),
-  get(prepareTags)(R.__, options, info.column),
-  R.path(['block', 'tags']),
-)(info));
+const prepareCommentTags = R.curry((options, info) =>
+  R.compose(
+    R.assocPath(['block', 'tags'], R.__, info),
+    get(prepareTags)(R.__, options, info.column),
+    R.path(['block', 'tags']),
+  )(info),
+);
 
 /**
  * @callback RenderBlockFn
@@ -230,10 +232,10 @@ const prepareCommentTags = R.curry((options, info) => R.compose(
  */
 
 /**
- * Generates the render function that will be called for each block in order to get the formatted
- * comment.
+ * Generates the render function that will be called for each block in order to get the
+ * formatted comment.
  *
- * @param {PrettierOptions} options The options sent to the plugin.
+ * @param {PrettierOptions} options  The options sent to the plugin.
  * @returns {RenderBlockFn}
  */
 const getRenderer = (options) => {
@@ -247,9 +249,7 @@ const getRenderer = (options) => {
       return `* ${lines[0]} `;
     }
 
-    const useLines = lines
-    .map((line) => `${prefix}${line}`)
-    .join('\n');
+    const useLines = lines.map((line) => `${prefix}${line}`).join('\n');
 
     return `*\n${useLines}\n${padding}`;
   };
@@ -258,10 +258,10 @@ const getRenderer = (options) => {
 /**
  * Generates the parser that will modify the comments.
  *
- * @param {PrettierParseFn} originalParser     The Prettier built in parser the plugin will use to
- *                                             extract the AST.
- * @param {boolean}         checkExtendOption  Whether or not to check for the option that tells
- *                                             the plugin that it's being extended.
+ * @param {PrettierParseFn} originalParser     The Prettier built in parser the plugin
+ *                                             will use to extract the AST.
+ * @param {boolean}         checkExtendOption  Whether or not to check for the option that
+ *                                             tells the plugin that it's being extended.
  * @returns {PrettierParseFn}
  */
 const createParser = (originalParser, checkExtendOption) => (text, parsers, options) => {
@@ -293,8 +293,9 @@ const createParser = (originalParser, checkExtendOption) => (text, parsers, opti
  *
  * @callback ExtendParserFn
  * @param {PrettierParser} parser             The original parser.
- * @param {boolean}        checkExtendOption  Whether or not the parser should check the option that
- *                                            tells the plugin that it's being extended.
+ * @param {boolean}        checkExtendOption  Whether or not the parser should check the
+ *                                            option that tells the plugin that it's being
+ *                                            extended.
  * @returns {PrettierParser}
  */
 
@@ -309,10 +310,10 @@ const extendParser = R.curry((parser, checkExtendOption) => ({
 /**
  * A dictionary with the supported parsers the plugin can use.
  *
- * @param {boolean} [checkExtendOption] Whether or not, the function that creates the parsers should
- *                                      check for the option that tells the plugin that it's being
- *                                      extended.
- * @returns {Object.<string,PrettierParser>}
+ * @param {boolean} [checkExtendOption]  Whether or not, the function that creates the
+ *                                       parsers should check for the option that tells
+ *                                       the plugin that it's being extended.
+ * @returns {Object.<string, PrettierParser>}
  */
 const getParsers = (checkExtendOption) => {
   const useExtendParser = get(extendParser)(R.__, checkExtendOption);
