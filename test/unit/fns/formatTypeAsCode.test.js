@@ -24,7 +24,9 @@ describe('formatTypeAsCode', () => {
   it('should call prettier for a complex type', () => {
     // Given
     const prettierResponse = 'prettier-response';
-    format.mockImplementationOnce((code) => code.replace(/=.*?$/, `= ${prettierResponse};`));
+    format.mockImplementationOnce((code) =>
+      code.replace(/=.*?$/, `= ${prettierResponse};`),
+    );
     const input = 'React.FC<string>';
     const output = prettierResponse;
     const options = {

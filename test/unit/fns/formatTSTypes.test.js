@@ -3,8 +3,7 @@ jest.unmock('../../../src/fns/formatTSTypes');
 const { formatTSTypes } = require('../../../src/fns/formatTSTypes');
 
 describe('formatTSTypes', () => {
-  it
-  .each([
+  it.each([
     ['String', 'string'],
     ['string', 'string'],
     ['Number', 'number'],
@@ -17,7 +16,7 @@ describe('formatTSTypes', () => {
     ['object', 'Object'],
     ['otherType', 'otherType'],
     ['OtherType', 'OtherType'],
-  ])('should transform \'%s\' into \'%s\'', (input, output) => {
+  ])("should transform '%s' into '%s'", (input, output) => {
     // Given
     let result = null;
     // When

@@ -32,7 +32,7 @@ describe('getParsers', () => {
     render.mockReset();
   });
 
-  it('shouldn\'t do anything if there are no comments on the AST', () => {
+  it("shouldn't do anything if there are no comments on the AST", () => {
     // Given
     const astBase = {
       comments: [],
@@ -82,20 +82,22 @@ describe('getParsers', () => {
     });
   });
 
-  it('shouldn\'t do anything if the plugin is disabled', () => {
+  it("shouldn't do anything if the plugin is disabled", () => {
     // Given
     const commentStr = '*\n * @typedef {string} MyStr\n ';
     const column = 2;
     const astBase = {
-      comments: [{
-        type: 'CommentBlock',
-        value: commentStr,
-        loc: {
-          start: {
-            column,
+      comments: [
+        {
+          type: 'CommentBlock',
+          value: commentStr,
+          loc: {
+            start: {
+              column,
+            },
           },
         },
-      }],
+      ],
     };
     const parsersToTest = [
       {
@@ -142,20 +144,22 @@ describe('getParsers', () => {
     });
   });
 
-  it('shouldn\'t do anything if the plugin is being extended', () => {
+  it("shouldn't do anything if the plugin is being extended", () => {
     // Given
     const commentStr = '*\n * @typedef {string} MyStr\n ';
     const column = 2;
     const astBase = {
-      comments: [{
-        type: 'CommentBlock',
-        value: commentStr,
-        loc: {
-          start: {
-            column,
+      comments: [
+        {
+          type: 'CommentBlock',
+          value: commentStr,
+          loc: {
+            start: {
+              column,
+            },
           },
         },
-      }],
+      ],
     };
     const parsersToTest = [
       {
@@ -208,27 +212,33 @@ describe('getParsers', () => {
     const commentStr = '*\n * @typedef {string} MyStr\n ';
     const column = 2;
     const astBase = {
-      comments: [{
-        type: 'CommentBlock',
-        value: commentStr,
-        loc: {
-          start: {
-            column,
+      comments: [
+        {
+          type: 'CommentBlock',
+          value: commentStr,
+          loc: {
+            start: {
+              column,
+            },
           },
         },
-      }],
+      ],
     };
     const ast = R.clone(astBase);
-    const tagsList = [{
-      tag: 'typedef',
-      type: 'string',
-      name: 'MyStr',
-      description: '',
-    }];
-    const parsed = [{
-      description: '',
-      tags: tagsList,
-    }];
+    const tagsList = [
+      {
+        tag: 'typedef',
+        type: 'string',
+        name: 'MyStr',
+        description: '',
+      },
+    ];
+    const parsed = [
+      {
+        description: '',
+        tags: tagsList,
+      },
+    ];
     commentParser.mockImplementationOnce(() => parsed);
     const formatTagsTypesRest = jest.fn((tags) => tags);
     formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
@@ -238,9 +248,7 @@ describe('getParsers', () => {
     formatDescription.mockImplementationOnce(() => formatDescriptionRest);
     const prepareTagsRest = jest.fn((tags) => tags);
     prepareTags.mockImplementationOnce(() => prepareTagsRest);
-    const renderRest = jest.fn(() => [
-      '@typedef {string} MyFormattedStr',
-    ]);
+    const renderRest = jest.fn(() => ['@typedef {string} MyFormattedStr']);
     render.mockImplementationOnce(() => renderRest);
     tsParser.parsers.typescript.parse.mockImplementationOnce(() => ast);
     const text = 'lorem ipsum';
@@ -255,15 +263,17 @@ describe('getParsers', () => {
     sut.typescript.parse(text, parsers, options);
     // Then
     expect(ast).toEqual({
-      comments: [{
-        type: 'CommentBlock',
-        value: '*\n   * @typedef {string} MyFormattedStr\n   ',
-        loc: {
-          start: {
-            column,
+      comments: [
+        {
+          type: 'CommentBlock',
+          value: '*\n   * @typedef {string} MyFormattedStr\n   ',
+          loc: {
+            start: {
+              column,
+            },
           },
         },
-      }],
+      ],
     });
     expect(commentParser).toHaveBeenCalledTimes(1);
     expect(commentParser).toHaveBeenCalledWith(`/*${commentStr}*/`, {
@@ -292,27 +302,33 @@ describe('getParsers', () => {
     const commentStr = '*\n * @type {MyStr}\n ';
     const column = 2;
     const astBase = {
-      comments: [{
-        type: 'CommentBlock',
-        value: commentStr,
-        loc: {
-          start: {
-            column,
+      comments: [
+        {
+          type: 'CommentBlock',
+          value: commentStr,
+          loc: {
+            start: {
+              column,
+            },
           },
         },
-      }],
+      ],
     };
     const ast = R.clone(astBase);
-    const tagsList = [{
-      tag: 'type',
-      type: 'MyStr',
-      name: '',
-      description: '',
-    }];
-    const parsed = [{
-      description: '',
-      tags: tagsList,
-    }];
+    const tagsList = [
+      {
+        tag: 'type',
+        type: 'MyStr',
+        name: '',
+        description: '',
+      },
+    ];
+    const parsed = [
+      {
+        description: '',
+        tags: tagsList,
+      },
+    ];
     commentParser.mockImplementationOnce(() => parsed);
     const formatTagsTypesRest = jest.fn((tags) => tags);
     formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
@@ -322,9 +338,7 @@ describe('getParsers', () => {
     formatDescription.mockImplementationOnce(() => formatDescriptionRest);
     const prepareTagsRest = jest.fn((tags) => tags);
     prepareTags.mockImplementationOnce(() => prepareTagsRest);
-    const renderRest = jest.fn(() => [
-      '@type {MyFormattedStr}',
-    ]);
+    const renderRest = jest.fn(() => ['@type {MyFormattedStr}']);
     render.mockImplementationOnce(() => renderRest);
 
     babelParser.parsers['babel-flow'].parse.mockImplementationOnce(() => ast);
@@ -341,15 +355,17 @@ describe('getParsers', () => {
     sut['babel-flow'].parse(text, parsers, options);
     // Then
     expect(ast).toEqual({
-      comments: [{
-        type: 'CommentBlock',
-        value: '* @type {MyFormattedStr} ',
-        loc: {
-          start: {
-            column,
+      comments: [
+        {
+          type: 'CommentBlock',
+          value: '* @type {MyFormattedStr} ',
+          loc: {
+            start: {
+              column,
+            },
           },
         },
-      }],
+      ],
     });
   });
 });

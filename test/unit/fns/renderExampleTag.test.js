@@ -12,9 +12,7 @@ describe('renderExampleTag', () => {
         description: '',
         examples: [],
       },
-      output: [
-        '@example',
-      ],
+      output: ['@example'],
       width: 80,
       options: {
         jsdocLinesBetweenExampleTagAndCode: 0,
@@ -24,14 +22,16 @@ describe('renderExampleTag', () => {
       it: 'should render an @example tag',
       input: {
         tag: 'example',
-        examples: [{
-          code: 'const fn = (msg) => console.log(msg);\nfn(\'hello world!\');',
-        }],
+        examples: [
+          {
+            code: "const fn = (msg) => console.log(msg);\nfn('hello world!');",
+          },
+        ],
       },
       output: [
         '@example',
         'const fn = (msg) => console.log(msg);',
-        'fn(\'hello world!\');',
+        "fn('hello world!');",
         '',
       ],
       width: 80,
@@ -43,17 +43,19 @@ describe('renderExampleTag', () => {
       it: 'should render an @example tag with a caption',
       input: {
         tag: 'example',
-        examples: [{
-          caption: 'Some short caption',
-          code: 'const fn = (msg) => console.log(msg);\nfn(\'hello world!\');',
-        }],
+        examples: [
+          {
+            caption: 'Some short caption',
+            code: "const fn = (msg) => console.log(msg);\nfn('hello world!');",
+          },
+        ],
       },
       output: [
         '@example',
         '<caption>Some short caption</caption>',
         '',
         'const fn = (msg) => console.log(msg);',
-        'fn(\'hello world!\');',
+        "fn('hello world!');",
         '',
       ],
       width: 80,
@@ -65,13 +67,15 @@ describe('renderExampleTag', () => {
       it: 'should render an @example tag with a multiline caption',
       input: {
         tag: 'example',
-        examples: [{
-          caption: [
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lobortis',
-            'erat molestie posuere dictum. Integer libero justo, viverra quis.',
-          ].join(' '),
-          code: 'const fn = (msg) => console.log(msg);\nfn(\'hello world!\');',
-        }],
+        examples: [
+          {
+            caption: [
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lobortis',
+              'erat molestie posuere dictum. Integer libero justo, viverra quis.',
+            ].join(' '),
+            code: "const fn = (msg) => console.log(msg);\nfn('hello world!');",
+          },
+        ],
       },
       output: [
         '@example',
@@ -82,7 +86,7 @@ describe('renderExampleTag', () => {
         '</caption>',
         '',
         'const fn = (msg) => console.log(msg);',
-        'fn(\'hello world!\');',
+        "fn('hello world!');",
         '',
       ],
       width: 60,
@@ -98,14 +102,14 @@ describe('renderExampleTag', () => {
         examples: [
           {
             caption: 'Some short caption',
-            code: 'const fn = (msg) => console.info(msg);\nfn(\'are you there world?\');',
+            code: "const fn = (msg) => console.info(msg);\nfn('are you there world?');",
           },
           {
             caption: [
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lobortis',
               'erat molestie posuere dictum. Integer libero justo, viverra quis.',
             ].join(' '),
-            code: 'const fn = (msg) => console.log(msg);\nfn(\'hello world!\');',
+            code: "const fn = (msg) => console.log(msg);\nfn('hello world!');",
           },
         ],
       },
@@ -115,7 +119,7 @@ describe('renderExampleTag', () => {
         '<caption>Some short caption</caption>',
         '',
         'const fn = (msg) => console.info(msg);',
-        'fn(\'are you there world?\');',
+        "fn('are you there world?');",
         '',
         '<caption>',
         '  Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -124,7 +128,7 @@ describe('renderExampleTag', () => {
         '</caption>',
         '',
         'const fn = (msg) => console.log(msg);',
-        'fn(\'hello world!\');',
+        "fn('hello world!');",
         '',
       ],
       width: 60,
@@ -134,16 +138,17 @@ describe('renderExampleTag', () => {
       },
     },
     {
-      it: 'should render an @example that wasn\'t formatted',
+      it: "should render an @example that wasn't formatted",
       input: {
         tag: 'example',
-        description: 'const fn = (msg) => console.info(msg);\nfn(\'are you there world?\');',
+        description:
+          "const fn = (msg) => console.info(msg);\nfn('are you there world?');",
       },
       output: [
         '@example',
         '',
         'const fn = (msg) => console.info(msg);',
-        'fn(\'are you there world?\');',
+        "fn('are you there world?');",
         '',
       ],
       width: 60,

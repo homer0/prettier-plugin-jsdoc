@@ -62,9 +62,7 @@ describe('renderTagInLine', () => {
         name: '',
         description: '',
       },
-      output: [
-        '@returns {string}',
-      ],
+      output: ['@returns {string}'],
       options: {
         width: 50,
         typePadding: 1,
@@ -79,11 +77,7 @@ describe('renderTagInLine', () => {
         name: 'MyType',
         description: '',
       },
-      output: [
-        '@type {{',
-        '  prop: boolean;',
-        '}} MyType',
-      ],
+      output: ['@type {{', '  prop: boolean;', '}} MyType'],
       options: {
         width: 50,
         typePadding: 1,

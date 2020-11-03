@@ -5,7 +5,7 @@ const { prepareTagDescription } = require('../../../src/fns/prepareTagDescriptio
 describe('prepareTagDescription', () => {
   const cases = [
     {
-      it: 'should ignore a tag that doesn\'t have description',
+      it: "should ignore a tag that doesn't have description",
       input: {
         name: 'something',
       },
@@ -38,7 +38,8 @@ describe('prepareTagDescription', () => {
       },
     },
     {
-      it: 'should transform a tag description, respecting any leading and/or trailing space',
+      it:
+        'should transform a tag description, respecting any leading and/or trailing space',
       input: {
         description: '  something else  ',
       },

@@ -31,12 +31,14 @@ describe('formatDescription', () => {
     };
     const output = {
       description: '',
-      tags: [{
-        tag: 'description',
-        name: '',
-        description: 'Lorem ipsum description',
-        type: '',
-      }],
+      tags: [
+        {
+          tag: 'description',
+          name: '',
+          description: 'Lorem ipsum description',
+          type: '',
+        },
+      ],
     };
     let result = null;
     // When
@@ -52,12 +54,14 @@ describe('formatDescription', () => {
     // Given
     const input = {
       description: '',
-      tags: [{
-        tag: 'typedef',
-        type: 'Object',
-        name: 'MyType',
-        description: 'Lorem ipsum type description',
-      }],
+      tags: [
+        {
+          tag: 'typedef',
+          type: 'Object',
+          name: 'MyType',
+          description: 'Lorem ipsum type description',
+        },
+      ],
     };
     const output = {
       description: '',
@@ -258,12 +262,14 @@ describe('formatDescription', () => {
     // Given
     const input = {
       description: '',
-      tags: [{
-        tag: 'description',
-        name: '',
-        description: 'Lorem ipsum description',
-        type: '',
-      }],
+      tags: [
+        {
+          tag: 'description',
+          name: '',
+          description: 'Lorem ipsum description',
+          type: '',
+        },
+      ],
     };
     const output = {
       description: 'Lorem ipsum description',
@@ -283,21 +289,25 @@ describe('formatDescription', () => {
     // Given
     const input = {
       description: '',
-      tags: [{
-        tag: 'typedef',
-        name: 'Object',
-        type: 'MyType',
-        description: 'Lorem ipsum description',
-      }],
+      tags: [
+        {
+          tag: 'typedef',
+          name: 'Object',
+          type: 'MyType',
+          description: 'Lorem ipsum description',
+        },
+      ],
     };
     const output = {
       description: 'Lorem ipsum description',
-      tags: [{
-        tag: 'typedef',
-        name: 'Object',
-        type: 'MyType',
-        description: '',
-      }],
+      tags: [
+        {
+          tag: 'typedef',
+          name: 'Object',
+          type: 'MyType',
+          description: '',
+        },
+      ],
     };
     let result = null;
     // When

@@ -3,7 +3,7 @@ jest.unmock('../../../src/fns/splitText');
 const { splitText } = require('../../../src/fns/splitText');
 
 describe('splitText', () => {
-  it('should return a single line when the text doesn\'t exceed the length', () => {
+  it("should return a single line when the text doesn't exceed the length", () => {
     // Given
     const input = 'Some text';
     const output = ['Some text'];
@@ -27,16 +27,10 @@ describe('splitText', () => {
 
   it('should respect intentional line breaks after a symbol', () => {
     // Given
-    const input = [
-      'Some title:',
-      ' - Some list item.',
-      ' - Some other list item.',
-    ].join('\n');
-    const output = [
-      'Some title:',
-      '- Some list item.',
-      '- Some other list item.',
-    ];
+    const input = ['Some title:', ' - Some list item.', ' - Some other list item.'].join(
+      '\n',
+    );
+    const output = ['Some title:', '- Some list item.', '- Some other list item.'];
     let result = null;
     // When
     result = splitText(input, 25);
@@ -108,7 +102,7 @@ describe('splitText', () => {
     expect(result).toEqual(output);
   });
 
-  it('shouldn\'t add a leading space when there\'s only one word (bug)', () => {
+  it("shouldn't add a leading space when there's only one word (bug)", () => {
     // Given
     const input = 'Description';
     const output = ['Description'];

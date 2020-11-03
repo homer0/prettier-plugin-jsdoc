@@ -3,7 +3,7 @@ jest.unmock('../../../src/fns/formatObjects');
 const { formatObjects } = require('../../../src/fns/formatObjects');
 
 describe('formatObjects', () => {
-  it('should add a dot before objects\' generics', () => {
+  it("should add a dot before objects' generics", () => {
     // Given
     const input = 'Object<string,Object.<string,Object<string,number>>>';
     const output = 'Object.<string,Object.<string,Object.<string,number>>>';
@@ -17,7 +17,7 @@ describe('formatObjects', () => {
     expect(result).toBe(output);
   });
 
-  it('should remove the dot before objcects\' generics', () => {
+  it("should remove the dot before objcects' generics", () => {
     // Given
     const input = 'Object.<string,Object<string,Object.<string,number>>>';
     const output = 'Object<string,Object<string,Object<string,number>>>';

@@ -3,7 +3,7 @@ jest.unmock('../../../src/fns/formatStringLiterals');
 const { formatStringLiterals } = require('../../../src/fns/formatStringLiterals');
 
 describe('formatStringLiterals', () => {
-  it('should ignore a type that doesn\'t use string literals', () => {
+  it("should ignore a type that doesn't use string literals", () => {
     // Given
     const input = 'string';
     const output = 'string';
@@ -16,7 +16,9 @@ describe('formatStringLiterals', () => {
 
   it('should change a string literals type to single quotes', () => {
     // Given
+    // prettier-ignore
     const input = '"some"|"string"|\'literals\'';
+    // prettier-ignore
     const output = '\'some\'|\'string\'|\'literals\'';
     let result = null;
     // When
@@ -30,7 +32,9 @@ describe('formatStringLiterals', () => {
 
   it('should change a string literals type to double quotes', () => {
     // Given
+    // prettier-ignore
     const input = '\'some\'|"string"|\'literals\'';
+    // prettier-ignore
     const output = '"some"|"string"|"literals"';
     let result = null;
     // When
@@ -44,7 +48,9 @@ describe('formatStringLiterals', () => {
 
   it('should format the spacing between the strings', () => {
     // Given
+    // prettier-ignore
     const input = '\'some\'  |\'string\'  |\'literals\'   ';
+    // prettier-ignore
     const output = '\'some\' | \'string\' | \'literals\'';
     let result = null;
     // When

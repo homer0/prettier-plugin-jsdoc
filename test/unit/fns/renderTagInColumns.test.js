@@ -40,9 +40,7 @@ describe('renderTagInColumns', () => {
         name: 'myParam',
         description: '',
       },
-      output: [
-        '@param    {string}  myParam',
-      ],
+      output: ['@param    {string}  myParam'],
       options: {
         tagColumnWidth: 10,
         typeColumnWidth: 10,

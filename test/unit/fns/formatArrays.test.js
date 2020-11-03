@@ -4,7 +4,7 @@ const { formatArrays } = require('../../../src/fns/formatArrays');
 
 describe('formatArrays', () => {
   describe('shortForm', () => {
-    it('should ignore a type that doesn\'t have an array', () => {
+    it("should ignore a type that doesn't have an array", () => {
       // Given
       const input = 'string';
       const output = 'string';
@@ -15,7 +15,7 @@ describe('formatArrays', () => {
       expect(result).toBe(output);
     });
 
-    it('shouldn\'t transform an array if the option is disabled', () => {
+    it("shouldn't transform an array if the option is disabled", () => {
       // Given
       const input = 'Array<string>';
       const output = 'Array<string>';
@@ -54,7 +54,7 @@ describe('formatArrays', () => {
       expect(result).toBe(output);
     });
 
-    it('shouldn\'t transform an array inside another array', () => {
+    it("shouldn't transform an array inside another array", () => {
       // Given
       const input = 'Array<Array<string>>';
       const output = 'Array<string[]>';
@@ -67,7 +67,7 @@ describe('formatArrays', () => {
       expect(result).toBe(output);
     });
 
-    it('shouldn\'t transform an array inside another array, inside a generic', () => {
+    it("shouldn't transform an array inside another array, inside a generic", () => {
       // Given
       const input = 'Promise<Array<Array<string>>>';
       const output = 'Promise<Array<string[]>>';
@@ -95,7 +95,7 @@ describe('formatArrays', () => {
   });
 
   describe('dot', () => {
-    it('should add a dot before arrays\' generics', () => {
+    it("should add a dot before arrays' generics", () => {
       // Given
       const input = 'Array<Promise<Array<Array<string>>|string>|Array<number>>';
       const output = 'Array.<Promise<Array.<string[]>|string>|number[]>';
@@ -110,7 +110,7 @@ describe('formatArrays', () => {
       expect(result).toBe(output);
     });
 
-    it('should remove the dot before arrays\' generics', () => {
+    it("should remove the dot before arrays' generics", () => {
       // Given
       const input = 'Array.<Promise<Array.<Array.<string>>|string>|Array.<number>>';
       const output = 'Array<Promise<Array<string[]>|string>|number[]>';

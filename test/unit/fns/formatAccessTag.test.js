@@ -162,12 +162,16 @@ describe('formatAccessTag', () => {
 
   it('shouldn\'t do anything if there are no "access tags"', () => {
     // Given
-    const input = [{
-      tag: 'param',
-    }];
-    const output = [{
-      tag: 'param',
-    }];
+    const input = [
+      {
+        tag: 'param',
+      },
+    ];
+    const output = [
+      {
+        tag: 'param',
+      },
+    ];
     let result = null;
     // When
     result = formatAccessTag(input, {

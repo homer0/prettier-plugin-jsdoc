@@ -5,7 +5,7 @@ const { sortTags } = require('../../../src/fns/sortTags');
 describe('sortTags', () => {
   const cases = [
     {
-      it: 'should sort the tags and correctly use \'other\' as fallback',
+      it: "should sort the tags and correctly use 'other' as fallback",
       input: [
         { tag: 'param' },
         { tag: 'description' },
@@ -23,17 +23,11 @@ describe('sortTags', () => {
         { tag: 'todo' },
       ],
       options: {
-        jsdocTagsOrder: [
-          'description',
-          'param',
-          'returns',
-          'other',
-          'todo',
-        ],
+        jsdocTagsOrder: ['description', 'param', 'returns', 'other', 'todo'],
       },
     },
     {
-      it: 'should send the tag to the end of the list of \'other\' is not present',
+      it: "should send the tag to the end of the list of 'other' is not present",
       input: [
         { tag: 'throws' },
         { tag: 'param' },
@@ -51,12 +45,7 @@ describe('sortTags', () => {
         { tag: 'throws' },
       ],
       options: {
-        jsdocTagsOrder: [
-          'description',
-          'param',
-          'returns',
-          'todo',
-        ],
+        jsdocTagsOrder: ['description', 'param', 'returns', 'todo'],
       },
     },
   ];

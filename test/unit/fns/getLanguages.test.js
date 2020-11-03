@@ -2,9 +2,9 @@ jest.mock('linguist-languages/data/JavaScript.json', () => ({
   languageId: 'js-lang',
   extensions: [],
 }));
-jest.mock('linguist-languages/data/JSX.json', (() => ({
+jest.mock('linguist-languages/data/JSX.json', () => ({
   languageId: 'jsx-lang',
-})));
+}));
 jest.mock('linguist-languages/data/TypeScript.json', () => ({
   languageId: 'ts-lang',
 }));

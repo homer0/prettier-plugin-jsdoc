@@ -9,7 +9,7 @@ describe('prepareExampleTag', () => {
     format.mockClear();
   });
 
-  it('should ignore a tag that\'s not @example', () => {
+  it("should ignore a tag that's not @example", () => {
     // Given
     const input = {
       tag: 'param',
@@ -31,14 +31,16 @@ describe('prepareExampleTag', () => {
     format.mockImplementationOnce(() => prettierResponse);
     const input = {
       tag: 'example',
-      description: 'const x = \'something\';',
+      description: "const x = 'something';",
     };
     const output = {
       tag: 'example',
       description: '',
-      examples: [{
-        code: prettierResponse,
-      }],
+      examples: [
+        {
+          code: prettierResponse,
+        },
+      ],
     };
     const options = {
       semi: true,
@@ -63,14 +65,16 @@ describe('prepareExampleTag', () => {
     format.mockImplementationOnce(() => prettierResponse);
     const input = {
       tag: 'example',
-      description: 'const x = \'something\';',
+      description: "const x = 'something';",
     };
     const output = {
       tag: 'example',
       description: '',
-      examples: [{
-        code: `  ${prettierResponse}`,
-      }],
+      examples: [
+        {
+          code: `  ${prettierResponse}`,
+        },
+      ],
     };
     const options = {
       jsdocIndentFormattedExamples: true,
@@ -96,14 +100,16 @@ describe('prepareExampleTag', () => {
     });
     const input = {
       tag: 'example',
-      description: 'const x = \'something\';',
+      description: "const x = 'something';",
     };
     const output = {
       tag: 'example',
       description: '',
-      examples: [{
-        code: `  ${input.description}`,
-      }],
+      examples: [
+        {
+          code: `  ${input.description}`,
+        },
+      ],
     };
     const options = {
       jsdocIndentUnformattedExamples: true,
@@ -128,15 +134,17 @@ describe('prepareExampleTag', () => {
     format.mockImplementationOnce(() => prettierResponse);
     const input = {
       tag: 'example',
-      description: '<caption>Some caption</caption>\nconst x = \'something\';',
+      description: "<caption>Some caption</caption>\nconst x = 'something';",
     };
     const output = {
       tag: 'example',
       description: '',
-      examples: [{
-        caption: 'Some caption',
-        code: `  ${prettierResponse}`,
-      }],
+      examples: [
+        {
+          caption: 'Some caption',
+          code: `  ${prettierResponse}`,
+        },
+      ],
     };
     const options = {
       jsdocIndentFormattedExamples: true,
@@ -149,7 +157,7 @@ describe('prepareExampleTag', () => {
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
-    expect(format).toHaveBeenCalledWith('const x = \'something\';', {
+    expect(format).toHaveBeenCalledWith("const x = 'something';", {
       ...options,
       printWidth: 75,
     });
@@ -164,9 +172,9 @@ describe('prepareExampleTag', () => {
       tag: 'example',
       description: [
         '<caption>\nThe first\ncaption</caption>',
-        'const x = \'fist example\';',
+        "const x = 'fist example';",
         '<caption>The second\ncaption\n</caption>',
-        'const y = \'second example\';',
+        "const y = 'second example';",
       ].join('\n'),
     };
     const output = {
@@ -192,11 +200,11 @@ describe('prepareExampleTag', () => {
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(2);
-    expect(format).toHaveBeenNthCalledWith(1, 'const x = \'fist example\';', {
+    expect(format).toHaveBeenNthCalledWith(1, "const x = 'fist example';", {
       ...options,
       printWidth: 77,
     });
-    expect(format).toHaveBeenNthCalledWith(2, 'const y = \'second example\';', {
+    expect(format).toHaveBeenNthCalledWith(2, "const y = 'second example';", {
       ...options,
       printWidth: 77,
     });

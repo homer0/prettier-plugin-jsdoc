@@ -84,17 +84,11 @@ describe('formatTags', () => {
       options: {
         jsdocReplaceTagsSynonyms: true,
         jsdocSortTags: true,
-        jsdocTagsOrder: [
-          'description',
-          'param',
-          'returns',
-          'other',
-          'todo',
-        ],
+        jsdocTagsOrder: ['description', 'param', 'returns', 'other', 'todo'],
       },
     },
     {
-      it: 'shouldn\'t apply any transformations',
+      it: "shouldn't apply any transformations",
       input: [
         {
           tag: 'arg',

@@ -19,6 +19,7 @@ describe('prepareTags', () => {
         name: 'someName',
         type: 'string',
         optional: true,
+        // prettier-ignore
         default: '\'myName\'',
       },
       {
@@ -28,9 +29,11 @@ describe('prepareTags', () => {
     ];
     const output = [
       {
+        // prettier-ignore
         name: '[someName=\'myName\']',
         type: 'string',
         optional: true,
+        // prettier-ignore
         default: '\'myName\'',
       },
       {
@@ -59,6 +62,7 @@ describe('prepareTags', () => {
         name: 'someName',
         type: 'string',
         optional: true,
+        // prettier-ignore
         default: '\'myName\'',
       },
       {
@@ -69,14 +73,17 @@ describe('prepareTags', () => {
         tag: 'example',
         type: '',
         name: '',
+        // prettier-ignore
         description: 'const x = \'something\';',
       },
     ];
     const output = [
       {
+        // prettier-ignore
         name: '[someName=\'myName\']',
         type: 'string',
         optional: true,
+        // prettier-ignore
         default: '\'myName\'',
       },
       {
@@ -88,9 +95,11 @@ describe('prepareTags', () => {
         type: '',
         name: '',
         description: '',
-        examples: [{
-          code: prettierResponse,
-        }],
+        examples: [
+          {
+            code: prettierResponse,
+          },
+        ],
       },
     ];
     const options = {

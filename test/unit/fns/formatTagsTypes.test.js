@@ -24,6 +24,7 @@ describe('formatTagsTypes', () => {
         type: 'Array.<String>',
       },
       {
+        // prettier-ignore
         type: '"a" |   "b"   |"c"',
       },
       {
@@ -38,6 +39,7 @@ describe('formatTagsTypes', () => {
         type: 'string[]',
       },
       {
+        // prettier-ignore
         type: '\'a\'|\'b\'|\'c\'',
       },
       {
@@ -70,11 +72,15 @@ describe('formatTagsTypes', () => {
       printWidth: 77,
       parser: 'typescript',
     });
-    expect(format).toHaveBeenNthCalledWith(3, 'type complex = Object.<string, Array<string>>', {
-      ...options,
-      printWidth: 77,
-      parser: 'typescript',
-    });
+    expect(format).toHaveBeenNthCalledWith(
+      3,
+      'type complex = Object.<string, Array<string>>',
+      {
+        ...options,
+        printWidth: 77,
+        parser: 'typescript',
+      },
+    );
   });
 
   it('should only format objects', () => {
@@ -87,6 +93,7 @@ describe('formatTagsTypes', () => {
         type: 'Array.<String>',
       },
       {
+        // prettier-ignore
         type: '"a" |   "b"   |"c"',
       },
       {
@@ -101,6 +108,7 @@ describe('formatTagsTypes', () => {
         type: 'Array.<String>',
       },
       {
+        // prettier-ignore
         type: '"a" |   "b"   |"c"',
       },
       {
@@ -133,6 +141,7 @@ describe('formatTagsTypes', () => {
         type: 'Array.<String>',
       },
       {
+        // prettier-ignore
         type: '"a" |   "b"   |"c"',
       },
       {
@@ -147,6 +156,7 @@ describe('formatTagsTypes', () => {
         type: 'String[]',
       },
       {
+        // prettier-ignore
         type: '"a" |   "b"   |"c"',
       },
       {
@@ -170,7 +180,7 @@ describe('formatTagsTypes', () => {
     expect(result).toEqual(output);
   });
 
-  it('shouldn\'t format anything', () => {
+  it("shouldn't format anything", () => {
     // Given
     const input = [
       {
@@ -180,6 +190,7 @@ describe('formatTagsTypes', () => {
         type: 'Array.<String>',
       },
       {
+        // prettier-ignore
         type: '"a" |   "b"   |"c"',
       },
       {
@@ -194,6 +205,7 @@ describe('formatTagsTypes', () => {
         type: 'Array.<String>',
       },
       {
+        // prettier-ignore
         type: '"a" |   "b"   |"c"',
       },
       {

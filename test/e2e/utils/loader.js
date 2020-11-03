@@ -12,7 +12,8 @@ const fs = require('fs').promises;
 
 /**
  * @typedef {Object} RawFixtureProperties
- * @property {boolean} [boolean]  Whether or not it should be the only fixture to be validated.
+ * @property {boolean} [boolean]  Whether or not it should be the only fixture to be
+ *                                validated.
  * @property {boolean} [skip]     Whether or not to skip the fixture.
  */
 
@@ -35,7 +36,8 @@ const FIXTURES_PATH = path.join(__dirname, '..', FIXTURES_DIRNAME);
  */
 const FIXTURES_FORMAT = /\.fixture\.js$/;
 /**
- * A set of default options that will be used as a base and merged with the ones from the fixtures.
+ * A set of default options that will be used as a base and merged with the ones from the
+ * fixtures.
  *
  * @type {Partial<PrettierOptions>}
  */
@@ -47,7 +49,7 @@ const DEFAULT_OPTIONS = {
 /**
  * Loads and parses a fixture file.
  *
- * @param {string} filename The name of the fixture file.
+ * @param {string} filename  The name of the fixture file.
  * @returns {Promise<RawFixture>}
  * @throws {Error} If a fixture doesn't have an `input` and/or an `output`.
  */
@@ -57,9 +59,7 @@ const parseFixture = async (filename) => {
   let section = '';
   const sections = {};
   const rest = [];
-  contents
-  .split('\n')
-  .forEach((line) => {
+  contents.split('\n').forEach((line) => {
     const match = /^\s*\/\/#\s+(\w+)\s*$/.exec(line);
     if (match) {
       section = match[1].trim();
@@ -71,10 +71,13 @@ const parseFixture = async (filename) => {
     }
   });
 
-  const options = rest.length ?
+  let options;
+  if (rest.length) {
     // eslint-disable-next-line no-eval
-    (eval(rest.join('\n').trim()) || {}) :
-    {};
+    options = eval(rest.join('\n').trim()) || {};
+  } else {
+    options = {};
+  }
 
   options.filepath = path.join(FIXTURES_PATH, 'index.js');
 

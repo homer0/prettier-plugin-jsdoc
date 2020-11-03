@@ -28,13 +28,13 @@ describe('prepareTagName', () => {
       it: 'should add a default value',
       input: {
         optional: true,
-        default: '\'else\'',
+        default: "'else'",
         name: 'something',
       },
       output: {
         optional: true,
-        default: '\'else\'',
-        name: '[something=\'else\']',
+        default: "'else'",
+        name: "[something='else']",
       },
     },
   ];

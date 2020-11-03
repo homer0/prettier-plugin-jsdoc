@@ -241,7 +241,7 @@ describe('render', () => {
       },
     },
     {
-      it: 'should render inline if one tag doesn\'t have enough space for the description',
+      it: "should render inline if one tag doesn't have enough space for the description",
       input: {
         description: '',
         tags: [
@@ -299,7 +299,8 @@ describe('render', () => {
       },
     },
     {
-      it: 'should render inline if one tag doesn\'t have enough space for the description (group)',
+      it:
+        "should render inline if one tag doesn't have enough space for the description (group)",
       input: {
         description: '',
         tags: [
@@ -356,7 +357,8 @@ describe('render', () => {
       },
     },
     {
-      it: 'should render inline only the tag that doesn\'t have enough space for the description',
+      it:
+        "should render inline only the tag that doesn't have enough space for the description",
       input: {
         description: '',
         tags: [
@@ -413,7 +415,7 @@ describe('render', () => {
       },
     },
     {
-      it: 'should render inline if there\'s a type multiline',
+      it: "should render inline if there's a type multiline",
       input: {
         description: '',
         tags: [
@@ -475,7 +477,7 @@ describe('render', () => {
       },
     },
     {
-      it: 'should\'nt transform the description into a sentence',
+      it: "should'nt transform the description into a sentence",
       input: {
         description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit',
         tags: [
@@ -680,11 +682,7 @@ describe('render', () => {
     // Given
     let result = null;
     // When
-    result = render(
-      caseInfo.options,
-      caseInfo.column,
-      caseInfo.input,
-    );
+    result = render(caseInfo.options, caseInfo.column, caseInfo.input);
     // Then
     expect(result).toEqual(caseInfo.output);
   });
