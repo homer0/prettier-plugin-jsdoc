@@ -1,5 +1,9 @@
 # 𝍌 JSDoc plugin for Prettier
 
+![Dependencies status](https://img.shields.io/david/homer0/packages?path=packages%2Fpublic%2Fprettier-plugin-jsdoc)
+![Dev dependencies status](https://img.shields.io/david/dev/homer0/packages?path=packages%2Fpublic%2Fprettier-plugin-jsdoc)
+[![Coveralls](https://img.shields.io/coveralls/github/homer0/packages)](https://coveralls.io/github/homer0/packages)
+
 A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) blocks.
 
 ## 🍿 Usage
