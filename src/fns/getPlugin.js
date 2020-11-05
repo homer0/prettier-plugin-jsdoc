@@ -7,12 +7,12 @@ const { get, provider } = require('./app');
  * @typedef {import('../types').PrettierSupportOption} PrettierSupportOption
  * @typedef {import('../types').PJPOptions} PJPOptions
  * @typedef {import('../types').PrettierParser} PrettierParser
- * @typedef {import('./getLanguages').Language} Language
+ * @typedef {import('../types').PrettierSupportLanguage} PrettierSupportLanguage
  */
 
 /**
  * @typedef {Object} Plugin
- * @property {Language[]} languages
+ * @property {PrettierSupportLanguage[]} languages
  * The list of supported languages.
  * @property {Object.<string, PrettierSupportOption>} options
  * The options schema for the plugin.

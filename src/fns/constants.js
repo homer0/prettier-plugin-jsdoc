@@ -63,8 +63,15 @@ const getTagsWithDescriptionAsName = () => [
  * @returns {string[]}
  */
 const getTagsWithNameAsDescription = () => ['see', 'borrows', 'yields', 'returns'];
+/**
+ * Gets the list of languages the plugin supports.
+ *
+ * @returns {string[]}
+ */
+const getSupportedLanguages = () => ['JavaScript', 'Flow', 'JSX', 'TSX', 'TypeScript'];
 
 module.exports.getTagsSynonyms = getTagsSynonyms;
 module.exports.getTagsWithDescriptionAsName = getTagsWithDescriptionAsName;
 module.exports.getTagsWithNameAsDescription = getTagsWithNameAsDescription;
+module.exports.getSupportedLanguages = getSupportedLanguages;
 module.exports.provider = provider('constants');

@@ -13,6 +13,7 @@
  * @typedef {import('prettier').Options} PrettierBaseOptions
  * @typedef {import('prettier').AST} AST
  * @typedef {import('prettier').Parser} PrettierParser
+ * @typedef {import('prettier').SupportLanguage} PrettierSupportLanguage
  */
 
 // =========================================
