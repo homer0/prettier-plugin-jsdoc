@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@1.1.0...@homer0/prettier-plugin-jsdoc@1.1.1) (2020-11-05)
+
+
+### Bug Fixes
+
+* **prettier-plugin-jsdoc:** add .npmignore ([a857aae](https://github.com/homer0/packages/commit/a857aae8cdf1736180a8c60ebca92d25d41cdfd7))
+
+
+
+
+
 # 1.1.0 (2020-11-05)
 
 
