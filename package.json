@@ -7,13 +7,13 @@
   "license": "MIT",
   "dependencies": {
     "comment-parser": "0.7.6",
-    "linguist-languages": "^7.11.0",
+    "linguist-languages": "^7.11.1",
     "prettier": "^2.1.2",
     "ramda": "0.27.1"
   },
   "devDependencies": {
-    "jest": "^26.4.2",
-    "jest-environment-node": "^26.6.0"
+    "jest": "^26.6.3",
+    "jest-environment-node": "^26.6.2"
   },
   "engine-strict": true,
   "engines": {
