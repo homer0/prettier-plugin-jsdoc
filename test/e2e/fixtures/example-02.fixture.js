@@ -24,12 +24,12 @@ const ensureArray = (obj) => Array.isArray(obj) ? obj : [obj];
 /**
  * Ensures a given object is an array.
  *
+ * @param {T | T[]} obj  The object to validate.
+ * @returns {T[]}
+ * @template T
  * @example
  *
  * ensureArray('something'); // ['something']
  *
- * @param {T | T[]} obj  The object to validate.
- * @returns {T[]}
- * @template T
  */
 const ensureArray = (obj) => (Array.isArray(obj) ? obj : [obj]);

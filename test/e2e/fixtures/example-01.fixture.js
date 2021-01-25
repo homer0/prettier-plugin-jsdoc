@@ -67,34 +67,37 @@ const ensureArray = (obj) => Array.isArray(obj) ? obj : [obj];
 /**
  * Ensures a given object is an array.
  *
+ * @param {T | T[]} obj  The object to validate.
+ * @returns {T[]}
+ * @template T
  * @example
  *
  *   ensureArray('something'); // ['something']
  *
- * @param {T | T[]} obj  The object to validate.
- * @returns {T[]}
- * @template T
  */
 const ensureArray = (obj) => (Array.isArray(obj) ? obj : [obj]);
 
 /**
  * Ensures a given object is an array.
  *
+ * @param {T | T[]} obj  The object to validate.
+ * @returns {T[]}
+ * @template T
  * @example
  *
  * <caption>First example</caption>
  *
  *   ensureArray('something'); // ['something']
  *
- * @param {T | T[]} obj  The object to validate.
- * @returns {T[]}
- * @template T
  */
 const ensureArray = (obj) => (Array.isArray(obj) ? obj : [obj]);
 
 /**
  * Ensures a given object is an array.
  *
+ * @param {T | T[]} obj  The object to validate.
+ * @returns {T[]}
+ * @template T
  * @example
  *
  * <caption>First example</caption>
@@ -110,32 +113,29 @@ const ensureArray = (obj) => (Array.isArray(obj) ? obj : [obj]);
  *
  *   ensureArray(['something']); // ['something']
  *
- * @param {T | T[]} obj  The object to validate.
- * @returns {T[]}
- * @template T
  */
 const ensureArray = (obj) => (Array.isArray(obj) ? obj : [obj]);
 
 /**
  * Ensures a given object is an array.
  *
+ * @param {T | T[]} obj  The object to validate.
+ * @returns {T[]}
+ * @template T
  * @example
  *
  * Pseudo code: isArray(x) ? x : [x];
  *
- * @param {T | T[]} obj  The object to validate.
- * @returns {T[]}
- * @template T
  */
 const ensureArray = (obj) => (Array.isArray(obj) ? obj : [obj]);
 
 /**
  * Ensures a given object is an array.
  *
- * @example
- *
  * @param {T | T[]} obj  The object to validate.
  * @returns {T[]}
  * @template T
+ * @example
+ *
  */
 const ensureArray = (obj) => (Array.isArray(obj) ? obj : [obj]);
