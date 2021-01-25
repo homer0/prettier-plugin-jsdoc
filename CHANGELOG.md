@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@1.1.2...@homer0/prettier-plugin-jsdoc@2.0.0) (2021-01-25)
+
+
+### Bug Fixes
+
+* **prettier-plugin-jsdoc:** move the example tag order to the end ([f1e9cda](https://github.com/homer0/packages/commit/f1e9cdaab8080da1bf3410e4dc99a1486eaf351f))
+* update dependencies ([7437e8c](https://github.com/homer0/packages/commit/7437e8c12e1d46d11f8dd8cfe793307391dbfa5f))
+* **prettier-plugin-jsdoc:** update syntax for comment parser ([b50fa7f](https://github.com/homer0/packages/commit/b50fa7f5032f48d9e1e3c4ef397266be6422b008))
+
+
+### BREAKING CHANGES
+
+* **prettier-plugin-jsdoc:** The example tag order has been changed to a lower position.
+This change was made in order to fix a bug in which TypeScript would detect
+'any' if the tag was before param, property and template. This is breaking
+because saving a file with this change would cause possible unrelated blocks
+to change.
+
+
+
+
+
 ## [1.1.2](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@1.1.1...@homer0/prettier-plugin-jsdoc@1.1.2) (2020-11-28)
 
 
