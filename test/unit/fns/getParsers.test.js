@@ -5,7 +5,7 @@ jest.mock('prettier/parser-typescript');
 jest.unmock('../../../src/fns/getParsers');
 
 const R = require('ramda');
-const commentParser = require('comment-parser');
+const { parse: commentParser } = require('comment-parser');
 const babelParser = require('prettier/parser-babel');
 const flowParser = require('prettier/parser-flow');
 const tsParser = require('prettier/parser-typescript');
@@ -278,6 +278,7 @@ describe('getParsers', () => {
     expect(commentParser).toHaveBeenCalledTimes(1);
     expect(commentParser).toHaveBeenCalledWith(`/*${commentStr}*/`, {
       dotted_names: false,
+      spacing: 'preserve',
     });
     expect(formatTagsTypes).toHaveBeenCalledTimes(1);
     expect(formatTagsTypes).toHaveBeenCalledWith(R.__, options, column);

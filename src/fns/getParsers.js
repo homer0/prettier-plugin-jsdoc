@@ -1,5 +1,5 @@
 const R = require('ramda');
-const commentParser = require('comment-parser');
+const { parse: commentParser } = require('comment-parser/lib');
 const babelParser = require('prettier/parser-babel');
 const flowParser = require('prettier/parser-flow');
 const tsParser = require('prettier/parser-typescript');
@@ -68,6 +68,7 @@ const matchesBlock = (node) =>
  *
  * @param {CommentNode} comment  The AST of the comment that will be formatted.
  * @returns {ParsingInformation}
+ * @todo Update hotfix for the comment parser with a more Ramda-like approach.
  */
 const generateCommentData = (comment) => {
   const {
@@ -77,7 +78,14 @@ const generateCommentData = (comment) => {
   } = comment;
   const [block] = commentParser(`/*${comment.value}*/`, {
     dotted_names: false,
+    spacing: 'preserve',
   });
+
+  block.description = block.description.trim();
+  block.tags = block.tags.map((tag) => ({
+    ...tag,
+    description: tag.description.replace(/^\s+$/, ''),
+  }));
 
   return {
     comment,
