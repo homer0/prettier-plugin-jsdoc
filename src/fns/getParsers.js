@@ -275,6 +275,7 @@ const getRenderer = (options) => {
 const createParser = (originalParser, checkExtendOption) => (text, parsers, options) => {
   const ast = originalParser(text, parsers, options);
   if (
+    options &&
     options.jsdocPluginEnabled &&
     (!checkExtendOption || !options.jsdocPluginExtended)
   ) {
