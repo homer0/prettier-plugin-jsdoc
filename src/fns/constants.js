@@ -50,6 +50,7 @@ const getTagsWithDescriptionAsName = () => [
   'examples',
   'file',
   'license',
+  'remarks',
   'summary',
   'throws',
   'todo',

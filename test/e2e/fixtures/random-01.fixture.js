@@ -39,6 +39,10 @@ const log = (name = 'batman', logger) => {};
  * @parent module:controllers
  */
 
+/**
+ * @remarks Some of the Prisma scalars do not have a natural standard representation in GraphQL. For these case Nexus Prisma generates code that references type names matching those scalar names in Prisma. Then, you are expected to define those custom scalar types in your GraphQL API.
+ */
+
 //# output
 
 /**
@@ -100,4 +104,11 @@ const log = (name = 'batman', logger) => {};
  * @typedef {StaticsControllerOptions & StaticsControllerWrapperOptionsProperties}
  * StaticsControllerWrapperOptions
  * @parent module:controllers
+ */
+
+/**
+ * @remarks Some of the Prisma scalars do not have a natural standard representation in
+ *          GraphQL. For these case Nexus Prisma generates code that references type names
+ *          matching those scalar names in Prisma. Then, you are expected to define those
+ *          custom scalar types in your GraphQL API.
  */
