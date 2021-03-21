@@ -222,11 +222,6 @@ const getIndexOrFallback = R.curry((list, fallback, item) =>
  * Formats a list in order to remove items repeated items next to each other.
  *
  * @callback LimitAdjacentRepetitionsFn
- * @example
- *
- *   limitAdjacentRepetitions(R.equals('\n'), 1, ['hello', '\n', '\n', 'world']);
- *   // ['hello', '\n', 'world']
- *
  * @param {LimitAdjacentRepetitionsPredFn} pred   The function to validate if an item
  *                                                should be considered and start the
  *                                                count.
@@ -234,6 +229,11 @@ const getIndexOrFallback = R.curry((list, fallback, item) =>
  *                                                validated with predicate function can be
  *                                                adjacently repeated.
  * @param {Array}                          list   The list to format.
+ * @example
+ *
+ *   limitAdjacentRepetitions(R.equals('\n'), 1, ['hello', '\n', '\n', 'world']);
+ *   // ['hello', '\n', 'world']
+ *
  */
 
 /**
@@ -314,20 +314,6 @@ const splitLinesAndClean = R.curry((splitter, text) =>
 );
 
 /**
- * Ensures a text starts with an uppercase and ends with a period.
- *
- * @param {string} text  The text to format.
- * @returns {string}
- */
-const ensureSentence = (text) =>
-  R.compose(
-    R.replace(/(\.)?(\s*)$/, (full, dot, padding) => `.${padding}`),
-    R.replace(
-      /^(\s*)(\w)/,
-      (full, padding, letter) => `${padding}${letter.toUpperCase()}`,
-    ),
-  )(text);
-/**
  * Validates if a text is a valid URL.
  *
  * @param {string} text  The text to validate.
@@ -336,6 +322,25 @@ const ensureSentence = (text) =>
 const isURL = (text) =>
   isMatch(
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/i,
+    text,
+  );
+
+/**
+ * Ensures a text starts with an uppercase and ends with a period.
+ *
+ * @param {string} text  The text to format.
+ * @returns {string}
+ */
+const ensureSentence = (text) =>
+  R.when(
+    R.allPass([R.complement(get(isURL)), R.match(/\w\s*$/)]),
+    R.compose(
+      R.replace(/(\.)?(\s*)$/, (full, dot, padding) => `.${padding}`),
+      R.replace(
+        /^(\s*)(\w)/,
+        (full, padding, letter) => `${padding}${letter.toUpperCase()}`,
+      ),
+    ),
     text,
   );
 
