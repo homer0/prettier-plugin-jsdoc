@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@3.0.0...@homer0/prettier-plugin-jsdoc@3.0.1) (2021-03-21)
+
+
+### Bug Fixes
+
+* **prettier-plugin-jsdoc:** add support for the remarks tag ([4c5815a](https://github.com/homer0/packages/commit/4c5815aa25b7f0b58c03bba400ddf28f99688b2f))
+* **prettier-plugin-jsdoc:** only add period when is not URL and ends with a letter ([7d862db](https://github.com/homer0/packages/commit/7d862dbe6bcb6340effe25345ecfe44ff6a12213))
+* **prettier-plugin-jsdoc:** prevent formatting issues with Markdown tables ([0d1e573](https://github.com/homer0/packages/commit/0d1e57383ff6e6a712037ad14c1d7d71b26d018d))
+
+
+
+
+
 # [3.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@1.1.2...@homer0/prettier-plugin-jsdoc@3.0.0) (2021-03-07)
 
 
