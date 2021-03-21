@@ -324,6 +324,13 @@ const isURL = (text) =>
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/i,
     text,
   );
+/**
+ * Validates whether a text is Markdown table row (starts and ends with a pipe).
+ *
+ * @param {string} text  The text to validate.
+ * @returns {boolean}
+ */
+const isTableRow = (text) => isMatch(/^\s*\|.*?\|\s*$/, text);
 
 /**
  * Ensures a text starts with an uppercase and ends with a period.
@@ -333,7 +340,7 @@ const isURL = (text) =>
  */
 const ensureSentence = (text) =>
   R.when(
-    R.allPass([R.complement(get(isURL)), R.match(/\w\s*$/)]),
+    R.allPass([R.complement(get(isURL)), get(isMatch)(/[\w\.]\s*$/)]),
     R.compose(
       R.replace(/(\.)?(\s*)$/, (full, dot, padding) => `.${padding}`),
       R.replace(
@@ -359,6 +366,7 @@ module.exports.limitAdjacentRepetitions = limitAdjacentRepetitions;
 module.exports.hasValidProperty = hasValidProperty;
 module.exports.prefixLines = prefixLines;
 module.exports.splitLinesAndClean = splitLinesAndClean;
-module.exports.ensureSentence = ensureSentence;
 module.exports.isURL = isURL;
+module.exports.isTableRow = isTableRow;
+module.exports.ensureSentence = ensureSentence;
 module.exports.provider = provider('utils', module.exports);

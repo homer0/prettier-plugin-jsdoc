@@ -1,5 +1,10 @@
 const R = require('ramda');
-const { ensureArray, replaceLastItem, limitAdjacentRepetitions } = require('./utils');
+const {
+  ensureArray,
+  replaceLastItem,
+  limitAdjacentRepetitions,
+  isTableRow,
+} = require('./utils');
 const { get, provider } = require('./app');
 
 /**
@@ -9,6 +14,16 @@ const { get, provider } = require('./app');
  * @type {number}
  */
 const ADJACENT_LINEBREAKS_LIMIT = 2;
+/**
+ * When parsing text, if the a Markdown table row is found (starts and ends with a pipe),
+ * it will be replaced with a key that starts with this prefix, and after all the parsing,
+ * it the key will be replaced again with the original row. This whole thing is to avoid
+ * the "words parsing"
+ * to mess up the Markdown formatting.
+ *
+ * @type {string}
+ */
+const TABLE_ROW_PREFIX = `@jsdoc-table-row:${new Date().getTime()}:`;
 
 /**
  * This is a utility used inside the reducers in order to take "words" that include line
@@ -104,15 +119,64 @@ const reduceText = (text, line) => {
  * @param {string} text    The text to split.
  * @param {number} length  The max length a line cannot exceed.
  * @returns {string[]}
+ * @todo The support for Markdown table needs to be "Ramdified".
  */
-const splitText = (text, length) =>
-  R.compose(
+const splitText = (text, length) => {
+  const useIsTableRow = get(isTableRow);
+  const linesList = text.split('\n');
+  const { lines, rows } = linesList.reduce(
+    (acc, line, index) => {
+      if (useIsTableRow(line)) {
+        const slug = line.replace(/\s+/g, '-');
+        const sufix = `id:${index}-${slug}`;
+        const space = '-'.repeat(
+          Math.max(length - (TABLE_ROW_PREFIX.length + sufix.length), 1),
+        );
+        const key = `${TABLE_ROW_PREFIX}${space}${sufix}`;
+        acc.rows[key] = line;
+        const prevIndex = acc.lines.length - 1;
+        const prevLine = acc.lines[prevIndex];
+        if (prevLine) {
+          acc.lines[prevIndex] = `${prevLine} ${key}`;
+        } else {
+          acc.lines.push(key);
+        }
+      } else {
+        acc.lines.push(line || ' ');
+      }
+
+      return acc;
+    },
+    {
+      lines: [],
+      rows: {},
+    },
+  );
+
+  let result = R.compose(
     R.addIndex(R.reduce)(get(reduceSentences)(length), ['']),
     R.reduce(get(reduceWordsList), []),
     R.split(/(?<!\{@\w+) /),
     R.reduce(get(reduceText), ''),
-    R.split('\n'),
-  )(text);
+  )(lines);
+
+  result = Object.entries(rows).reduce(
+    (acc, [key, value]) =>
+      acc.reduce((sAcc, line) => {
+        if (line.includes(key)) {
+          const [before, after] = line.split(key);
+          sAcc.push(...[before, value, after].filter((part) => part.trim()));
+        } else {
+          sAcc.push(line);
+        }
+
+        return sAcc;
+      }, []),
+    result,
+  );
+
+  return result;
+};
 
 module.exports.splitText = splitText;
 module.exports.splitLineBreaks = splitLineBreaks;

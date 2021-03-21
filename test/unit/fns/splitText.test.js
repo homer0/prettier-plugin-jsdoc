@@ -112,4 +112,57 @@ describe('splitText', () => {
     // Then
     expect(result).toEqual(output);
   });
+
+  it('should keep a Markdown table unformatted', () => {
+    // Given
+    const input = [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus\nlobortis',
+      'erat molestie posuere dictum. Integer libero justo, viverra\nquis efficitur',
+      'in, condimentum congue lorem.\n',
+      '| Column A | Column B |',
+      '| -------- | -------- |',
+      '| ValueA   | Value B  |',
+    ].join('\n');
+    const output = [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing',
+      'elit. Phasellus lobortis erat molestie posuere',
+      'dictum. Integer libero justo, viverra quis',
+      'efficitur in, condimentum congue lorem.',
+      '',
+      '| Column A | Column B |',
+      '| -------- | -------- |',
+      '| ValueA   | Value B  |',
+    ];
+    let result = null;
+    // When
+    result = splitText(input, 50);
+    // Then
+    expect(result).toEqual(output);
+  });
+
+  it("should keep a Markdown table unformatted even when there's text after it", () => {
+    // Given
+    const input = [
+      '| Column A | Column B |',
+      '| -------- | -------- |',
+      '| ValueA   | Value B  |',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus\nlobortis',
+      'erat molestie posuere dictum. Integer libero justo, viverra\nquis efficitur',
+      'in, condimentum congue lorem.',
+    ].join('\n');
+    const output = [
+      '| Column A | Column B |',
+      '| -------- | -------- |',
+      '| ValueA   | Value B  |',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing',
+      'elit. Phasellus lobortis erat molestie posuere',
+      'dictum. Integer libero justo, viverra quis',
+      'efficitur in, condimentum congue lorem.',
+    ];
+    let result = null;
+    // When
+    result = splitText(input, 50);
+    // Then
+    expect(result).toEqual(output);
+  });
 });
