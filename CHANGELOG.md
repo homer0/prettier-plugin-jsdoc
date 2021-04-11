@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@3.0.1...@homer0/prettier-plugin-jsdoc@4.0.0) (2021-04-11)
+
+
+### Bug Fixes
+
+* **monorepo:** drop support for Node 10 ([7098299](https://github.com/homer0/packages/commit/7098299172dfa94bdfb131a2dc877c0f2250b7b3))
+
+
+### BREAKING CHANGES
+
+* **monorepo:** The monorepo and the packages no longer support Node 10.
+
+
+
+
+
 ## [3.0.1](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@3.0.0...@homer0/prettier-plugin-jsdoc@3.0.1) (2021-03-21)
 
 
