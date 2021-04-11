@@ -20,7 +20,7 @@
     "access": "public"
   },
   "dependencies": {
-    "comment-parser": "1.1.1",
+    "comment-parser": "^1.1.4",
     "prettier": "^2.2.1",
     "ramda": "0.27.1"
   },
