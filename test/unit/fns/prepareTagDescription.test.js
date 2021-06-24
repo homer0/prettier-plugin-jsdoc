@@ -38,8 +38,7 @@ describe('prepareTagDescription', () => {
       },
     },
     {
-      it:
-        'should transform a tag description, respecting any leading and/or trailing space',
+      it: 'should transform a tag description, respecting any leading and/or trailing space',
       input: {
         description: '  something else  ',
       },

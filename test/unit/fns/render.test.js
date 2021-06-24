@@ -299,8 +299,7 @@ describe('render', () => {
       },
     },
     {
-      it:
-        "should render inline if one tag doesn't have enough space for the description (group)",
+      it: "should render inline if one tag doesn't have enough space for the description (group)",
       input: {
         description: '',
         tags: [
@@ -357,8 +356,7 @@ describe('render', () => {
       },
     },
     {
-      it:
-        "should render inline only the tag that doesn't have enough space for the description",
+      it: "should render inline only the tag that doesn't have enough space for the description",
       input: {
         description: '',
         tags: [

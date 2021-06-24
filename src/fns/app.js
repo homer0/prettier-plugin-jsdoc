@@ -44,16 +44,16 @@ const get = (originalFn) => container.get(originalFn) || originalFn;
  * Registers a list or a dictionary of functions for a module. The idea of this function
  * is that it can be easily use to register a `module.exports`. Check the example.
  *
+ * @param {string} id
+ * The ID of the module; it will be added as the `moduleId` property of the functions.
+ * @param {Function[] | Object.<string, Function>} fns
+ * The list or dictionary of functions.
  * @example
  *
  *   module.exports.myFn = myFn;
  *   module.exports.myOtherFn = myOtherFn;
  *   registerModule('my-mod', module.exports);
  *
- * @param {string} id
- * The ID of the module; it will be added as the `moduleId` property of the functions.
- * @param {Function[] | Object.<string, Function>} fns
- * The list or dictionary of functions.
  */
 const registerModule = (id, fns) => {
   const useFns = Array.isArray(fns) ? fns : Object.values(fns);
