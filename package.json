@@ -21,12 +21,12 @@
   },
   "dependencies": {
     "comment-parser": "^1.1.5",
-    "prettier": "^2.3.1",
+    "prettier": "^2.3.2",
     "ramda": "0.27.1"
   },
   "devDependencies": {
-    "jest": "^27.0.5",
-    "jest-environment-node": "^27.0.5"
+    "jest": "^27.0.6",
+    "jest-environment-node": "^27.0.6"
   },
   "engine-strict": true,
   "engines": {
