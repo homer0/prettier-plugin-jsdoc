@@ -13,6 +13,7 @@ A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) bl
 - ⚙️ [Options](#options)
 - 🚫 [Ignoring blocks](#ignoring-blocks)
 - ⚡️ [Modifying the functionality](#modifying-the-functionality)
+- 📖 [Troubleshooting](#troubleshooting)
 
 ### ⚙️ Options
 
@@ -917,6 +918,71 @@ module.exports = get(getPlugin)();
 ```
 
 That's all, the plugin was successfully extended 🎉!
+
+
+### 📖 Troubleshooting
+
+#### Forcing new lines in paragraphs and lists
+
+When writing multiple paragraphs or markdown lists, you might want to force new lines to be respected, for example:
+
+```js
+/**
+ * First paragraph
+ * Second paragraph
+ *
+ * @type {Something}
+ */
+
+/**
+ * A list:
+ *
+ * - First item
+ * - Second item
+ *
+ * @type {Something}
+ */
+```
+
+The problem is that the plugin will end up putting those lines together, as it will assume that they are all part of the same paragraph:
+
+```js
+/**
+ * First paragraph Second paragraph
+ *
+ * @type {Something}
+ */
+
+/**
+ * A list:
+ *
+ * - First item - Second item
+ *
+ * @type {Something}
+ */
+```
+
+It may look like a bug, but this is actually the functionality that formats the the descriptions in order to respect the [`printWidth`/`jsodcPrintWidth`](#custom-width) option.
+
+The way you can solve this is by adding a period at the end of the line, which will tell the plugin that you ended the sentence and that it should respect the line break
+
+```js
+/**
+ * First paragraph.
+ * Second paragraph.
+ *
+ * @type {Something}
+ */
+
+/**
+ * A list:
+ *
+ * - First item.
+ * - Second item.
+ *
+ * @type {Something}
+ */
+```
 
 ## 🤘 Development
 
