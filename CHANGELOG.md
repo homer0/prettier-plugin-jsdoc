@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.5](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.4...@homer0/prettier-plugin-jsdoc@4.0.5) (2021-08-19)
+
+
+### Bug Fixes
+
+* **prettier-plugin-jsdoc:** update comment-parser ([6789cd0](https://github.com/homer0/packages/commit/6789cd01533cc8676f127ff77a745fb7659de95e))
+
+
+
+
+
 ## [4.0.4](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.3...@homer0/prettier-plugin-jsdoc@4.0.4) (2021-08-07)
 
 **Note:** Version bump only for package @homer0/prettier-plugin-jsdoc
