@@ -1,5 +1,5 @@
 const R = require('ramda');
-const { parse: commentParser } = require('comment-parser/lib');
+const { parse: commentParser } = require('comment-parser');
 const babelParser = require('prettier/parser-babel');
 const flowParser = require('prettier/parser-flow');
 const tsParser = require('prettier/parser-typescript');
