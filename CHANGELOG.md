@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.6...@homer0/prettier-plugin-jsdoc@5.0.0) (2022-03-17)
+
+
+### Bug Fixes
+
+* **monorepo:** drop Node 12 support ([7966821](https://github.com/homer0/packages/commit/79668213b982a93d5b91f1177cf404df0cd4fb3a))
+* **prettier-plugin-jsdoc:** update dependencies ([947f728](https://github.com/homer0/packages/commit/947f728a87702b9f67226bba7377f73ff9588e9f))
+
+
+### BREAKING CHANGES
+
+* **monorepo:** Node 12 is not longer supported. Node 14 is the minimum required version now.
+
+
+
+
+
 ## [4.0.6](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.5...@homer0/prettier-plugin-jsdoc@4.0.6) (2021-10-17)
 
 
