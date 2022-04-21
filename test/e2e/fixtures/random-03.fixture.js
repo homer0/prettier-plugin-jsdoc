@@ -16,6 +16,7 @@ module.exports = {
  * 	hide?: 'narrow' | 'other'
  * 	overlap?: 'next' | 'previous'
  * }} SectionValueProps
+ * @template{InputProps<Value>} [Props=React.ComponentProps<Input>]
  */
 
 //# output
@@ -31,4 +32,5 @@ module.exports = {
  *   hide?: 'narrow' | 'other'
  *   overlap?: 'next' | 'previous'
  * }} SectionValueProps
+ * @template {InputProps<Value>} [Props=React.ComponentProps<Input>]
  */

@@ -76,7 +76,11 @@ const generateCommentData = (comment) => {
       start: { column },
     },
   } = comment;
-  const [block] = commentParser(`/*${comment.value}*/`, {
+  const commentText = comment.value.replace(
+    /^(\s*\*\s*@[a-z]+){/gim,
+    (_, group) => `${group} {`,
+  );
+  const [block] = commentParser(`/*${commentText}*/`, {
     dotted_names: false,
     spacing: 'preserve',
   });
