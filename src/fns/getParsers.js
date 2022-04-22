@@ -122,11 +122,20 @@ const hasNoTags = (info) =>
 /**
  * Checks whether or not a comment should be ignored.
  *
- * @param {ParsingInformation} info  The parsed information of the comment.
- * @returns {boolean}
+ * @callback ShouldIgnoreCommentFn
+ * @param {PrettierOptions}    options  The options sent to the plugin.
+ * @param {ParsingInformation} info     The parsed information of the comment.
  */
-const shouldIgnoreComment = (info) =>
-  R.anyPass([get(hasNoTags), get(hasIgnoreTag)])(info);
+
+/**
+ * @type {ShouldIgnoreCommentFn}
+ */
+const shouldIgnoreComment = R.curry((options, info) =>
+  R.allPass([
+    R.anyPass([get(hasNoTags), get(hasIgnoreTag)]),
+    R.always(!options.jsdocExperimentalFormatCommentsWithoutTags),
+  ])(info),
+);
 
 /**
  * A function that formats the block and/or tags on a comment before being processed and
@@ -147,6 +156,7 @@ const shouldIgnoreComment = (info) =>
 
 /**
  * @callback ProcessCommentsFn
+ * @param {PrettierOptions}    options      The options sent to the plugin.
  * @param {Array}              nodes        The list comments found on the AST.
  * @param {CommentFormatterFn} formatterFn  The function that formats and prepares the
  *                                          parsed information so it can be processed.
@@ -157,11 +167,11 @@ const shouldIgnoreComment = (info) =>
 /**
  * @type {ProcessCommentsFn}
  */
-const processComments = R.curry((nodes, formatterFn, processorFn) =>
+const processComments = R.curry((options, nodes, formatterFn, processorFn) =>
   R.compose(
     R.forEach(
       R.compose(
-        R.ifElse(shouldIgnoreComment, R.identity, processorFn),
+        R.ifElse(shouldIgnoreComment(options), R.identity, processorFn),
         formatterFn,
         get(generateCommentData),
       ),
@@ -289,9 +299,8 @@ const createParser = (originalParser, checkExtendOption) => (text, parsers, opti
       get(formatCommentBlock)(options),
     );
     const renderer = getRenderer(options);
-
     if (ast.comments && ast.comments.length) {
-      get(processComments)(ast.comments, formatter, (info) => {
+      get(processComments)(options, ast.comments, formatter, (info) => {
         const { comment, column, block } = info;
         comment.value = renderer(column, block);
       });

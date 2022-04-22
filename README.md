@@ -61,6 +61,8 @@ A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) bl
   - [Custom width](#custom-width)
   - [Turn the plugin on and off](#turn-the-plugin-on-and-off)
   - [Let the plugin know that it's being extended](#let-the-plugin-know-that-its-being-extended)
+- [⚠️ Experimental](#experimental)
+  - [Parse comments without tags](#parse-comments-without-tags)
 
 #### @description tag
 
@@ -847,6 +849,16 @@ Whether or not the plugin will parse and transform JSDoc blocks.
 | `jsdocPluginExtended` | boolean | `false` |
 
 This will prevent the plugin from running from the original package. The idea is for it to be enabled when the plugin is being extended on the implementation.
+
+#### ⚠️ Experimental
+
+##### Parse comments without tags
+
+| Option | Type | Default |
+| ------ | ---- | ------- |
+| `jsdocExperimentalFormatCommentsWithoutTags` | boolean | `false` |
+
+By default, the plugin will only parse comments with tags. Use this option, at your own risk, if you want to format blocks without tags.
 
 ### 🚫 Ignoring blocks
 

@@ -320,6 +320,13 @@ const getOptions = () => ({
     description:
       "Whether or not to use a single line JSDoc block when there's only one tag.",
   },
+  jsdocExperimentalFormatCommentsWithoutTags: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: false,
+    description:
+      'Whether or not to format comments without tags as if they were JSDoc comments.',
+  },
 });
 
 /**

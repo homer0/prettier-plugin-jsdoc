@@ -674,6 +674,27 @@ describe('render', () => {
         jsdocPrintWidth: 80,
       },
     },
+    {
+      it: 'should render without tags',
+      input: {
+        description: [
+          'lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+          'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut',
+          'sodales lectus',
+        ].join(' '),
+        tags: [],
+      },
+      output: [
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+        'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut sodales',
+        'lectus.',
+      ],
+      column: 0,
+      options: {
+        ...defaultOptions,
+        printWidth: 80,
+      },
+    },
   ];
 
   it.each(cases)('should correctly format the case %#', (caseInfo) => {

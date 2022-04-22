@@ -314,7 +314,9 @@ const render = R.curry((options, column, block) => {
     }
 
     lines.push(...get(splitText)(description, width));
-    lines.push(...new Array(options.jsdocLinesBetweenDescriptionAndTags).fill(''));
+    if (block.tags.length) {
+      lines.push(...new Array(options.jsdocLinesBetweenDescriptionAndTags).fill(''));
+    }
   }
 
   if (options.jsdocUseColumns) {
