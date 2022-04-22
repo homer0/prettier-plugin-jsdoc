@@ -14,6 +14,8 @@ A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) bl
 - 🚫 [Ignoring blocks](#ignoring-blocks)
 - ⚡️ [Modifying the functionality](#modifying-the-functionality)
 - 📖 [Troubleshooting](#troubleshooting)
+- 🤘 [Development](#development)
+- 🐞 [Validating bugs](#validating-bugs)
 
 ### ⚙️ Options
 
@@ -986,7 +988,7 @@ The way you can solve this is by adding a period at the end of the line, which w
 
 ## 🤘 Development
 
-As this project is part of the `packages` monorepo, it requires Yarn and some of the tooling, like ESLint and Husky, are installed on the root's `package.json`.
+As this project is part of the `packages` monorepo, it requires Yarn, and some of the tooling, like ESLint and Husky, are installed on the root's `package.json`.
 
 ### Yarn tasks
 
@@ -1003,6 +1005,36 @@ I use [Jest](https://jestjs.io) to test the project, both with unit tests and fu
 The configurations files are `.jestrc-e2e` and `.jestrc-unit`, and the test files are located on `/test`.
 
 In the case of the functional tests, there's a special environment on `./test/utils` that loads and parses a list of fixture files in order to save them on the global object. In reality, there's only one test file for the functional tests, the one that reads the global object and dynamically generates the `it(...)`: `index.e2e.js`.
+
+## 🐞 Validating bugs
+
+> Yes, since this is in a monorepo (for now), I can't put this on the issue template.
+
+You can use the functional tests to validate a scenario in which the plugin is not behaving as you would expect.
+
+Create a file `issue.fixture.js` in `./test/e2e/fixtures` and add the following code:
+
+```js
+module.exports = { only: true, jsdocPrintWidth: 70 };
+
+//# input
+
+/**
+ * @template{Something} [something]
+ */
+
+//# output
+
+/**
+ * @template {Something} [something]
+ */
+```
+
+- The `module.exports` specifiy the plugin options for that specific case.
+- `only: true` is not a plugin option, but will make the test runner ignore all the other tests, and only run the one you specify.
+- Below `//# input` you can put any number of comment blocks, in the state you would expect the plugin to pick them.
+- Below `//# output` you have to put the expected output after formatting the input with the plugin.
+- The "input" and "output" are handled as if they were different files, so you can even put functions and real code, it won't be executed though, just formatted.
 
 ## Motivation
 
