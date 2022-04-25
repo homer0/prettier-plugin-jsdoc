@@ -10,12 +10,12 @@ A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) bl
 
 > If you are wondering why I built this, go to the [Motivation](#motivation) section.
 
-- ⚙️ [Options](#options)
-- 🚫 [Ignoring blocks](#ignoring-blocks)
-- ⚡️ [Modifying the functionality](#modifying-the-functionality)
-- 📖 [Troubleshooting](#troubleshooting)
-- 🤘 [Development](#development)
-- 🐞 [Validating bugs](#validating-bugs)
+- ⚙️ [Options](#%EF%B8%8F-options)
+- 🚫 [Ignoring blocks](#-ignoring-blocks)
+- ⚡️ [Modifying the functionality](#%EF%B8%8F-modifying-the-functionality)
+- 📖 [Troubleshooting](#-troubleshooting)
+- 🤘 [Development](#-development)
+- 🐞 [Validating bugs](#-validating-bugs)
 
 ### ⚙️ Options
 
@@ -61,7 +61,7 @@ A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) bl
   - [Custom width](#custom-width)
   - [Turn the plugin on and off](#turn-the-plugin-on-and-off)
   - [Let the plugin know that it's being extended](#let-the-plugin-know-that-its-being-extended)
-- [⚠️ Experimental](#experimental)
+- [⚠️ Experimental](#%EF%B8%8F-experimental)
   - [Parse comments without tags](#parse-comments-without-tags)
 
 #### @description tag
