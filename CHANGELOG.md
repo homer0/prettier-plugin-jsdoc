@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@5.0.0...@homer0/prettier-plugin-jsdoc@5.1.0) (2022-04-25)
+
+
+### Bug Fixes
+
+* **prettier-plugin-jsdoc:** force space between tag name and type ([c2560da](https://github.com/homer0/packages/commit/c2560da61503345b39bdb384f91f727ffbe33cc4))
+
+
+### Features
+
+* **prettier-plugin-jsdoc:** add exp support for blocks without tags ([c1646e3](https://github.com/homer0/packages/commit/c1646e303b1c775f130b2eaaab788c78b5012224))
+
+
+
+
+
 # [5.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.6...@homer0/prettier-plugin-jsdoc@5.0.0) (2022-03-17)
 
 
