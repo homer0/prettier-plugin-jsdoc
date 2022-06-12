@@ -1019,9 +1019,9 @@ As this project is part of the `packages` monorepo, it requires Yarn, and some o
 
 I use [Jest](https://jestjs.io) to test the project, both with unit tests and functional tests.
 
-The configurations files are `.jestrc-e2e` and `.jestrc-unit`, and the test files are located on `/test`.
+The configurations files are `.jestrc-e2e` and `.jestrc-unit`, and the test files are located on `/tests`.
 
-In the case of the functional tests, there's a special environment on `./test/utils` that loads and parses a list of fixture files in order to save them on the global object. In reality, there's only one test file for the functional tests, the one that reads the global object and dynamically generates the `it(...)`: `index.e2e.js`.
+In the case of the functional tests, there's a special environment on `./tests/utils` that loads and parses a list of fixture files in order to save them on the global object. In reality, there's only one test file for the functional tests, the one that reads the global object and dynamically generates the `it(...)`: `index.e2e.js`.
 
 ## 🐞 Validating bugs
 
@@ -1029,7 +1029,7 @@ In the case of the functional tests, there's a special environment on `./test/ut
 
 You can use the functional tests to validate a scenario in which the plugin is not behaving as you would expect.
 
-Create a file `issue.fixture.js` in `./test/e2e/fixtures` and add the following code:
+Create a file `issue.fixture.js` in `./tests/e2e/fixtures` and add the following code:
 
 ```js
 module.exports = { only: true, jsdocPrintWidth: 70 };
