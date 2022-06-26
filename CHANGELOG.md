@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.2](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@5.1.1...@homer0/prettier-plugin-jsdoc@5.1.2) (2022-06-26)
+
+
+### Bug Fixes
+
+* **prettier-plugin-jsdoc:** properly detect when to use columns ([8fbb3e9](https://github.com/homer0/packages/commit/8fbb3e987e7d21e4edeb1bb8b1dba5ce75c9cacf))
+
+
+
+
+
 ## [5.1.1](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@5.1.0...@homer0/prettier-plugin-jsdoc@5.1.1) (2022-04-25)
 
 **Note:** Version bump only for package @homer0/prettier-plugin-jsdoc
