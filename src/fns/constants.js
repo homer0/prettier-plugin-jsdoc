@@ -56,6 +56,14 @@ const getTagsWithDescriptionAsName = () => [
   'todo',
 ];
 /**
+ * Gets a list of tags that need to be in column format.
+ * Certain tags, when JSDoc is used with TypeScript, are required to be in columns format
+ * for the tsc to properly detect the types.
+ *
+ * @returns {string[]}
+ */
+const getTagsThatRequireColumns = () => ['template'];
+/**
  * This is almost the same as {@link getTagsWithDescriptionAsName}; the difference here is
  * that after putting together the `name` and the `description`, instead of saving the
  * result on `description`, it will be saved on `name`, as it will be better for the
@@ -73,6 +81,7 @@ const getSupportedLanguages = () => ['JavaScript', 'Flow', 'JSX', 'TSX', 'TypeSc
 
 module.exports.getTagsSynonyms = getTagsSynonyms;
 module.exports.getTagsWithDescriptionAsName = getTagsWithDescriptionAsName;
+module.exports.getTagsThatRequireColumns = getTagsThatRequireColumns;
 module.exports.getTagsWithNameAsDescription = getTagsWithNameAsDescription;
 module.exports.getSupportedLanguages = getSupportedLanguages;
-module.exports.provider = provider('constants');
+module.exports.provider = provider('constants', module.exports);
