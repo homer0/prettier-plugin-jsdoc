@@ -55,6 +55,7 @@ A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) bl
   - [Tag spacing: Between name and description](#tag-spacing-between-name-and-description)
   - [Space between description body and tags](#space-between-description-body-and-tags)
   - [Make sure descriptions are valid sentences](#make-sure-descriptions-are-valid-sentences)
+  - [Allow descriptions to be on different lines](#allow-descriptions-to-be-on-different-lines)
   - [Ignore tags for consistent columns](#ignore-tags-for-consistent-columns)
   - [Use an inline block for a single tag](#use-an-inline-block-for-a-single-tag)
 - [Extras](#extras)
@@ -766,7 +767,7 @@ If enabled, it will make sure descriptions start with an upper case letter and e
  */
 ```
 
-### Allow descriptions to be on different lines
+##### Allow descriptions to be on different lines
 
 | Option | Type | Default |
 | ------ | ---- | ------- |
@@ -809,6 +810,10 @@ A list of tags that are allowed to have their description on a new line.
 If enabled, when evaluating the rule for consistent columns, tags with description on a new line, allowed by `jsdocAllowDescriptionOnNewLinesForTags`, will be ignored.
 
 ##### Use an inline block for a single tag
+
+| Option                                    | Type    | Default |
+| ----------------------------------------- | ------- | ------- |
+| `jsdocUseInlineCommentForASingleTagBlock` | boolean | `false` |
 
 Whether or not to use a single line JSDoc block when there\'s only one tag.
 
