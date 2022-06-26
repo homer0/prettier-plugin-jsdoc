@@ -4,7 +4,10 @@ const { isTag, ensureSentence } = require('./utils');
 const { renderExampleTag } = require('./renderExampleTag');
 const { renderTagInLine } = require('./renderTagInLine');
 const { renderTagInColumns } = require('./renderTagInColumns');
-const { getTagsWithNameAsDescription } = require('./constants');
+const {
+  getTagsWithNameAsDescription,
+  getTagsThatRequireColumns,
+} = require('./constants');
 const { get, provider } = require('./app');
 
 /**
@@ -266,21 +269,27 @@ const calculateColumnsWidth = (options, data, width) => {
  */
 const getTagsData = (lengthByTag, width, options) => {
   const tagsWithNameAsDesc = get(getTagsWithNameAsDescription)();
+  const tagsThatRequireColumns = get(getTagsThatRequireColumns)();
   return Object.entries(lengthByTag).reduce((acc, [tagName, tagInfo]) => {
     const columnsWidth = get(calculateColumnsWidth)(options, tagInfo, width);
     if (tagsWithNameAsDesc.includes(tagName)) {
       columnsWidth.description = 0;
       columnsWidth.name = width - columnsWidth.tag - columnsWidth.type;
     }
+
+    const canUseColumns =
+      tagsThatRequireColumns.includes(tagName) ||
+      (!tagInfo.hasMultilineType &&
+        (!options.jsdocAllowDescriptionOnNewLinesForTags.includes(tagName) ||
+          !tagInfo.hasADescriptionParagraph) &&
+        (columnsWidth.description <= 0 ||
+          columnsWidth.description >= options.jsdocDescriptionColumnMinLength) &&
+        width - columnsWidth.tag - columnsWidth.type - columnsWidth.name >= 0);
+
     return {
       ...acc,
       [tagName]: {
-        canUseColumns:
-          !tagInfo.hasMultilineType &&
-          (!options.jsdocAllowDescriptionOnNewLinesForTags.includes(tagName) ||
-            !tagInfo.hasADescriptionParagraph) &&
-          (!columnsWidth.description ||
-            columnsWidth.description >= options.jsdocDescriptionColumnMinLength),
+        canUseColumns,
         columnsWidth,
       },
     };
