@@ -1,4 +1,4 @@
-const NodeEnvironment = require('jest-environment-node');
+const { default: NodeEnvironment } = require('jest-environment-node');
 const { loadFixtures } = require('./loader');
 /**
  * A custom environment that loads and injects the E2E fixtures information on the global
