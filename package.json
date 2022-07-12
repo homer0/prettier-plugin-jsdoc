@@ -1,6 +1,6 @@
 {
   "name": "@homer0/prettier-plugin-jsdoc",
-  "description": "A Prettier plugin to format JSDoc blocks",
+  "description": "A Prettier plugin to format JSDoc blocks.",
   "version": "5.1.3",
   "repository": {
     "type": "git",
