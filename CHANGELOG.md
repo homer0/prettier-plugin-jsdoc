@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.1.4 (2022-07-12)
+
+### Bug Fixes
+
+- **monorepo:** force publish unpublished tags ([ce339bc](https://github.com/homer0/packages/commit/ce339bcbffb697e7127ecc213242feb54822f775))
+
 ## [5.1.3](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@5.1.2...@homer0/prettier-plugin-jsdoc@5.1.3) (2022-07-12)
 
 ### Bug Fixes
