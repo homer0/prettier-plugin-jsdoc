@@ -34,6 +34,7 @@
   },
   "main": "src/index.js",
   "scripts": {
+    "lint": "eslint .",
     "test:unit": "jest -c ./.jestrc-unit.js",
     "test:e2e": "jest -c ./.jestrc-e2e.js",
     "test": "yarn test:unit && yarn test:e2e"
