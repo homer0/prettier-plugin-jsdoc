@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.1.5 (2022-10-22)
+
+### Bug Fixes
+
+- update dependencies ([abcf502](https://github.com/homer0/packages/commit/abcf5027fce4cb7d37d9e4cf9aafc1846c7bceb0))
+
 ## 5.1.4 (2022-07-12)
 
 ### Bug Fixes
