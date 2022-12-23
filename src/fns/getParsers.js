@@ -76,10 +76,9 @@ const generateCommentData = (comment) => {
       start: { column },
     },
   } = comment;
-  const commentText = comment.value.replace(
-    /^(\s*\*\s*@[a-z]+){/gim,
-    (_, group) => `${group} {`,
-  );
+  const commentText = comment.value
+    .replace(/^(\s*\*\s*@[a-z]+){/gim, (_, group) => `${group} {`)
+    .replace(/(\s*\*\s*@[a-z]+\s+\{.*?\})\n(\s*\*)\s*(\w+)(?:\n|$)/gi, '$1 $3\n$2');
   const [block] = commentParser(`/*${commentText}*/`, {
     dotted_names: false,
     spacing: 'preserve',
