@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.1.6 (2022-12-23)
+
+### Bug Fixes
+
+- avoid handling keys as str literals ([62d89f8](https://github.com/homer0/packages/commit/62d89f8a1a862f6ba820765dcc98f4081b2878ea))
+- detect tags' names on a different line ([051bea0](https://github.com/homer0/packages/commit/051bea01d73c168827af0f03533823b03822a908))
+
 ## 5.1.5 (2022-10-22)
 
 ### Bug Fixes
