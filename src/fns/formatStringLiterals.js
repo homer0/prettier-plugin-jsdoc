@@ -62,7 +62,7 @@ const getReducer = (options) => {
  * @param {string} type  The type that will be used to find the string literals.
  * @returns {string[]}
  */
-const extractLiterals = (type) => R.match(/['"][\w\|\-\s'"]+['"](?: +)?/g, type);
+const extractLiterals = (type) => R.match(/['"][\w\|\-\s'"]+['"](?: +)?(?:$|\|)/g, type);
 /**
  * Formats the styling of string literals inside a type. If the type doesn't use string
  * literals, it will be returned without modification.
