@@ -37,6 +37,6 @@
     "lint": "eslint .",
     "test:unit": "jest -c ./.jestrc-unit.js",
     "test:e2e": "jest -c ./.jestrc-e2e.js",
-    "test": "yarn test:unit && yarn test:e2e"
+    "test": "npm run test:unit && npm run test:e2e"
   }
 }
