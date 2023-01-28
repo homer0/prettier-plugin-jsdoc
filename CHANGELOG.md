@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.1 (2023-01-28)
+
+### Bug Fixes
+
+- **monorepo:** update all dependencies ([7618870](https://github.com/homer0/packages/commit/7618870e6ec4d6f281a79b15f139124875c760b2))
+- **prettier-plugin-jsdoc:** include 'return' as tag with name as desc ([cf3a81c](https://github.com/homer0/packages/commit/cf3a81c09ecb21bce58595626a3b99bad698a211))
+
 # [6.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@5.1.6...@homer0/prettier-plugin-jsdoc@6.0.0) (2022-12-27)
 
 ### Bug Fixes
