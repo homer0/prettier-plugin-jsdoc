@@ -19,7 +19,7 @@
  * @license
  * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada fermentum nibh, sed aliquet ante porta a. Nullam blandit posuere fringilla. Nullam vel risus vitae lectus luctus auctor a venenatis ante. In hac habitasse platea dictumst.
  */
-const log = (name = 'batman', logger) => {};
+export function log(name = 'batman', logger) {}
 
 /**
  * @callback FunctionWithComplexTypes
@@ -42,6 +42,13 @@ const log = (name = 'batman', logger) => {};
 /**
  * @remarks Some of the Prisma scalars do not have a natural standard representation in GraphQL. For these case Nexus Prisma generates code that references type names matching those scalar names in Prisma. Then, you are expected to define those custom scalar types in your GraphQL API.
  */
+
+/**
+ * @return A function that is used to analyze the value and the index and determine whether or not to increment the count. Return `true` to increment the count, and return `false` to keep the count the same. If the predicate is not provided, every value will be counted.
+ */
+export function foo(predicate) {
+  console.log(predicate);
+}
 
 //# output
 
@@ -71,7 +78,7 @@ const log = (name = 'batman', logger) => {};
  * aliquet ante porta a. Nullam blandit posuere fringilla. Nullam vel risus vitae lectus luctus
  * auctor a venenatis ante. In hac habitasse platea dictumst.
  */
-const log = (name = 'batman', logger) => {};
+export function log(name = 'batman', logger) {}
 
 /**
  * @callback FunctionWithComplexTypes
@@ -112,3 +119,13 @@ const log = (name = 'batman', logger) => {};
  *          matching those scalar names in Prisma. Then, you are expected to define those
  *          custom scalar types in your GraphQL API.
  */
+
+/**
+ * @returns A function that is used to analyze the value and the index and determine whether or
+ *          not to increment the count. Return `true` to increment the count, and return `false`
+ *          to keep the count the same. If the predicate is not provided, every value will be
+ *          counted.
+ */
+export function foo(predicate) {
+  console.log(predicate);
+}
