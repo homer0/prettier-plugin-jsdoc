@@ -71,7 +71,13 @@ const getTagsThatRequireColumns = () => ['template'];
  *
  * @returns {string[]}
  */
-const getTagsWithNameAsDescription = () => ['see', 'borrows', 'yields', 'returns'];
+const getTagsWithNameAsDescription = () => [
+  'see',
+  'borrows',
+  'yields',
+  'returns',
+  'return',
+];
 /**
  * Gets the list of languages the plugin supports.
  *
