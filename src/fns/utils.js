@@ -12,7 +12,7 @@ const { get, provider } = require('./app');
  * @returns {T[]}
  * @template T
  */
-const ensureArray = (obj) => R.unless(R.is(Array), R.of, obj);
+const ensureArray = (obj) => R.unless(R.is(Array), R.of(Array), obj);
 
 /**
  * Creates a reducer that finds the last index of a tag on a list and saves it on the
