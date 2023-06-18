@@ -1006,7 +1006,7 @@ The way you can solve this is by adding a period at the end of the line, which w
 
 As this project is part of the `packages` monorepo, some of the tooling, like ESLint and Husky, are installed on the root's `package.json`.
 
-#### NPM tasks
+#### Tasks
 
 | Task        | Description                |
 | ----------- | -------------------------- |

@@ -25,6 +25,7 @@
     "ramda": "0.29.0"
   },
   "devDependencies": {
+    "@homer0/eslint-plugin": "workspace:*",
     "jest": "^29.5.0",
     "jest-environment-node": "^29.5.0"
   },
@@ -37,6 +38,6 @@
     "lint": "eslint .",
     "test:unit": "jest -c ./.jestrc-unit.js",
     "test:e2e": "jest -c ./.jestrc-e2e.js",
-    "test": "npm run test:unit && npm run test:e2e"
+    "test": "pnpm run test:unit && pnpm run test:e2e"
   }
 }
