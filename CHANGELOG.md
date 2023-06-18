@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.3 (2023-06-18)
+
+### Bug Fixes
+
+- **monorepo:** update all dependencies ([e48d13a](https://github.com/homer0/packages/commit/e48d13a474ce710f73128a49ca6ad4ac2da23ef0))
+- **prettier-plugin-jsdoc:** update ramda .of syntax ([8a50d2f](https://github.com/homer0/packages/commit/8a50d2fafe3f6797552a7f0dc39def9a871c9ac9))
+
 ## [6.0.2](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@6.0.1...@homer0/prettier-plugin-jsdoc@6.0.2) (2023-03-05)
 
 ### Bug Fixes
