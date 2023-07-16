@@ -1,6 +1,3 @@
-jest.mock('../../../src/fns/getLanguages', () => ({
-  getLanguages: () => 'languages',
-}));
 jest.mock('../../../src/fns/getParsers', () => ({
   getParsers: () => 'parsers',
 }));
@@ -18,7 +15,23 @@ describe('getPlugin', () => {
     const result = await getPlugin();
     // Then
     expect(result).toEqual({
-      languages: 'languages',
+      languages: expect.arrayContaining([
+        expect.objectContaining({
+          name: 'JavaScript',
+        }),
+        expect.objectContaining({
+          name: 'JSX',
+        }),
+        expect.objectContaining({
+          name: 'TypeScript',
+        }),
+        expect.objectContaining({
+          name: 'TSX',
+        }),
+        expect.objectContaining({
+          name: 'Flow',
+        }),
+      ]),
       options: 'options',
       defaultOptions: 'defaultOptions',
       parsers: 'parsers',

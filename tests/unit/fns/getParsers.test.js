@@ -237,7 +237,7 @@ describe('getParsers', () => {
     );
   });
 
-  it('should render a comment', async () => {
+  it('should ignore comment with @prettierignore', async () => {
     // Given
     const commentStr = '*\n * @typedef {string} MyStr\n ';
     const column = 2;
@@ -326,6 +326,66 @@ describe('getParsers', () => {
     expect(formatDescription).toHaveBeenCalledWith(R.__, options);
     expect(formatDescriptionRest).toHaveBeenCalledTimes(1);
     expect(formatDescriptionRest).toHaveBeenCalledWith(parsed[0]);
+  });
+
+  it('should render a comment', async () => {
+    // Given
+    const commentStr = '*\n * @typedef {string}   MyStr\n * @prettierignore\n ';
+    const column = 2;
+    const astBase = {
+      comments: [
+        {
+          type: 'CommentBlock',
+          value: commentStr,
+          loc: {
+            start: {
+              column,
+            },
+          },
+        },
+      ],
+    };
+    const ast = R.clone(astBase);
+    const tagsList = [
+      {
+        tag: 'typedef',
+        type: 'string',
+        name: 'MyStr',
+        description: '',
+      },
+      {
+        tag: 'prettierignore',
+        description: '',
+      },
+    ];
+    const parsed = [
+      {
+        description: '',
+        tags: tagsList,
+      },
+    ];
+    commentParser.mockImplementationOnce(() => parsed);
+    const formatTagsTypesRest = jest.fn((tags) => tags);
+    formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
+    const formatTagsRest = jest.fn((tags) => tags);
+    formatTags.mockImplementationOnce(() => formatTagsRest);
+    const formatDescriptionRest = jest.fn((tags) => tags);
+    formatDescription.mockImplementationOnce(() => formatDescriptionRest);
+    const prepareTagsRest = jest.fn((tags) => tags);
+    prepareTags.mockImplementationOnce(() => prepareTagsRest);
+    tsParser.parsers.typescript.parse.mockImplementationOnce(() => ast);
+    const text = 'lorem ipsum';
+    const parsers = ['ts'];
+    const options = {
+      jsdocPluginEnabled: true,
+      printWidth: 80,
+    };
+    let sut = null;
+    // When
+    sut = getParsers();
+    await sut.typescript.parse(text, parsers, options);
+    // Then
+    expect(ast).toEqual(astBase);
   });
 
   it('should render an inline comment', async () => {

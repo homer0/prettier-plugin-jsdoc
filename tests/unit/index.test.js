@@ -5,14 +5,14 @@ jest.mock('../../src/fns/app');
 const path = require('path');
 const { loadProviders, get } = require('../../src/fns/app');
 const { getPlugin } = require('../../src/fns/getPlugin');
-const plugin = require('../../src');
 
 describe('plugin', () => {
-  it('should load and export its settings', async () => {
+  it('should load and export its settings', () => {
     // Given
     get.mockImplementationOnce((fn) => fn);
     // When
-    await plugin();
+    // eslint-disable-next-line global-require
+    require('../../src');
     // Then
     expect(loadProviders).toHaveBeenCalledTimes(1);
     expect(loadProviders).toHaveBeenCalledWith(
