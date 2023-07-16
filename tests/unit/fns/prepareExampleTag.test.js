@@ -9,7 +9,7 @@ describe('prepareExampleTag', () => {
     format.mockClear();
   });
 
-  it("should ignore a tag that's not @example", () => {
+  it("should ignore a tag that's not @example", async () => {
     // Given
     const input = {
       tag: 'param',
@@ -19,13 +19,13 @@ describe('prepareExampleTag', () => {
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, {}, 0);
+    result = await prepareExampleTag(input, {}, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(0);
   });
 
-  it('should call prettier for an example tag', () => {
+  it('should call prettier for an example tag', async () => {
     // Given
     const prettierResponse = 'prettier-response';
     format.mockImplementationOnce(() => prettierResponse);
@@ -49,7 +49,7 @@ describe('prepareExampleTag', () => {
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, options, 2);
+    result = await prepareExampleTag(input, options, 2);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
@@ -59,7 +59,7 @@ describe('prepareExampleTag', () => {
     });
   });
 
-  it('should indent formatted text', () => {
+  it('should indent formatted text', async () => {
     // Given
     const prettierResponse = 'prettier-response';
     format.mockImplementationOnce(() => prettierResponse);
@@ -83,7 +83,7 @@ describe('prepareExampleTag', () => {
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, options, 2);
+    result = await prepareExampleTag(input, options, 2);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
@@ -93,7 +93,7 @@ describe('prepareExampleTag', () => {
     });
   });
 
-  it('should indent unformatted text', () => {
+  it('should indent unformatted text', async () => {
     // Given
     format.mockImplementationOnce(() => {
       throw new Error();
@@ -118,7 +118,7 @@ describe('prepareExampleTag', () => {
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, options, 0);
+    result = await prepareExampleTag(input, options, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
@@ -128,7 +128,7 @@ describe('prepareExampleTag', () => {
     });
   });
 
-  it('should detect an example caption', () => {
+  it('should detect an example caption', async () => {
     // Given
     const prettierResponse = 'prettier-response';
     format.mockImplementationOnce(() => prettierResponse);
@@ -153,7 +153,7 @@ describe('prepareExampleTag', () => {
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, options, 0);
+    result = await prepareExampleTag(input, options, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
@@ -163,7 +163,7 @@ describe('prepareExampleTag', () => {
     });
   });
 
-  it('should detect multiple captions', () => {
+  it('should detect multiple captions', async () => {
     // Given
     const prettierResponse = 'prettier-response';
     format.mockImplementationOnce(() => prettierResponse);
@@ -196,7 +196,7 @@ describe('prepareExampleTag', () => {
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, options, 0);
+    result = await prepareExampleTag(input, options, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(2);
@@ -210,7 +210,7 @@ describe('prepareExampleTag', () => {
     });
   });
 
-  it('should detect an empty example tag', () => {
+  it('should detect an empty example tag', async () => {
     // Given
     const input = {
       tag: 'example',
@@ -226,7 +226,7 @@ describe('prepareExampleTag', () => {
     };
     let result = null;
     // When
-    result = prepareExampleTag(input, options, 0);
+    result = await prepareExampleTag(input, options, 0);
     // Then
     expect(result).toEqual(output);
   });

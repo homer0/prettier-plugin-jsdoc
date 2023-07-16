@@ -13,9 +13,11 @@ jest.unmock('../../../src/fns/getPlugin');
 const { getPlugin } = require('../../../src/fns/getPlugin');
 
 describe('getPlugin', () => {
-  it('should generate the plugin main exports', () => {
-    // Given/When/Then
-    expect(getPlugin()).toEqual({
+  it('should generate the plugin main exports', async () => {
+    // Given/When
+    const result = await getPlugin();
+    // Then
+    expect(result).toEqual({
       languages: 'languages',
       options: 'options',
       defaultOptions: 'defaultOptions',

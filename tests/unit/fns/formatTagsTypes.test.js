@@ -14,7 +14,7 @@ describe('formatTagsTypes', () => {
     format.mockClear();
   });
 
-  it('should apply all the transformations', () => {
+  it('should apply all the transformations', async () => {
     // Given
     const input = [
       {
@@ -58,7 +58,7 @@ describe('formatTagsTypes', () => {
     };
     let result = null;
     // When
-    result = formatTagsTypes(input, options, 0);
+    result = await formatTagsTypes(input, options, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(3);
@@ -83,7 +83,7 @@ describe('formatTagsTypes', () => {
     );
   });
 
-  it('should only format objects', () => {
+  it('should only format objects', async () => {
     // Given
     const input = [
       {
@@ -126,12 +126,12 @@ describe('formatTagsTypes', () => {
     };
     let result = null;
     // When
-    result = formatTagsTypes(input, options, 2);
+    result = await formatTagsTypes(input, options, 2);
     // Then
     expect(result).toEqual(output);
   });
 
-  it('should only format arrays', () => {
+  it('should only format arrays', async () => {
     // Given
     const input = [
       {
@@ -175,12 +175,12 @@ describe('formatTagsTypes', () => {
     };
     let result = null;
     // When
-    result = formatTagsTypes(input, options, 4);
+    result = await formatTagsTypes(input, options, 4);
     // Then
     expect(result).toEqual(output);
   });
 
-  it("shouldn't format anything", () => {
+  it("shouldn't format anything", async () => {
     // Given
     const input = [
       {
@@ -223,7 +223,7 @@ describe('formatTagsTypes', () => {
     };
     let result = null;
     // When
-    result = formatTagsTypes(input, options, 2);
+    result = await formatTagsTypes(input, options, 2);
     // Then
     expect(result).toEqual(output);
   });

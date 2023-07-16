@@ -9,7 +9,7 @@ describe('getLanguages', () => {
     prettier.getSupportInfo.mockClear();
   });
 
-  it('should generate the list of supported languages', () => {
+  it('should generate the list of supported languages', async () => {
     // Given
     const supportedLanguage = {
       name: 'JavaScript',
@@ -19,12 +19,14 @@ describe('getLanguages', () => {
       name: 'NativeScript',
       linguistLanguageId: 101,
     };
-    prettier.getSupportInfo.mockImplementationOnce(() => ({
-      languages: [supportedLanguage, unsupportedLanguage],
-    }));
+    prettier.getSupportInfo.mockImplementationOnce(() =>
+      Promise.resolve({
+        languages: [supportedLanguage, unsupportedLanguage],
+      }),
+    );
     let result = null;
     // When
-    result = getLanguages();
+    result = await getLanguages();
     // Then
     expect(result).toEqual([supportedLanguage]);
   });

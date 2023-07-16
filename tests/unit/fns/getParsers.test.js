@@ -1,7 +1,31 @@
 jest.mock('comment-parser');
-jest.mock('prettier/parser-babel');
-jest.mock('prettier/parser-flow');
-jest.mock('prettier/parser-typescript');
+jest.mock('prettier/parser-babel', () => ({
+  parsers: {
+    babel: {
+      parse: jest.fn(),
+    },
+    'babel-flow': {
+      parse: jest.fn(),
+    },
+    'babel-ts': {
+      parse: jest.fn(),
+    },
+  },
+}));
+jest.mock('prettier/parser-flow', () => ({
+  parsers: {
+    flow: {
+      parse: jest.fn(),
+    },
+  },
+}));
+jest.mock('prettier/parser-typescript', () => ({
+  parsers: {
+    typescript: {
+      parse: jest.fn(),
+    },
+  },
+}));
 jest.unmock('../../../src/fns/getParsers');
 
 const R = require('ramda');
@@ -32,7 +56,7 @@ describe('getParsers', () => {
     render.mockReset();
   });
 
-  it("shouldn't do anything if there are no comments on the AST", () => {
+  it("shouldn't do anything if there are no comments on the AST", async () => {
     // Given
     const astBase = {
       comments: [],
@@ -76,13 +100,15 @@ describe('getParsers', () => {
     let sut = null;
     // When/Then
     sut = getParsers();
-    parsersToTest.forEach((info) => {
-      sut[info.name].parse(text, parsers, options);
-      expect(info.ast).toEqual(astBase);
-    });
+    await Promise.all(
+      parsersToTest.map(async (info) => {
+        await sut[info.name].parse(text, parsers, options);
+        expect(info.ast).toEqual(astBase);
+      }),
+    );
   });
 
-  it("shouldn't do anything if the plugin is disabled", () => {
+  it("shouldn't do anything if the plugin is disabled", async () => {
     // Given
     const commentStr = '*\n * @typedef {string} MyStr\n ';
     const column = 2;
@@ -138,13 +164,15 @@ describe('getParsers', () => {
     let sut = null;
     // When/Then
     sut = getParsers();
-    parsersToTest.forEach((info) => {
-      sut[info.name].parse(text, parsers, options);
-      expect(info.ast).toEqual(astBase);
-    });
+    await Promise.all(
+      parsersToTest.map(async (info) => {
+        await sut[info.name].parse(text, parsers, options);
+        expect(info.ast).toEqual(astBase);
+      }),
+    );
   });
 
-  it("shouldn't do anything if the plugin is being extended", () => {
+  it("shouldn't do anything if the plugin is being extended", async () => {
     // Given
     const commentStr = '*\n * @typedef {string} MyStr\n ';
     const column = 2;
@@ -201,13 +229,15 @@ describe('getParsers', () => {
     let sut = null;
     // When/Then
     sut = getParsers(true);
-    parsersToTest.forEach((info) => {
-      sut[info.name].parse(text, parsers, options);
-      expect(info.ast).toEqual(astBase);
-    });
+    await Promise.all(
+      parsersToTest.map(async (info) => {
+        await sut[info.name].parse(text, parsers, options);
+        expect(info.ast).toEqual(astBase);
+      }),
+    );
   });
 
-  it('should render a comment', () => {
+  it('should render a comment', async () => {
     // Given
     const commentStr = '*\n * @typedef {string} MyStr\n ';
     const column = 2;
@@ -260,7 +290,7 @@ describe('getParsers', () => {
     let sut = null;
     // When
     sut = getParsers();
-    sut.typescript.parse(text, parsers, options);
+    await sut.typescript.parse(text, parsers, options);
     // Then
     expect(ast).toEqual({
       comments: [
@@ -298,7 +328,7 @@ describe('getParsers', () => {
     expect(formatDescriptionRest).toHaveBeenCalledWith(parsed[0]);
   });
 
-  it('should render an inline comment', () => {
+  it('should render an inline comment', async () => {
     // Given
     const commentStr = '*\n * @type {MyStr}\n ';
     const column = 2;
@@ -353,7 +383,7 @@ describe('getParsers', () => {
     let sut = null;
     // When
     sut = getParsers();
-    sut['babel-flow'].parse(text, parsers, options);
+    await sut['babel-flow'].parse(text, parsers, options);
     // Then
     expect(ast).toEqual({
       comments: [
@@ -370,7 +400,7 @@ describe('getParsers', () => {
     });
   });
 
-  it('should fix a tag without a space between name and type', () => {
+  it('should fix a tag without a space between name and type', async () => {
     // Given
     const commentStr = '*\n * @typedef{string} MyStr\n ';
     const column = 2;
@@ -423,7 +453,7 @@ describe('getParsers', () => {
     let sut = null;
     // When
     sut = getParsers();
-    sut.typescript.parse(text, parsers, options);
+    await sut.typescript.parse(text, parsers, options);
     // Then
     expect(ast).toEqual({
       comments: [

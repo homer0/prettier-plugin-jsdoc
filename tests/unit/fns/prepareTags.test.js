@@ -12,7 +12,7 @@ describe('prepareTags', () => {
     format.mockClear();
   });
 
-  it('should prepare types and tags names on a tags list', () => {
+  it('should prepare types and tags names on a tags list', async () => {
     // Given
     const input = [
       {
@@ -48,12 +48,12 @@ describe('prepareTags', () => {
     };
     let result = null;
     // When
-    result = prepareTags(input, options, 0);
+    result = await prepareTags(input, options, 0);
     // Then
     expect(result).toEqual(output);
   });
 
-  it('should prepare examples', () => {
+  it('should prepare examples', async () => {
     // Given
     const prettierResponse = 'prettier-response';
     format.mockImplementationOnce(() => prettierResponse);
@@ -110,7 +110,7 @@ describe('prepareTags', () => {
     };
     let result = null;
     // When
-    result = prepareTags(input, options, 2);
+    result = await prepareTags(input, options, 2);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
@@ -120,7 +120,7 @@ describe('prepareTags', () => {
     });
   });
 
-  it('should prepare descriptions', () => {
+  it('should prepare descriptions', async () => {
     // Given
     const input = [
       {
@@ -148,7 +148,7 @@ describe('prepareTags', () => {
     };
     let result = null;
     // When
-    result = prepareTags(input, options, 0);
+    result = await prepareTags(input, options, 0);
     // Then
     expect(result).toEqual(output);
   });

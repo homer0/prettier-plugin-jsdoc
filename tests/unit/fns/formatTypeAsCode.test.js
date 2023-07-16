@@ -9,19 +9,19 @@ describe('formatTypeAsCode', () => {
     format.mockClear();
   });
 
-  it('should ignore a basic type', () => {
+  it('should ignore a basic type', async () => {
     // Given
     const input = 'string';
     const output = 'string';
     let result = null;
     // When
-    result = formatTypeAsCode(input, {}, 0);
+    result = await formatTypeAsCode(input, {}, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(0);
   });
 
-  it('should call prettier for a complex type', () => {
+  it('should call prettier for a complex type', async () => {
     // Given
     const prettierResponse = 'prettier-response';
     format.mockImplementationOnce((code) =>
@@ -36,7 +36,7 @@ describe('formatTypeAsCode', () => {
     };
     let result = null;
     // When
-    result = formatTypeAsCode(input, options, 0);
+    result = await formatTypeAsCode(input, options, 0);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
@@ -47,7 +47,7 @@ describe('formatTypeAsCode', () => {
     });
   });
 
-  it('should return the original type if prettier throws an error', () => {
+  it('should return the original type if prettier throws an error', async () => {
     // Given
     format.mockImplementationOnce(() => {
       throw new Error();
@@ -61,7 +61,7 @@ describe('formatTypeAsCode', () => {
     };
     let result = null;
     // When
-    result = formatTypeAsCode(input, options, 2);
+    result = await formatTypeAsCode(input, options, 2);
     // Then
     expect(result).toEqual(output);
     expect(format).toHaveBeenCalledTimes(1);
