@@ -3,6 +3,7 @@ const { prepareExampleTag } = require('./prepareExampleTag');
 const { prepareTagDescription } = require('./prepareTagDescription');
 const { prepareTagName } = require('./prepareTagName');
 const { get, provider } = require('./app');
+const { composeWithPromise, reduceWithPromise } = require('./utils');
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions
@@ -21,13 +22,13 @@ const { get, provider } = require('./app');
  * @param {number}          column   The column where the comment will be rendered; this
  *                                   is necessary for some of the functions that may need
  *                                   to call Prettier.
- * @returns {CommentTag[]}
+ * @returns {Promise<CommentTag[]>}
  */
 
 /**
  * @type {PrepareTagsFn}
  */
-const prepareTags = R.curry((tags, options, column) => {
+const prepareTags = R.curry(async (tags, options, column) => {
   const fns = [get(prepareTagName)];
 
   if (options.jsdocFormatExamples) {
@@ -38,7 +39,8 @@ const prepareTags = R.curry((tags, options, column) => {
     fns.push(get(prepareTagDescription));
   }
 
-  return R.map(R.compose(...fns.reverse()), tags);
+  const pipeline = get(composeWithPromise)(...fns.reverse());
+  return get(reduceWithPromise)(tags, pipeline);
 });
 
 module.exports.prepareTags = prepareTags;

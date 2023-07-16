@@ -29,10 +29,10 @@ const { get, provider } = require('./app');
  *                                       parsers should check for the option that tells
  *                                       the plugin that it's being extended, thus, the
  *                                       original package shouldn't do anything.
- * @returns {Plugin}
+ * @returns {Promise<Plugin>}
  */
-const getPlugin = (checkExtendOption) => ({
-  languages: get(getLanguages)(),
+const getPlugin = async (checkExtendOption) => ({
+  languages: await get(getLanguages)(),
   options: get(getOptions)(),
   defaultOptions: get(getDefaultOptions)(),
   parsers: get(getParsers)(checkExtendOption),

@@ -351,6 +351,53 @@ const ensureSentence = (text) =>
     text,
   );
 
+/**
+ * A version of Rambdas `compose` that can handle promises.
+ * @param  {...*} args The list of functions to compose.
+ * @returns {*}
+ * @see https://gist.github.com/ehpc/2a524b78729ee6b4e8111f89c66d7ff5
+ */
+const composeWithPromise = (...args) =>
+  R.composeWith((f, val) => {
+    if (val && val.then) {
+      return val.then(f);
+    }
+    if (Array.isArray(val) && val.length && val[0] && val[0].then) {
+      return Promise.all(val).then(f);
+    }
+    return f(val);
+  })(args);
+
+/**
+ * @callback ReduceWithPromiseFn
+ * @template TItem The type of the items on the list.
+ * @template TOutput The type of the item that will be returned.
+ * @param {TItem} item The item to process.
+ * @returns {Promise<TOutput>}
+ */
+
+/**
+ * A utility function that will process a list of items and return a promise with the
+ * results.
+ * The idea of this function is to replace a `for` loop with `await` inside.
+ *
+ * @param {TItem[]} items The list of items to process.
+ * @param {ReduceWithPromiseFn<TItem, TOutput>} fn The function that will process each item.
+ * @template TItem The type of the items on the list.
+ * @template TOutput The type of the item that will be returned by the reducer.
+ * @returns {Promise<TOutput[]>}
+ */
+const reduceWithPromise = (items, fn) =>
+  items.reduce(
+    (accPromise, item) =>
+      accPromise.then(async (acc) => {
+        const result = await fn(item);
+        acc.push(result);
+        return acc;
+      }),
+    Promise.resolve([]),
+  );
+
 module.exports.ensureArray = ensureArray;
 module.exports.findTagIndex = findTagIndex;
 module.exports.isTag = isTag;
@@ -369,4 +416,6 @@ module.exports.splitLinesAndClean = splitLinesAndClean;
 module.exports.isURL = isURL;
 module.exports.isTableRow = isTableRow;
 module.exports.ensureSentence = ensureSentence;
+module.exports.composeWithPromise = composeWithPromise;
+module.exports.reduceWithPromise = reduceWithPromise;
 module.exports.provider = provider('utils', module.exports);

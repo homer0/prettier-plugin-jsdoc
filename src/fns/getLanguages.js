@@ -10,13 +10,15 @@ const { get, provider } = require('./app');
 /**
  * Generates the list of languages the plugin supports.
  *
- * @returns {PrettierSupportLanguage[]}
+ * @returns {Promise<PrettierSupportLanguage[]>}
  */
-const getLanguages = () =>
-  R.filter(
+const getLanguages = async () => {
+  const { languages } = await prettier.getSupportInfo();
+  return R.filter(
     R.propSatisfies(R.includes(R.__, get(getSupportedLanguages)()), 'name'),
-    prettier.getSupportInfo().languages,
+    languages,
   );
+};
 
 module.exports.getLanguages = getLanguages;
 module.exports.provider = provider('getLanguages', module.exports);

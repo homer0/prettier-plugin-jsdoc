@@ -23,27 +23,28 @@ const COMMENT_PADDING_LENGTH = 3;
  * @param {PrettierOptions} options  The options sent to the plugin.
  * @param {number}          column   The column where the comment will be rendered.
  * @param {string}          tag      The type will be formatted.
- * @returns {string}
+ * @returns {Promise<string>}
  */
 
 /**
  * @type {FormatPrettyTypeFn}
  */
-const formatPrettyType = R.curry((options, column, type) => {
+const formatPrettyType = R.curry(async (options, column, type) => {
   let result;
   try {
     const printWidth = options.printWidth - column - COMMENT_PADDING_LENGTH;
     const useType = type.replace(/\*/g, 'any');
     const prefix = 'type complex = ';
-    const newType = format(`${prefix}${useType}`, {
+    const newType = await format(`${prefix}${useType}`, {
       ...options,
       printWidth,
       parser: 'typescript',
-    })
-      .substr(prefix.length)
-      .trim()
-      .replace(/;$/, '');
-    result = newType;
+    });
+    if (newType) {
+      result = newType.substr(prefix.length).trim().replace(/;$/, '');
+    } else {
+      result = type;
+    }
   } catch (ignore) {
     result = type;
   }
@@ -62,7 +63,7 @@ const formatPrettyType = R.curry((options, column, type) => {
  * @param {number}          column   The column where comment will be rendered. This is
  *                                   necessary in order to calculate the available space
  *                                   that Prettier can use.
- * @returns {CommentTag}
+ * @returns {Promise<CommentTag>}
  */
 
 /**

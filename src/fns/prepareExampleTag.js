@@ -1,6 +1,6 @@
 const { format } = require('prettier');
 const R = require('ramda');
-const { isTag, prefixLines, splitLinesAndClean } = require('./utils');
+const { isTag, prefixLines, splitLinesAndClean, reduceWithPromise } = require('./utils');
 const { get, provider } = require('./app');
 
 /**
@@ -24,9 +24,9 @@ const COMMENT_PADDING_LENGTH = 3;
  *                                   formatter.
  * @param {number}          column   The column where the comment will be rendered.
  * @param {string}          example  The example code.
- * @returns {string}
+ * @returns {Promise<string>}
  */
-const formatExample = (options, column, example) => {
+const formatExample = async (options, column, example) => {
   let code;
   let indent;
   try {
@@ -36,7 +36,7 @@ const formatExample = (options, column, example) => {
       printWidth -= options.tabWidth;
     }
 
-    code = format(example, {
+    code = await format(example, {
       ...options,
       printWidth,
     });
@@ -60,22 +60,20 @@ const formatExample = (options, column, example) => {
  *                                   formatter.
  * @param {number}          column   The column where the comment will be rendered.
  * @param {string}          example  The example code.
- * @returns {CommentTagExample[]}
+ * @returns {Promise<CommentTagExample[]>}
  */
-const splitExamples = (options, column, example) => {
-  const useSplitLinesAndClean = get(splitLinesAndClean);
-  return R.compose(
-    R.map(
-      R.compose(
-        ([caption, code]) => ({
-          caption,
-          code: get(formatExample)(options, column, code),
-        }),
-        useSplitLinesAndClean(/<\s*\/\s*caption\s*>/i),
-      ),
-    ),
-    useSplitLinesAndClean(/<\s*caption\s*>/i),
-  )(example);
+const splitExamples = async (options, column, example) => {
+  const splitLinesAndCleanFn = get(splitLinesAndClean);
+  const splitEndFn = splitLinesAndCleanFn(/<\s*\/\s*caption\s*>/i);
+  const splitted = splitLinesAndCleanFn(/<\s*caption\s*>/i)(example);
+  const formatExampleFn = get(formatExample);
+  return get(reduceWithPromise)(splitted, async (item) => {
+    const [caption, code] = splitEndFn(item);
+    return {
+      caption,
+      code: await formatExampleFn(options, column, code),
+    };
+  });
 };
 
 /**
@@ -93,12 +91,13 @@ const splitExamples = (options, column, example) => {
 /**
  * @type {FormatExampleTagFn}
  */
-const formatExampleTag = R.curry((options, column, tag) => {
+const formatExampleTag = R.curry(async (options, column, tag) => {
   let examples;
   if (tag.description.match(/<\s*caption\s*>/i)) {
-    examples = get(splitExamples)(options, column, tag.description);
+    examples = await get(splitExamples)(options, column, tag.description);
   } else if (tag.description.trim()) {
-    examples = [{ code: get(formatExample)(options, column, tag.description) }];
+    const code = await get(formatExample)(options, column, tag.description);
+    examples = [{ code }];
   } else {
     examples = [];
   }

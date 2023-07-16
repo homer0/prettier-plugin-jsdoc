@@ -1,11 +1,12 @@
 const R = require('ramda');
-const { hasValidProperty } = require('./utils');
+const { hasValidProperty, composeWithPromise } = require('./utils');
 const { formatTSTypes } = require('./formatTSTypes');
 const { formatStringLiterals } = require('./formatStringLiterals');
 const { formatArrays } = require('./formatArrays');
 const { formatObjects } = require('./formatObjects');
 const { formatTypeAsCode } = require('./formatTypeAsCode');
 const { get, provider } = require('./app');
+const { reduceWithPromise } = require('./utils');
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
@@ -28,7 +29,7 @@ const { get, provider } = require('./app');
  * @param {PJPTypesOptions} options  The options that tell the function which formatters
  *                                   should be included and which don't.
  * @param {number}          column   The column where the comment will be rendered.
- * @returns {TypeFormatter}
+ * @returns {Promise<TypeFormatter>}
  */
 const getTypeFormatter = (options, column) => {
   const fns = [];
@@ -51,7 +52,7 @@ const getTypeFormatter = (options, column) => {
     }
   }
 
-  return fns.length ? R.compose(...fns.reverse()) : R.identity;
+  return fns.length ? get(composeWithPromise)(...fns.reverse()) : R.identity;
 };
 
 /**
@@ -61,14 +62,14 @@ const getTypeFormatter = (options, column) => {
  * @callback FormatTagTypeFn
  * @param {TypeFormatter} formatter  The formatter function for the tag.
  * @param {CommentTag}    tag        The tag which type will be formatted.
- * @returns {CommentTag}
+ * @returns {Promise<CommentTag>}
  */
 
 /**
  * @type {FormatTagTypeFn}
  */
 const formatTagType = R.curry((formatter, tag) =>
-  R.compose((type) => ({ ...tag, type }), formatter, R.prop('type'))(tag),
+  get(composeWithPromise)((type) => ({ ...tag, type }), formatter, R.prop('type'))(tag),
 );
 
 /**
@@ -80,20 +81,24 @@ const formatTagType = R.curry((formatter, tag) =>
  * @param {number}          column   The column where the comment will be rendered. This
  *                                   is necessary for some transformations that can
  *                                   involve Prettier itself.
- * @returns {CommentTag[]}
+ * @returns {Promise<CommentTag[]>}
  */
 
 /**
  * @type {FormatTagsTypes}
  */
-const formatTagsTypes = R.curry((tags, options, column) =>
-  R.map(
-    R.when(
-      get(hasValidProperty)('type'),
-      get(formatTagType)(get(getTypeFormatter)(options, column)),
-    ),
-  )(tags),
-);
+const formatTagsTypes = R.curry(async (tags, options, column) => {
+  const hasValidPropertyFn = get(hasValidProperty)('type');
+  const getTypeFormatterFn = get(getTypeFormatter)(options, column);
+  const formatTagTypeFn = get(formatTagType)(getTypeFormatterFn);
+  return get(reduceWithPromise)(tags, async (tag) => {
+    if (hasValidPropertyFn(tag)) {
+      return formatTagTypeFn(tag);
+    }
+
+    return tag;
+  });
+});
 
 module.exports.formatTagsTypes = formatTagsTypes;
 module.exports.getTypeFormatter = getTypeFormatter;
