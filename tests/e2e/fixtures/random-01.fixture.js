@@ -12,6 +12,13 @@
  */
 
 /**
+ * @type {Object} SomethingToIgnore
+ * @description transform this into a sentence
+ * @see {@link SomethingElse} to see how this is not broken, as the parser thinks the link is a type.
+ * @prettierignore
+ */
+
+/**
  * @description logs something.
  * @param {string} [name='batman'] the name
  * @param {Logger} [logger] the logger instance
@@ -63,6 +70,13 @@ export function foo(predicate) {
  * @type {Object} Something
  * @see {@link SomethingElse} to see how this is not broken, as the parser thinks the link is a
  *      type.
+ */
+
+/**
+ * @type {Object} SomethingToIgnore
+ * @description transform this into a sentence
+ * @see {@link SomethingElse} to see how this is not broken, as the parser thinks the link is a type.
+ * @prettierignore
  */
 
 /**
