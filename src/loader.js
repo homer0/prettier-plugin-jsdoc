@@ -15,7 +15,6 @@ const loadFns = () => {
     'formatTagsDescription',
     'formatTagsTypes',
     'formatTypeAsCode',
-    'getLanguages',
     'getOptions',
     'getParsers',
     'getPlugin',

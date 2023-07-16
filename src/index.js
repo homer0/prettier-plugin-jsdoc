@@ -8,4 +8,4 @@ loadFns();
  *
  * @returns {import('./types').PrettierPlugin}
  */
-module.exports = () => get(getPlugin)(true);
+module.exports = get(getPlugin)(true);
