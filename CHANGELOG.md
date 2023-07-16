@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@6.0.5...@homer0/prettier-plugin-jsdoc@7.0.0) (2023-07-16)
+
+### Bug Fixes
+
+- **monorepo:** update all dependencies ([c3d837e](https://github.com/homer0/packages/commit/c3d837e5820d27a27e97322211478d880000c064))
+- **prettier-config:** hardcode languages ([f5ea277](https://github.com/homer0/packages/commit/f5ea27794d1559c2770e35a48b4a65dc57351545))
+- **prettier-plugin-jsdoc:** add support for Prettier v3 ([a64de80](https://github.com/homer0/packages/commit/a64de8086f7ec00ca69107de58149abb140cbdc3))
+- **prettier-plugin-jsdoc:** update Prettier version ([23128e5](https://github.com/homer0/packages/commit/23128e5f27af899c85538c77fc6050f777b6fff9))
+
+### BREAKING CHANGES
+
+- **prettier-plugin-jsdoc:** This plugin now uses Prettier v3
+
 ## [6.0.5](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@6.0.4...@homer0/prettier-plugin-jsdoc@6.0.5) (2023-06-18)
 
 **Note:** Version bump only for package @homer0/prettier-plugin-jsdoc
