@@ -348,17 +348,20 @@ const getParsers = (checkExtendOption) => {
     get babel() {
       return useExtendParser(babelParser.parsers.babel);
     },
+    get typescript() {
+      return useExtendParser(tsParser.parsers.typescript);
+    },
+    /* istanbul ignore next */
     get 'babel-flow'() {
       return useExtendParser(babelParser.parsers['babel-flow']);
     },
+    /* istanbul ignore next */
     get 'babel-ts'() {
       return useExtendParser(babelParser.parsers['babel-ts']);
     },
+    /* istanbul ignore next */
     get flow() {
       return useExtendParser(flowParser.parsers.flow);
-    },
-    get typescript() {
-      return useExtendParser(tsParser.parsers.typescript);
     },
   };
 };

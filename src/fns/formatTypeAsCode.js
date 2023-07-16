@@ -40,11 +40,7 @@ const formatPrettyType = R.curry(async (options, column, type) => {
       printWidth,
       parser: 'typescript',
     });
-    if (newType) {
-      result = newType.substr(prefix.length).trim().replace(/;$/, '');
-    } else {
-      result = type;
-    }
+    result = newType.substring(prefix.length).trim().replace(/;$/, '');
   } catch (ignore) {
     result = type;
   }
