@@ -11,15 +11,11 @@ describe(name, () => {
    * @type {Fixture[]}
    */
   const fixtures = global.e2eFixtures;
-  let plugin;
-  beforeAll(async () => {
-    plugin = await prettierPluginJSDoc();
-  });
 
   fixtures.forEach((fixture) => {
     it(`should format fixture: ${fixture.name}`, async () => {
       const output = await prettier.format(fixture.input, {
-        plugins: [...(fixture.plugins || []), plugin],
+        plugins: [...(fixture.plugins || []), prettierPluginJSDoc],
         ...fixture.options,
       });
       expect(output.trim()).toBe(fixture.output);
