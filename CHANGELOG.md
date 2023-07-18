@@ -1,3 +1,10 @@
+## [7.0.1](https://github.com/homer0/prettier-plugin-jsdoc/compare/7.0.0...7.0.1) (2023-07-18)
+
+
+### Bug Fixes
+
+* trigger standalone deploy ([61c0e74](https://github.com/homer0/prettier-plugin-jsdoc/commit/61c0e7420ce209972b261e3c501752196bec8b83))
+
 # [7.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/6.0.5...7.0.0) (2023-07-16)
 
 ### Bug Fixes
