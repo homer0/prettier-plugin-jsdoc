@@ -20,8 +20,7 @@ jobs:
       - name: Install dependencies
         env:
           HUSKY: 0
-        run: npm ci
-        run: npm i semantic-release@21.0.7 -g
+        run: npm ci && npm i semantic-release@21.0.7 -g
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
