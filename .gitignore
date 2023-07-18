@@ -1,5 +1,7 @@
 node_modules
 coverage
+coverage-e2e
+coverage-unit
 .DS_Store
 npm-debug.log
 yarn-error.log
