@@ -1,26 +1,20 @@
-# Change Log
-
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
-# [7.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@6.0.5...@homer0/prettier-plugin-jsdoc@7.0.0) (2023-07-16)
+# [7.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/6.0.5...7.0.0) (2023-07-16)
 
 ### Bug Fixes
 
-- **monorepo:** update all dependencies ([c3d837e](https://github.com/homer0/packages/commit/c3d837e5820d27a27e97322211478d880000c064))
-- **prettier-config:** hardcode languages ([f5ea277](https://github.com/homer0/packages/commit/f5ea27794d1559c2770e35a48b4a65dc57351545))
-- **prettier-plugin-jsdoc:** add support for Prettier v3 ([a64de80](https://github.com/homer0/packages/commit/a64de8086f7ec00ca69107de58149abb140cbdc3))
-- **prettier-plugin-jsdoc:** update Prettier version ([23128e5](https://github.com/homer0/packages/commit/23128e5f27af899c85538c77fc6050f777b6fff9))
+- hardcode languages ([aeaceec](https://github.com/homer0/prettier-plugin-jsdoc/commit/aeaceec6f59fdc0774a080a12cef3f9cd891da34))
+- add support for Prettier v3 ([e70f6ed](https://github.com/homer0/prettier-plugin-jsdoc/commit/e70f6edbe011f885b6a3e8e8fed98695309e8e93))
+- update Prettier version ([427c270](https://github.com/homer0/prettier-plugin-jsdoc/commit/427c270b00599af305d42eae2f4546adb809d547))
 
 ### BREAKING CHANGES
 
-- **prettier-plugin-jsdoc:** This plugin now uses Prettier v3
+- This plugin now uses Prettier v3
 
-## [6.0.5](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@6.0.4...@homer0/prettier-plugin-jsdoc@6.0.5) (2023-06-18)
+## [6.0.5](https://github.com/homer0/prettier-plugin-jsdoc/compare/6.0.4...6.0.5) (2023-06-18)
 
 **Note:** Version bump only for package @homer0/prettier-plugin-jsdoc
 
-## [6.0.4](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@6.0.2...@homer0/prettier-plugin-jsdoc@6.0.4) (2023-06-18)
+## [6.0.4](https://github.com/homer0/prettier-plugin-jsdoc/compare/6.0.2...6.0.4) (2023-06-18)
 
 Nothing changed in this version, I just messed up the commits.
 
@@ -28,29 +22,27 @@ Nothing changed in this version, I just messed up the commits.
 
 ### Bug Fixes
 
-- **monorepo:** update all dependencies ([e48d13a](https://github.com/homer0/packages/commit/e48d13a474ce710f73128a49ca6ad4ac2da23ef0))
-- **prettier-plugin-jsdoc:** update ramda .of syntax ([8a50d2f](https://github.com/homer0/packages/commit/8a50d2fafe3f6797552a7f0dc39def9a871c9ac9))
+- update ramda .of syntax ([0f97cd4](https://github.com/homer0/prettier-plugin-jsdoc/commit/0f97cd49ce101d50b66f0573fbbaa3474e2f53d7))
 
-## [6.0.2](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@6.0.1...@homer0/prettier-plugin-jsdoc@6.0.2) (2023-03-05)
+## [6.0.2](https://github.com/homer0/prettier-plugin-jsdoc/compare/6.0.1...6.0.2) (2023-03-05)
 
 ### Bug Fixes
 
-- **monorepo:** update all dependencies ([7fe0f9a](https://github.com/homer0/packages/commit/7fe0f9a39ec89e9b3fa9530e9332828916f3a108))
+- **monorepo:** update all dependencies ([032fdf1](https://github.com/homer0/prettier-plugin-jsdoc/commit/032fdf10ec164518f33294f9cce84d4745be2068))
 
 ## 6.0.1 (2023-01-28)
 
 ### Bug Fixes
 
-- **monorepo:** update all dependencies ([7618870](https://github.com/homer0/packages/commit/7618870e6ec4d6f281a79b15f139124875c760b2))
-- **prettier-plugin-jsdoc:** include 'return' as tag with name as desc ([cf3a81c](https://github.com/homer0/packages/commit/cf3a81c09ecb21bce58595626a3b99bad698a211))
+- include 'return' as tag with name as desc ([eab45ee](https://github.com/homer0/prettier-plugin-jsdoc/commit/eab45ee7b2e12bb9c99307bd5168e849e53677e5))
 
-# [6.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@5.1.6...@homer0/prettier-plugin-jsdoc@6.0.0) (2022-12-27)
+# [6.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/5.1.6...6.0.0) (2022-12-27)
 
 ### Bug Fixes
 
-- drop Yarn ([e41698c](https://github.com/homer0/packages/commit/e41698c310996d1ca520bd6a9a2220017e1a3d49))
-- **monorepo:** drop Node 14 support ([4df5a23](https://github.com/homer0/packages/commit/4df5a23c1c3e5d1632679f4902c0c73113252bc0))
-- **monorepo:** update all dependencies ([0ba6a5a](https://github.com/homer0/packages/commit/0ba6a5a68413ab557cce5a5afbd6314e42d86671))
+- **monorepo:** drop Yarn ([1023bd3](https://github.com/homer0/prettier-plugin-jsdoc/commit/1023bd3e7b8b914da7076283c48f1b4bfa333332))
+- **monorepo:** drop Node 14 support ([05683de](https://github.com/homer0/prettier-plugin-jsdoc/commit/05683de6ab4fec8bf5a137ea6b51b40f3a9a3ef0))
+- **monorepo:** update all dependencies ([cb9731c](https://github.com/homer0/prettier-plugin-jsdoc/commit/cb9731ca13b65918133f2e10a75afc4b31b85d93))
 
 ### BREAKING CHANGES
 
@@ -60,237 +52,234 @@ Nothing changed in this version, I just messed up the commits.
 
 ### Bug Fixes
 
-- avoid handling keys as str literals ([62d89f8](https://github.com/homer0/packages/commit/62d89f8a1a862f6ba820765dcc98f4081b2878ea))
-- detect tags' names on a different line ([051bea0](https://github.com/homer0/packages/commit/051bea01d73c168827af0f03533823b03822a908))
+- avoid handling keys as str literals ([63ca69d](https://github.com/homer0/prettier-plugin-jsdoc/commit/63ca69d2c137de7204c55ad06e10456e6d5ca4ca))
+- detect tags' names on a different line ([53d15f3](https://github.com/homer0/prettier-plugin-jsdoc/commit/53d15f3a9fde57bf7fa65e449d22373c52048aa5))
 
 ## 5.1.5 (2022-10-22)
 
 ### Bug Fixes
 
-- update dependencies ([abcf502](https://github.com/homer0/packages/commit/abcf5027fce4cb7d37d9e4cf9aafc1846c7bceb0))
+- update dependencies ([fff45a0](https://github.com/homer0/prettier-plugin-jsdoc/commit/fff45a040151862d9df26ed54e33a51bf961578a))
 
 ## 5.1.4 (2022-07-12)
 
 ### Bug Fixes
 
-- **monorepo:** force publish unpublished tags ([ce339bc](https://github.com/homer0/packages/commit/ce339bcbffb697e7127ecc213242feb54822f775))
+- **monorepo:** force publish unpublished tags ([30fafee](https://github.com/homer0/prettier-plugin-jsdoc/commit/30fafeed08955ae3030f3455a79a835460670bd1))
 
-## [5.1.3](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@5.1.2...@homer0/prettier-plugin-jsdoc@5.1.3) (2022-07-12)
-
-### Bug Fixes
-
-- **monorepo:** update all dependencies ([fc95b09](https://github.com/homer0/packages/commit/fc95b096bc4c2976ba5cd9c7354890137b66a3bd))
-
-## [5.1.2](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@5.1.1...@homer0/prettier-plugin-jsdoc@5.1.2) (2022-06-26)
+## [5.1.3](https://github.com/homer0/prettier-plugin-jsdoc/compare/5.1.2...5.1.3) (2022-07-12)
 
 ### Bug Fixes
 
-- **prettier-plugin-jsdoc:** properly detect when to use columns ([8fbb3e9](https://github.com/homer0/packages/commit/8fbb3e987e7d21e4edeb1bb8b1dba5ce75c9cacf))
+- **monorepo:** update all dependencies ([032fdf1](https://github.com/homer0/prettier-plugin-jsdoc/commit/032fdf10ec164518f33294f9cce84d4745be2068))
 
-## [5.1.1](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@5.1.0...@homer0/prettier-plugin-jsdoc@5.1.1) (2022-04-25)
+## [5.1.2](https://github.com/homer0/prettier-plugin-jsdoc/compare/5.1.1...5.1.2) (2022-06-26)
+
+### Bug Fixes
+
+- properly detect when to use columns ([502ca4b](https://github.com/homer0/prettier-plugin-jsdoc/commit/502ca4be09f43a6b3832e02734cffa9f04577594))
+
+## [5.1.1](https://github.com/homer0/prettier-plugin-jsdoc/compare/5.1.0...5.1.1) (2022-04-25)
 
 **Note:** Version bump only for package @homer0/prettier-plugin-jsdoc
 
-# [5.1.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@5.0.0...@homer0/prettier-plugin-jsdoc@5.1.0) (2022-04-25)
+# [5.1.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/5.0.0...5.1.0) (2022-04-25)
 
 ### Bug Fixes
 
-- **prettier-plugin-jsdoc:** force space between tag name and type ([c2560da](https://github.com/homer0/packages/commit/c2560da61503345b39bdb384f91f727ffbe33cc4))
+- force space between tag name and type ([3d94fff](https://github.com/homer0/prettier-plugin-jsdoc/commit/3d94ffff6b002332aa5562a38a02a99534f49fda))
 
 ### Features
 
-- **prettier-plugin-jsdoc:** add exp support for blocks without tags ([c1646e3](https://github.com/homer0/packages/commit/c1646e303b1c775f130b2eaaab788c78b5012224))
+- add exp support for blocks without tags ([32810ed](https://github.com/homer0/prettier-plugin-jsdoc/commit/32810ed9b8c2e996df08b6fb2ba46d578a0f84c9))
 
-# [5.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.6...@homer0/prettier-plugin-jsdoc@5.0.0) (2022-03-17)
+# [5.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/4.0.6...5.0.0) (2022-03-17)
 
 ### Bug Fixes
 
-- **monorepo:** drop Node 12 support ([7966821](https://github.com/homer0/packages/commit/79668213b982a93d5b91f1177cf404df0cd4fb3a))
-- **prettier-plugin-jsdoc:** update dependencies ([947f728](https://github.com/homer0/packages/commit/947f728a87702b9f67226bba7377f73ff9588e9f))
+- **monorepo:** drop Node 12 support ([99e878e](https://github.com/homer0/prettier-plugin-jsdoc/commit/99e878e43e433bc05f4577a2722cc9f7f6aadf34))
+- update dependencies ([e56b749](https://github.com/homer0/prettier-plugin-jsdoc/commit/e56b749200b9840ad2a8733da4ebcbefaf05035f))
 
 ### BREAKING CHANGES
 
 - **monorepo:** Node 12 is not longer supported. Node 14 is the minimum required version now.
 
-## [4.0.6](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.5...@homer0/prettier-plugin-jsdoc@4.0.6) (2021-10-17)
+## [4.0.6](https://github.com/homer0/prettier-plugin-jsdoc/compare/4.0.5...4.0.6) (2021-10-17)
 
 ### Bug Fixes
 
-- update dependencies ([7a56417](https://github.com/homer0/packages/commit/7a5641707d66264a6cfefcad3eb819aae6a2cee3))
+- update dependencies ([fff45a0](https://github.com/homer0/prettier-plugin-jsdoc/commit/fff45a040151862d9df26ed54e33a51bf961578a))
 
-## [4.0.5](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.4...@homer0/prettier-plugin-jsdoc@4.0.5) (2021-08-19)
+## [4.0.5](https://github.com/homer0/prettier-plugin-jsdoc/compare/4.0.4...4.0.5) (2021-08-19)
 
 ### Bug Fixes
 
-- **prettier-plugin-jsdoc:** update comment-parser ([6789cd0](https://github.com/homer0/packages/commit/6789cd01533cc8676f127ff77a745fb7659de95e))
+- update comment-parser ([cb7e88a](https://github.com/homer0/prettier-plugin-jsdoc/commit/cb7e88aef82372e704e6e6ae6e3836c50f39e5ba))
 
-## [4.0.4](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.3...@homer0/prettier-plugin-jsdoc@4.0.4) (2021-08-07)
+## [4.0.4](https://github.com/homer0/prettier-plugin-jsdoc/compare/4.0.3...4.0.4) (2021-08-07)
 
 **Note:** Version bump only for package @homer0/prettier-plugin-jsdoc
 
-## [4.0.3](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.2...@homer0/prettier-plugin-jsdoc@4.0.3) (2021-08-02)
+## [4.0.3](https://github.com/homer0/prettier-plugin-jsdoc/compare/4.0.2...4.0.3) (2021-08-02)
 
 ### Reverts
 
-- comment-parser doesn't include cjs export, so pinning for now ([3ad1536](https://github.com/homer0/packages/commit/3ad153693e854aeadc5ae285169ad589006283fb))
+- comment-parser doesn't include cjs export, so pinning for now ([f5d44a3](https://github.com/homer0/prettier-plugin-jsdoc/commit/f5d44a358fb0922a5347cdc02118408cdb7cf506))
 
-## [4.0.2](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.1...@homer0/prettier-plugin-jsdoc@4.0.2) (2021-08-02)
-
-### Bug Fixes
-
-- **prettier-plugin-jsdoc:** use comment-parser cjs file ([3c0626c](https://github.com/homer0/packages/commit/3c0626ca099b8e86ca1c6e20cb7fd83bbf46658b))
-
-## [4.0.1](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@4.0.0...@homer0/prettier-plugin-jsdoc@4.0.1) (2021-07-25)
+## [4.0.2](https://github.com/homer0/prettier-plugin-jsdoc/compare/4.0.1...4.0.2) (2021-08-02)
 
 ### Bug Fixes
 
-- **prettier-plugin-jsdoc:** prevent formatting issues with string literals ([e3846b8](https://github.com/homer0/packages/commit/e3846b8ab5e7207a3fe22d2fcb92861d4156d2fa))
+- use comment-parser cjs file ([9097e23](https://github.com/homer0/prettier-plugin-jsdoc/commit/9097e23e7e530dbaf40299a43da4ab93e0b52326))
 
-# [4.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@3.0.1...@homer0/prettier-plugin-jsdoc@4.0.0) (2021-04-11)
+## [4.0.1](https://github.com/homer0/prettier-plugin-jsdoc/compare/4.0.0...4.0.1) (2021-07-25)
 
 ### Bug Fixes
 
-- **monorepo:** drop support for Node 10 ([7098299](https://github.com/homer0/packages/commit/7098299172dfa94bdfb131a2dc877c0f2250b7b3))
+- prevent formatting issues with string literals ([f28beff](https://github.com/homer0/prettier-plugin-jsdoc/commit/f28beff5d5ccac3140750ddd2b3c48dbb9c63614))
+
+# [4.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/3.0.1...4.0.0) (2021-04-11)
+
+### Bug Fixes
+
+- **monorepo:** drop support for Node 10 ([d038b63](https://github.com/homer0/packages/commit/d038b6319f91f248613eddb7daff9b3d82a19b1e))
 
 ### BREAKING CHANGES
 
 - **monorepo:** The monorepo and the packages no longer support Node 10.
 
-## [3.0.1](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@3.0.0...@homer0/prettier-plugin-jsdoc@3.0.1) (2021-03-21)
+## [3.0.1](https://github.com/homer0/prettier-plugin-jsdoc/compare/3.0.0...3.0.1) (2021-03-21)
 
 ### Bug Fixes
 
-- **prettier-plugin-jsdoc:** add support for the remarks tag ([4c5815a](https://github.com/homer0/packages/commit/4c5815aa25b7f0b58c03bba400ddf28f99688b2f))
-- **prettier-plugin-jsdoc:** only add period when is not URL and ends with a letter ([7d862db](https://github.com/homer0/packages/commit/7d862dbe6bcb6340effe25345ecfe44ff6a12213))
-- **prettier-plugin-jsdoc:** prevent formatting issues with Markdown tables ([0d1e573](https://github.com/homer0/packages/commit/0d1e57383ff6e6a712037ad14c1d7d71b26d018d))
+- add support for the remarks tag ([fb2835f](https://github.com/homer0/prettier-plugin-jsdoc/commit/fb2835f00ab02eaa8d2920ac184e13c5c9afc23f))
+- only add period when is not URL and ends with a letter ([d97d458](https://github.com/homer0/prettier-plugin-jsdoc/commit/d97d458c071e2f924b9e0bd6de36ab2badd44edb))
+- prevent formatting issues with Markdown tables ([0e3df30](https://github.com/homer0/prettier-plugin-jsdoc/commit/0e3df30345718e8b00f17ee2b09e3d543ea49b0f))
 
-# [3.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@1.1.2...@homer0/prettier-plugin-jsdoc@3.0.0) (2021-03-07)
+# [3.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/1.1.2...3.0.0) (2021-03-07)
 
 ### Bug Fixes
 
-- update dependencies ([7437e8c](https://github.com/homer0/packages/commit/7437e8c12e1d46d11f8dd8cfe793307391dbfa5f))
-- **prettier-plugin-jsdoc:** guard against missing options on createParser ([c377ebb](https://github.com/homer0/packages/commit/c377ebb05d6d22b8120d912e00151a0caafc52eb))
-- **prettier-plugin-jsdoc:** move the example tag order to the end ([f1e9cda](https://github.com/homer0/packages/commit/f1e9cdaab8080da1bf3410e4dc99a1486eaf351f))
-- **prettier-plugin-jsdoc:** update syntax for comment parser ([b50fa7f](https://github.com/homer0/packages/commit/b50fa7f5032f48d9e1e3c4ef397266be6422b008))
+- update dependencies ([3ffd22e](https://github.com/homer0/prettier-plugin-jsdoc/commit/3ffd22ef6929ecc386e9fb23172edda2a4ff34d6))
+- guard against missing options on createParser ([1d56fa2](https://github.com/homer0/prettier-plugin-jsdoc/commit/1d56fa21243a040a35a2c73401275e704c767bba))
+- move the example tag order to the end ([f8a3c97](https://github.com/homer0/prettier-plugin-jsdoc/commit/f8a3c9775621d4584848328a0f66bcb65021daf2))
+- update syntax for comment parser ([735d2ed](https://github.com/homer0/prettier-plugin-jsdoc/commit/735d2ed0b5ebd8130e5b3a6a3dafd0b40d8f17e5))
 
 ### BREAKING CHANGES
 
-- **prettier-plugin-jsdoc:** The example tag order has been changed to a lower position.
+- The example tag order has been changed to a lower position.
   This change was made in order to fix a bug in which TypeScript would detect
   'any' if the tag was before param, property and template. This is breaking
   because saving a file with this change would cause possible unrelated blocks
   to change.
 
-# [2.0.0](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@1.1.2...@homer0/prettier-plugin-jsdoc@2.0.0) (2021-01-25)
+# [2.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/1.1.2...2.0.0) (2021-01-25)
 
 ### Bug Fixes
 
-- **prettier-plugin-jsdoc:** move the example tag order to the end ([f1e9cda](https://github.com/homer0/packages/commit/f1e9cdaab8080da1bf3410e4dc99a1486eaf351f))
-- update dependencies ([7437e8c](https://github.com/homer0/packages/commit/7437e8c12e1d46d11f8dd8cfe793307391dbfa5f))
-- **prettier-plugin-jsdoc:** update syntax for comment parser ([b50fa7f](https://github.com/homer0/packages/commit/b50fa7f5032f48d9e1e3c4ef397266be6422b008))
+- move the example tag order to the end ([f8a3c97](https://github.com/homer0/prettier-plugin-jsdoc/commit/f8a3c9775621d4584848328a0f66bcb65021daf2))
+- update dependencies ([3ffd22e](https://github.com/homer0/prettier-plugin-jsdoc/commit/3ffd22ef6929ecc386e9fb23172edda2a4ff34d6))
+- update syntax for comment parser ([735d2ed](https://github.com/homer0/prettier-plugin-jsdoc/commit/735d2ed0b5ebd8130e5b3a6a3dafd0b40d8f17e5))
 
 ### BREAKING CHANGES
 
-- **prettier-plugin-jsdoc:** The example tag order has been changed to a lower position.
+- The example tag order has been changed to a lower position.
   This change was made in order to fix a bug in which TypeScript would detect
   'any' if the tag was before param, property and template. This is breaking
   because saving a file with this change would cause possible unrelated blocks
   to change.
 
-## [1.1.2](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@1.1.1...@homer0/prettier-plugin-jsdoc@1.1.2) (2020-11-28)
+## [1.1.2](https://github.com/homer0/prettier-plugin-jsdoc/compare/1.1.1...1.1.2) (2020-11-28)
 
 ### Bug Fixes
 
-- **prettier-plugin-jsdoc:** add .npmignore ([a857aae](https://github.com/homer0/packages/commit/a857aae8cdf1736180a8c60ebca92d25d41cdfd7))
-- include publishConfig and fix the format of the repository property ([4c25780](https://github.com/homer0/packages/commit/4c25780099bd60443a3625f5ab2c62a41a5c1314))
+- include publishConfig and fix the format of the repository property ([6b1856b](https://github.com/homer0/prettier-plugin-jsdoc/commit/6b1856bded6407c2608923492f259372f652be45))
 
-## [1.1.1](https://github.com/homer0/packages/compare/@homer0/prettier-plugin-jsdoc@1.1.0...@homer0/prettier-plugin-jsdoc@1.1.1) (2020-11-05)
-
-### Bug Fixes
-
-- **prettier-plugin-jsdoc:** add .npmignore ([a857aae](https://github.com/homer0/packages/commit/a857aae8cdf1736180a8c60ebca92d25d41cdfd7))
-
-# 1.1.0 (2020-11-05)
+## [1.1.1](https://github.com/homer0/prettier-plugin-jsdoc/compare/1.1.0...1.1.1) (2020-11-05)
 
 ### Bug Fixes
 
-- **monorepo:** set the initial version to 0.0.1 ([cd33912](https://github.com/homer0/packages/commit/cd33912de0dead750bcb3b891f630f4392ee227e))
-- **monorepo:** update dependencies ([cd892a8](https://github.com/homer0/packages/commit/cd892a865d8251cab3f80913a2c219c118d67e19))
-- **prettier-plugin-jsdoc:** add a function to replace adjacent regexps ([8962180](https://github.com/homer0/packages/commit/8962180016f8be294bce0834f39e9433a6f920b8))
-- **prettier-plugin-jsdoc:** add an extra case when joining props ([723c4a5](https://github.com/homer0/packages/commit/723c4a501b09a131767c7eaa3730ed0f72ea599b))
-- **prettier-plugin-jsdoc:** add missing alias ([9ea7e2a](https://github.com/homer0/packages/commit/9ea7e2abac1d4e35d44c40c78623031f9f5a391c))
-- **prettier-plugin-jsdoc:** add missing function to validate tags ([c3e4456](https://github.com/homer0/packages/commit/c3e4456152d9e2daca3f40da1d0c80d208d70c1f))
-- **prettier-plugin-jsdoc:** add support for empty example tags ([c29b06c](https://github.com/homer0/packages/commit/c29b06ccab17a551bf580276f87aa35875035e03))
-- **prettier-plugin-jsdoc:** add synonym for the [@example](https://github.com/example) tag ([4c7598c](https://github.com/homer0/packages/commit/4c7598c8e9c6dd22765686198b5a1be04f429d85))
-- **prettier-plugin-jsdoc:** avoid formatting examples into sentences ([ca208ae](https://github.com/homer0/packages/commit/ca208ae25c30c228f4e4a53ae742ed98f060b7af))
-- **prettier-plugin-jsdoc:** avoid transforming URLs into sentences ([3ef8a05](https://github.com/homer0/packages/commit/3ef8a0560c6f7ef18b480c62d6ce0b6150f75b26))
-- **prettier-plugin-jsdoc:** calculate printWidth on sub formatters ([234c41f](https://github.com/homer0/packages/commit/234c41f717d5bd3cbebe4e725fe581cb1550697d))
-- **prettier-plugin-jsdoc:** consider objects complex types ([4843933](https://github.com/homer0/packages/commit/4843933918a28c1755a61ea2b2ef23de808c97f4))
-- **prettier-plugin-jsdoc:** correct typos on the options ([d810b46](https://github.com/homer0/packages/commit/d810b466065c4503c7068d58cf5318e4b0b2aaa1))
-- **prettier-plugin-jsdoc:** don\'t allow more than one empty line ([62cdcc6](https://github.com/homer0/packages/commit/62cdcc690be5e9416836053e6c1f40dc2f8ff1e3))
-- **prettier-plugin-jsdoc:** format access tag from the main formatter ([f46762c](https://github.com/homer0/packages/commit/f46762ca4a91e0e76f3119ddbd7e233dc867154f))
-- **prettier-plugin-jsdoc:** format type with Prettier on format step ([69a26ba](https://github.com/homer0/packages/commit/69a26bad8993057cebd031a8480183fd3f2269a8))
-- **prettier-plugin-jsdoc:** get the supported languages from Prettier ([8efca5b](https://github.com/homer0/packages/commit/8efca5b00b224a22a7cce024de70a90260721e47))
-- **prettier-plugin-jsdoc:** make formatDescription a curried fn ([acd9d12](https://github.com/homer0/packages/commit/acd9d123180f20ffe6757ea8f50398992094929f))
-- **prettier-plugin-jsdoc:** make the constants into fns ([199e4ff](https://github.com/homer0/packages/commit/199e4ff1e487cf18b74b0fe67c2574093d14850b))
-- **prettier-plugin-jsdoc:** make the function to prepare types work with tags ([808fb2f](https://github.com/homer0/packages/commit/808fb2f1524f63faa58b1b306fe501ff6d40cd79))
-- **prettier-plugin-jsdoc:** move app into fns ([5cc87b7](https://github.com/homer0/packages/commit/5cc87b7da8a438947e1cfebb37e8a80b5c1bf4ae))
-- **prettier-plugin-jsdoc:** move each function to its own file ([a8786a5](https://github.com/homer0/packages/commit/a8786a51546169911f876fd1140ad67528b7dd0a))
-- **prettier-plugin-jsdoc:** move names to a new line when the type is too long ([f2bbc70](https://github.com/homer0/packages/commit/f2bbc70250ebb105b9fd23f5491a471c49e27fd9))
-- **prettier-plugin-jsdoc:** move providers load to another fn ([3e8767e](https://github.com/homer0/packages/commit/3e8767ec3621c491a3cb12750ccf50f4e53e597b))
-- **prettier-plugin-jsdoc:** move the dots function to utils ([536a703](https://github.com/homer0/packages/commit/536a7037682d215d29ab82c87a44071eef532058))
-- **prettier-plugin-jsdoc:** preserve case when adding/removing dot ([9b29618](https://github.com/homer0/packages/commit/9b29618a1d0e0af83578bfbce21f7df446e8df10))
-- **prettier-plugin-jsdoc:** properly handle one word descriptions ([43fc425](https://github.com/homer0/packages/commit/43fc4258e01f7a7b3b22943072143211ae430bb9))
-- **prettier-plugin-jsdoc:** properly render example tags ([b3410ce](https://github.com/homer0/packages/commit/b3410ceab513165253d0bbdd5b5ffd181adfa088))
-- **prettier-plugin-jsdoc:** remove ifElse ([f23d300](https://github.com/homer0/packages/commit/f23d300465862c2c2fae4b5e76d5dd13438a4693))
-- **prettier-plugin-jsdoc:** rename the container functions ([a94fc39](https://github.com/homer0/packages/commit/a94fc39644c71ef16111fed026bd36244c8715fb))
-- **prettier-plugin-jsdoc:** render unformatted examples ([7cda2ef](https://github.com/homer0/packages/commit/7cda2ef3aa305055bd9732c8b6ef731194b7e6a5))
-- **prettier-plugin-jsdoc:** stop assuming there's a trailing star ([5c8e1a3](https://github.com/homer0/packages/commit/5c8e1a349e0132d8e77c17062fe429e13b25ca62))
-- **prettier-plugin-jsdoc:** support multiline types ([be26632](https://github.com/homer0/packages/commit/be266320696c2e6120a84a3a7c643427878dfc43))
-- **prettier-plugin-jsdoc:** transform sentences on tags that use name ([72ea4fa](https://github.com/homer0/packages/commit/72ea4fab0058f636812c06e23b4bc3e8488a2720))
-- **prettier-plugin-jsdoc:** use name and description columns for special tags ([8403495](https://github.com/homer0/packages/commit/8403495e7a46210f92b458cfc9851d8383e830e0))
+- add .npmignore ([e2ef67f](https://github.com/homer0/prettier-plugin-jsdoc/commit/e2ef67f3a6a64dfe0ab6e592b96fa71a48e660c8))
+
+# [1.1.0](https://github.com/homer0/prettier-plugin-jsdoc/releases/tag/1.1.0) (2020-11-05)
+
+### Bug Fixes
+
+- add a function to replace adjacent regexps ([4c6069f](https://github.com/homer0/prettier-plugin-jsdoc/commit/4c6069f2f84f3789885d039a3a8ca2d52f57db57))
+- add an extra case when joining props ([9489967](https://github.com/homer0/prettier-plugin-jsdoc/commit/9489967d65aa8dc8ac7ca7f1f10fec13739bf0ed))
+- add missing alias ([7b6ded3](https://github.com/homer0/prettier-plugin-jsdoc/commit/7b6ded3a251252ec07f7f4087187d00326d22b1f))
+- add missing function to validate tags ([8a8bc18](https://github.com/homer0/prettier-plugin-jsdoc/commit/8a8bc1822914114d96083a338a9afa5a4d5e8008))
+- add support for empty example tags ([0f58b54](https://github.com/homer0/prettier-plugin-jsdoc/commit/0f58b54ab3b1060fd77a2aa099ceea196d72d6fe))
+- add synonym for the @example tag ([fd75310](https://github.com/homer0/prettier-plugin-jsdoc/commit/fd7531090cc7fea224857eb1c532eb911acde7fc))
+- avoid formatting examples into sentences ([4f3d162](https://github.com/homer0/prettier-plugin-jsdoc/commit/4f3d1628a323501eb1f059d45b48fd23870d83b7))
+- avoid transforming URLs into sentences ([93a5da1](https://github.com/homer0/prettier-plugin-jsdoc/commit/93a5da1933928d28e230df3a8fef1ecdb06efe0e))
+- calculate printWidth on sub formatters ([b38a14a](https://github.com/homer0/prettier-plugin-jsdoc/commit/b38a14adf082a7f08127fd067de5bb256991c006))
+- consider objects complex types ([40ee872](https://github.com/homer0/prettier-plugin-jsdoc/commit/40ee872851847682b7b403c2d2884ac27b86d5be))
+- correct typos on the options ([e662134](https://github.com/homer0/prettier-plugin-jsdoc/commit/e6621343689c4b99f269603f6f55327b1ebdbd8c))
+- don\'t allow more than one empty line ([d032687](https://github.com/homer0/prettier-plugin-jsdoc/commit/d0326878f5890205e48aad8a804d1c474c8eac1b))
+- format access tag from the main formatter ([419518b](https://github.com/homer0/prettier-plugin-jsdoc/commit/419518b1057e971bd7660b190040de3a8bbd71f2))
+- format type with Prettier on format step ([778d366](https://github.com/homer0/prettier-plugin-jsdoc/commit/778d3660617947a36f9335fa9cd944e2c3364677))
+- get the supported languages from Prettier ([88e8ab0](https://github.com/homer0/prettier-plugin-jsdoc/commit/88e8ab09c3b03062828c7c8f2e3ba2416b937487))
+- make formatDescription a curried fn ([69cfac5](https://github.com/homer0/prettier-plugin-jsdoc/commit/69cfac5ea58f431fffd871d96d4859b5a1ed5aba))
+- make the constants into fns ([d5c7e85](https://github.com/homer0/prettier-plugin-jsdoc/commit/d5c7e8567f53008c00b9885b79921a40704bd1b9))
+- make the function to prepare types work with tags ([2c4b0cd](https://github.com/homer0/prettier-plugin-jsdoc/commit/2c4b0cd8ba56aca9c52b7778a78e5515fa65786d))
+- move app into fns ([86e8ba8](https://github.com/homer0/prettier-plugin-jsdoc/commit/86e8ba8f45434f36c65cb297c363039505149ffc))
+- move each function to its own file ([53822a3](https://github.com/homer0/prettier-plugin-jsdoc/commit/53822a3df8c592f93ed4a58ea247e11fa836f562))
+- move names to a new line when the type is too long ([791e5e4](https://github.com/homer0/prettier-plugin-jsdoc/commit/791e5e42568fd342372f4b8a664e71b480e9a1f1))
+- move providers load to another fn ([36025fa](https://github.com/homer0/prettier-plugin-jsdoc/commit/36025fa67f75cc777917f9c756fb95aedb841b65))
+- move the dots function to utils ([c111d54](https://github.com/homer0/prettier-plugin-jsdoc/commit/c111d54b48bee65263f8658103461188ed2b739c))
+- preserve case when adding/removing dot ([8b71413](https://github.com/homer0/prettier-plugin-jsdoc/commit/8b71413cc49c51f564e237368bd71951fb4c7f02))
+- properly handle one word descriptions ([c873f63](https://github.com/homer0/prettier-plugin-jsdoc/commit/c873f63489d197cfb8990aab8046a83eda2785ca))
+- properly render example tags ([7c736a4](https://github.com/homer0/prettier-plugin-jsdoc/commit/7c736a45829e9bf472777b2ace1ccca007150f43))
+- remove ifElse ([404061d](https://github.com/homer0/prettier-plugin-jsdoc/commit/404061d55f97c57df984563c65228e01e8f413bf))
+- rename the container functions ([e554338](https://github.com/homer0/prettier-plugin-jsdoc/commit/e554338b3da8bcee36e421f23f4761c4b40fa9e9))
+- render unformatted examples ([192afb8](https://github.com/homer0/prettier-plugin-jsdoc/commit/192afb850eaebd085125099ebc29029559f7adee))
+- stop assuming there's a trailing star ([d56e1f9](https://github.com/homer0/prettier-plugin-jsdoc/commit/d56e1f974543b0e0f5ff4c0e2972dbbf797f1254))
+- support multiline types ([2efd010](https://github.com/homer0/prettier-plugin-jsdoc/commit/2efd010a21209c6ddebbc42baf1fdc872426230e))
+- transform sentences on tags that use name ([410cc6f](https://github.com/homer0/prettier-plugin-jsdoc/commit/410cc6f7c9b8cd2c240cc22d9871a32e8fdeaf45))
+- use name and description columns for special tags ([53819ce](https://github.com/homer0/prettier-plugin-jsdoc/commit/53819ce894b0a216f2c81e70c145d1e846aa0b7a))
 
 ### Features
 
-- **prettier-plugin-jsdoc:** add fn to format access tag ([e367468](https://github.com/homer0/packages/commit/e36746869b8df6d889b2d6996d5b28094287c2d7))
-- **prettier-plugin-jsdoc:** add function that applies the tags formatters ([1efd58b](https://github.com/homer0/packages/commit/1efd58b23e11fc9d18205cd61c2c26d76af1b782))
-- **prettier-plugin-jsdoc:** add function that applies the types formatters ([45a865d](https://github.com/homer0/packages/commit/45a865d12123428183175b1c37c3c66aae973678))
-- **prettier-plugin-jsdoc:** add function that fixes descriptions ([9145309](https://github.com/homer0/packages/commit/9145309b0885988cdeef2a13b6e9faaa3f89610f))
-- **prettier-plugin-jsdoc:** add function to create language definitions ([4ef2c87](https://github.com/homer0/packages/commit/4ef2c8727b9c245466f6a13477bd0bbb92fe9352))
-- **prettier-plugin-jsdoc:** add function to create the Prettier parser ([75202cf](https://github.com/homer0/packages/commit/75202cf854ceec34090c43ba4fa4e1abe16d5884))
-- **prettier-plugin-jsdoc:** add function to format arrays ([ef4eb22](https://github.com/homer0/packages/commit/ef4eb229d439d005a5529cebe49160b7180758c0))
-- **prettier-plugin-jsdoc:** add function to format descriptions ([510116c](https://github.com/homer0/packages/commit/510116cb2cdf93b3d50c6e1de81548f06c87f5e9))
-- **prettier-plugin-jsdoc:** add function to format examples ([8ebc8ad](https://github.com/homer0/packages/commit/8ebc8ad93aded9a4941e1e331e1a31b12eab223f))
-- **prettier-plugin-jsdoc:** add function to format objects ([9334f97](https://github.com/homer0/packages/commit/9334f9733550f04e00a26cd70cbfc66a5f3e218b))
-- **prettier-plugin-jsdoc:** add function to format string literals ([e76fdc1](https://github.com/homer0/packages/commit/e76fdc1daf52a4a5716a3d15ac7c0f6360fe7b45))
-- **prettier-plugin-jsdoc:** add function to format TS types ([1edbc58](https://github.com/homer0/packages/commit/1edbc58412fec5590a1b3b4197b11520c3cbce02))
-- **prettier-plugin-jsdoc:** add function to prepare all tags ([54366b2](https://github.com/homer0/packages/commit/54366b220be4d9f5c31617a26d45a020edbe4b60))
-- **prettier-plugin-jsdoc:** add function to prepare complex types ([a77f463](https://github.com/homer0/packages/commit/a77f463cb3309982330a86ba39d7b398ac1ca24f))
-- **prettier-plugin-jsdoc:** add function to prepare tag names ([b11b540](https://github.com/homer0/packages/commit/b11b540094a46dc4cdea6795746556f6d282636c))
-- **prettier-plugin-jsdoc:** add function to render comment lines ([87bd7e9](https://github.com/homer0/packages/commit/87bd7e9efa0075b1d3b864879c00a5cf91750cf0))
-- **prettier-plugin-jsdoc:** add function to render example tags ([411c481](https://github.com/homer0/packages/commit/411c481a040453003b475c0dd13663c7a4829e56))
-- **prettier-plugin-jsdoc:** add function to render tag in columns ([1c55fb3](https://github.com/homer0/packages/commit/1c55fb3b7e775b65f18cc795fe4a62d213027c4c))
-- **prettier-plugin-jsdoc:** add function to render tag in one line ([8161523](https://github.com/homer0/packages/commit/81615233ef9c7a76f5559985a95de9edf538ed9e))
-- **prettier-plugin-jsdoc:** add function to sort tags ([bb31bd0](https://github.com/homer0/packages/commit/bb31bd02834044ab171ed074eb811d79a6e6a075))
-- **prettier-plugin-jsdoc:** add function to split text lines ([d265a1b](https://github.com/homer0/packages/commit/d265a1b6161cd6b00330e9192c8717e938b84e02))
-- **prettier-plugin-jsdoc:** add function to trim tags properties ([355b6d5](https://github.com/homer0/packages/commit/355b6d52eed855b56e8c2a8298bfd68f94f063bb))
-- **prettier-plugin-jsdoc:** add languages' definitions ([6f10b0b](https://github.com/homer0/packages/commit/6f10b0b834801151391f52d4b90c31558840b9a5))
-- **prettier-plugin-jsdoc:** add option to add a separator line on [@example](https://github.com/example) ([fc53cd7](https://github.com/homer0/packages/commit/fc53cd779fa0c7e28a1511c99b91b2128a2e54c0))
-- **prettier-plugin-jsdoc:** add option to disable the plugin ([322c683](https://github.com/homer0/packages/commit/322c6837cbaacde8b38f44658c6fdc171555edaf))
-- **prettier-plugin-jsdoc:** add option to disable the plugin when extended ([055fdc4](https://github.com/homer0/packages/commit/055fdc49aea20c52539d6a51707bfb165bbbe7bc))
-- **prettier-plugin-jsdoc:** add plugin main file ([2405562](https://github.com/homer0/packages/commit/2405562f482a4e262d7f74c2f39dd6fc20d4a7d4))
-- **prettier-plugin-jsdoc:** add rule to ignore consistent columns ([ed76434](https://github.com/homer0/packages/commit/ed7643492ade3036cd798233e622bc9cd513d15b))
-- **prettier-plugin-jsdoc:** add support for multiline names ([5aaa014](https://github.com/homer0/packages/commit/5aaa014b6bab4de020b4a6189b7845c76f4c6180))
-- **prettier-plugin-jsdoc:** allow inline comments ([7fb86b2](https://github.com/homer0/packages/commit/7fb86b2af930ebc7fedab337b3e28a43cedf2aac))
-- **prettier-plugin-jsdoc:** define the plugin options ([0535ab5](https://github.com/homer0/packages/commit/0535ab589cd19bf7c62f23e161c6f6c3767264b2))
-- **prettier-plugin-jsdoc:** detect examples' captions ([08ce98b](https://github.com/homer0/packages/commit/08ce98b42ebbdbca6c3ce4084c118c5e5aaae86a))
-- **prettier-plugin-jsdoc:** expose the container ([fb931ab](https://github.com/homer0/packages/commit/fb931abd41cf5f2c3d1e3be8728cf1bdcf4f549f))
-- **prettier-plugin-jsdoc:** function to format arrays ramdification ([94a1c5c](https://github.com/homer0/packages/commit/94a1c5c1433f2bd86a2522674b18f4343f925db8))
-- **prettier-plugin-jsdoc:** function to format descriptions ramdification ([7382978](https://github.com/homer0/packages/commit/738297801c2df5457a77e3c07065d1e753f049aa))
-- **prettier-plugin-jsdoc:** function to format string literals ramdification ([439b512](https://github.com/homer0/packages/commit/439b512060d92110036158eeb34809edcab4fe47))
-- **prettier-plugin-jsdoc:** function to split text lines ramdification ([f5e30b4](https://github.com/homer0/packages/commit/f5e30b42d51f98acdf0537258c329f4bdb7dde01))
-- **prettier-plugin-jsdoc:** implement multiline types on the render ([ef4185b](https://github.com/homer0/packages/commit/ef4185b2a3225d1f014e4b1e1df6681fd484fdc6))
-- **prettier-plugin-jsdoc:** respect new lines ([ba96d56](https://github.com/homer0/packages/commit/ba96d56ddc934544fdab25fd2d2fbdf3d7071afa))
-- **prettier-plugin-jsdoc:** setup package ([2e5954c](https://github.com/homer0/packages/commit/2e5954c506fec70ce7b99fec1285f221c7522f4a))
-- **prettier-plugin-jsdoc:** transform descriptions into sentences ([5ddb503](https://github.com/homer0/packages/commit/5ddb5032b4f8d7571e186165e5ce38dccebaa618))
-- **prettier-plugin-jsdoc:** use a dependency injection container ([f9dddf4](https://github.com/homer0/packages/commit/f9dddf44f2fbd8220fb960bbce9635393e342613))
+- add fn to format access tag ([85d60b7](https://github.com/homer0/prettier-plugin-jsdoc/commit/85d60b74641a54b4a007e6ac289bc4e2cce996d1))
+- add function that applies the tags formatters ([20d8811](https://github.com/homer0/prettier-plugin-jsdoc/commit/20d88119a419d37ef49951b81b5717d8838c6455))
+- add function that applies the types formatters ([7828864](https://github.com/homer0/prettier-plugin-jsdoc/commit/7828864c8e456ff24693a5de46f308c5acd43efb))
+- add function that fixes descriptions ([41952ab](https://github.com/homer0/prettier-plugin-jsdoc/commit/41952ab08a3ba3a5b8323473338ffbc77eb048d5))
+- add function to create language definitions ([1e93e0f](https://github.com/homer0/prettier-plugin-jsdoc/commit/1e93e0fb2a664532b48e78847e92575726a8fc6a))
+- add function to create the Prettier parser ([aabf2cb](https://github.com/homer0/prettier-plugin-jsdoc/commit/aabf2cbf9e19a7f85809162f30123ecbbd37f2d7))
+- add function to format arrays ([4719eef](https://github.com/homer0/prettier-plugin-jsdoc/commit/4719eef2788a4f827896403470957f0b5456e71f))
+- add function to format descriptions ([b6e8017](https://github.com/homer0/prettier-plugin-jsdoc/commit/b6e8017a7ff178301275213500b2f966eb4b5f0e))
+- add function to format examples ([d005cd0](https://github.com/homer0/prettier-plugin-jsdoc/commit/d005cd0b51f51de134aa5a5278fa6063ef439c29))
+- add function to format objects ([c6a5d3b](https://github.com/homer0/prettier-plugin-jsdoc/commit/c6a5d3b57ca6af2faa0bfa3867819801174a74eb))
+- add function to format string literals ([587d0f1](https://github.com/homer0/prettier-plugin-jsdoc/commit/587d0f166a5d41d2e53d08cce0746ccca40e74f7))
+- add function to format TS types ([e4766a2](https://github.com/homer0/prettier-plugin-jsdoc/commit/e4766a22ac700848d687b256c5e3a452392520c8))
+- add function to prepare all tags ([5812fd6](https://github.com/homer0/prettier-plugin-jsdoc/commit/5812fd6d7c3f732b8b468ffa71e2ae8452246a90))
+- add function to prepare complex types ([2a14e24](https://github.com/homer0/prettier-plugin-jsdoc/commit/2a14e24bd188102b0235b02555cca664e8c4144e))
+- add function to prepare tag names ([4011836](https://github.com/homer0/prettier-plugin-jsdoc/commit/4011836fb87e58f434b80805495f7817f064c0c9))
+- add function to render comment lines ([a1e4206](https://github.com/homer0/prettier-plugin-jsdoc/commit/a1e420677b682d7ee70b0d680a716f895d54b472))
+- add function to render example tags ([3e9cd9d](https://github.com/homer0/prettier-plugin-jsdoc/commit/3e9cd9d0a530d06138db560b6ce0b20f2b3096d1))
+- add function to render tag in columns ([6db0bf0](https://github.com/homer0/prettier-plugin-jsdoc/commit/6db0bf0f037eae1352dbfb57233bd59ead95bb85))
+- add function to render tag in one line ([51724b0](https://github.com/homer0/prettier-plugin-jsdoc/commit/51724b07a58d889bce93bb4961612b0cdb45fb63))
+- add function to sort tags ([3d26343](https://github.com/homer0/prettier-plugin-jsdoc/commit/3d2634319fac89b342b219570dca9406ef497a74))
+- add function to split text lines ([ad81486](https://github.com/homer0/prettier-plugin-jsdoc/commit/ad814868a4cb4e142508ef0e86267b2dce71c681))
+- add function to trim tags properties ([f36904e](https://github.com/homer0/prettier-plugin-jsdoc/commit/f36904ed03880daabe2d2900a309e3d5530481f8))
+- add languages' definitions ([61d0941](https://github.com/homer0/prettier-plugin-jsdoc/commit/61d0941db067b73e51a4ff4ab90ccf95be5b32e6))
+- add option to add a separator line on @example ([99ac641](https://github.com/homer0/prettier-plugin-jsdoc/commit/99ac6411ebaa308cdb20785641c7e6978bbbe8a6))
+- add option to disable the plugin ([406b28d](https://github.com/homer0/prettier-plugin-jsdoc/commit/406b28d542de537d6fedb4d3c1503f386280d98f))
+- add option to disable the plugin when extended ([2dcb2db](https://github.com/homer0/prettier-plugin-jsdoc/commit/2dcb2db16fdd1fa84a7f964462697b7c84fa8c87))
+- add plugin main file ([6f4a66b](https://github.com/homer0/prettier-plugin-jsdoc/commit/6f4a66b55634a5992f4e795a1039f0d1e7c27758))
+- add rule to ignore consistent columns ([1573db8](https://github.com/homer0/prettier-plugin-jsdoc/commit/1573db853f7f6ce03dfc9186cd3a238918d4dd69))
+- add support for multiline names ([31563c6](https://github.com/homer0/prettier-plugin-jsdoc/commit/31563c6106c1b58019d60395417a980548527af5))
+- allow inline comments ([f386566](https://github.com/homer0/prettier-plugin-jsdoc/commit/f386566dd2de950a17db70a88dd347095daa4594))
+- define the plugin options ([eadcc0e](https://github.com/homer0/prettier-plugin-jsdoc/commit/eadcc0ec0b62b5bcc0d00ecd44784b3907e9f1b4))
+- detect examples' captions ([b7a29b1](https://github.com/homer0/prettier-plugin-jsdoc/commit/b7a29b18a94b350dbc80acd5f6aca2f5526d1baf))
+- expose the container ([d7dc8ef](https://github.com/homer0/prettier-plugin-jsdoc/commit/d7dc8efff30923af9a2c9fb37613fd63a1506dd3))
+- function to format arrays ramdification ([b4ea963](https://github.com/homer0/prettier-plugin-jsdoc/commit/b4ea963a79cfef828c08a3531ef676a281f57190))
+- function to format descriptions ramdification ([cb38bb1](https://github.com/homer0/prettier-plugin-jsdoc/commit/cb38bb1158e5d01b27c2d556c64e167b9675f858))
+- function to format string literals ramdification ([a692445](https://github.com/homer0/prettier-plugin-jsdoc/commit/a6924454c798fa956f06eabeed6fa9b7dadb7b45))
+- function to split text lines ramdification ([20b8111](https://github.com/homer0/prettier-plugin-jsdoc/commit/20b81114e0b8c7f7984fb045f5a5e588871765ea))
+- implement multiline types on the render ([d525a48](https://github.com/homer0/prettier-plugin-jsdoc/commit/d525a48dc0a8dfa12c4463eefcc23422ce9011bc))
+- respect new lines ([11e3d5c](https://github.com/homer0/prettier-plugin-jsdoc/commit/11e3d5c9e150f6f809fd7290359974f18becd700))
+- setup package ([866a7e9](https://github.com/homer0/prettier-plugin-jsdoc/commit/866a7e93729c2dcb8925a0c556ef4bcde77935e0))
+- transform descriptions into sentences ([f067ce7](https://github.com/homer0/prettier-plugin-jsdoc/commit/f067ce7cc227f400f135c642e8930bc481b282a6))
+- use a dependency injection container ([633f6de](https://github.com/homer0/prettier-plugin-jsdoc/commit/633f6de2d628ef78598240bc880c8681ba1f1396))
