@@ -37,13 +37,27 @@
   },
   "engine-strict": true,
   "engines": {
-    "node": ">=16"
+    "node": ">=16 <21"
   },
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint .",
-    "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest -c ./.jestrc-unit.js",
-    "test:e2e": "NODE_OPTIONS=--experimental-vm-modules jest -c ./.jestrc-e2e.js",
-    "test": "pnpm run test:unit && pnpm run test:e2e"
+    "prepare": "./utils/scripts/prepare",
+    "test:unit": "./utils/scripts/test-unit",
+    "test:e2e": "./utils/scripts/test-e2e",
+    "test": "./utils/scripts/test",
+    "lint": "./utils/scripts/lint",
+    "lint:all": "./utils/scripts/lint-all",
+    "todo": "./utils/scripts/todo"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "prettier --write"
+    ]
   }
 }
