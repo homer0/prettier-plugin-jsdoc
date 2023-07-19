@@ -1,2 +1,8 @@
-/test
+/.github
+/.husky
+/tests
 /.jestrc-*
+/.*
+/utils
+/coverage*
+/_x-*
