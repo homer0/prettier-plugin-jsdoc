@@ -1,3 +1,10 @@
+## [7.0.2](https://github.com/homer0/prettier-plugin-jsdoc/compare/7.0.1...7.0.2) (2023-07-19)
+
+
+### Bug Fixes
+
+* reduce package size ([5eccf97](https://github.com/homer0/prettier-plugin-jsdoc/commit/5eccf978ca7f3904aa85e604c4f0b7fbb5dd5c0a))
+
 ## [7.0.1](https://github.com/homer0/prettier-plugin-jsdoc/compare/7.0.0...7.0.1) (2023-07-18)
 
 
