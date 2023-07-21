@@ -19,6 +19,7 @@ module.exports = {
  * @see Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis enim sed mattis vulputate. Fusce velit dui, commodo eget ex sed, rutrum finibus ipsum. Vivamus dapibus sollicitudin lobortis.
  * @throws {Error} If something goes wrong
  * @yields {Object} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis enim sed mattis vulputate. Fusce velit dui, commodo eget ex sed, rutrum finibus ipsum. Vivamus dapibus sollicitudin lobortis.
+ * @todo Refactor how the multiline names are handled. And some extra text to make the line a bit more longer.
  */
 
 //# output
@@ -44,4 +45,6 @@ module.exports = {
  * @see Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis enim sed mattis
  *      vulputate. Fusce velit dui, commodo eget ex sed, rutrum finibus ipsum. Vivamus dapibus
  *      sollicitudin lobortis.
+ * @todo Refactor how the multiline names are handled. And some extra text to make the line a bit
+ *       more longer.
  */

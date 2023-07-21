@@ -57,7 +57,6 @@ const getTagsWithDescriptionAsName = () => [
   'remarks',
   'summary',
   'throws',
-  'todo',
   'returns',
   'return',
 ];
@@ -81,6 +80,7 @@ const getTagsWithNameAsDescription = () => [
   'see',
   'borrows',
   'yields',
+  'todo',
 ];
 /**
  * Gets the list of languages the plugin supports.
