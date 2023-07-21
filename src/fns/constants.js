@@ -76,12 +76,14 @@ const getTagsThatRequireColumns = () => ['template'];
  *
  * @returns {string[]}
  */
-const getTagsWithNameAsDescription = () => [
-  'see',
-  'borrows',
-  'yields',
-  'todo',
-];
+const getTagsWithNameAsDescription = () => ['see', 'borrows', 'yields', 'todo', 'since'];
+/**
+ * There are certain tags which description cannot be converted into sentences (upper case
+ * and period at the end).
+ *
+ * @returns {string[]}
+ */
+const getTagsWithDescriptionThatCannotBeSentences = () => ['since'];
 /**
  * Gets the list of languages the plugin supports.
  *
@@ -237,6 +239,8 @@ const getSupportedLanguages = () => [
 module.exports.getTagsSynonyms = getTagsSynonyms;
 module.exports.getTagsWithDescriptionAsName = getTagsWithDescriptionAsName;
 module.exports.getTagsThatRequireColumns = getTagsThatRequireColumns;
+module.exports.getTagsWithDescriptionThatCannotBeSentences =
+  getTagsWithDescriptionThatCannotBeSentences;
 module.exports.getTagsWithNameAsDescription = getTagsWithNameAsDescription;
 module.exports.getSupportedLanguages = getSupportedLanguages;
 module.exports.provider = provider('constants', module.exports);
