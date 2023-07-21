@@ -12,7 +12,7 @@ module.exports = {
 /**
  * @callback IsAvailable
  * @param {"blue"|"red"|"purple"|"orange"} color Something.
- * @returns {boolean}
+ * @returns {boolean} Some flag property.
  * @throws {Error} If something goes wrong
  * @see Something.
  */
@@ -28,7 +28,7 @@ module.exports = {
 /**
  * @callback IsAvailable
  * @param    {'blue' | 'red' | 'purple' | 'orange'} color        Something.
- * @returns  {boolean}
+ * @returns  {boolean}                              Some flag property.
  * @throws   {Error}                                If something goes wrong.
  * @see      Something.
  */

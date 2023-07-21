@@ -112,7 +112,8 @@ export function log(name = 'batman', logger) {}
  *   };
  * }} newUser
  * Something else.
- * @returns {User} Some description for the return value.
+ * @returns {User}
+ * Some description for the return value.
  * @summary
  * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada fermentum nibh, sed
  * aliquet ante porta a. Nullam blandit posuere fringilla. Nullam vel risus vitae lectus luctus
@@ -136,9 +137,9 @@ export function log(name = 'batman', logger) {}
 
 /**
  * @returns A function that is used to analyze the value and the index and determine whether or
- *          not to increment the count. Return `true` to increment the count, and return `false`
- *          to keep the count the same. If the predicate is not provided, every value will be
- *          counted.
+ *          not to increment the count. Return `true` to increment the count, and return
+ *          `false` to keep the count the same. If the predicate is not provided, every value
+ *          will be counted.
  */
 export function foo(predicate) {
   console.log(predicate);
