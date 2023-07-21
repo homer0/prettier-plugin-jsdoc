@@ -15,6 +15,7 @@ module.exports = {
  * @returns {boolean} Some flag property.
  * @throws {Error} If something goes wrong
  * @see Something.
+ * @since 1.0.0 RC1
  */
 
 /**
@@ -30,6 +31,7 @@ module.exports = {
  * @param    {'blue' | 'red' | 'purple' | 'orange'} color        Something.
  * @returns  {boolean}                              Some flag property.
  * @throws   {Error}                                If something goes wrong.
+ * @since    1.0.0 RC1
  * @see      Something.
  */
 
