@@ -58,6 +58,8 @@ const getTagsWithDescriptionAsName = () => [
   'summary',
   'throws',
   'todo',
+  'returns',
+  'return',
 ];
 /**
  * Gets a list of tags that need to be in column format.
@@ -79,8 +81,6 @@ const getTagsWithNameAsDescription = () => [
   'see',
   'borrows',
   'yields',
-  'returns',
-  'return',
 ];
 /**
  * Gets the list of languages the plugin supports.
