@@ -1,3 +1,12 @@
+## [7.0.3](https://github.com/homer0/prettier-plugin-jsdoc/compare/7.0.2...7.0.3) (2023-07-22)
+
+
+### Bug Fixes
+
+* move return tag to tags with desc as name ([1dc8632](https://github.com/homer0/prettier-plugin-jsdoc/commit/1dc8632a0f3d434cf3a60805f05a848124c0c509))
+* move todo to the tags without desc ([6805ba0](https://github.com/homer0/prettier-plugin-jsdoc/commit/6805ba093994e614e8ad587ada2053ed2b899da1))
+* track tags that cannot be converted into sentences ([1d4167b](https://github.com/homer0/prettier-plugin-jsdoc/commit/1d4167b8ff48b8166e05b63004d199c77b55d43e))
+
 ## [7.0.2](https://github.com/homer0/prettier-plugin-jsdoc/compare/7.0.1...7.0.2) (2023-07-19)
 
 
