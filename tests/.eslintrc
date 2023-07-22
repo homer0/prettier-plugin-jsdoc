@@ -1,9 +1,7 @@
 {
   "root": true,
   "plugins": ["@homer0"],
-  "extends": [
-    "plugin:@homer0/jest-with-prettier"
-  ],
+  "extends": ["plugin:@homer0/jest-with-prettier"],
   "globals": {
     "global": true,
     "__dirname": true

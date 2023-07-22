@@ -1,2 +1,3 @@
 #!/bin/bash -e
-eslint ./ --ext .js
+eslint ./ --ext .js && \
+prettier --write .
