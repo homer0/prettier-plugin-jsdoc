@@ -1004,15 +1004,40 @@ The way you can solve this is by adding a period at the end of the line, which w
 
 ### 🤘 Development
 
-As this project is part of the `packages` monorepo, some of the tooling, like ESLint and Husky, are installed on the root's `package.json`.
-
 #### Tasks
 
-| Task        | Description                |
-| ----------- | -------------------------- |
-| `test:unit` | Runs the unit tests.       |
-| `test:e2e`  | Runs the functional tests. |
-| `test`      | Runs all tests.            |
+| Task        | Description                    |
+| ----------- | ------------------------------ |
+| `test:unit` | Runs the unit tests.           |
+| `test:e2e`  | Runs the functional tests.     |
+| `test`      | Runs all tests.                |
+| `lint`      | Lint the modified files.       |
+| `lint:all`  | Lint the entire project code.  |
+| `todo`      | List all the pending to-do's.  |
+
+### Repository hooks
+
+I use [`husky`](https://www.npmjs.com/package/husky) to automatically install the repository hooks so...
+
+1. The code will be formatted and linted before any commit.
+2. The dependencies will be updated after every merge.
+3. The tests will run before pushing.
+
+> ⚠️ When the linter and formatter runs for staged files, if the file is importing Prettier, it may fail due to Prettier being ESM. This is temporary, and the workaround for now is to run `npm run lint:all` and commit with `-n`.
+
+#### Commits convention
+
+I use [conventional commits](https://www.conventionalcommits.org) with [`commitlint`](https://commitlint.js.org) in order to support semantic releases. The one that sets it up is actually husky, that installs a script that runs `commitlint` on the `git commit` command.
+
+The configuration is on the `commitlint` property of the `package.json`.
+
+### Releases
+
+I use [`semantic-release`](https://www.npmjs.com/package/semantic-release) and a GitHub action to automatically release on NPM everything that gets merged to main.
+
+The configuration for `semantic-release` is on `./releaserc` and the workflow for the release is on `./.github/workflow/release.yml`.
+
+> ⚠️ `semantic-release` requires Node 18 to be installed, so I temporarily removed it form the `package.json` and it's only installed in the GitHub action, before being used.
 
 #### Testing
 
@@ -1022,9 +1047,18 @@ The configurations files are `.jestrc-e2e` and `.jestrc-unit`, and the test file
 
 In the case of the functional tests, there's a special environment on `./tests/utils` that loads and parses a list of fixture files in order to save them on the global object. In reality, there's only one test file for the functional tests, the one that reads the global object and dynamically generates the `it(...)`: `index.e2e.js`.
 
-### 🐞 Validating bugs
 
-> Yes, since this is in a monorepo (for now), I can't put this on the issue template.
+### Linting && Formatting
+
+I use [ESlint](https://eslint.org) with [my own custom configuration](https://www.npmjs.com/package/@homer0/eslint-plugin) to validate all the JS code. The configuration file for the project code is on `./.eslintrc` and the one for the tests is on `./tests/.eslintrc`. There's also an `./.eslintignore` to exclude some files on the process. The script that runs it is on `./utils/scripts/lint-all`.
+
+For formatting I use [Prettier](https://prettier.io) with [my custom configuration](https://www.npmjs.com/package/@homer0/prettier-config) and this same plugin. The configuration file for the project code is on `./.prettierrc`.
+
+### To-Dos
+
+I use `@todo` comments to write all the pending improvements and fixes, and [Leasot](https://www.npmjs.com/package/leasot) to generate a report. The script that runs it is on `./utils/scripts/todo`.
+
+### 🐞 Validating bugs
 
 You can use the functional tests to validate a scenario in which the plugin is not behaving as you would expect.
 
@@ -1050,7 +1084,9 @@ module.exports = { only: true, jsdocPrintWidth: 70 };
 - `only: true` is not a plugin option, but will make the test runner ignore all the other tests, and only run the one you specify.
 - Below `//# input` you can put any number of comment blocks, in the state you would expect the plugin to pick them.
 - Below `//# output` you have to put the expected output after formatting the input with the plugin.
-- The "input" and "output" are handled as if they were different files, so you can even put functions and real code, it won't be executed though, just formatted.
+- The "input" and "output" are handled as if they were different files, so you can even put functions and real code, they won't be executed though, just formatted.
+
+Then, you can just run run the test for the fixture with `npm run test:e2e`.
 
 ## Motivation
 

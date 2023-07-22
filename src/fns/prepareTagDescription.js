@@ -1,6 +1,9 @@
 const R = require('ramda');
 const { ensureSentence, hasValidProperty, isTag } = require('./utils');
-const { getTagsWithNameAsDescription } = require('./constants');
+const {
+  getTagsWithNameAsDescription,
+  getTagsWithDescriptionThatCannotBeSentences,
+} = require('./constants');
 const { get, provider } = require('./app');
 
 /**
@@ -33,23 +36,26 @@ const prepareTagDescription = (tag) => {
   const useHasValidProperty = get(hasValidProperty);
   const useIsStag = get(isTag);
   const useMakePropertyInstoSentence = get(makePropertyIntoSentence);
-  return R.when(
-    R.complement(useIsStag(['example', 'examples'])),
-    R.compose(
-      R.when(
-        useHasValidProperty('description'),
-        useMakePropertyInstoSentence('description'),
-      ),
-      R.when(
-        R.allPass([
-          useIsStag(get(getTagsWithNameAsDescription)()),
-          useHasValidProperty('name'),
-        ]),
-        useMakePropertyInstoSentence('name'),
+  const useCannotBeSentence = get(getTagsWithDescriptionThatCannotBeSentences)();
+  return R.unless(
+    useIsStag(useCannotBeSentence),
+    R.when(
+      R.complement(useIsStag(['example', 'examples'])),
+      R.compose(
+        R.when(
+          useHasValidProperty('description'),
+          useMakePropertyInstoSentence('description'),
+        ),
+        R.when(
+          R.allPass([
+            useIsStag(get(getTagsWithNameAsDescription)()),
+            useHasValidProperty('name'),
+          ]),
+          useMakePropertyInstoSentence('name'),
+        ),
       ),
     ),
-    tag,
-  );
+  )(tag);
 };
 
 module.exports.prepareTagDescription = prepareTagDescription;

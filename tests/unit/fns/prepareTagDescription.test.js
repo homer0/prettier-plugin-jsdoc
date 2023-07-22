@@ -14,6 +14,17 @@ describe('prepareTagDescription', () => {
       },
     },
     {
+      it: 'should ignore a tag that cannot be a sentence',
+      input: {
+        tag: 'since',
+        name: 'something',
+      },
+      output: {
+        tag: 'since',
+        name: 'something',
+      },
+    },
+    {
       it: 'should transform a tag description',
       input: {
         name: 'something',

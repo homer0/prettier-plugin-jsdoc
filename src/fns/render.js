@@ -127,7 +127,8 @@ const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) =>
  * The options sent to the plugin.
  * @param {CommentTag[]} tags
  * The list of tags to render.
- * @returns {string[]} The list of lines.
+ * @returns {string[]}
+ * The list of lines.
  */
 const tryToRenderTagsInColums = (tagsData, width, options, tags) =>
   R.compose(
