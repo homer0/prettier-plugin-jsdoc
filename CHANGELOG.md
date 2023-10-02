@@ -1,3 +1,16 @@
+# [8.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/7.0.3...8.0.0) (2023-10-02)
+
+
+### Bug Fixes
+
+* drop Node 16 support ([d9cdda2](https://github.com/homer0/prettier-plugin-jsdoc/commit/d9cdda2cb8c7cab2d71964ec008f5975446feb85))
+* update dependencies ([770b83c](https://github.com/homer0/prettier-plugin-jsdoc/commit/770b83ccf46041742f8df950aa8905c4b0adc49e))
+
+
+### BREAKING CHANGES
+
+* Node 16 is not longer supported. Node 18.17 is the minimum required version now.
+
 ## [7.0.3](https://github.com/homer0/prettier-plugin-jsdoc/compare/7.0.2...7.0.3) (2023-07-22)
 
 
