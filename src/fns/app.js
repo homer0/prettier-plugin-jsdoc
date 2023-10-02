@@ -98,10 +98,9 @@ const loadProviders = (directoryPath, list) => {
   list
     .map((modName) => {
       // eslint-disable-next-line global-require, import/no-dynamic-require
-      const { provider: modProvider } = require(path.join(
-        directoryPath,
-        `${modName}.js`,
-      ));
+      const { provider: modProvider } = require(
+        path.join(directoryPath, `${modName}.js`),
+      );
       return modProvider;
     })
     .filter((modProvider) => modProvider)

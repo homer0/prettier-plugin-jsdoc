@@ -2,7 +2,7 @@
 
 [![GitHub Workflow Status (main)](https://img.shields.io/github/actions/workflow/status/homer0/prettier-plugin-jsdoc/test.yml?branch=main&style=flat-square)](https://github.com/homer0/prettier-plugin-jsdoc/actions?query=workflow%3ATest)
 [![Coveralls github](https://img.shields.io/coveralls/github/homer0/prettier-plugin-jsdoc.svg?style=flat-square)](https://coveralls.io/github/homer0/prettier-plugin-jsdoc?branch=main)
-![Dependencies status](https://img.shields.io/librariesio/release/npm/%40homer0/prettier-plugin-jsdoc/latest)
+![Dependencies status](https://img.shields.io/librariesio/release/npm/%40homer0/prettier-plugin-jsdoc/latest?style=flat-square)
 
 A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) blocks.
 
