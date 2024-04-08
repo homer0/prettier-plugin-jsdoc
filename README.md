@@ -1023,7 +1023,7 @@ I use [`husky`](https://www.npmjs.com/package/husky) to automatically install th
 2. The dependencies will be updated after every merge.
 3. The tests will run before pushing.
 
-> ⚠️ When the linter and formatter runs for staged files, if the file is importing Prettier, it may fail due to Prettier being ESM. This is temporary, and the workaround for now is to run `npm run lint:all` and commit with `-n`.
+> ⚠️ When the linter and formatter runs for staged files, if the file is importing Prettier, it may fail due to Prettier being ESM. This is temporary, and the workaround for now is to run `pnpm run lint:all` and commit with `-n`.
 
 #### Commits convention
 
@@ -1086,7 +1086,7 @@ module.exports = { only: true, jsdocPrintWidth: 70 };
 - Below `//# output` you have to put the expected output after formatting the input with the plugin.
 - The "input" and "output" are handled as if they were different files, so you can even put functions and real code, they won't be executed though, just formatted.
 
-Then, you can just run run the test for the fixture with `npm run test:e2e`.
+Then, you can just run run the test for the fixture with `pnpm run test:e2e`.
 
 ## Motivation
 

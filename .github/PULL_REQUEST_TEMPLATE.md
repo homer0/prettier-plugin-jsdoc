@@ -3,7 +3,7 @@
 ### How should it be tested manually?
 
 ```bash
-npm test
+pnpm test
 ```
 
 ### Are there any related PRs?
