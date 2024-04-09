@@ -181,12 +181,17 @@ const tryToRenderTagsInColums = (tagsData, width, options, tags) => {
  * Given a list of tags, it calculates the longest tag, type and name in the context of
  * the block and for each tag.
  *
- * @param {CommentTag[]} tags  The list of tags.
+ * @param {CommentTag[]}    tags     The list of tags.
+ * @param {PrettierOptions} options  The options sent to the plugin.
  * @returns {BlockLengthData}
  */
-const getLengthsData = (tags) =>
+const getLengthsData = (tags, options) =>
   tags.reduce(
     (acc, tag) => {
+      if (options.jsdocIgnoreTags.includes(tag.tag)) {
+        return acc;
+      }
+
       const tagLength = tag.tag.length;
       const typeLength = tag.type.length;
       const hasMultilineType = tag.type.includes('\n');
@@ -349,7 +354,7 @@ const render = R.curry((options, column, block) => {
   }
 
   if (options.jsdocUseColumns) {
-    const data = get(getLengthsData)(block.tags);
+    const data = get(getLengthsData)(block.tags, options);
     if (options.jsdocGroupColumnsByTag) {
       const tagsData = get(getTagsData)(data.byTag, width, options);
       let atLeastOneCannot;
