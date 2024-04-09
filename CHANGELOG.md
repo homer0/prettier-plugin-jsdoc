@@ -1,3 +1,22 @@
+# [9.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/8.0.0...9.0.0) (2024-04-09)
+
+
+### Bug Fixes
+
+* consider jsdocIgnoreTags when calculating lengths ([515e3a5](https://github.com/homer0/prettier-plugin-jsdoc/commit/515e3a5b5dcf40733be87275a5cec8e7e1ba51a1))
+* update dependencies ([0623001](https://github.com/homer0/prettier-plugin-jsdoc/commit/0623001231b63594385b01bab90d0fb271a816ad))
+
+
+### Features
+
+* implement jsdocIgnoreTags ([55b96db](https://github.com/homer0/prettier-plugin-jsdoc/commit/55b96db6d5ecb48436c3bb5bad768dde3c7d04df))
+
+
+### BREAKING CHANGES
+
+* For those extending the plugin, getLengthsData now requires
+the plugin options to be sent as a second parameter.
+
 # [8.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/7.0.3...8.0.0) (2023-10-02)
 
 
