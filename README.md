@@ -58,6 +58,7 @@ A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) bl
   - [Allow descriptions to be on different lines](#allow-descriptions-to-be-on-different-lines)
   - [Ignore tags for consistent columns](#ignore-tags-for-consistent-columns)
   - [Use an inline block for a single tag](#use-an-inline-block-for-a-single-tag)
+  - [Ignore specific tags](#ignore-specific-tags)
 - [Extras](#extras)
   - [Custom width](#custom-width)
   - [Turn the plugin on and off](#turn-the-plugin-on-and-off)
@@ -828,6 +829,14 @@ Whether or not to use a single line JSDoc block when there\'s only one tag.
 
 /** @type {string} */
 ```
+
+##### Ignore specific tags
+
+| Option            | Type  | Default |
+| ----------------- | ----- | ------- |
+| `jsdocIgnoreTags` | array | _empty_ |
+
+A list of tags that should be ignored when formatting JSDoc comments.
 
 #### Extras
 
