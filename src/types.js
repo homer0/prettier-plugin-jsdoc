@@ -133,6 +133,8 @@
  * @property {boolean} jsdocUseInlineCommentForASingleTagBlock
  * Whether or not to use a single line JSDoc block when there's only one tag. Default
  * `false`.
+ * @property {string[]} jsdocIgnoreTags
+ * A list of tags that should be ignored when formatting JSDoc comments.
  */
 
 /**
