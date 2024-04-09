@@ -1,6 +1,7 @@
 jest.unmock('../../../src/fns/render');
 jest.unmock('../../../src/fns/renderTagInLine');
 jest.unmock('../../../src/fns/renderTagInColumns');
+jest.unmock('../../../src/fns/renderTagOriginal');
 jest.unmock('../../../src/fns/renderExampleTag');
 jest.unmock('../../../src/fns/splitText');
 jest.unmock('../../../src/fns/getOptions');
@@ -693,6 +694,163 @@ describe('render', () => {
       options: {
         ...defaultOptions,
         printWidth: 80,
+      },
+    },
+    {
+      it: 'should render a callback with columns and ignore the params',
+      input: {
+        description: [
+          'lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+          'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut',
+          'sodales lectus',
+        ].join(' '),
+        tags: [
+          {
+            tag: 'callback',
+            type: '',
+            name: 'LoremIpsumFn',
+            description: '',
+          },
+          {
+            tag: 'param',
+            type: 'string',
+            name: 'name',
+            description: 'Lorem ipsum description for the name',
+            source: [
+              {
+                source: ' * @param {string} name Lorem ipsum description for the name',
+              },
+            ],
+          },
+          {
+            tag: 'param',
+            type: 'number',
+            name: 'length',
+            description: [
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+              'sollicitudin non justo quis placerat.',
+            ].join(' '),
+            source: [
+              {
+                source: [
+                  ' * @param {number} length',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+                  'sollicitudin non justo quis placerat.',
+                ].join(' '),
+              },
+              {
+                source: ' * And another line.',
+              },
+            ],
+          },
+          {
+            tag: 'returns',
+            type: 'string',
+            name: '',
+            description: '',
+          },
+          {
+            tag: 'license',
+            type: '',
+            name: '',
+            description: 'Copyright (c) 2015 Example Corporation Inc.',
+            descriptionParagrah: true,
+          },
+        ],
+      },
+      output: [
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+        'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut sodales',
+        'lectus.',
+        '',
+        '@callback LoremIpsumFn',
+        '@param {string} name Lorem ipsum description for the name',
+        '@param {number} length Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sollicitudin non justo quis placerat.',
+        'And another line.',
+        '@returns {string}',
+        '@license',
+        'Copyright (c) 2015 Example Corporation Inc.',
+      ],
+      column: 0,
+      options: {
+        ...defaultOptions,
+        printWidth: 80,
+        jsdocIgnoreTags: ['param'],
+      },
+    },
+    {
+      it: 'should render a callback inline and ignore the params',
+      input: {
+        description: [
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+          'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut',
+          'sodales lectus.',
+        ].join(' '),
+        tags: [
+          {
+            tag: 'callback',
+            type: '',
+            name: 'LoremIpsumFn',
+            description: '',
+          },
+          {
+            tag: 'param',
+            type: 'string',
+            name: 'name',
+            description: 'Lorem ipsum description for the name',
+          },
+          {
+            tag: 'param',
+            type: 'number',
+            name: 'length',
+            description: [
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+              'sollicitudin non justo quis placerat.',
+            ].join(' '),
+          },
+          {
+            tag: 'returns',
+            type: 'string',
+            name: '',
+            description: [
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+              'sollicitudin non justo quis placerat.',
+            ].join(' '),
+            source: [
+              {
+                source: [
+                  ' * @returns {string}',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+                  'sollicitudin non justo quis placerat.',
+                ].join(' '),
+              },
+              {
+                source: ' * And another line.',
+              },
+            ],
+          },
+        ],
+      },
+      output: [
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+        'sollicitudin non justo quis placerat. Quisque eu dignissim tellus, ut sodales',
+        'lectus.',
+        '',
+        '@callback LoremIpsumFn',
+        '@param {string} name',
+        'Lorem ipsum description for the name',
+        '@param {number} length',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas',
+        'sollicitudin non justo quis placerat.',
+        '@returns {string} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sollicitudin non justo quis placerat.',
+        'And another line.',
+      ],
+      column: 0,
+      options: {
+        ...defaultOptions,
+        jsdocPrintWidth: 80,
+        jsdocUseColumns: false,
+        jsdocIgnoreTags: ['returns'],
       },
     },
   ];

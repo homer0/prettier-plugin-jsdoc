@@ -327,6 +327,17 @@ const getOptions = () => ({
     description:
       'Whether or not to format comments without tags as if they were JSDoc comments.',
   },
+  jsdocIgnoreTags: {
+    type: 'path',
+    category: 'jsdoc',
+    array: true,
+    description: 'A list of tags that should be ignored when formatting JSDoc comments.',
+    default: [
+      {
+        value: [],
+      },
+    ],
+  },
 });
 
 /**

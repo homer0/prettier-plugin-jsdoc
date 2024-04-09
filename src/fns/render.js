@@ -4,6 +4,7 @@ const { isTag, ensureSentence } = require('./utils');
 const { renderExampleTag } = require('./renderExampleTag');
 const { renderTagInLine } = require('./renderTagInLine');
 const { renderTagInColumns } = require('./renderTagInColumns');
+const { renderTagOriginal } = require('./renderTagOriginal');
 const {
   getTagsWithNameAsDescription,
   getTagsThatRequireColumns,
@@ -72,21 +73,27 @@ const TYPE_WRAPPERS_LENGTH = 2;
  * @param {CommentTag[]}    tags     The list of tags to render.
  * @returns {string[]} The list of lines.
  */
-const renderTagsInlines = (width, options, tags) =>
-  R.compose(
+const renderTagsInlines = (width, options, tags) => {
+  const useIsTag = get(isTag);
+  return R.compose(
     R.flatten,
     R.map(
       R.ifElse(
-        get(isTag)('example'),
-        get(renderExampleTag)(R.__, width, options),
-        get(renderTagInLine)(
-          width,
-          options.jsdocMinSpacesBetweenTagAndType,
-          options.jsdocMinSpacesBetweenTypeAndName,
+        useIsTag([...options.jsdocIgnoreTags]),
+        get(renderTagOriginal),
+        R.ifElse(
+          useIsTag('example'),
+          get(renderExampleTag)(R.__, width, options),
+          get(renderTagInLine)(
+            width,
+            options.jsdocMinSpacesBetweenTagAndType,
+            options.jsdocMinSpacesBetweenTypeAndName,
+          ),
         ),
       ),
     ),
   )(tags);
+};
 
 /**
  * Renders a list of tags using the columns format.
@@ -98,22 +105,28 @@ const renderTagsInlines = (width, options, tags) =>
  * @param {CommentTag[]}            tags          The list of tags to render.
  * @returns {string[]} The list of lines.
  */
-const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) =>
-  R.compose(
+const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) => {
+  const useIsTag = get(isTag);
+  return R.compose(
     R.flatten,
     R.map(
       R.ifElse(
-        get(isTag)('example'),
-        get(renderExampleTag)(R.__, fullWidth, options),
-        get(renderTagInColumns)(
-          columnsWidth.tag,
-          columnsWidth.type,
-          columnsWidth.name,
-          columnsWidth.description,
+        useIsTag([...options.jsdocIgnoreTags]),
+        get(renderTagOriginal),
+        R.ifElse(
+          useIsTag('example'),
+          get(renderExampleTag)(R.__, fullWidth, options),
+          get(renderTagInColumns)(
+            columnsWidth.tag,
+            columnsWidth.type,
+            columnsWidth.name,
+            columnsWidth.description,
+          ),
         ),
       ),
     ),
   )(tags);
+};
 
 /**
  * Renders a list of tags while trying to use the columns format, but if is not possible
@@ -130,44 +143,55 @@ const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) =>
  * @returns {string[]}
  * The list of lines.
  */
-const tryToRenderTagsInColums = (tagsData, width, options, tags) =>
-  R.compose(
+const tryToRenderTagsInColums = (tagsData, width, options, tags) => {
+  const useIsTag = get(isTag);
+  return R.compose(
     R.flatten,
     R.map(
       R.ifElse(
-        get(isTag)('example'),
-        get(renderExampleTag)(R.__, width, options),
-        (tag) => {
-          const data = tagsData[tag.tag];
-          return data.canUseColumns
-            ? get(renderTagInColumns)(
-                data.columnsWidth.tag,
-                data.columnsWidth.type,
-                data.columnsWidth.name,
-                data.columnsWidth.description,
-                tag,
-              )
-            : get(renderTagInLine)(
-                width,
-                options.jsdocMinSpacesBetweenTagAndType,
-                options.jsdocMinSpacesBetweenTypeAndName,
-                tag,
-              );
-        },
+        useIsTag([...options.jsdocIgnoreTags]),
+        get(renderTagOriginal),
+        R.ifElse(
+          useIsTag('example'),
+          get(renderExampleTag)(R.__, width, options),
+          (tag) => {
+            const data = tagsData[tag.tag];
+            return data.canUseColumns
+              ? get(renderTagInColumns)(
+                  data.columnsWidth.tag,
+                  data.columnsWidth.type,
+                  data.columnsWidth.name,
+                  data.columnsWidth.description,
+                  tag,
+                )
+              : get(renderTagInLine)(
+                  width,
+                  options.jsdocMinSpacesBetweenTagAndType,
+                  options.jsdocMinSpacesBetweenTypeAndName,
+                  tag,
+                );
+          },
+        ),
       ),
     ),
   )(tags);
+};
 
 /**
  * Given a list of tags, it calculates the longest tag, type and name in the context of
  * the block and for each tag.
  *
- * @param {CommentTag[]} tags  The list of tags.
+ * @param {CommentTag[]}    tags     The list of tags.
+ * @param {PrettierOptions} options  The options sent to the plugin.
  * @returns {BlockLengthData}
  */
-const getLengthsData = (tags) =>
+const getLengthsData = (tags, options) =>
   tags.reduce(
     (acc, tag) => {
+      if (options.jsdocIgnoreTags.includes(tag.tag)) {
+        return acc;
+      }
+
       const tagLength = tag.tag.length;
       const typeLength = tag.type.length;
       const hasMultilineType = tag.type.includes('\n');
@@ -330,7 +354,7 @@ const render = R.curry((options, column, block) => {
   }
 
   if (options.jsdocUseColumns) {
-    const data = get(getLengthsData)(block.tags);
+    const data = get(getLengthsData)(block.tags, options);
     if (options.jsdocGroupColumnsByTag) {
       const tagsData = get(getTagsData)(data.byTag, width, options);
       let atLeastOneCannot;
