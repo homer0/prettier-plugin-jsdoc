@@ -301,7 +301,7 @@ const createParser =
         get(formatCommentTags)(options),
         get(formatCommentBlock)(options),
       );
-      const renderer = getRenderer(options);
+      const renderer = get(getRenderer)(options);
       if (ast.comments && ast.comments.length) {
         await get(processComments)(options, ast.comments, formatter, (info) => {
           const { comment, column, block } = info;

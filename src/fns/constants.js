@@ -55,6 +55,7 @@ const getTagsWithDescriptionAsName = () => [
   'file',
   'license',
   'remarks',
+  'privateRemarks',
   'summary',
   'throws',
   'returns',
