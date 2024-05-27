@@ -1,3 +1,12 @@
+## [9.0.1](https://github.com/homer0/prettier-plugin-jsdoc/compare/9.0.0...9.0.1) (2024-05-27)
+
+
+### Bug Fixes
+
+* access getRenderer from the container ([c1d6ef7](https://github.com/homer0/prettier-plugin-jsdoc/commit/c1d6ef7010b1b6fe9d9028ff9f6d46a7a547f536))
+* add support for the privateRemarks tag ([1ec37b9](https://github.com/homer0/prettier-plugin-jsdoc/commit/1ec37b90142d223da2b0dfa20b6ec02bfe0771b7))
+* update dependencies ([86ce9e7](https://github.com/homer0/prettier-plugin-jsdoc/commit/86ce9e79568ec14ba2e1cac0636846a507b6df10))
+
 # [9.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/8.0.0...9.0.0) (2024-04-09)
 
 
