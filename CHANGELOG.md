@@ -1,3 +1,10 @@
+## [9.0.2](https://github.com/homer0/prettier-plugin-jsdoc/compare/9.0.1...9.0.2) (2024-05-28)
+
+
+### Bug Fixes
+
+* support links with custom labels ([cf8844e](https://github.com/homer0/prettier-plugin-jsdoc/commit/cf8844e0c1ad8b9bdacdd0ede05404879c15e21f))
+
 ## [9.0.1](https://github.com/homer0/prettier-plugin-jsdoc/compare/9.0.0...9.0.1) (2024-05-27)
 
 
