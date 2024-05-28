@@ -27,6 +27,14 @@ module.exports = {
  */
 export function log(name = 'batman', logger) {}
 
+/**
+ * @type {Object} RemarkWithLink
+ * @remarks
+ * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada fermentum {@link SomethingElse} nibh, sed aliquet ante porta a. Nullam blandit posuere fringilla. Nullam vel risus vitae lectus luctus auctor a venenatis ante. In hac habitasse platea dictumst.
+ * @privateRemarks
+ * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec xx {@link SomethingElse | something} nibh, sed aliquet ante porta a. Nullam blandit posuere fringilla. Nullam vel risus vitae lectus luctus auctor a venenatis ante. In hac habitasse platea dictumst.
+ */
+
 //# output
 
 /**
@@ -47,3 +55,16 @@ export function log(name = 'batman', logger) {}
  * vitae lectus luctus auctor a venenatis ante. In hac habitasse platea dictumst.
  */
 export function log(name = 'batman', logger) {}
+
+/**
+ * @type {Object} RemarkWithLink
+ * @remarks
+ * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada fermentum
+ * {@link SomethingElse} nibh, sed aliquet ante porta a. Nullam blandit posuere fringilla. Nullam
+ * vel risus vitae lectus luctus auctor a venenatis ante. In hac habitasse platea dictumst.
+ * @privateRemarks
+ * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec xx
+ * {@link SomethingElse | something} nibh, sed aliquet ante porta a. Nullam blandit posuere
+ * fringilla. Nullam vel risus vitae lectus luctus auctor a venenatis ante. In hac habitasse platea
+ * dictumst.
+ */
