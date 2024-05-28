@@ -156,7 +156,7 @@ const splitText = (text, length) => {
   let result = R.compose(
     R.addIndex(R.reduce)(get(reduceSentences)(length), ['']),
     R.reduce(get(reduceWordsList), []),
-    R.split(/(?<!\{@\w+) /),
+    R.split(/(?<!\{@\w+[^}]*) /),
     R.reduce(get(reduceText), ''),
   )(lines);
 
