@@ -269,7 +269,12 @@ const getRenderer = (options) => {
     const prefix = `${padding}* `;
     const lines = renderer(column, block);
 
-    if (lines.length === 1 && options.jsdocUseInlineCommentForASingleTagBlock) {
+    if (
+      lines.length === 1 &&
+      options.jsdocUseInlineCommentForASingleTagBlock &&
+      (block.tags.length > 0 ||
+        !options.jsdocExperimentalIgnoreInlineForCommentsWithoutTags)
+    ) {
       return `* ${lines[0]} `;
     }
 
