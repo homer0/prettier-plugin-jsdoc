@@ -460,6 +460,128 @@ describe('getParsers', () => {
     });
   });
 
+  it('should render an inline comment with no tags', async () => {
+    // Given
+    const commentText = 'Lorem ipsum dolor sit amet.';
+    const commentStr = `*\n * ${commentText}\n `;
+    const column = 2;
+    const astBase = {
+      comments: [
+        {
+          type: 'CommentBlock',
+          value: commentStr,
+          loc: {
+            start: {
+              column,
+            },
+          },
+        },
+      ],
+    };
+    const ast = R.clone(astBase);
+    const tagsList = [];
+    const parsed = [
+      {
+        description: '',
+        tags: tagsList,
+      },
+    ];
+    commentParser.mockImplementationOnce(() => parsed);
+    const formatTagsTypesRest = jest.fn((tags) => tags);
+    formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
+    const formatTagsRest = jest.fn((tags) => tags);
+    formatTags.mockImplementationOnce(() => formatTagsRest);
+    const formatDescriptionRest = jest.fn((tags) => tags);
+    formatDescription.mockImplementationOnce(() => formatDescriptionRest);
+    const prepareTagsRest = jest.fn((tags) => tags);
+    prepareTags.mockImplementationOnce(() => prepareTagsRest);
+    const renderRest = jest.fn(() => [commentText]);
+    render.mockImplementationOnce(() => renderRest);
+
+    babelParser.parsers['babel-flow'].parse.mockImplementationOnce(() => ast);
+    const text = 'lorem ipsum';
+    const parsers = ['babel'];
+    const options = {
+      jsdocPluginEnabled: true,
+      jsdocUseInlineCommentForASingleTagBlock: true,
+      jsdocExperimentalFormatCommentsWithoutTags: true,
+      printWidth: 80,
+    };
+    let sut = null;
+    // When
+    sut = getParsers();
+    await sut['babel-flow'].parse(text, parsers, options);
+    // Then
+    expect(ast).toEqual({
+      comments: [
+        {
+          type: 'CommentBlock',
+          value: `* ${commentText} `,
+          loc: {
+            start: {
+              column,
+            },
+          },
+        },
+      ],
+    });
+  });
+
+  it('should ignore and inline comment if it has no tags and option is enabled', async () => {
+    // Given
+    const commentText = 'Lorem ipsum dolor sit amet.';
+    const commentStr = `*\n * ${commentText}\n `;
+    const column = 0;
+    const astBase = {
+      comments: [
+        {
+          type: 'CommentBlock',
+          value: commentStr,
+          loc: {
+            start: {
+              column,
+            },
+          },
+        },
+      ],
+    };
+    const ast = R.clone(astBase);
+    const parsed = [
+      {
+        description: '',
+        tags: [],
+      },
+    ];
+    commentParser.mockImplementationOnce(() => parsed);
+    const formatTagsTypesRest = jest.fn((tags) => tags);
+    formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
+    const formatTagsRest = jest.fn((tags) => tags);
+    formatTags.mockImplementationOnce(() => formatTagsRest);
+    const formatDescriptionRest = jest.fn((tags) => tags);
+    formatDescription.mockImplementationOnce(() => formatDescriptionRest);
+    const prepareTagsRest = jest.fn((tags) => tags);
+    prepareTags.mockImplementationOnce(() => prepareTagsRest);
+    const renderRest = jest.fn(() => [commentText]);
+    render.mockImplementationOnce(() => renderRest);
+
+    babelParser.parsers['babel-flow'].parse.mockImplementationOnce(() => ast);
+    const text = 'lorem ipsum';
+    const parsers = ['babel'];
+    const options = {
+      jsdocPluginEnabled: true,
+      jsdocUseInlineCommentForASingleTagBlock: true,
+      jsdocExperimentalFormatCommentsWithoutTags: true,
+      jsdocExperimentalIgnoreInlineForCommentsWithoutTags: true,
+      printWidth: 80,
+    };
+    let sut = null;
+    // When
+    sut = getParsers();
+    await sut['babel-flow'].parse(text, parsers, options);
+    // Then
+    expect(ast).toEqual(astBase);
+  });
+
   it('should fix a tag without a space between name and type', async () => {
     // Given
     const commentStr = '*\n * @typedef{string} MyStr\n ';

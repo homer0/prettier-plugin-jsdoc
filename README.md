@@ -874,6 +874,14 @@ This will prevent the plugin from running from the original package. The idea is
 
 By default, the plugin will only parse comments with tags. Use this option, at your own risk, if you want to format blocks without tags.
 
+##### Ignore inline blocks for comments without tags
+
+| Option                                                | Type    | Default |
+| ----------------------------------------------------- | ------- | ------- |
+| `jsdocExperimentalIgnoreInlineForCommentsWithoutTags` | boolean | `false` |
+
+Whether or not to ignore the `jsdocUseInlineCommentForASingleTagBlock` option for comments without tags (when `jsdocExperimentalFormatCommentsWithoutTags` is enabled).
+
 ### 🚫 Ignoring blocks
 
 If you have some blocks where you don't the plugin to make any modification, you can add the `@prettierignore` tag and it/they will be skipped:

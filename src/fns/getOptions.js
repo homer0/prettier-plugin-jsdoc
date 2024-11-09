@@ -327,6 +327,14 @@ const getOptions = () => ({
     description:
       'Whether or not to format comments without tags as if they were JSDoc comments.',
   },
+  jsdocExperimentalIgnoreInlineForCommentsWithoutTags: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: false,
+    description:
+      'Whether or not to ignore the `jsdocUseInlineCommentForASingleTagBlock` option ' +
+      'for comments without tags.',
+  },
   jsdocIgnoreTags: {
     type: 'path',
     category: 'jsdoc',
