@@ -1,3 +1,16 @@
+# [9.1.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/9.0.2...9.1.0) (2024-11-09)
+
+
+### Bug Fixes
+
+* add support for node version 22 ([9943109](https://github.com/homer0/prettier-plugin-jsdoc/commit/9943109cb7f1355f603b5924196b6f4ad66415c4))
+* update dependencies ([5294125](https://github.com/homer0/prettier-plugin-jsdoc/commit/5294125c874b1c1ee9bd68a2c2e065fad169838b))
+
+
+### Features
+
+* add option to ignore inline blocks when there are not tags ([0090712](https://github.com/homer0/prettier-plugin-jsdoc/commit/0090712cb6a9a0ee51fa289c67e554d9e237f8cf))
+
 ## [9.0.2](https://github.com/homer0/prettier-plugin-jsdoc/compare/9.0.1...9.0.2) (2024-05-28)
 
 
