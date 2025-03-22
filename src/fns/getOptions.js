@@ -193,7 +193,7 @@ const getOptions = () => ({
           'protected',
           'public',
           'access',
-          'desprecated',
+          'deprecated',
           'author',
           'version',
           'since',
