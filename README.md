@@ -29,7 +29,7 @@ A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) bl
   - [Manage indentation for pseudo code examples](#manage-indentation-for-pseudo-code-examples)
 - [`@access` tag](#access-tag)
   - [Allow @access tag](#allow-access-tag)
-  - [Enfore the use of the @access tag](#enfore-the-use-of-the-access-tag)
+  - [Enforce the use of the @access tag](#enfore-the-use-of-the-access-tag)
 - [Types with string literals](#types-with-string-literals)
   - [Format types with string literals](#format-types-with-string-literals)
   - [Specify quotes types for string literals](#specify-quotes-types-for-string-literals)
@@ -249,7 +249,7 @@ Whether or not the `@access` tag can be used; if `false`, when a tag is found, i
  */
 ```
 
-##### Enfore the use of the @access tag
+##### Enforce the use of the @access tag
 
 | Option                  | Type    | Default |
 | ----------------------- | ------- | ------- |
@@ -529,9 +529,9 @@ Whether or not to sort the tags of a JSDoc block.
 
 | Option           | Type  | Default                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ---------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `jsdocTagsOrder` | array | <ul><li>`type`</li><li>`typedef`</li><li>`callback`</li><li>`function`</li><li>`method`</li><li>`class`</li><li>`file`</li><li>`constant`</li><li>`description`</li><li>`classdesc`</li><li>`example`</li><li>`param`</li><li>`property`</li><li>`returns`</li><li>`template`</li><li>`augments`</li><li>`extends`</li><li>`throws`</li><li>`yields`</li><li>`fires`</li><li>`listens`</li><li>`async`</li><li>`abstract`</li><li>`override`</li><li>`private`</li><li>`protected`</li><li>`public`</li><li>`access`</li><li>`desprecated`</li><li>`author`</li><li>`version`</li><li>`since`</li><li>`member`</li><li>`memberof`</li><li>`category`</li><li>`external`</li><li>`see`</li><li>`other`</li><li>`todo`</li></ul> |
+| `jsdocTagsOrder` | array | <ul><li>`type`</li><li>`typedef`</li><li>`callback`</li><li>`function`</li><li>`method`</li><li>`class`</li><li>`file`</li><li>`constant`</li><li>`description`</li><li>`classdesc`</li><li>`example`</li><li>`param`</li><li>`property`</li><li>`returns`</li><li>`template`</li><li>`augments`</li><li>`extends`</li><li>`throws`</li><li>`yields`</li><li>`fires`</li><li>`listens`</li><li>`async`</li><li>`abstract`</li><li>`override`</li><li>`private`</li><li>`protected`</li><li>`public`</li><li>`access`</li><li>`deprecated`</li><li>`author`</li><li>`version`</li><li>`since`</li><li>`member`</li><li>`memberof`</li><li>`category`</li><li>`external`</li><li>`see`</li><li>`other`</li><li>`todo`</li></ul> |
 
-A list specifing the order in which the the tags of a JSDoc block should be sorted. It supports an `other` item to place tags that are not on the list.
+A list specifying the order in which the the tags of a JSDoc block should be sorted. It supports an `other` item to place tags that are not on the list.
 
 #### Rendering
 
@@ -608,7 +608,7 @@ The alternative:
 | ------------------------ | ------- | ------- |
 | `jsdocGroupColumnsByTag` | boolean | `true`  |
 
-Whether to respect column alignment within the same tag. For example: all `@param` tags are agligned with eachother, but not with all the `@throws` tags.
+Whether to respect column alignment within the same tag. For example: all `@param` tags are aligned with each other, but not with all the `@throws` tags.
 
 ```js
 // jsdocGroupColumnsByTag: false
@@ -642,7 +642,7 @@ Whether to respect column alignment within the same tag. For example: all `@para
 | ------------------------ | ------- | ------- |
 | `jsdocConsistentColumns` | boolean | `true`  |
 
-This is for when the columns are algined by tags; if `true` and one tag can't use columns, no other tag will use them either.
+This is for when the columns are aligned by tags; if `true` and one tag can't use columns, no other tag will use them either.
 
 ```js
 // jsdocConsistentColumns: true
@@ -997,7 +997,7 @@ The problem is that the plugin will end up putting those lines together, as it w
  */
 ```
 
-It may look like a bug, but this is actually the functionality that formats the the descriptions in order to respect the [`printWidth`/`jsodcPrintWidth`](#custom-width) option.
+It may look like a bug, but this is actually the functionality that formats the the descriptions in order to respect the [`printWidth`/`jsdocPrintWidth`](#custom-width) option.
 
 The way you can solve this is by adding a period at the end of the line, which will tell the plugin that you ended the sentence and that it should respect the line break
 
@@ -1097,7 +1097,7 @@ module.exports = { only: true, jsdocPrintWidth: 70 };
  */
 ```
 
-- The `module.exports` specifiy the plugin options for that specific case.
+- The `module.exports` defines the plugin options for that specific case.
 - `only: true` is not a plugin option, but will make the test runner ignore all the other tests, and only run the one you specify.
 - Below `//# input` you can put any number of comment blocks, in the state you would expect the plugin to pick them.
 - Below `//# output` you have to put the expected output after formatting the input with the plugin.
@@ -1113,4 +1113,4 @@ Ok, there won't accept options requests? that's perfect, it doesn't make sense t
 
 Enough rant; I started using Prettier a couple of weeks ago and being a huge fan of JSDoc, I wanted to use it to format JSDoc blocks too, something I've doing, for sometime now, using a Node script that I was trying to make into a VSCode plugin :P.
 
-I found [prettier-plugin-jsdoc](https://github.com/hosseinmd/prettier-plugin-jsdoc/) by [@hosseinmd](https://github.com/hosseinmd), but it (currently) doesn't cover most of the cases I wanted (like columns creations), it's written in TypeScript (which I don't like very much) and if I were to fork and send PRs, it could've taken forever (you can see the commits for this package), and it seemed like the perfect oportunity to try [Ramda](https://ramdajs.com) and functional programming... so I started a new one.
+I found [prettier-plugin-jsdoc](https://github.com/hosseinmd/prettier-plugin-jsdoc/) by [@hosseinmd](https://github.com/hosseinmd), but it (currently) doesn't cover most of the cases I wanted (like columns creations), it's written in TypeScript (which I don't like very much) and if I were to fork and send PRs, it could've taken forever (you can see the commits for this package), and it seemed like the perfect opportunity to try [Ramda](https://ramdajs.com) and functional programming... so I started a new one.

@@ -35,7 +35,7 @@ const makePropertyIntoSentence = R.curry((property, tag) =>
 const prepareTagDescription = (tag) => {
   const useHasValidProperty = get(hasValidProperty);
   const useIsStag = get(isTag);
-  const useMakePropertyInstoSentence = get(makePropertyIntoSentence);
+  const useMakePropertyIntoSentence = get(makePropertyIntoSentence);
   const useCannotBeSentence = get(getTagsWithDescriptionThatCannotBeSentences)();
   return R.unless(
     useIsStag(useCannotBeSentence),
@@ -44,14 +44,14 @@ const prepareTagDescription = (tag) => {
       R.compose(
         R.when(
           useHasValidProperty('description'),
-          useMakePropertyInstoSentence('description'),
+          useMakePropertyIntoSentence('description'),
         ),
         R.when(
           R.allPass([
             useIsStag(get(getTagsWithNameAsDescription)()),
             useHasValidProperty('name'),
           ]),
-          useMakePropertyInstoSentence('name'),
+          useMakePropertyIntoSentence('name'),
         ),
       ),
     ),

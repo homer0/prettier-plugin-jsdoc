@@ -98,7 +98,7 @@ const generateCommentData = (comment) => {
 };
 
 /**
- * Checks if the tag that tells the plugin to ingore the comment is present.
+ * Checks if the tag that tells the plugin to ignore the comment is present.
  *
  * @param {ParsingInformation} info  The parsed information of the comment.
  * @returns {boolean}
@@ -146,7 +146,7 @@ const shouldIgnoreComment = R.curry((options, info) =>
  */
 
 /**
- * A function that will recieve a validated, parsed and formatted comment. The idea is for
+ * A function that will receive a validated, parsed and formatted comment. The idea is for
  * the function to actually do the final changes and update the AST.
  *
  * @callback CommentProcessorFn

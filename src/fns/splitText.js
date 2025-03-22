@@ -65,9 +65,8 @@ const reduceWordsList = (list, word) =>
  * @param {number}   length  The length the lines can have.
  * @param {string[]} list    The current list of words (the accumulator).
  * @param {string}   word    The word to process.
- * @param {number}   index   The current interation index; needed in order to check if
- *                           it's the first iteration and avoid looking for the previous
- *                           line.
+ * @param {number}   index   The current iteration index; needed in order to check if it's
+ *                           the first iteration and avoid looking for the previous line.
  * @returns {string[]}
  */
 
@@ -119,7 +118,7 @@ const reduceText = (text, line) => {
  * @param {string} text    The text to split.
  * @param {number} length  The max length a line cannot exceed.
  * @returns {string[]}
- * @todo The support for Markdown table needs to be "Ramdified".
+ * @todo The support for Markdown table needs to be "Ramdafied".
  */
 const splitText = (text, length) => {
   const useIsTableRow = get(isTableRow);
@@ -128,11 +127,11 @@ const splitText = (text, length) => {
     (acc, line, index) => {
       if (useIsTableRow(line)) {
         const slug = line.replace(/\s+/g, '-');
-        const sufix = `id:${index}-${slug}`;
+        const suffix = `id:${index}-${slug}`;
         const space = '-'.repeat(
-          Math.max(length - (TABLE_ROW_PREFIX.length + sufix.length), 1),
+          Math.max(length - (TABLE_ROW_PREFIX.length + suffix.length), 1),
         );
-        const key = `${TABLE_ROW_PREFIX}${space}${sufix}`;
+        const key = `${TABLE_ROW_PREFIX}${space}${suffix}`;
         acc.rows[key] = line;
         const prevIndex = acc.lines.length - 1;
         const prevLine = acc.lines[prevIndex];

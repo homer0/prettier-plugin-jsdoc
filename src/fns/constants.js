@@ -8,7 +8,7 @@ const { provider } = require('./app');
  * Gets a dictionary where the keys are old tags' names, and values the current tag name
  * for which they are synonym.
  *
- * This is used by one of the plugin functionalitites that updates tags' names.
+ * This is used by one of the plugin functionalities that updates tags' names.
  *
  * @returns {Object.<string, string>}
  */

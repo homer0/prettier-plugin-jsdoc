@@ -12,7 +12,7 @@ const { composeWithPromise, reduceWithPromise } = require('./utils');
 
 /**
  * Takes a list of tags and runs them through all the preparations needed for them to be
- * rendered. Preparations include adding the brackes for optional parameters and running
+ * rendered. Preparations include adding the brackets for optional parameters and running
  * Prettier for complex types.
  *
  * @callback PrepareTagsFn

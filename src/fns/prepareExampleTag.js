@@ -110,7 +110,7 @@ const formatExampleTag = R.curry(async (options, column, tag) => {
 });
 
 /**
- * Checks if a tag is an `example` and attemps to format it using Prettier.
+ * Checks if a tag is an `example` and attempts to format it using Prettier.
  *
  * @callback PrepareExampleTagFn
  * @param {PrettierOptions} options  The options sent to the plugin, needed for the

@@ -28,7 +28,7 @@ const { get, provider } = require('./app');
  * can be used ona reducer/map.
  *
  * @param {string} padding  The padding that should be around the literals.
- * @param {string} quote    The quote charater that should wrap the literals.
+ * @param {string} quote    The quote character that should wrap the literals.
  * @returns {StringLiteralFormatter}
  */
 const getFormatter = (padding, quote) =>

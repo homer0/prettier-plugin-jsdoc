@@ -7,7 +7,7 @@ const { get, provider } = require('./app');
  */
 
 /**
- * This is the function that actuall processes the types and the options of
+ * This is the function that actual processes the types and the options of
  * {@link formatObjects}.
  * The reason this is on a separated function is to avoid adding composition inside the
  * `when`.
