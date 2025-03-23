@@ -1,3 +1,31 @@
+# [10.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/9.1.0...10.0.0) (2025-03-23)
+
+
+### Bug Fixes
+
+* add support for the notes tag ([7494a63](https://github.com/homer0/prettier-plugin-jsdoc/commit/7494a63ce2ee1398cdb51ff0beabf1046dfa229e))
+* correct typo in `descriptionParagraph` property ([64b22ec](https://github.com/homer0/prettier-plugin-jsdoc/commit/64b22ec356a7f71c9d1190dce1a6614ec60d4d77))
+* correct typo in `getFormatter` method ([ae86690](https://github.com/homer0/prettier-plugin-jsdoc/commit/ae866902ab60b32472eb19913864a9b701254f0a))
+* correct typo in render methods' names ([32a519b](https://github.com/homer0/prettier-plugin-jsdoc/commit/32a519be41820f9f553ce2cc8cedf16667c1f59a))
+* move notes to the tags with desc as name ([7e6d23e](https://github.com/homer0/prettier-plugin-jsdoc/commit/7e6d23e260cf8a6a669e0f08aa9eba11487c923a))
+* typo on deprecated tag ([1e43b30](https://github.com/homer0/prettier-plugin-jsdoc/commit/1e43b30cd57f56f7cf20df53d9abd887b520d9bf))
+* update all the dependencies ([8aa9ac0](https://github.com/homer0/prettier-plugin-jsdoc/commit/8aa9ac02d60bb71cfb4cdd3b3dd402f5d45d3554))
+
+
+### BREAKING CHANGES
+
+* prettier has been moved from prod dependency to peer
+dependency, so you'll have to add it to your own package.json, if
+if you didn't have it already.
+* If the plugin is being extended, the utility methods
+`renderTagsInlines` and `tryToRenderTagsInColums` have been fixed
+and they are now `renderTagsInLines` and `tryToRenderTagsInColumns`.
+* If the plugin is being extended, the utility function
+for TS types `getFormater` has been fixed and it's now `getFormatter`.
+* If the plugin is being extended, the tag property
+`descriptionParagrah` has been fixed and it's now
+`descriptionParagraph`.
+
 # [9.1.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/9.0.2...9.1.0) (2024-11-09)
 
 
