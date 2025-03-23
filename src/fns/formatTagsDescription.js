@@ -12,14 +12,14 @@ const { get, provider } = require('./app');
 
 /**
  * Checks if a tag description starts with a new line or not in order to add the
- * `descriptionParagrah` flag property.
+ * `descriptionParagraph` flag property.
  *
  * @param {CommentTag} tag  The tag where the flag will be added.
  * @returns {CommentTag}
  */
 const addParagraphFlag = (tag) => ({
   ...tag,
-  descriptionParagrah: tag.description.startsWith('\n'),
+  descriptionParagraph: tag.description.startsWith('\n'),
 });
 
 /**
@@ -78,7 +78,7 @@ const addLinkToDescription = (tag) => ({
  * Formats the descriptions of a list of tags in order to fix those texts the parser may
  * have incorrectly splitted (like the tag description that ends on `name` and
  * `description`), moves `link` tags mistaken as types to the description, and then it
- * adds the `descriptionParagrah` flag to the tags.
+ * adds the `descriptionParagraph` flag to the tags.
  *
  * @param {CommentTag[]} tags  The list of tags to format.
  * @returns {CommentTag[]}

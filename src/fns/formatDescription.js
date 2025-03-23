@@ -55,7 +55,7 @@ const findTag = R.curry((targetTag, matchHandlerFn, unmatchHandlerFn, step) => {
  *                                    One can be from the block body, other from a
  *                                    description tag, other from a typedef tag, etc.
  * @property {CommentTag[]} tags      The list of tags processed by the reducer.
- * @property {number}       tagIndex  The index, if found, of a descriptiont ag.
+ * @property {number}       tagIndex  The index, if found, of a description tag.
  */
 
 /**

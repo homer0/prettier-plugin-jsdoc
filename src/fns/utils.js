@@ -67,7 +67,7 @@ const isTag = R.curry((targetTag, tag) => {
  */
 
 /**
- * @type {AddIfNotPresentFn}
+ * @type {AppendIfNotPresentFn}
  */
 const appendIfNotPresent = R.curry((item, list) =>
   R.unless(R.includes(item), R.append(item), list),
@@ -78,7 +78,7 @@ const appendIfNotPresent = R.curry((item, list) =>
  * @callback JoinIfNotEmptyFn
  * @param {string}   glue  The string that will be added between the items on the final
  *                         result.
- * @param {string[]} strs  The list of strings to join.
+ * @param {string[]} str   The list of strings to join.
  * @returns {string}
  */
 
@@ -352,7 +352,7 @@ const ensureSentence = (text) =>
   );
 
 /**
- * A version of Rambdas `compose` that can handle promises.
+ * A version of Rambda's `compose` that can handle promises.
  *
  * @param {...*} args  The list of functions to compose.
  * @returns {*}

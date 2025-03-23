@@ -73,7 +73,7 @@ const TYPE_WRAPPERS_LENGTH = 2;
  * @param {CommentTag[]}    tags     The list of tags to render.
  * @returns {string[]} The list of lines.
  */
-const renderTagsInlines = (width, options, tags) => {
+const renderTagsInLines = (width, options, tags) => {
   const useIsTag = get(isTag);
   return R.compose(
     R.flatten,
@@ -130,7 +130,7 @@ const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) => {
 
 /**
  * Renders a list of tags while trying to use the columns format, but if is not possible
- * (based on `tagsData`), it will falback to the in lines format.
+ * (based on `tagsData`), it will fallback to the in lines format.
  *
  * @param {Object.<string, TagColumnsWidthData>} tagsData
  * A dictionary with the information of the columns for each tag type found on the block.
@@ -143,7 +143,7 @@ const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) => {
  * @returns {string[]}
  * The list of lines.
  */
-const tryToRenderTagsInColums = (tagsData, width, options, tags) => {
+const tryToRenderTagsInColumns = (tagsData, width, options, tags) => {
   const useIsTag = get(isTag);
   return R.compose(
     R.flatten,
@@ -195,7 +195,7 @@ const getLengthsData = (tags, options) =>
       const tagLength = tag.tag.length;
       const typeLength = tag.type.length;
       const hasMultilineType = tag.type.includes('\n');
-      const hasADescriptionParagraph = tag.descriptionParagrah;
+      const hasADescriptionParagraph = tag.descriptionParagraph;
       const nameLength = tag.name.length;
       if (tagLength > acc.tag) {
         acc.tag = tagLength;
@@ -369,29 +369,31 @@ const render = R.curry((options, column, block) => {
       }
 
       if (atLeastOneCannot && options.jsdocConsistentColumns) {
-        lines.push(...get(renderTagsInlines)(width, options, block.tags));
+        lines.push(...get(renderTagsInLines)(width, options, block.tags));
       } else {
-        lines.push(...get(tryToRenderTagsInColums)(tagsData, width, options, block.tags));
+        lines.push(
+          ...get(tryToRenderTagsInColumns)(tagsData, width, options, block.tags),
+        );
       }
     } else {
       const columnsWidth = get(calculateColumnsWidth)(options, data, width);
       if (columnsWidth.description >= options.jsdocDescriptionColumnMinLength) {
         lines.push(...get(renderTagsInColumns)(columnsWidth, width, options, block.tags));
       } else {
-        lines.push(...get(renderTagsInlines)(width, options, block.tags));
+        lines.push(...get(renderTagsInLines)(width, options, block.tags));
       }
     }
   } else {
-    lines.push(...get(renderTagsInlines)(width, options, block.tags));
+    lines.push(...get(renderTagsInLines)(width, options, block.tags));
   }
 
   return lines;
 });
 
 module.exports.render = render;
-module.exports.renderTagsInlines = renderTagsInlines;
+module.exports.renderTagsInLines = renderTagsInLines;
 module.exports.renderTagsInColumns = renderTagsInColumns;
-module.exports.tryToRenderTagsInColums = tryToRenderTagsInColums;
+module.exports.tryToRenderTagsInColumns = tryToRenderTagsInColumns;
 module.exports.getLengthsData = getLengthsData;
 module.exports.calculateColumnsWidth = calculateColumnsWidth;
 module.exports.getTagsData = getTagsData;

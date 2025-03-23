@@ -161,7 +161,7 @@ const getOptions = () => ({
     category: 'jsdoc',
     array: true,
     description:
-      'A list specifing the order in which the the tags of a JSDoc block should be sorted. It ' +
+      'A list specifying the order in which the the tags of a JSDoc block should be sorted. It ' +
       'supports an `other` item to place tags that are not on the list.',
     default: [
       {
@@ -193,7 +193,7 @@ const getOptions = () => ({
           'protected',
           'public',
           'access',
-          'desprecated',
+          'deprecated',
           'author',
           'version',
           'since',
@@ -231,14 +231,14 @@ const getOptions = () => ({
     default: true,
     description:
       'Whether to respect column alignment within the same tag. For example: all @param tags ' +
-      'are agligned with eachother, but not with all the @throws tags.',
+      'are aligned with each other, but not with all the @throws tags.',
   },
   jsdocConsistentColumns: {
     type: 'boolean',
     category: 'jsdoc',
     default: true,
     description:
-      "This is for when the columns are algined by tags; if `true` and one tag can't use " +
+      "This is for when the columns are aligned by tags; if `true` and one tag can't use " +
       'columns, no other tag will use them either.',
   },
   jsdocDescriptionColumnMinLength: {

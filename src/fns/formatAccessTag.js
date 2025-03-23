@@ -88,7 +88,7 @@ const formatAccessTag = R.curry((tags, options) => {
 
   /**
    * Return the modified object, if there's one, or just a clone of the tags list. The reason
-   * for the short circuit is so the implementation can always asume that the method returns
+   * for the short circuit is so the implementation can always assume that the method returns
    * a clone, no matter if no modification was made.
    */
   return result || R.clone(tags);

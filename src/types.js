@@ -33,7 +33,7 @@
 /**
  * @typedef {Object} PJPExamplesOptions
  * @property {boolean} jsdocFormatExamples
- * Whether or not to attemp to format the `example` tags using Prettier. Default `true`.
+ * Whether or not to attempt to format the `example` tags using Prettier. Default `true`.
  * @property {number} jsdocLinesBetweenExampleTagAndCode
  * How many lines should there be between an `example` tag and its code. Default `1`.
  * @property {boolean} jsdocIndentFormattedExamples
@@ -91,7 +91,7 @@
  *                                                Default `true`.
  * @property {boolean}  jsdocSortTags             Whether or not to sort the tags of a
  *                                                JSDoc block. Default `true`.
- * @property {string[]} jsdocTagsOrder            A list specifing the order in which the
+ * @property {string[]} jsdocTagsOrder            A list specifying the order in which the
  *                                                the tags of a JSDoc block should be
  *                                                sorted. It supports an `other` item to
  *                                                place tags that are not on the list.
@@ -104,9 +104,9 @@
  * `false`, the descriptions will be moved to a new line. Default `true`.
  * @property {boolean} jsdocGroupColumnsByTag
  * Whether to respect column alignment within the same tag. For example: all `param` tags
- * are agligned with eachother, but not with all the `throws` tags. Default `true`.
+ * are aligned with each other, but not with all the `throws` tags. Default `true`.
  * @property {boolean} jsdocConsistentColumns
- * This is for when the columns are algined by tags; if `true` and one tag can't use
+ * This is for when the columns are aligned by tags; if `true` and one tag can't use
  * columns, no other tag will use them either. Default `true`.
  * @property {number} jsdocDescriptionColumnMinLength
  * When using columns, this is the minimum available space the description column must
@@ -190,7 +190,7 @@
  * Whether or not what the tag represents is optional.
  * @property {string} [default]
  * The default value of what the tag represents.
- * @property {boolean} [descriptionParagrah]
+ * @property {boolean} [descriptionParagraph]
  * If `true`, it means that the description was originally below the tag line.
  * @property {CommentTagExample[]} [examples]
  * A list of examples associated to the tag.
