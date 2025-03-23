@@ -55,6 +55,7 @@ const getTagsWithDescriptionAsName = () => [
   'file',
   'license',
   'remarks',
+  'notes',
   'privateRemarks',
   'summary',
   'throws',
@@ -77,14 +78,7 @@ const getTagsThatRequireColumns = () => ['template'];
  *
  * @returns {string[]}
  */
-const getTagsWithNameAsDescription = () => [
-  'see',
-  'borrows',
-  'yields',
-  'todo',
-  'since',
-  'notes',
-];
+const getTagsWithNameAsDescription = () => ['see', 'borrows', 'yields', 'todo', 'since'];
 /**
  * There are certain tags which description cannot be converted into sentences (upper case
  * and period at the end).
