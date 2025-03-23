@@ -10,12 +10,48 @@ A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) bl
 
 > If you are wondering why I built this, go to the [Motivation](#motivation) section.
 
+- 📦 [Installation](#-Installation)
 - ⚙️ [Options](#%EF%B8%8F-options)
 - 🚫 [Ignoring blocks](#-ignoring-blocks)
 - ⚡️ [Modifying the functionality](#%EF%B8%8F-modifying-the-functionality)
 - 📖 [Troubleshooting](#-troubleshooting)
 - 🤘 [Development](#-development)
 - 🐞 [Validating bugs](#-validating-bugs)
+
+### 📦 Installation
+
+First, please check the [official documentation](https://prettier.io/docs/plugins#using-plugins) on how plugins are used.
+
+Just to recap, and focusing in the configuration file approach, there are two ways in which you are probably going to be using this plugin:
+
+#### 1. Adding it to your existing configuration
+
+The simplest use case: you have a configuration with your rules, and you want to add the plugin. You'd need to define the `plugins` array, if you don't have it already, and add the plugin name to it:
+
+```json
+{
+  "tabWidth": 90,
+  "plugins": ["@homer0/prettier-plugin-jsdoc"]
+}
+```
+
+#### 2. Extending an existing configuration and adding the plugin
+
+This is kind of confusing in the official docs, because it's not linked in the "using plugins" section, but rather in the ["using a shareable config"](https://prettier.io/docs/sharing-configurations#using-a-shareable-config) section.
+
+Unfortunately, Prettier doesn't have a way to use and extend an existing configuration with a JSON syntax, so you have to change to a JavaScript file:
+
+```js
+const config = require('@homer0/prettier-config');
+
+module.exports = {
+  ...config,
+  plugins: [
+    ...(config.plugins || []),
+    '@homer0/prettier-plugin-jsdoc'
+  ],
+};
+```
 
 ### ⚙️ Options
 
