@@ -1,3 +1,11 @@
+## [10.0.1](https://github.com/homer0/prettier-plugin-jsdoc/compare/10.0.0...10.0.1) (2025-12-03)
+
+
+### Bug Fixes
+
+* remove node version upper limit ([0aa7f4d](https://github.com/homer0/prettier-plugin-jsdoc/commit/0aa7f4d70238bd4eb11278828692d61586a78fe2))
+* update prod dependencies ([540a09f](https://github.com/homer0/prettier-plugin-jsdoc/commit/540a09f80dcc7d85834577effb9662b084dd718d))
+
 # [10.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/9.1.0...10.0.0) (2025-03-23)
 
 
