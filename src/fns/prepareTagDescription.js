@@ -1,10 +1,10 @@
-const R = require('ramda');
-const { ensureSentence, hasValidProperty, isTag } = require('./utils');
-const {
+import * as R from 'ramda';
+import { ensureSentence, hasValidProperty, isTag } from './utils.js';
+import {
   getTagsWithNameAsDescription,
   getTagsWithDescriptionThatCannotBeSentences,
-} = require('./constants');
-const { get, provider } = require('./app');
+} from './constants.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -22,7 +22,7 @@ const { get, provider } = require('./app');
 /**
  * @type {MakePropertyIntoSentenceFn}
  */
-const makePropertyIntoSentence = R.curry((property, tag) =>
+export const makePropertyIntoSentence = R.curry((property, tag) =>
   R.compose(R.assoc(property, R.__, tag), get(ensureSentence), R.prop(property))(tag),
 );
 
@@ -32,7 +32,7 @@ const makePropertyIntoSentence = R.curry((property, tag) =>
  * @param {CommentTag} tag  The tag which description will be formatted.
  * @returns {CommentTag}
  */
-const prepareTagDescription = (tag) => {
+export const prepareTagDescription = (tag) => {
   const useHasValidProperty = get(hasValidProperty);
   const useIsStag = get(isTag);
   const useMakePropertyIntoSentence = get(makePropertyIntoSentence);
@@ -58,5 +58,7 @@ const prepareTagDescription = (tag) => {
   )(tag);
 };
 
-module.exports.prepareTagDescription = prepareTagDescription;
-module.exports.provider = provider('prepareTagDescription', module.exports);
+export const provider = createProvider('prepareTagDescription', {
+  prepareTagDescription,
+  makePropertyIntoSentence,
+});

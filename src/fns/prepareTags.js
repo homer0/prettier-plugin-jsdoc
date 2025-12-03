@@ -1,9 +1,9 @@
-const R = require('ramda');
-const { prepareExampleTag } = require('./prepareExampleTag');
-const { prepareTagDescription } = require('./prepareTagDescription');
-const { prepareTagName } = require('./prepareTagName');
-const { get, provider } = require('./app');
-const { composeWithPromise, reduceWithPromise } = require('./utils');
+import * as R from 'ramda';
+import { prepareExampleTag } from './prepareExampleTag.js';
+import { prepareTagDescription } from './prepareTagDescription.js';
+import { prepareTagName } from './prepareTagName.js';
+import { get, createProvider } from './app.js';
+import { composeWithPromise, reduceWithPromise } from './utils.js';
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions
@@ -28,7 +28,7 @@ const { composeWithPromise, reduceWithPromise } = require('./utils');
 /**
  * @type {PrepareTagsFn}
  */
-const prepareTags = R.curry(async (tags, options, column) => {
+export const prepareTags = R.curry(async (tags, options, column) => {
   const fns = [get(prepareTagName)];
 
   if (options.jsdocFormatExamples) {
@@ -43,5 +43,6 @@ const prepareTags = R.curry(async (tags, options, column) => {
   return get(reduceWithPromise)(tags, pipeline);
 });
 
-module.exports.prepareTags = prepareTags;
-module.exports.provider = provider('prepareTags', module.exports);
+export const provider = createProvider('prepareTags', {
+  prepareTags,
+});

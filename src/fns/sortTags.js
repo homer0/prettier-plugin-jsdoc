@@ -1,6 +1,6 @@
-const R = require('ramda');
-const { getIndexOrFallback } = require('./utils');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { getIndexOrFallback } from './utils.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -14,7 +14,7 @@ const { get, provider } = require('./app');
  * @param {string[]} ref  The reference list with the order for the tags.
  * @returns {Function}
  */
-const createSorter = (ref) => {
+export const createSorter = (ref) => {
   const useGetIndexOrFallback = get(getIndexOrFallback);
   const fallback = useGetIndexOrFallback(ref, ref.length, 'other');
   const getTagWeight = useGetIndexOrFallback(ref, fallback);
@@ -28,10 +28,11 @@ const createSorter = (ref) => {
  * @param {PJPTagsOptions} options  The options that tell the function how to sort them.
  * @returns {CommentTag[]}
  */
-const sortTags = R.curry((tags, options) =>
+export const sortTags = R.curry((tags, options) =>
   R.sort(get(createSorter)(options.jsdocTagsOrder))(tags),
 );
 
-module.exports.sortTags = sortTags;
-module.exports.createSorter = createSorter;
-module.exports.provider = provider('sortTags', module.exports);
+export const provider = createProvider('sortTags', {
+  sortTags,
+  createSorter,
+});

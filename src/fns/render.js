@@ -1,15 +1,12 @@
-const R = require('ramda');
-const { splitText } = require('./splitText');
-const { isTag, ensureSentence } = require('./utils');
-const { renderExampleTag } = require('./renderExampleTag');
-const { renderTagInLine } = require('./renderTagInLine');
-const { renderTagInColumns } = require('./renderTagInColumns');
-const { renderTagOriginal } = require('./renderTagOriginal');
-const {
-  getTagsWithNameAsDescription,
-  getTagsThatRequireColumns,
-} = require('./constants');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { splitText } from './splitText';
+import { isTag, ensureSentence } from './utils.js';
+import { renderExampleTag } from './renderExampleTag.js';
+import { renderTagInLine } from './renderTagInLine.js';
+import { renderTagInColumns } from './renderTagInColumns.js';
+import { renderTagOriginal } from './renderTagOriginal.js';
+import { getTagsWithNameAsDescription, getTagsThatRequireColumns } from './constants.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentBlock} CommentBlock
@@ -73,7 +70,7 @@ const TYPE_WRAPPERS_LENGTH = 2;
  * @param {CommentTag[]}    tags     The list of tags to render.
  * @returns {string[]} The list of lines.
  */
-const renderTagsInLines = (width, options, tags) => {
+export const renderTagsInLines = (width, options, tags) => {
   const useIsTag = get(isTag);
   return R.compose(
     R.flatten,
@@ -105,7 +102,7 @@ const renderTagsInLines = (width, options, tags) => {
  * @param {CommentTag[]}            tags          The list of tags to render.
  * @returns {string[]} The list of lines.
  */
-const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) => {
+export const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) => {
   const useIsTag = get(isTag);
   return R.compose(
     R.flatten,
@@ -143,7 +140,7 @@ const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) => {
  * @returns {string[]}
  * The list of lines.
  */
-const tryToRenderTagsInColumns = (tagsData, width, options, tags) => {
+export const tryToRenderTagsInColumns = (tagsData, width, options, tags) => {
   const useIsTag = get(isTag);
   return R.compose(
     R.flatten,
@@ -185,7 +182,7 @@ const tryToRenderTagsInColumns = (tagsData, width, options, tags) => {
  * @param {PrettierOptions} options  The options sent to the plugin.
  * @returns {BlockLengthData}
  */
-const getLengthsData = (tags, options) =>
+export const getLengthsData = (tags, options) =>
   tags.reduce(
     (acc, tag) => {
       if (options.jsdocIgnoreTags.includes(tag.tag)) {
@@ -256,7 +253,7 @@ const getLengthsData = (tags, options) =>
  * @param {number}          width    The available space for the JSDoc block.
  * @returns {Object.<string, number>}
  */
-const calculateColumnsWidth = (options, data, width) => {
+export const calculateColumnsWidth = (options, data, width) => {
   const {
     jsdocMinSpacesBetweenTagAndType,
     jsdocMinSpacesBetweenTypeAndName,
@@ -292,7 +289,7 @@ const calculateColumnsWidth = (options, data, width) => {
  * @param {PrettierOptions}             options      The options sent to the plugin.
  * @returns {Object.<string, TagColumnsWidthData>}
  */
-const getTagsData = (lengthByTag, width, options) => {
+export const getTagsData = (lengthByTag, width, options) => {
   const tagsWithNameAsDesc = get(getTagsWithNameAsDescription)();
   const tagsThatRequireColumns = get(getTagsThatRequireColumns)();
   return Object.entries(lengthByTag).reduce((acc, [tagName, tagInfo]) => {
@@ -335,7 +332,7 @@ const getTagsData = (lengthByTag, width, options) => {
 /**
  * @type {RenderFn}
  */
-const render = R.curry((options, column, block) => {
+export const render = R.curry((options, column, block) => {
   const prefix = `${' '.repeat(column)} * `;
   const usePrintWidth = options.jsdocPrintWidth || options.printWidth;
   const width = usePrintWidth - prefix.length;
@@ -390,11 +387,12 @@ const render = R.curry((options, column, block) => {
   return lines;
 });
 
-module.exports.render = render;
-module.exports.renderTagsInLines = renderTagsInLines;
-module.exports.renderTagsInColumns = renderTagsInColumns;
-module.exports.tryToRenderTagsInColumns = tryToRenderTagsInColumns;
-module.exports.getLengthsData = getLengthsData;
-module.exports.calculateColumnsWidth = calculateColumnsWidth;
-module.exports.getTagsData = getTagsData;
-module.exports.provider = provider('render', module.exports);
+export const provider = createProvider('render', {
+  render,
+  renderTagsInLines,
+  renderTagsInColumns,
+  tryToRenderTagsInColumns,
+  getLengthsData,
+  calculateColumnsWidth,
+  getTagsData,
+});

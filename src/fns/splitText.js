@@ -1,11 +1,11 @@
-const R = require('ramda');
-const {
+import * as R from 'ramda';
+import {
   ensureArray,
   replaceLastItem,
   limitAdjacentRepetitions,
   isTableRow,
-} = require('./utils');
-const { get, provider } = require('./app');
+} from './utils.js';
+import { get, createProvider } from './app.js';
 
 /**
  * This is used when splitting lines that contain linebreaks; it's used as a filter so a
@@ -32,7 +32,7 @@ const TABLE_ROW_PREFIX = `@jsdoc-table-row:${new Date().getTime()}:`;
  * @param {string} text  The text to process.
  * @returns {string[]}
  */
-const splitLineBreaks = (text) =>
+export const splitLineBreaks = (text) =>
   R.compose(
     get(limitAdjacentRepetitions)(R.equals('\n'), ADJACENT_LINEBREAKS_LIMIT),
     R.dropLast(1),
@@ -50,7 +50,7 @@ const splitLineBreaks = (text) =>
  * @param {string}   word  The word to validate.
  * @returns {string[]}
  */
-const reduceWordsList = (list, word) =>
+export const reduceWordsList = (list, word) =>
   R.concat(
     list,
     R.ifElse(R.includes('\n'), get(splitLineBreaks), get(ensureArray))(word),
@@ -73,7 +73,7 @@ const reduceWordsList = (list, word) =>
 /**
  * @type {ReduceSentencesFn}
  */
-const reduceSentences = R.curry((length, list, word, index) => {
+export const reduceSentences = R.curry((length, list, word, index) => {
   let newList;
   if (word === '\n') {
     newList = R.append('', list);
@@ -99,7 +99,7 @@ const reduceSentences = R.curry((length, list, word, index) => {
  * @param {string} line  The line to process.
  * @returns {string}
  */
-const reduceText = (text, line) => {
+export const reduceText = (text, line) => {
   const useLine = line.trim();
   let newText;
   if (text) {
@@ -120,7 +120,7 @@ const reduceText = (text, line) => {
  * @returns {string[]}
  * @todo The support for Markdown table needs to be "Ramdafied".
  */
-const splitText = (text, length) => {
+export const splitText = (text, length) => {
   const useIsTableRow = get(isTableRow);
   const linesList = text.split('\n');
   const { lines, rows } = linesList.reduce(
@@ -177,9 +177,10 @@ const splitText = (text, length) => {
   return result;
 };
 
-module.exports.splitText = splitText;
-module.exports.splitLineBreaks = splitLineBreaks;
-module.exports.reduceWordsList = reduceWordsList;
-module.exports.reduceSentences = reduceSentences;
-module.exports.reduceText = reduceText;
-module.exports.provider = provider('splitText', module.exports);
+export const provider = createProvider('splitText', {
+  splitText,
+  splitLineBreaks,
+  reduceWordsList,
+  reduceSentences,
+  reduceText,
+});

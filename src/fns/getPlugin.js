@@ -1,7 +1,7 @@
-const { getSupportedLanguages } = require('./constants');
-const { getParsers } = require('./getParsers');
-const { getOptions, getDefaultOptions } = require('./getOptions');
-const { get, provider } = require('./app');
+import { getSupportedLanguages } from './constants.js';
+import { getParsers } from './getParsers.js';
+import { getOptions, getDefaultOptions } from './getOptions.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').PrettierSupportOption} PrettierSupportOption
@@ -31,12 +31,13 @@ const { get, provider } = require('./app');
  *                                       original package shouldn't do anything.
  * @returns {Plugin}
  */
-const getPlugin = (checkExtendOption) => ({
+export const getPlugin = (checkExtendOption) => ({
   languages: get(getSupportedLanguages)(),
   options: get(getOptions)(),
   defaultOptions: get(getDefaultOptions)(),
   parsers: get(getParsers)(checkExtendOption),
 });
 
-module.exports.getPlugin = getPlugin;
-module.exports.provider = provider('getPlugin', module.exports);
+export const provider = createProvider('getPlugin', {
+  getPlugin,
+});

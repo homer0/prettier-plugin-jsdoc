@@ -1,7 +1,7 @@
-const { format } = require('prettier');
-const R = require('ramda');
-const { isMatch } = require('./utils');
-const { get, provider } = require('./app');
+import { format } from 'prettier';
+import * as R from 'ramda';
+import { isMatch } from './utils.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions
@@ -29,7 +29,7 @@ const COMMENT_PADDING_LENGTH = 3;
 /**
  * @type {FormatPrettyTypeFn}
  */
-const formatPrettyType = R.curry(async (options, column, type) => {
+export const formatPrettyType = R.curry(async (options, column, type) => {
   let result;
   try {
     const printWidth = options.printWidth - column - COMMENT_PADDING_LENGTH;
@@ -65,10 +65,11 @@ const formatPrettyType = R.curry(async (options, column, type) => {
 /**
  * @type {FormatTypeAsCodeFn}
  */
-const formatTypeAsCode = R.curry((type, options, column) =>
+export const formatTypeAsCode = R.curry((type, options, column) =>
   R.when(get(isMatch)(/[\{&<\.\|]/), get(formatPrettyType)(options, column), type),
 );
 
-module.exports.formatTypeAsCode = formatTypeAsCode;
-module.exports.formatPrettyType = formatPrettyType;
-module.exports.provider = provider('formatTypeAsCode', module.exports);
+export const provider = createProvider('formatTypeAsCode', {
+  formatTypeAsCode,
+  formatPrettyType,
+});

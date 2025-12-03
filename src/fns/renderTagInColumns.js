@@ -1,6 +1,6 @@
-const R = require('ramda');
-const { splitText } = require('./splitText');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { splitText } from './splitText.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -21,7 +21,13 @@ const { get, provider } = require('./app');
  * @param {string[]} descriptionLines  The lines for the description.
  * @returns {string[]}
  */
-const renderRest = (column, hasName, nameColumnWidth, nameLines, descriptionLines) => {
+export const renderRest = (
+  column,
+  hasName,
+  nameColumnWidth,
+  nameLines,
+  descriptionLines,
+) => {
   const result = [];
   const limit = Math.max(nameLines.length, descriptionLines.length);
   const padding = ' '.repeat(column);
@@ -60,7 +66,7 @@ const renderRest = (column, hasName, nameColumnWidth, nameLines, descriptionLine
  * @type {RenderTagInColumnsFn}
  * @todo Add option to keep the space of the type column even if there's no type.
  */
-const renderTagInColumns = R.curry(
+export const renderTagInColumns = R.curry(
   (tagColumnWidth, typeColumnWidth, nameColumnWidth, descriptionColumnWidth, tag) => {
     const useSplitText = get(splitText);
     const descriptionLines = tag.description
@@ -97,6 +103,7 @@ const renderTagInColumns = R.curry(
   },
 );
 
-module.exports.renderTagInColumns = renderTagInColumns;
-module.exports.renderRest = renderRest;
-module.exports.provider = provider('renderTagInColumns', module.exports);
+export const provider = createProvider('renderTagInColumns', {
+  renderTagInColumns,
+  renderRest,
+});

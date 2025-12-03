@@ -1,6 +1,6 @@
-const R = require('ramda');
-const { findTagIndex } = require('./utils');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { findTagIndex } from './utils.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').PJPAccessTagOptions} PJPAccessTagOptions
@@ -20,7 +20,7 @@ const { get, provider } = require('./app');
 /**
  * @type {FormatAccessTagFn}
  */
-const formatAccessTag = R.curry((tags, options) => {
+export const formatAccessTag = R.curry((tags, options) => {
   const useFindTagIndex = get(findTagIndex);
   const indexes = tags.reduce(
     R.compose(
@@ -94,5 +94,6 @@ const formatAccessTag = R.curry((tags, options) => {
   return result || R.clone(tags);
 });
 
-module.exports.formatAccessTag = formatAccessTag;
-module.exports.provider = provider('formatAccessTag', module.exports);
+export const provider = createProvider('formatAccessTag', {
+  formatAccessTag,
+});

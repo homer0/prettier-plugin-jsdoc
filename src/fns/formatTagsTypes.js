@@ -1,12 +1,12 @@
-const R = require('ramda');
-const { hasValidProperty, composeWithPromise } = require('./utils');
-const { formatTSTypes } = require('./formatTSTypes');
-const { formatStringLiterals } = require('./formatStringLiterals');
-const { formatArrays } = require('./formatArrays');
-const { formatObjects } = require('./formatObjects');
-const { formatTypeAsCode } = require('./formatTypeAsCode');
-const { get, provider } = require('./app');
-const { reduceWithPromise } = require('./utils');
+import * as R from 'ramda';
+import { hasValidProperty, composeWithPromise } from './utils.js';
+import { formatTSTypes } from './formatTSTypes.js';
+import { formatStringLiterals } from './formatStringLiterals.js';
+import { formatArrays } from './formatArrays.js';
+import { formatObjects } from './formatObjects.js';
+import { formatTypeAsCode } from './formatTypeAsCode.js';
+import { get, createProvider } from './app.js';
+import { reduceWithPromise } from './utils.js';
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
@@ -31,7 +31,7 @@ const { reduceWithPromise } = require('./utils');
  * @param {number}          column   The column where the comment will be rendered.
  * @returns {Promise<TypeFormatter>}
  */
-const getTypeFormatter = (options, column) => {
+export const getTypeFormatter = (options, column) => {
   const fns = [];
   if (options.jsdocUseTypeScriptTypesCasing) {
     fns.push(get(formatTSTypes));
@@ -68,7 +68,7 @@ const getTypeFormatter = (options, column) => {
 /**
  * @type {FormatTagTypeFn}
  */
-const formatTagType = R.curry((formatter, tag) =>
+export const formatTagType = R.curry((formatter, tag) =>
   get(composeWithPromise)((type) => ({ ...tag, type }), formatter, R.prop('type'))(tag),
 );
 
@@ -87,7 +87,7 @@ const formatTagType = R.curry((formatter, tag) =>
 /**
  * @type {FormatTagsTypes}
  */
-const formatTagsTypes = R.curry(async (tags, options, column) => {
+export const formatTagsTypes = R.curry(async (tags, options, column) => {
   const hasValidPropertyFn = get(hasValidProperty)('type');
   const getTypeFormatterFn = get(getTypeFormatter)(options, column);
   const formatTagTypeFn = get(formatTagType)(getTypeFormatterFn);
@@ -100,7 +100,8 @@ const formatTagsTypes = R.curry(async (tags, options, column) => {
   });
 });
 
-module.exports.formatTagsTypes = formatTagsTypes;
-module.exports.getTypeFormatter = getTypeFormatter;
-module.exports.formatTagType = formatTagType;
-module.exports.provider = provider('formatTagsTypes', module.exports);
+export const provider = createProvider('formatTagsTypes', {
+  formatTagsTypes,
+  getTypeFormatter,
+  formatTagType,
+});

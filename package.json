@@ -15,7 +15,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "comment-parser": "^1.4.1",
     "ramda": "0.32.0"

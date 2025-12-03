@@ -1,10 +1,10 @@
-const R = require('ramda');
-const { formatAccessTag } = require('./formatAccessTag');
-const { replaceTagsSynonyms } = require('./replaceTagsSynonyms');
-const { sortTags } = require('./sortTags');
-const { trimTagsProperties } = require('./trimTagsProperties');
-const { formatTagsDescription } = require('./formatTagsDescription');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { formatAccessTag } from './formatAccessTag.js';
+import { replaceTagsSynonyms } from './replaceTagsSynonyms.js';
+import { sortTags } from './sortTags.js';
+import { trimTagsProperties } from './trimTagsProperties.js';
+import { formatTagsDescription } from './formatTagsDescription.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -24,7 +24,7 @@ const { get, provider } = require('./app');
 /**
  * @type {FormatTagsFn}
  */
-const formatTags = R.curry((tags, options) => {
+export const formatTags = R.curry((tags, options) => {
   const fns = [
     get(formatTagsDescription),
     get(trimTagsProperties),
@@ -42,5 +42,6 @@ const formatTags = R.curry((tags, options) => {
   return R.compose(...fns.reverse())(tags);
 });
 
-module.exports.formatTags = formatTags;
-module.exports.provider = provider('formatTags', module.exports);
+export const provider = createProvider('formatTags', {
+  formatTags,
+});

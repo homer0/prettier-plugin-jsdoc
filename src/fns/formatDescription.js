@@ -1,6 +1,6 @@
-const R = require('ramda');
-const { ensureArray, joinIfNotEmpty, appendIfNotPresent } = require('./utils');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { ensureArray, joinIfNotEmpty, appendIfNotPresent } from './utils.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').PJPDescriptionTagOptions} PJPDescriptionTagOptions
@@ -38,7 +38,7 @@ const { get, provider } = require('./app');
 /**
  * @type {FindTagFn}
  */
-const findTag = R.curry((targetTag, matchHandlerFn, unmatchHandlerFn, step) => {
+export const findTag = R.curry((targetTag, matchHandlerFn, unmatchHandlerFn, step) => {
   const targetTags = get(ensureArray)(targetTag);
   return (acc, tag, index) => {
     const nextAcc = targetTags.includes(tag.tag)
@@ -68,7 +68,7 @@ const findTag = R.curry((targetTag, matchHandlerFn, unmatchHandlerFn, step) => {
  * property.
  * @returns {FindTagHandlerFn<ProcessTagAccumulator>}
  */
-const processTag = (descriptionProperty, saveIndex = false) => {
+export const processTag = (descriptionProperty, saveIndex = false) => {
   const descriptionProperties = get(ensureArray)(descriptionProperty);
   const generateDescription = R.compose(
     get(joinIfNotEmpty)(' '),
@@ -107,7 +107,7 @@ const processTag = (descriptionProperty, saveIndex = false) => {
 /**
  * @type {FormatDescriptionFn}
  */
-const formatDescription = R.curry((block, options) => {
+export const formatDescription = R.curry((block, options) => {
   /**
    * A handler for when a tag wasn't match; it just pushes it to the accumulator.
    *
@@ -175,7 +175,8 @@ const formatDescription = R.curry((block, options) => {
   };
 });
 
-module.exports.formatDescription = formatDescription;
-module.exports.findTag = findTag;
-module.exports.processTag = processTag;
-module.exports.provider = provider('formatDescription', module.exports);
+export const provider = createProvider('formatDescription', {
+  formatDescription,
+  findTag,
+  processTag,
+});

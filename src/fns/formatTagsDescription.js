@@ -1,10 +1,10 @@
-const R = require('ramda');
-const {
+import * as R from 'ramda';
+import {
   getTagsWithDescriptionAsName,
   getTagsWithNameAsDescription,
-} = require('./constants');
-const { isTag, hasValidProperty } = require('./utils');
-const { get, provider } = require('./app');
+} from './constants.js';
+import { isTag, hasValidProperty } from './utils.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -42,7 +42,7 @@ const addParagraphFlag = (tag) => ({
 /**
  * @type {JoinPropertiesFn}
  */
-const joinProperties = R.curry((propA, propB, prop, tag) => {
+export const joinProperties = R.curry((propA, propB, prop, tag) => {
   const cleanProp = prop === propA ? propB : propA;
   const valA = tag[propA];
   const valB = tag[propB];
@@ -68,7 +68,7 @@ const joinProperties = R.curry((propA, propB, prop, tag) => {
  * @param {CommentTag} tag  The tag to fix.
  * @returns {CommentTag}
  */
-const addLinkToDescription = (tag) => ({
+export const addLinkToDescription = (tag) => ({
   ...tag,
   type: '',
   name: `{${tag.type}} ${tag.name}`.trimRight(),
@@ -83,7 +83,7 @@ const addLinkToDescription = (tag) => ({
  * @param {CommentTag[]} tags  The list of tags to format.
  * @returns {CommentTag[]}
  */
-const formatTagsDescription = (tags) => {
+export const formatTagsDescription = (tags) => {
   const useIsTag = get(isTag);
   const useJoinProperties = get(joinProperties);
   return R.map(
@@ -109,7 +109,8 @@ const formatTagsDescription = (tags) => {
   );
 };
 
-module.exports.formatTagsDescription = formatTagsDescription;
-module.exports.joinProperties = joinProperties;
-module.exports.addLinkToDescription = addLinkToDescription;
-module.exports.provider = provider('formatTagsDescription', module.exports);
+export const provider = createProvider('formatTagsDescription', {
+  formatTagsDescription,
+  joinProperties,
+  addLinkToDescription,
+});

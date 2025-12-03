@@ -1,5 +1,5 @@
-const R = require('ramda');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -12,7 +12,7 @@ const { get, provider } = require('./app');
  * @returns {T[]}
  * @template T
  */
-const ensureArray = (obj) => R.unless(R.is(Array), R.of(Array), obj);
+export const ensureArray = (obj) => R.unless(R.is(Array), R.of(Array), obj);
 
 /**
  * Creates a reducer that finds the last index of a tag on a list and saves it on the
@@ -29,7 +29,7 @@ const ensureArray = (obj) => R.unless(R.is(Array), R.of(Array), obj);
 /**
  * @type {FindTagIndexFn}
  */
-const findTagIndex = R.curry((targetTag, propName, step) => {
+export const findTagIndex = R.curry((targetTag, propName, step) => {
   const targetTags = get(ensureArray)(targetTag);
   return (acc, tag, index) => {
     const nextAcc = targetTags.includes(tag.tag)
@@ -52,7 +52,7 @@ const findTagIndex = R.curry((targetTag, propName, step) => {
 /**
  * @type {IsTagFn}
  */
-const isTag = R.curry((targetTag, tag) => {
+export const isTag = R.curry((targetTag, tag) => {
   const targetTags = get(ensureArray)(targetTag);
   return R.propSatisfies(R.includes(R.__, targetTags), 'tag', tag);
 });
@@ -69,7 +69,7 @@ const isTag = R.curry((targetTag, tag) => {
 /**
  * @type {AppendIfNotPresentFn}
  */
-const appendIfNotPresent = R.curry((item, list) =>
+export const appendIfNotPresent = R.curry((item, list) =>
   R.unless(R.includes(item), R.append(item), list),
 );
 /**
@@ -85,7 +85,7 @@ const appendIfNotPresent = R.curry((item, list) =>
 /**
  * @type {JoinIfNotEmptyFn}
  */
-const joinIfNotEmpty = R.curry((glue, str) =>
+export const joinIfNotEmpty = R.curry((glue, str) =>
   R.pipe(R.reject(R.isEmpty), R.join(glue))(str),
 );
 
@@ -101,7 +101,7 @@ const joinIfNotEmpty = R.curry((glue, str) =>
 /**
  * @type {ReplaceLastItemFn}
  */
-const replaceLastItem = R.curry((item, list) =>
+export const replaceLastItem = R.curry((item, list) =>
   R.compose(R.append(item), R.dropLast(1))(list),
 );
 
@@ -111,7 +111,7 @@ const replaceLastItem = R.curry((item, list) =>
  * @param {*} item  The item to validate.
  * @returns {boolean}
  */
-const hasItems = (item) => R.compose(R.gt(R.__, 0), R.length)(item);
+export const hasItems = (item) => R.compose(R.gt(R.__, 0), R.length)(item);
 
 /**
  * Validates if a string matches a regular expression. This utility function exists
@@ -127,7 +127,7 @@ const hasItems = (item) => R.compose(R.gt(R.__, 0), R.length)(item);
 /**
  * @type {IsMatchFn}
  */
-const isMatch = R.curry((expression, str) =>
+export const isMatch = R.curry((expression, str) =>
   R.compose(get(hasItems), R.match(expression))(str),
 );
 
@@ -146,7 +146,7 @@ const isMatch = R.curry((expression, str) =>
 /**
  * @type {ReplaceAdjacentFn}
  */
-const replaceAdjacent = R.curry((expression, replacement, text) => {
+export const replaceAdjacent = R.curry((expression, replacement, text) => {
   let useText = text;
   let match = useText.match(expression);
   while (match) {
@@ -174,7 +174,7 @@ const replaceAdjacent = R.curry((expression, replacement, text) => {
 /**
  * @type {ReplaceDotOnTypeGeneric}
  */
-const replaceDotOnTypeGeneric = R.curry((targetType, useDot, type) => {
+export const replaceDotOnTypeGeneric = R.curry((targetType, useDot, type) => {
   const useReplaceAdjacent = get(replaceAdjacent);
   return R.ifElse(
     R.always(useDot),
@@ -189,7 +189,7 @@ const replaceDotOnTypeGeneric = R.curry((targetType, useDot, type) => {
  * @param {string} str  The string to capitalize.
  * @returns {string}
  */
-const capitalize = (str) =>
+export const capitalize = (str) =>
   R.compose(R.join(''), R.juxt([R.compose(R.toUpper, R.head), R.tail]))(str);
 
 /**
@@ -205,7 +205,7 @@ const capitalize = (str) =>
 /**
  * @type {GetIndexOrFallbackFn}
  */
-const getIndexOrFallback = R.curry((list, fallback, item) =>
+export const getIndexOrFallback = R.curry((list, fallback, item) =>
   R.compose(R.when(R.equals(-1), R.always(fallback)), R.indexOf(item))(list),
 );
 
@@ -239,7 +239,7 @@ const getIndexOrFallback = R.curry((list, fallback, item) =>
 /**
  * @type {LimitAdjacentRepetitionsFn}
  */
-const limitAdjacentRepetitions = R.curry((pred, limit, list) =>
+export const limitAdjacentRepetitions = R.curry((pred, limit, list) =>
   R.compose(
     R.prop('list'),
     R.reduce(
@@ -277,7 +277,7 @@ const limitAdjacentRepetitions = R.curry((pred, limit, list) =>
 /**
  * @type {HasValidPropertyFn}
  */
-const hasValidProperty = R.curry((property, obj) =>
+export const hasValidProperty = R.curry((property, obj) =>
   R.propSatisfies(R.complement(R.either(R.isEmpty, R.isNil)), property)(obj),
 );
 
@@ -293,7 +293,7 @@ const hasValidProperty = R.curry((property, obj) =>
 /**
  * @type {PrefixLinesFn}
  */
-const prefixLines = R.curry((prefix, text) =>
+export const prefixLines = R.curry((prefix, text) =>
   R.compose(R.join('\n'), R.map(R.concat(prefix)), R.split('\n'), R.trim())(text),
 );
 
@@ -309,7 +309,7 @@ const prefixLines = R.curry((prefix, text) =>
 /**
  * @type {SplitLinesAndCleanFn}
  */
-const splitLinesAndClean = R.curry((splitter, text) =>
+export const splitLinesAndClean = R.curry((splitter, text) =>
   R.compose(R.reject(R.isEmpty), R.map(R.trim), R.split(splitter))(text),
 );
 
@@ -319,7 +319,7 @@ const splitLinesAndClean = R.curry((splitter, text) =>
  * @param {string} text  The text to validate.
  * @returns {boolean}
  */
-const isURL = (text) =>
+export const isURL = (text) =>
   isMatch(
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/i,
     text,
@@ -330,7 +330,7 @@ const isURL = (text) =>
  * @param {string} text  The text to validate.
  * @returns {boolean}
  */
-const isTableRow = (text) => isMatch(/^\s*\|.*?\|\s*$/, text);
+export const isTableRow = (text) => isMatch(/^\s*\|.*?\|\s*$/, text);
 
 /**
  * Ensures a text starts with an uppercase and ends with a period.
@@ -338,7 +338,7 @@ const isTableRow = (text) => isMatch(/^\s*\|.*?\|\s*$/, text);
  * @param {string} text  The text to format.
  * @returns {string}
  */
-const ensureSentence = (text) =>
+export const ensureSentence = (text) =>
   R.when(
     R.allPass([R.complement(get(isURL)), get(isMatch)(/[\w\.]\s*$/)]),
     R.compose(
@@ -358,7 +358,7 @@ const ensureSentence = (text) =>
  * @returns {*}
  * @see https://gist.github.com/ehpc/2a524b78729ee6b4e8111f89c66d7ff5
  */
-const composeWithPromise = (...args) =>
+export const composeWithPromise = (...args) =>
   R.composeWith((f, val) => {
     if (val && val.then) {
       return val.then(f);
@@ -387,7 +387,7 @@ const composeWithPromise = (...args) =>
  * @template TItem    The type of the items on the list.
  * @template TOutput  The type of the item that will be returned by the reducer.
  */
-const reduceWithPromise = (items, fn) =>
+export const reduceWithPromise = (items, fn) =>
   items.reduce(
     (accPromise, item) =>
       accPromise.then(async (acc) => {
@@ -398,24 +398,25 @@ const reduceWithPromise = (items, fn) =>
     Promise.resolve([]),
   );
 
-module.exports.ensureArray = ensureArray;
-module.exports.findTagIndex = findTagIndex;
-module.exports.isTag = isTag;
-module.exports.appendIfNotPresent = appendIfNotPresent;
-module.exports.joinIfNotEmpty = joinIfNotEmpty;
-module.exports.replaceLastItem = replaceLastItem;
-module.exports.hasItems = hasItems;
-module.exports.isMatch = isMatch;
-module.exports.replaceDotOnTypeGeneric = replaceDotOnTypeGeneric;
-module.exports.capitalize = capitalize;
-module.exports.getIndexOrFallback = getIndexOrFallback;
-module.exports.limitAdjacentRepetitions = limitAdjacentRepetitions;
-module.exports.hasValidProperty = hasValidProperty;
-module.exports.prefixLines = prefixLines;
-module.exports.splitLinesAndClean = splitLinesAndClean;
-module.exports.isURL = isURL;
-module.exports.isTableRow = isTableRow;
-module.exports.ensureSentence = ensureSentence;
-module.exports.composeWithPromise = composeWithPromise;
-module.exports.reduceWithPromise = reduceWithPromise;
-module.exports.provider = provider('utils', module.exports);
+export const provider = createProvider('utils', {
+  ensureArray,
+  findTagIndex,
+  isTag,
+  appendIfNotPresent,
+  joinIfNotEmpty,
+  replaceLastItem,
+  hasItems,
+  isMatch,
+  replaceDotOnTypeGeneric,
+  capitalize,
+  getIndexOrFallback,
+  limitAdjacentRepetitions,
+  hasValidProperty,
+  prefixLines,
+  splitLinesAndClean,
+  isURL,
+  isTableRow,
+  ensureSentence,
+  composeWithPromise,
+  reduceWithPromise,
+});

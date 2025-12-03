@@ -1,5 +1,5 @@
-const R = require('ramda');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions
@@ -31,7 +31,7 @@ const { get, provider } = require('./app');
  * @param {string} quote    The quote character that should wrap the literals.
  * @returns {StringLiteralFormatter}
  */
-const getFormatter = (padding, quote) =>
+export const getFormatter = (padding, quote) =>
   R.compose(
     R.trim,
     R.join('|'),
@@ -49,7 +49,7 @@ const getFormatter = (padding, quote) =>
  * @param {PJPTypesOptions} options  The options for the formatter.
  * @returns {StringLiteralsReducer}
  */
-const getReducer = (options) => {
+export const getReducer = (options) => {
   const quote = options.jsdocUseSingleQuotesForStringLiterals ? "'" : '"';
   const padding = ' '.repeat(options.jsdocSpacesBetweenStringLiterals);
   const formatter = get(getFormatter)(padding, quote);
@@ -62,7 +62,8 @@ const getReducer = (options) => {
  * @param {string} type  The type that will be used to find the string literals.
  * @returns {string[]}
  */
-const extractLiterals = (type) => R.match(/['"][\w\|\-\s'"]+['"](?: +)?(?:$|\|)/g, type);
+export const extractLiterals = (type) =>
+  R.match(/['"][\w\|\-\s'"]+['"](?: +)?(?:$|\|)/g, type);
 /**
  * Formats the styling of string literals inside a type. If the type doesn't use string
  * literals, it will be returned without modification.
@@ -77,7 +78,7 @@ const extractLiterals = (type) => R.match(/['"][\w\|\-\s'"]+['"](?: +)?(?:$|\|)/
 /**
  * @type {FormatStringLiteralsFn}
  */
-const formatStringLiterals = R.curry((type, options) =>
+export const formatStringLiterals = R.curry((type, options) =>
   R.compose(
     (literals) =>
       literals.length ? R.reduce(get(getReducer)(options), type, literals) : type,
@@ -85,8 +86,9 @@ const formatStringLiterals = R.curry((type, options) =>
   )(type),
 );
 
-module.exports.formatStringLiterals = formatStringLiterals;
-module.exports.getFormatter = getFormatter;
-module.exports.getReducer = getReducer;
-module.exports.extractLiterals = extractLiterals;
-module.exports.provider = provider('formatStringLiterals', module.exports);
+export const provider = createProvider('formatStringLiterals', {
+  formatStringLiterals,
+  getFormatter,
+  getReducer,
+  extractLiterals,
+});

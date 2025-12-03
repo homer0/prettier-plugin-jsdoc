@@ -1,4 +1,4 @@
-const { get, provider } = require('./app');
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').PrettierSupportOption} PrettierSupportOption
@@ -10,7 +10,7 @@ const { get, provider } = require('./app');
  *
  * @returns {Object.<string, PrettierSupportOption>}
  */
-const getOptions = () => ({
+export const getOptions = () => ({
   jsdocPluginEnabled: {
     type: 'boolean',
     category: 'jsdoc',
@@ -353,7 +353,7 @@ const getOptions = () => ({
  *
  * @returns {PJPOptions}
  */
-const getDefaultOptions = () =>
+export const getDefaultOptions = () =>
   Object.entries(get(getOptions)()).reduce(
     (acc, [key, value]) => ({
       ...acc,
@@ -362,6 +362,7 @@ const getDefaultOptions = () =>
     {},
   );
 
-module.exports.getOptions = getOptions;
-module.exports.getDefaultOptions = getDefaultOptions;
-module.exports.provider = provider('getOptions', module.exports);
+export const provider = createProvider('getOptions', {
+  getOptions,
+  getDefaultOptions,
+});
