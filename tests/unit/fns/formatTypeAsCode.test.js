@@ -1,8 +1,8 @@
-jest.unmock('../../../src/fns/formatTypeAsCode');
-jest.mock('prettier');
+vi.mock('prettier');
 
-const { format } = require('prettier');
-const { formatTypeAsCode } = require('../../../src/fns/formatTypeAsCode');
+import { format } from 'prettier';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { formatTypeAsCode } from '../../../src/fns/formatTypeAsCode';
 
 describe('formatTypeAsCode', () => {
   beforeEach(() => {

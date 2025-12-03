@@ -1,6 +1,5 @@
-jest.unmock('../../../src/fns/formatDescription');
-
-const { formatDescription } = require('../../../src/fns/formatDescription');
+import { describe, it, expect } from 'vitest';
+import { formatDescription } from '../../../src/fns/formatDescription';
 
 describe('formatDescription', () => {
   it('should keep the description on the body of the block', () => {

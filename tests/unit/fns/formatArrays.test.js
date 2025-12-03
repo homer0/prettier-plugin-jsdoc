@@ -1,6 +1,5 @@
-jest.unmock('../../../src/fns/formatArrays');
-
-const { formatArrays } = require('../../../src/fns/formatArrays');
+import { describe, it, expect } from 'vitest';
+import { formatArrays } from '../../../src/fns/formatArrays';
 
 describe('formatArrays', () => {
   describe('shortForm', () => {

@@ -1,6 +1,5 @@
-jest.unmock('../../../src/fns/replaceTagsSynonyms');
-
-const { replaceTagsSynonyms } = require('../../../src/fns/replaceTagsSynonyms');
+import { describe, it, expect } from 'vitest';
+import { replaceTagsSynonyms } from '../../../src/fns/replaceTagsSynonyms';
 
 describe('replaceTagsSynonyms', () => {
   it('should replace tags synonyms', () => {

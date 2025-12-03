@@ -1,6 +1,5 @@
-jest.unmock('../../../src/fns/trimTagsProperties');
-
-const { trimTagsProperties } = require('../../../src/fns/trimTagsProperties');
+import { describe, it, expect } from 'vitest';
+import { trimTagsProperties } from '../../../src/fns/trimTagsProperties';
 
 describe('trimTagsProperties', () => {
   it('should correctly trim the properties of a tags list', () => {

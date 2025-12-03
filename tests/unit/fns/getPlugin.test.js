@@ -1,13 +1,13 @@
-jest.mock('../../../src/fns/getParsers', () => ({
+vi.mock('../../../src/fns/getParsers', () => ({
   getParsers: () => 'parsers',
 }));
-jest.mock('../../../src/fns/getOptions', () => ({
+vi.mock('../../../src/fns/getOptions', () => ({
   getOptions: () => 'options',
   getDefaultOptions: () => 'defaultOptions',
 }));
-jest.unmock('../../../src/fns/getPlugin');
 
-const { getPlugin } = require('../../../src/fns/getPlugin');
+import { vi, describe, it, expect } from 'vitest';
+import { getPlugin } from '../../../src/fns/getPlugin';
 
 describe('getPlugin', () => {
   it('should generate the plugin main exports', async () => {

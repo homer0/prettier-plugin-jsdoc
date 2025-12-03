@@ -1,6 +1,5 @@
-jest.unmock('../../../src/fns/renderTagOriginal');
-
-const { renderTagOriginal } = require('../../../src/fns/renderTagOriginal');
+import { describe, it, expect } from 'vitest';
+import { renderTagOriginal } from '../../../src/fns/renderTagOriginal';
 
 describe('renderTagOriginal', () => {
   const cases = [

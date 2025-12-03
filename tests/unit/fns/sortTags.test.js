@@ -1,6 +1,5 @@
-jest.unmock('../../../src/fns/sortTags');
-
-const { sortTags } = require('../../../src/fns/sortTags');
+import { describe, it, expect } from 'vitest';
+import { sortTags } from '../../../src/fns/sortTags';
 
 describe('sortTags', () => {
   const cases = [

@@ -1,13 +1,8 @@
-jest.unmock('../../../src/fns/formatTagsTypes');
-jest.unmock('../../../src/fns/formatTSTypes');
-jest.unmock('../../../src/fns/formatStringLiterals');
-jest.unmock('../../../src/fns/formatArrays');
-jest.unmock('../../../src/fns/formatObjects');
-jest.unmock('../../../src/fns/formatTypeAsCode');
-jest.mock('prettier');
+vi.mock('prettier');
 
-const { format } = require('prettier');
-const { formatTagsTypes } = require('../../../src/fns/formatTagsTypes');
+import { format } from 'prettier';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { formatTagsTypes } from '../../../src/fns/formatTagsTypes';
 
 describe('formatTagsTypes', () => {
   beforeEach(() => {

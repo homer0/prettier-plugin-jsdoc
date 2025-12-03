@@ -1,6 +1,5 @@
-jest.unmock('../../../src/fns/formatObjects');
-
-const { formatObjects } = require('../../../src/fns/formatObjects');
+import { describe, it, expect } from 'vitest';
+import { formatObjects } from '../../../src/fns/formatObjects';
 
 describe('formatObjects', () => {
   it("should add a dot before objects' generics", () => {

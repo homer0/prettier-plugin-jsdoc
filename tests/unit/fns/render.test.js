@@ -1,13 +1,6 @@
-jest.unmock('../../../src/fns/render');
-jest.unmock('../../../src/fns/renderTagInLine');
-jest.unmock('../../../src/fns/renderTagInColumns');
-jest.unmock('../../../src/fns/renderTagOriginal');
-jest.unmock('../../../src/fns/renderExampleTag');
-jest.unmock('../../../src/fns/splitText');
-jest.unmock('../../../src/fns/getOptions');
-
-const { render } = require('../../../src/fns/render');
-const { getDefaultOptions } = require('../../../src/fns/getOptions');
+import { describe, it, expect } from 'vitest';
+import { render } from '../../../src/fns/render';
+import { getDefaultOptions } from '../../../src/fns/getOptions';
 
 describe('render', () => {
   const defaultOptions = getDefaultOptions();
