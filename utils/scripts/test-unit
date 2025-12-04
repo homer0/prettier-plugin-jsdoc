@@ -1,2 +1,2 @@
 #!/bin/bash -e
-vitest run --project unit $@
+vitest run -c vitest.unit.config.mjs $@

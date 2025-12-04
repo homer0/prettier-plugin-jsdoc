@@ -1,2 +1,2 @@
 #!/bin/bash -e
-vitest run --project e2e $@
+vitest run -c vitest.e2e.config.mjs $@
