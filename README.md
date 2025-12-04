@@ -1094,9 +1094,9 @@ The configuration for `semantic-release` is on `./releaserc` and the workflow fo
 
 #### Testing
 
-I use [Jest](https://jestjs.io) to test the project, both with unit tests and functional tests.
+I use [Vitest](https://vitest.dev/) to test the project, both with unit tests and functional tests.
 
-The configurations files are `.jestrc-e2e` and `.jestrc-unit`, and the test files are located on `/tests`.
+The configurations files are `vitest.e2e.config` and `vitest.unit.config`, and the test files are located on `/tests`.
 
 In the case of the functional tests, there's a special environment on `./tests/utils` that loads and parses a list of fixture files in order to save them on the global object. In reality, there's only one test file for the functional tests, the one that reads the global object and dynamically generates the `it(...)`: `index.e2e.js`.
 
