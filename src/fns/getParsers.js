@@ -1,6 +1,6 @@
-import { parsers as babelParsers } from 'prettier/parser-babel';
-import { parsers as flowParsers } from 'prettier/parser-flow';
-import { parsers as tsParsers } from 'prettier/parser-typescript';
+import babelParsers from 'prettier/parser-babel';
+import flowParsers from 'prettier/parser-flow';
+import tsParsers from 'prettier/parser-typescript';
 import * as R from 'ramda';
 import { parse as commentParser } from 'comment-parser';
 import { isMatch, composeWithPromise, reduceWithPromise } from './utils.js';
@@ -353,22 +353,22 @@ export const getParsers = (checkExtendOption) => {
   const useExtendParser = get(extendParser)(R.__, checkExtendOption);
   return {
     get babel() {
-      return useExtendParser(babelParsers.babel);
+      return useExtendParser(babelParsers.parsers.babel);
     },
     get typescript() {
-      return useExtendParser(tsParsers.typescript);
+      return useExtendParser(tsParsers.parsers.typescript);
     },
     /* istanbul ignore next */
     get 'babel-flow'() {
-      return useExtendParser(babelParsers['babel-flow']);
+      return useExtendParser(babelParsers.parsers['babel-flow']);
     },
     /* istanbul ignore next */
     get 'babel-ts'() {
-      return useExtendParser(babelParsers['babel-ts']);
+      return useExtendParser(babelParsers.parsers['babel-ts']);
     },
     /* istanbul ignore next */
     get flow() {
-      return useExtendParser(flowParsers.flow);
+      return useExtendParser(flowParsers.parsers.flow);
     },
   };
 };
