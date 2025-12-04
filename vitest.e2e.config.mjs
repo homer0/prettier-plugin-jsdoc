@@ -8,9 +8,10 @@ export default defineConfig({
     include: ['tests/e2e/**/*.e2e.js'],
     globals: true,
     coverage: {
-      provider: 'v8',
+      provider: 'istanbul',
       reportsDirectory: resolve('./coverage-e2e'),
       reporter: ['text', 'lcov'],
+      exclude: ['src/fns/app.js', '*.json', '**/e2e/utils/**'],
     },
   },
 });

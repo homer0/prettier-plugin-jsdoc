@@ -8,7 +8,7 @@ export default defineConfig({
     include: ['tests/unit/**/*.test.js'],
     globals: true,
     coverage: {
-      provider: 'v8',
+      provider: 'istanbul',
       reportsDirectory: resolve('./coverage-unit'),
       reporter: ['text', 'lcov'],
     },
