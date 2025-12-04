@@ -19,9 +19,9 @@ const fixturesEnvironment = {
     globalThis.e2eFixtures = fixtures;
 
     return {
-      async teardown() {
+      async teardown(...teardownArgs) {
         delete globalThis.e2eFixtures;
-        await baseEnv.teardown();
+        await baseEnv.teardown(...teardownArgs);
       },
     };
   },
