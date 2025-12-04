@@ -1,10 +1,12 @@
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { loadProviders } from './fns/app';
 /**
  * Loads and registers the providers of all the plugin functions.
  */
 export const loadFns = () => {
-  loadProviders(path.join(__dirname, 'fns'), [
+  const currentDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.');
+  loadProviders(path.join(currentDir, 'fns'), [
     'formatAccessTag',
     'formatArrays',
     'formatDescription',
