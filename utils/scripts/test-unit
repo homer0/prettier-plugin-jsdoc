@@ -1,2 +1,2 @@
 #!/bin/bash -e
-vitest --project unit $@
+vitest run --project unit $@

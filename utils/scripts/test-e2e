@@ -1,2 +1,2 @@
 #!/bin/bash -e
-vitest --project e2e $@
+vitest run --project e2e $@
