@@ -1,6 +1,6 @@
 import * as R from 'ramda';
-import { isMatch, replaceDotOnTypeGeneric } from './utils';
-import { get, createProvider } from './app';
+import { isMatch, replaceDotOnTypeGeneric } from './utils.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions

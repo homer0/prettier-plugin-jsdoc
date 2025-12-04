@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { splitText } from './splitText';
+import { splitText } from './splitText.js';
 import { isTag, ensureSentence } from './utils.js';
 import { renderExampleTag } from './renderExampleTag.js';
 import { renderTagInLine } from './renderTagInLine.js';

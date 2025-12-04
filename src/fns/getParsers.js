@@ -8,7 +8,7 @@ import { formatDescription } from './formatDescription.js';
 import { formatTags } from './formatTags.js';
 import { formatTagsTypes } from './formatTagsTypes.js';
 import { prepareTags } from './prepareTags.js';
-import { render } from './render';
+import { render } from './render.js';
 import { get, createProvider } from './app.js';
 /**
  * @typedef {import('../types').PrettierParser} PrettierParser
