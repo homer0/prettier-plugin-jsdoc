@@ -41,7 +41,7 @@ export const formatPrettyType = R.curry(async (options, column, type) => {
       parser: 'typescript',
     });
     result = newType.substring(prefix.length).trim().replace(/;$/, '');
-  } catch (ignore) {
+  } catch {
     result = type;
   }
 

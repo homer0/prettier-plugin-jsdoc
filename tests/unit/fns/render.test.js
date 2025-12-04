@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { render } from '../../../src/fns/render';
-import { getDefaultOptions } from '../../../src/fns/getOptions';
+import { render } from '../../../src/fns/render.js';
+import { getDefaultOptions } from '../../../src/fns/getOptions.js';
 
 describe('render', () => {
   const defaultOptions = getDefaultOptions();

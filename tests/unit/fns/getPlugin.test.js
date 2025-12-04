@@ -7,7 +7,7 @@ vi.mock('../../../src/fns/getOptions', () => ({
 }));
 
 import { vi, describe, it, expect } from 'vitest';
-import { getPlugin } from '../../../src/fns/getPlugin';
+import { getPlugin } from '../../../src/fns/getPlugin.js';
 
 describe('getPlugin', () => {
   it('should generate the plugin main exports', async () => {

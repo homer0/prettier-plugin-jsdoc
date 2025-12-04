@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatTSTypes } from '../../../src/fns/formatTSTypes';
+import { formatTSTypes } from '../../../src/fns/formatTSTypes.js';
 
 describe('formatTSTypes', () => {
   it.each([

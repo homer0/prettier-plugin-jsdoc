@@ -1,5 +1,6 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
 
 /**
  * @typedef {import('../../../src/types').PrettierOptions} PrettierOptions
@@ -28,7 +29,11 @@ const FIXTURES_DIRNAME = 'fixtures';
  *
  * @type {string}
  */
-const FIXTURES_PATH = path.join(import.meta.dirname, '..', FIXTURES_DIRNAME);
+const FIXTURES_PATH = path.join(
+  path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.'),
+  '..',
+  FIXTURES_DIRNAME,
+);
 /**
  * The expression the fixtures' filenames should match in order to be loaded.
  *

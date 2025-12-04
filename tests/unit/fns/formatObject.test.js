@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatObjects } from '../../../src/fns/formatObjects';
+import { formatObjects } from '../../../src/fns/formatObjects.js';
 
 describe('formatObjects', () => {
   it("should add a dot before objects' generics", () => {

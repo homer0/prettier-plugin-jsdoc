@@ -1,12 +1,11 @@
 import * as R from 'ramda';
-import { hasValidProperty, composeWithPromise } from './utils.js';
+import { hasValidProperty, composeWithPromise, reduceWithPromise } from './utils.js';
 import { formatTSTypes } from './formatTSTypes.js';
 import { formatStringLiterals } from './formatStringLiterals.js';
 import { formatArrays } from './formatArrays.js';
 import { formatObjects } from './formatObjects.js';
 import { formatTypeAsCode } from './formatTypeAsCode.js';
 import { get, createProvider } from './app.js';
-import { reduceWithPromise } from './utils.js';
 
 /**
  * @typedef {import('../types').PJPTypesOptions} PJPTypesOptions

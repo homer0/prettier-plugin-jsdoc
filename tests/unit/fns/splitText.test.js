@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { splitText } from '../../../src/fns/splitText';
+import { splitText } from '../../../src/fns/splitText.js';
 
 describe('splitText', () => {
   it("should return a single line when the text doesn't exceed the length", () => {

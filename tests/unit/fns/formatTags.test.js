@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatTags } from '../../../src/fns/formatTags';
+import { formatTags } from '../../../src/fns/formatTags.js';
 
 describe('formatTags', () => {
   const cases = [

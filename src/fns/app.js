@@ -116,7 +116,7 @@ export const loadProviders = (directoryPath, list) => {
   const require = createRequire(import.meta.url);
   list
     .map((modName) => {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
+      // eslint-disable-next-line import-x/no-dynamic-require
       const { provider: modProvider } = require(
         path.join(directoryPath, `${modName}.js`),
       );

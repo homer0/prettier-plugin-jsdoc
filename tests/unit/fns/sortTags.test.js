@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { sortTags } from '../../../src/fns/sortTags';
+import { sortTags } from '../../../src/fns/sortTags.js';
 
 describe('sortTags', () => {
   const cases = [

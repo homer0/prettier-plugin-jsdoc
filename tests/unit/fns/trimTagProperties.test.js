@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { trimTagsProperties } from '../../../src/fns/trimTagsProperties';
+import { trimTagsProperties } from '../../../src/fns/trimTagsProperties.js';
 
 describe('trimTagsProperties', () => {
   it('should correctly trim the properties of a tags list', () => {

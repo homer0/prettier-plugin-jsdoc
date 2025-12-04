@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { prepareTagDescription } from '../../../src/fns/prepareTagDescription';
+import { prepareTagDescription } from '../../../src/fns/prepareTagDescription.js';
 
 describe('prepareTagDescription', () => {
   const cases = [

@@ -40,7 +40,7 @@ export const formatExample = async (options, column, example) => {
       ...options,
       printWidth,
     });
-  } catch (ignore) {
+  } catch {
     code = example;
     indent = options.jsdocIndentUnformattedExamples;
   }

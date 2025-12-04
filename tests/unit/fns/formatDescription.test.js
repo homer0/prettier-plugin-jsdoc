@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatDescription } from '../../../src/fns/formatDescription';
+import { formatDescription } from '../../../src/fns/formatDescription.js';
 
 describe('formatDescription', () => {
   it('should keep the description on the body of the block', () => {

@@ -16,7 +16,7 @@ import {
   registerModule,
   createProvider,
   loadProviders,
-} from '../../../src/fns/app';
+} from '../../../src/fns/app.js';
 
 describe('app', () => {
   afterEach(() => {

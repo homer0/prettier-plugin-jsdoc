@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatArrays } from '../../../src/fns/formatArrays';
+import { formatArrays } from '../../../src/fns/formatArrays.js';
 
 describe('formatArrays', () => {
   describe('shortForm', () => {

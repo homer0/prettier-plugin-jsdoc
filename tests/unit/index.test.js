@@ -10,12 +10,12 @@ describe('plugin', () => {
     // Given
     vi.mock('../../src/fns/app');
     vi.mock('../../src/fns/getPlugin');
-    const { loadProviders, get } = await import('../../src/fns/app');
-    const { getPlugin } = await import('../../src/fns/getPlugin');
+    const { loadProviders, get } = await import('../../src/fns/app.js');
+    const { getPlugin } = await import('../../src/fns/getPlugin.js');
     get.mockImplementationOnce((fn) => fn);
 
     // When
-    await import('../../src');
+    await import('../../src/index.js');
     // Then
     expect(loadProviders).toHaveBeenCalledTimes(1);
     expect(loadProviders).toHaveBeenCalledWith(

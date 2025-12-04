@@ -2,7 +2,7 @@ vi.mock('prettier');
 
 import { format } from 'prettier';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import { prepareTags } from '../../../src/fns/prepareTags';
+import { prepareTags } from '../../../src/fns/prepareTags.js';
 
 describe('prepareTags', () => {
   beforeEach(() => {

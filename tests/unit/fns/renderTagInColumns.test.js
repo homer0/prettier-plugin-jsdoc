@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { renderTagInColumns } from '../../../src/fns/renderTagInColumns';
+import { renderTagInColumns } from '../../../src/fns/renderTagInColumns.js';
 
 describe('renderTagInColumns', () => {
   const cases = [

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { replaceTagsSynonyms } from '../../../src/fns/replaceTagsSynonyms';
+import { replaceTagsSynonyms } from '../../../src/fns/replaceTagsSynonyms.js';
 
 describe('replaceTagsSynonyms', () => {
   it('should replace tags synonyms', () => {

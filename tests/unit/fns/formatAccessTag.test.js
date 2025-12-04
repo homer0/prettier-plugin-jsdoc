@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatAccessTag } from '../../../src/fns/formatAccessTag';
+import { formatAccessTag } from '../../../src/fns/formatAccessTag.js';
 
 describe('formatAccessTag', () => {
   it('should replace "@access public" with "@public"', () => {

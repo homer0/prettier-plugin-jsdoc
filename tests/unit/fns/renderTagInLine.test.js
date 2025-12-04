@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { renderTagInLine } from '../../../src/fns/renderTagInLine';
+import { renderTagInLine } from '../../../src/fns/renderTagInLine.js';
 
 describe('renderTagInLine', () => {
   const cases = [

@@ -45,12 +45,12 @@ import flowParsers from 'prettier/parser-flow';
 import tsParsers from 'prettier/parser-typescript';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
-import { getParsers } from '../../../src/fns/getParsers';
-import { formatDescription } from '../../../src/fns/formatDescription';
-import { formatTags } from '../../../src/fns/formatTags';
-import { formatTagsTypes } from '../../../src/fns/formatTagsTypes';
-import { prepareTags } from '../../../src/fns/prepareTags';
-import { render } from '../../../src/fns/render';
+import { getParsers } from '../../../src/fns/getParsers.js';
+import { formatDescription } from '../../../src/fns/formatDescription.js';
+import { formatTags } from '../../../src/fns/formatTags.js';
+import { formatTagsTypes } from '../../../src/fns/formatTagsTypes.js';
+import { prepareTags } from '../../../src/fns/prepareTags.js';
+import { render } from '../../../src/fns/render.js';
 
 describe('getParsers', () => {
   beforeEach(() => {

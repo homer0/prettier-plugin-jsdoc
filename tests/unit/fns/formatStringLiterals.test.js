@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatStringLiterals } from '../../../src/fns/formatStringLiterals';
+import { formatStringLiterals } from '../../../src/fns/formatStringLiterals.js';
 
 describe('formatStringLiterals', () => {
   it("should ignore a type that doesn't use string literals", () => {

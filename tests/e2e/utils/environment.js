@@ -12,7 +12,7 @@ const { node } = builtinEnvironments;
 const fixturesEnvironment = {
   name: 'fixtures',
   viteEnvironment: 'ssr',
-  setup: async function (...args) {
+  setup: async (...args) => {
     const baseEnv = await node.setup(...args);
     const fixtures = await loadFixtures();
 

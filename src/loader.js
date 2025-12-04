@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadProviders } from './fns/app';
+import { loadProviders } from './fns/app.js';
 /**
  * Loads and registers the providers of all the plugin functions.
  */
