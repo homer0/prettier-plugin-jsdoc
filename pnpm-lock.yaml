@@ -22,8 +22,8 @@ importers:
         specifier: ^20.0.0
         version: 20.0.0
       '@homer0/eslint-plugin':
-        specifier: ^14.2.1
-        version: 14.2.1(@typescript-eslint/utils@8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(prettier@3.7.4)(typescript@5.9.3)
+        specifier: ^14.2.2
+        version: 14.2.2(@typescript-eslint/utils@8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(prettier@3.7.4)(typescript@5.9.3)
       '@homer0/prettier-config':
         specifier: ^2.0.0
         version: 2.0.0
@@ -443,9 +443,9 @@ packages:
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
 
-  '@homer0/eslint-plugin@14.2.1':
-    resolution: {integrity: sha512-5CbOXIxTLPQb4gX9s8GxZ/5ZaTo+I4AfXFx4/vMipTuRXdCs78AAQwEOFScsxdtMM7SEJpmQx3NpUJrDYZOzWg==}
-    engines: {node: '>=20.19 <23'}
+  '@homer0/eslint-plugin@14.2.2':
+    resolution: {integrity: sha512-JFHaGPTR+dabXvndgj4RQMPATzi/VQRAapfl1BtIi96AhJtzWoTnF5NXC4CUoTcZMbKiLX4eQ85gA0gdSSus9Q==}
+    engines: {node: '>=20.19'}
     peerDependencies:
       eslint: ^9.0.0
       eslint-config-next: ^16.0.0
@@ -3418,7 +3418,7 @@ snapshots:
 
   '@fastify/busboy@2.1.1': {}
 
-  '@homer0/eslint-plugin@14.2.1(@typescript-eslint/utils@8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(prettier@3.7.4)(typescript@5.9.3)':
+  '@homer0/eslint-plugin@14.2.2(@typescript-eslint/utils@8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(prettier@3.7.4)(typescript@5.9.3)':
     dependencies:
       '@eslint/compat': 2.0.0(eslint@9.39.1(jiti@2.6.1))
       '@eslint/js': 9.39.1
