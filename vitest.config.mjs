@@ -17,6 +17,19 @@ export default defineConfig({
           },
         },
       },
+      {
+        test: {
+          name: 'e2e',
+          environment: './tests/e2e/utils/environment.js',
+          include: ['tests/e2e/**/*.e2e.js'],
+          globals: true,
+          coverage: {
+            provider: 'v8',
+            reportsDirectory: resolve('./coverage-e2e'),
+            reporter: ['text', 'lcov'],
+          },
+        },
+      },
     ],
   },
 });

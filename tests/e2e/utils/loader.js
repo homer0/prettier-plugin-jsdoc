@@ -1,5 +1,5 @@
-const path = require('path');
-const fs = require('fs').promises;
+import path from 'node:path';
+import fs from 'node:fs/promises';
 
 /**
  * @typedef {import('../../../src/types').PrettierOptions} PrettierOptions
@@ -28,7 +28,7 @@ const FIXTURES_DIRNAME = 'fixtures';
  *
  * @type {string}
  */
-const FIXTURES_PATH = path.join(__dirname, '..', FIXTURES_DIRNAME);
+const FIXTURES_PATH = path.join(import.meta.dirname, '..', FIXTURES_DIRNAME);
 /**
  * The expression the fixtures' filenames should match in order to be loaded.
  *
@@ -45,6 +45,13 @@ const DEFAULT_OPTIONS = {
   printWidth: 100,
   singleQuote: true,
 };
+/**
+ * When evaluating the fixture options, this prefix will be used to create a module
+ * context so the fixture can export options using `module.exports`.
+ *
+ * @type {string}
+ */
+const EVAL_PREFIX = 'const module = { exports: {} };';
 
 /**
  * Loads and parses a fixture file.
@@ -74,7 +81,7 @@ const parseFixture = async (filename) => {
   let options;
   if (rest.length) {
     // eslint-disable-next-line no-eval
-    options = eval(rest.join('\n').trim()) || {};
+    options = eval(`${EVAL_PREFIX}\n${rest.join('\n')}`.trim()) || {};
   } else {
     options = {};
   }
@@ -108,7 +115,7 @@ const parseFixture = async (filename) => {
  *
  * @returns {Promise<Fixture[]>}
  */
-const loadFixtures = async () => {
+export const loadFixtures = async () => {
   let files = await fs.readdir(FIXTURES_PATH);
   files = files.filter((file) => file.match(FIXTURES_FORMAT));
   const fixtures = await Promise.all(files.map((file) => parseFixture(file)));
@@ -120,5 +127,3 @@ const loadFixtures = async () => {
 
   return fixtures.filter((fixture) => !fixture.skip);
 };
-
-module.exports.loadFixtures = loadFixtures;
