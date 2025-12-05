@@ -7,19 +7,41 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['18', '20', '22']
-    name: Run jest and ESLint (Node ${{ matrix.node }})
+        node: ['20', '22.14', '24']
+    name: Run tests and ESLint (Node ${{ matrix.node }})
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 9
+          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint:all
-      - run: pnpm test
-      - name: Coveralls
+      - run: pnpm test --coverage
+      - name: Coveralls (unit)
         if: ${{ matrix.node == '20' }}
         uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
+          flag-name: unit
+          path-to-lcov: ./coverage-unit/lcov.info
+      - name: Coveralls (e2e)
+        if: ${{ matrix.node == '20' }}
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
+          flag-name: e2e
+          path-to-lcov: ./coverage-e2e/lcov.info
+
+  finish:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true

@@ -1,6 +1,5 @@
-jest.unmock('../../../src/fns/formatTSTypes');
-
-const { formatTSTypes } = require('../../../src/fns/formatTSTypes');
+import { describe, it, expect } from 'vitest';
+import { formatTSTypes } from '../../../src/fns/formatTSTypes.js';
 
 describe('formatTSTypes', () => {
   it.each([

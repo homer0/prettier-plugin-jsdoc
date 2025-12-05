@@ -1,31 +1,24 @@
-jest.unmock('../../../src/fns/app');
-jest.mock('../../../src/fns/sortTags', () => ({
-  provider: jest.fn(),
-}));
-jest.mock('../../../src/fns/splitText', () => ({
-  provider: jest.fn(),
-}));
-
-const path = require('path');
-const {
+vi.mock('node:module', () => {
+  const actualModule = vi.importActual('node:module');
+  return {
+    ...actualModule,
+    createRequire: vi.fn(),
+  };
+});
+import { vi, describe, it, expect, afterEach } from 'vitest';
+import path from 'node:path';
+import { createRequire } from 'node:module';
+import {
   register,
   override,
   get,
   container,
   registerModule,
-  provider,
+  createProvider,
   loadProviders,
-} = require('../../../src/fns/app');
-
-const { provider: sortTagsProvider } = require('../../../src/fns/sortTags');
-const { provider: splitTextProvider } = require('../../../src/fns/splitText');
+} from '../../../src/fns/app.js';
 
 describe('app', () => {
-  beforeEach(() => {
-    sortTagsProvider.mockReset();
-    splitTextProvider.mockReset();
-  });
-
   afterEach(() => {
     container.clear();
   });
@@ -33,7 +26,7 @@ describe('app', () => {
   it('should register a function on the container', () => {
     // Given
     const originalValue = 'original!';
-    const originalFn = jest.fn(() => originalValue);
+    const originalFn = vi.fn(() => originalValue);
     let sut = null;
     let result = null;
     // When
@@ -47,7 +40,7 @@ describe('app', () => {
   it('should return the same function when is not registered on the container', () => {
     // Given
     const originalValue = 'original!';
-    const originalFn = jest.fn(() => originalValue);
+    const originalFn = vi.fn(() => originalValue);
     let sut = null;
     let result = null;
     // When
@@ -60,9 +53,9 @@ describe('app', () => {
   it('should register an override for a function', () => {
     // Given
     const originalValue = 'original!';
-    const originalFn = jest.fn(() => originalValue);
+    const originalFn = vi.fn(() => originalValue);
     const customValue = 'custom!';
-    const customFn = jest.fn(() => customValue);
+    const customFn = vi.fn(() => customValue);
     let result = null;
     let resultAfterOverride = null;
     // When
@@ -116,7 +109,7 @@ describe('app', () => {
     let sut = null;
     let result = null;
     // When
-    sut = provider(id, fns);
+    sut = createProvider(id, fns);
     sut();
     result = [...container.keys()];
     // Then
@@ -128,11 +121,24 @@ describe('app', () => {
   it('should load and execute the providers of a list of modules', () => {
     // Given
     const directory = path.join(__dirname, '..', '..', '..', 'src', 'fns');
-    const mods = ['sortTags', 'splitText'];
+    const mods = { sortTags: vi.fn(), splitText: vi.fn() };
+    const modsNames = Object.keys(mods);
+    const requireMock = vi.fn((filepath) => {
+      const modName = path.basename(filepath, '.js');
+      return { provider: mods[modName] || undefined };
+    });
+    createRequire.mockReturnValue(requireMock);
     // When
-    loadProviders(directory, mods);
+    loadProviders(directory, modsNames);
     // Then
-    expect(sortTagsProvider).toHaveBeenCalledTimes(1);
-    expect(splitTextProvider).toHaveBeenCalledTimes(1);
+    expect(requireMock).toHaveBeenCalledTimes(2);
+    modsNames.forEach((modName, index) => {
+      expect(requireMock).toHaveBeenNthCalledWith(
+        index + 1,
+        path.join(directory, `${modName}.js`),
+      );
+    });
+    expect(mods.sortTags).toHaveBeenCalledTimes(1);
+    expect(mods.splitText).toHaveBeenCalledTimes(1);
   });
 });

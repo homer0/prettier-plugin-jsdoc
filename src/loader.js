@@ -1,10 +1,12 @@
-const path = require('path');
-const { loadProviders } = require('./fns/app');
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { loadProviders } from './fns/app.js';
 /**
  * Loads and registers the providers of all the plugin functions.
  */
-const loadFns = () => {
-  loadProviders(path.join(__dirname, 'fns'), [
+export const loadFns = () => {
+  const currentDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.');
+  loadProviders(path.join(currentDir, 'fns'), [
     'formatAccessTag',
     'formatArrays',
     'formatDescription',
@@ -33,5 +35,3 @@ const loadFns = () => {
     'utils',
   ]);
 };
-
-module.exports.loadFns = loadFns;

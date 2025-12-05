@@ -1,6 +1,5 @@
-jest.unmock('../../../src/fns/formatTagsDescription');
-
-const { formatTagsDescription } = require('../../../src/fns/formatTagsDescription');
+import { describe, it, expect } from 'vitest';
+import { formatTagsDescription } from '../../../src/fns/formatTagsDescription.js';
 
 describe('formatTagsDescription', () => {
   const cases = [

@@ -1,15 +1,17 @@
-const path = require('path');
+import path from 'node:path';
+import { createRequire } from 'node:module';
+
 /**
  * The actual dependency injection container. The keys will be the original functions, and
  * the values may be the same, or the overrides.
  *
  * @type {Map<Function, Function>}
  */
-const container = new Map();
+export const container = new Map();
 /**
  * This secret exists so when {@link registerModule} gets called with a raw
  * `module.exports`, it can safely skip a provider, as providers created with
- * {@link provider} have this secret as a property.
+ * {@link createProvider} have this secret as a property.
  *
  * @type {symbol}
  */
@@ -19,7 +21,7 @@ const providerKey = Symbol('provider-secret');
  *
  * @param {Function} originalFn  The reference for the original function.
  */
-const register = (originalFn) => {
+export const register = (originalFn) => {
   container.set(originalFn, originalFn);
 };
 /**
@@ -29,7 +31,7 @@ const register = (originalFn) => {
  * @param {OG} fn          The override function.
  * @template OG
  */
-const override = (originalFn, fn) => {
+export const override = (originalFn, fn) => {
   container.set(originalFn, fn);
 };
 /**
@@ -39,7 +41,7 @@ const override = (originalFn, fn) => {
  * @returns {OG}
  * @template OG
  */
-const get = (originalFn) => container.get(originalFn) || originalFn;
+export const get = (originalFn) => container.get(originalFn) || originalFn;
 /**
  * Registers a list or a dictionary of functions for a module. The idea of this function
  * is that it can be easily use to register a `module.exports`. Check the example.
@@ -55,7 +57,7 @@ const get = (originalFn) => container.get(originalFn) || originalFn;
  *   registerModule('my-mod', module.exports);
  *
  */
-const registerModule = (id, fns) => {
+export const registerModule = (id, fns) => {
   const useFns = Array.isArray(fns) ? fns : Object.values(fns);
   useFns
     .filter((fn) => fn.providerKey !== providerKey)
@@ -77,7 +79,7 @@ const registerModule = (id, fns) => {
  * The list or dictionary of functions.
  * @returns {Function}
  */
-const provider = (id, fns) => {
+export const createProvider = (id, fns) => {
   /**
    * The function that when executed will take care of registering the module.
    */
@@ -87,6 +89,22 @@ const provider = (id, fns) => {
   fn.providerKey = providerKey;
   return fn;
 };
+
+/**
+ * Creates a "module provider": a function that when called, it will execute
+ * {@link registerModule}.
+ * The idea of the providers is that they can be executed on runtime, or on a
+ * "registration step".
+ *
+ * @param {string} id
+ * The ID of the module.
+ * @param {Function[] | Object.<string, Function>} fns
+ * The list or dictionary of functions.
+ * @returns {Function}
+ * @deprecated
+ * Use `createProvider` instead.
+ */
+export const provider = createProvider;
 /**
  * Loads a list of files, takes their `provider` export (if present) and executes it.
  *
@@ -94,13 +112,15 @@ const provider = (id, fns) => {
  * @param {string[]} list           A list of files with a `provider` export that should
  *                                  be executed.
  */
-const loadProviders = (directoryPath, list) => {
+export const loadProviders = (directoryPath, list) => {
+  const require = createRequire(import.meta.url);
   list
     .map((modName) => {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
+      // eslint-disable-next-line import-x/no-dynamic-require
       const { provider: modProvider } = require(
         path.join(directoryPath, `${modName}.js`),
       );
+
       return modProvider;
     })
     .filter((modProvider) => modProvider)
@@ -108,11 +128,3 @@ const loadProviders = (directoryPath, list) => {
       modProvider();
     });
 };
-
-module.exports.register = register;
-module.exports.override = override;
-module.exports.get = get;
-module.exports.container = container;
-module.exports.registerModule = registerModule;
-module.exports.provider = provider;
-module.exports.loadProviders = loadProviders;

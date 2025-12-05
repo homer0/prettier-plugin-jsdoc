@@ -1,18 +1,21 @@
-jest.unmock('../../src/index');
-jest.unmock('../../src/loader');
-jest.mock('../../src/fns/app');
-
-const path = require('path');
-const { loadProviders, get } = require('../../src/fns/app');
-const { getPlugin } = require('../../src/fns/getPlugin');
+import path from 'node:path';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 
 describe('plugin', () => {
-  it('should load and export its settings', () => {
+  beforeEach(() => {
+    vi.resetModules();
+  });
+
+  it('should load and export its settings', async () => {
     // Given
+    vi.mock('../../src/fns/app');
+    vi.mock('../../src/fns/getPlugin');
+    const { loadProviders, get } = await import('../../src/fns/app.js');
+    const { getPlugin } = await import('../../src/fns/getPlugin.js');
     get.mockImplementationOnce((fn) => fn);
+
     // When
-    // eslint-disable-next-line global-require
-    require('../../src');
+    await import('../../src/index.js');
     // Then
     expect(loadProviders).toHaveBeenCalledTimes(1);
     expect(loadProviders).toHaveBeenCalledWith(

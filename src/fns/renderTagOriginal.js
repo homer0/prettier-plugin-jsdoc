@@ -1,5 +1,5 @@
-const R = require('ramda');
-const { provider } = require('./app');
+import * as R from 'ramda';
+import { createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -17,7 +17,7 @@ const { provider } = require('./app');
 /**
  * @type {RenderTagOriginalFn}
  */
-const renderTagOriginal = R.curry((tag) => {
+export const renderTagOriginal = R.curry((tag) => {
   const lines = tag.source.reduce((acc, src) => {
     const raw = src.source.trim();
     if (raw === '*/') return acc;
@@ -28,5 +28,6 @@ const renderTagOriginal = R.curry((tag) => {
   return lines;
 });
 
-module.exports.renderTagOriginal = renderTagOriginal;
-module.exports.provider = provider('renderTagOriginal', module.exports);
+export const provider = createProvider('renderTagOriginal', {
+  renderTagOriginal,
+});

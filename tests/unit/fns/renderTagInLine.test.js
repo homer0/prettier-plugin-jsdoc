@@ -1,7 +1,5 @@
-jest.unmock('../../../src/fns/renderTagInLine');
-jest.unmock('../../../src/fns/splitText');
-
-const { renderTagInLine } = require('../../../src/fns/renderTagInLine');
+import { describe, it, expect } from 'vitest';
+import { renderTagInLine } from '../../../src/fns/renderTagInLine.js';
 
 describe('renderTagInLine', () => {
   const cases = [

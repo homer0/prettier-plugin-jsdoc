@@ -1,7 +1,5 @@
-jest.unmock('../../../src/fns/renderExampleTag');
-jest.unmock('../../../src/fns/splitText');
-
-const { renderExampleTag } = require('../../../src/fns/renderExampleTag');
+import { describe, it, expect } from 'vitest';
+import { renderExampleTag } from '../../../src/fns/renderExampleTag.js';
 
 describe('renderExampleTag', () => {
   const cases = [

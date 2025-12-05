@@ -13,5 +13,4 @@
  *                                                formatted.
  */
 
-// eslint-disable-next-line
-export {};
+export const typesModule = true;

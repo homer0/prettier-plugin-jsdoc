@@ -1,2 +1,2 @@
 #!/bin/bash -e
-NODE_OPTIONS=--experimental-vm-modules jest -c ./.jestrc-unit.js $@
+vitest run -c vitest.unit.config.js $@

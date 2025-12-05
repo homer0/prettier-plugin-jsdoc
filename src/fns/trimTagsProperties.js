@@ -1,4 +1,4 @@
-const { provider } = require('./app');
+import { createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -11,7 +11,7 @@ const { provider } = require('./app');
  * @param {CommentTag[]} tags  The list of tags to format.
  * @returns {CommentTag[]}
  */
-const trimTagsProperties = (tags) => {
+export const trimTagsProperties = (tags) => {
   const knownProperties = ['type', 'name', 'description'];
   return tags.map((tag) =>
     Object.entries(tag).reduce(
@@ -24,5 +24,6 @@ const trimTagsProperties = (tags) => {
   );
 };
 
-module.exports.trimTagsProperties = trimTagsProperties;
-module.exports.provider = provider('trimTagsProperties', module.exports);
+export const provider = createProvider('trimTagsProperties', {
+  trimTagsProperties,
+});

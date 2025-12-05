@@ -1,11 +1,5 @@
-jest.unmock('../../../src/fns/formatTags');
-jest.unmock('../../../src/fns/formatAccessTag');
-jest.unmock('../../../src/fns/replaceTagsSynonyms');
-jest.unmock('../../../src/fns/sortTags');
-jest.unmock('../../../src/fns/trimTagsProperties');
-jest.unmock('../../../src/fns/formatTagsDescription');
-
-const { formatTags } = require('../../../src/fns/formatTags');
+import { describe, it, expect } from 'vitest';
+import { formatTags } from '../../../src/fns/formatTags.js';
 
 describe('formatTags', () => {
   const cases = [

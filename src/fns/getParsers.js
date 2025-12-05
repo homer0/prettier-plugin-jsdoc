@@ -1,15 +1,15 @@
-const babelParser = require('prettier/plugins/babel');
-const flowParser = require('prettier/plugins/flow');
-const tsParser = require('prettier/plugins/typescript');
-const R = require('ramda');
-const { parse: commentParser } = require('comment-parser');
-const { isMatch, composeWithPromise, reduceWithPromise } = require('./utils');
-const { formatDescription } = require('./formatDescription');
-const { formatTags } = require('./formatTags');
-const { formatTagsTypes } = require('./formatTagsTypes');
-const { prepareTags } = require('./prepareTags');
-const { render } = require('./render');
-const { get, provider } = require('./app');
+import babelParsers from 'prettier/parser-babel';
+import flowParsers from 'prettier/parser-flow';
+import tsParsers from 'prettier/parser-typescript';
+import * as R from 'ramda';
+import { parse as commentParser } from 'comment-parser';
+import { isMatch, composeWithPromise, reduceWithPromise } from './utils.js';
+import { formatDescription } from './formatDescription.js';
+import { formatTags } from './formatTags.js';
+import { formatTagsTypes } from './formatTagsTypes.js';
+import { prepareTags } from './prepareTags.js';
+import { render } from './render.js';
+import { get, createProvider } from './app.js';
 /**
  * @typedef {import('../types').PrettierParser} PrettierParser
  * @typedef {import('../types').PrettierParseFn} PrettierParseFn
@@ -23,7 +23,7 @@ const { get, provider } = require('./app');
  * @param {Object} node  The node to validate.
  * @returns {boolean}
  */
-const isComment = (node) =>
+export const isComment = (node) =>
   R.compose(R.includes(R.__, ['CommentBlock', 'Block']), R.prop('type'))(node);
 
 /**
@@ -49,7 +49,7 @@ const isComment = (node) =>
  * @param {CommentNode} node  The node to validate.
  * @returns {boolean}
  */
-const matchesBlock = (node) =>
+export const matchesBlock = (node) =>
   R.compose(
     get(isMatch)(/\/\*\*[\s\S]+?\*\//),
     (value) => `/*${value}*/`,
@@ -70,7 +70,7 @@ const matchesBlock = (node) =>
  * @returns {ParsingInformation}
  * @todo Update hotfix for the comment parser with a more Ramda-like approach.
  */
-const generateCommentData = (comment) => {
+export const generateCommentData = (comment) => {
   const {
     loc: {
       start: { column },
@@ -103,7 +103,7 @@ const generateCommentData = (comment) => {
  * @param {ParsingInformation} info  The parsed information of the comment.
  * @returns {boolean}
  */
-const hasIgnoreTag = (info) =>
+export const hasIgnoreTag = (info) =>
   R.compose(
     R.any(R.propSatisfies(R.equals('prettierignore'), 'tag')),
     R.path(['block', 'tags']),
@@ -115,7 +115,7 @@ const hasIgnoreTag = (info) =>
  * @param {ParsingInformation} info  The parsed information of the comment.
  * @returns {boolean}
  */
-const hasNoTags = (info) =>
+export const hasNoTags = (info) =>
   R.compose(R.equals(0), R.path(['block', 'tags', 'length']))(info);
 
 /**
@@ -129,7 +129,7 @@ const hasNoTags = (info) =>
 /**
  * @type {ShouldIgnoreCommentFn}
  */
-const shouldIgnoreComment = R.curry((options, info) =>
+export const shouldIgnoreComment = R.curry((options, info) =>
   R.allPass([
     R.anyPass([get(hasNoTags), get(hasIgnoreTag)]),
     R.always(!options.jsdocExperimentalFormatCommentsWithoutTags),
@@ -166,21 +166,23 @@ const shouldIgnoreComment = R.curry((options, info) =>
 /**
  * @type {ProcessCommentsFn}
  */
-const processComments = R.curry(async (options, nodes, formatterFn, processorFn) => {
-  const useNodes = nodes.filter(R.allPass([get(isComment), get(matchesBlock)]));
-  const shouldIgnoreFn = shouldIgnoreComment(options);
-  const generateCommentDataFn = get(generateCommentData);
-  return get(reduceWithPromise)(useNodes, async (node) => {
-    const info = generateCommentDataFn(node);
-    const formatted = await formatterFn(info);
-    const shouldIgnore = await shouldIgnoreFn(formatted);
-    if (shouldIgnore) {
-      return formatted;
-    }
+export const processComments = R.curry(
+  async (options, nodes, formatterFn, processorFn) => {
+    const useNodes = nodes.filter(R.allPass([get(isComment), get(matchesBlock)]));
+    const shouldIgnoreFn = shouldIgnoreComment(options);
+    const generateCommentDataFn = get(generateCommentData);
+    return get(reduceWithPromise)(useNodes, async (node) => {
+      const info = generateCommentDataFn(node);
+      const formatted = await formatterFn(info);
+      const shouldIgnore = await shouldIgnoreFn(formatted);
+      if (shouldIgnore) {
+        return formatted;
+      }
 
-    return processorFn(formatted);
-  });
-});
+      return processorFn(formatted);
+    });
+  },
+);
 
 /**
  * Runs all the formatting functions that require the context of a comment block, not only
@@ -195,7 +197,7 @@ const processComments = R.curry(async (options, nodes, formatterFn, processorFn)
 /**
  * @type {FormatCommentBlockFn}
  */
-const formatCommentBlock = R.curry((options, info) =>
+export const formatCommentBlock = R.curry((options, info) =>
   R.compose(
     R.mergeRight(info),
     R.assocPath(['block'], R.__, {}),
@@ -216,7 +218,7 @@ const formatCommentBlock = R.curry((options, info) =>
 /**
  * @type {FormatCommentTagsFn}
  */
-const formatCommentTags = R.curry((options, info) =>
+export const formatCommentTags = R.curry((options, info) =>
   get(composeWithPromise)(
     R.assocPath(['block', 'tags'], R.__, info),
     get(formatTagsTypes)(R.__, options, info.column),
@@ -240,7 +242,7 @@ const formatCommentTags = R.curry((options, info) =>
 /**
  * @type {PrepareCommentTagsFn}
  */
-const prepareCommentTags = R.curry((options, info) =>
+export const prepareCommentTags = R.curry((options, info) =>
   get(composeWithPromise)(
     R.assocPath(['block', 'tags'], R.__, info),
     get(prepareTags)(R.__, options, info.column),
@@ -262,7 +264,7 @@ const prepareCommentTags = R.curry((options, info) =>
  * @param {PrettierOptions} options  The options sent to the plugin.
  * @returns {RenderBlockFn}
  */
-const getRenderer = (options) => {
+export const getRenderer = (options) => {
   const renderer = get(render)(options);
   return (column, block) => {
     const padding = ' '.repeat(column + 1);
@@ -293,7 +295,7 @@ const getRenderer = (options) => {
  *                                             tells the plugin that it's being extended.
  * @returns {PrettierParseFn}
  */
-const createParser =
+export const createParser =
   (originalParser, checkExtendOption) => async (text, parsers, options) => {
     const ast = originalParser(text, parsers, options);
     if (
@@ -334,7 +336,7 @@ const createParser =
 /**
  * @type {ExtendParserFn}
  */
-const extendParser = R.curry((parser, checkExtendOption) => ({
+export const extendParser = R.curry((parser, checkExtendOption) => ({
   ...parser,
   parse: get(createParser)(parser.parse, checkExtendOption),
 }));
@@ -347,42 +349,43 @@ const extendParser = R.curry((parser, checkExtendOption) => ({
  *                                       the plugin that it's being extended.
  * @returns {Object.<string, PrettierParser>}
  */
-const getParsers = (checkExtendOption) => {
+export const getParsers = (checkExtendOption) => {
   const useExtendParser = get(extendParser)(R.__, checkExtendOption);
   return {
     get babel() {
-      return useExtendParser(babelParser.parsers.babel);
+      return useExtendParser(babelParsers.parsers.babel);
     },
     get typescript() {
-      return useExtendParser(tsParser.parsers.typescript);
+      return useExtendParser(tsParsers.parsers.typescript);
     },
     /* istanbul ignore next */
     get 'babel-flow'() {
-      return useExtendParser(babelParser.parsers['babel-flow']);
+      return useExtendParser(babelParsers.parsers['babel-flow']);
     },
     /* istanbul ignore next */
     get 'babel-ts'() {
-      return useExtendParser(babelParser.parsers['babel-ts']);
+      return useExtendParser(babelParsers.parsers['babel-ts']);
     },
     /* istanbul ignore next */
     get flow() {
-      return useExtendParser(flowParser.parsers.flow);
+      return useExtendParser(flowParsers.parsers.flow);
     },
   };
 };
 
-module.exports.getParsers = getParsers;
-module.exports.createParser = createParser;
-module.exports.isComment = isComment;
-module.exports.matchesBlock = matchesBlock;
-module.exports.generateCommentData = generateCommentData;
-module.exports.hasIgnoreTag = hasIgnoreTag;
-module.exports.hasNoTags = hasNoTags;
-module.exports.shouldIgnoreComment = shouldIgnoreComment;
-module.exports.processComments = processComments;
-module.exports.formatCommentBlock = formatCommentBlock;
-module.exports.formatCommentTags = formatCommentTags;
-module.exports.prepareCommentTags = prepareCommentTags;
-module.exports.getRenderer = getRenderer;
-module.exports.extendParser = extendParser;
-module.exports.provider = provider('getParsers', module.exports);
+export const provider = createProvider('getParsers', {
+  isComment,
+  matchesBlock,
+  generateCommentData,
+  hasIgnoreTag,
+  hasNoTags,
+  shouldIgnoreComment,
+  processComments,
+  formatCommentBlock,
+  formatCommentTags,
+  prepareCommentTags,
+  getRenderer,
+  createParser,
+  extendParser,
+  getParsers,
+});

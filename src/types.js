@@ -2,11 +2,9 @@
 // Imports
 // =========================================
 
-/* eslint-disable jsdoc/valid-types */
 /**
  * @typedef {PrettierParser['parse']} PrettierParseFn
  */
-/* eslint-enable jsdoc/valid-types */
 
 /**
  * @typedef {import('prettier').SupportOption} PrettierSupportOption
@@ -203,5 +201,4 @@
  * @property {CommentTag[]} tags         The list of tags on the block.
  */
 
-// eslint-disable-next-line
 export {};

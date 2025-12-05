@@ -1,54 +1,65 @@
-jest.mock('comment-parser');
-jest.mock('prettier/parser-babel', () => ({
-  parsers: {
-    babel: {
-      parse: jest.fn(),
-    },
-    'babel-flow': {
-      parse: jest.fn(),
-    },
-    'babel-ts': {
-      parse: jest.fn(),
-    },
-  },
-}));
-jest.mock('prettier/parser-flow', () => ({
-  parsers: {
-    flow: {
-      parse: jest.fn(),
+vi.mock('comment-parser');
+vi.mock('prettier/parser-babel', () => ({
+  default: {
+    parsers: {
+      babel: {
+        parse: vi.fn(),
+      },
+      'babel-flow': {
+        parse: vi.fn(),
+      },
+      'babel-ts': {
+        parse: vi.fn(),
+      },
     },
   },
 }));
-jest.mock('prettier/parser-typescript', () => ({
-  parsers: {
-    typescript: {
-      parse: jest.fn(),
+vi.mock('prettier/parser-flow', () => ({
+  default: {
+    parsers: {
+      flow: {
+        parse: vi.fn(),
+      },
     },
   },
 }));
-jest.unmock('../../../src/fns/getParsers');
+vi.mock('prettier/parser-typescript', () => ({
+  default: {
+    parsers: {
+      typescript: {
+        parse: vi.fn(),
+      },
+    },
+  },
+}));
+vi.mock('../../../src/fns/formatDescription');
+vi.mock('../../../src/fns/formatTags');
+vi.mock('../../../src/fns/formatTagsTypes');
+vi.mock('../../../src/fns/prepareTags');
+vi.mock('../../../src/fns/render');
 
-const R = require('ramda');
-const { parse: commentParser } = require('comment-parser');
-const babelParser = require('prettier/parser-babel');
-const flowParser = require('prettier/parser-flow');
-const tsParser = require('prettier/parser-typescript');
+import * as R from 'ramda';
+import { parse as commentParser } from 'comment-parser';
+import babelParsers from 'prettier/parser-babel';
+import flowParsers from 'prettier/parser-flow';
+import tsParsers from 'prettier/parser-typescript';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 
-const { getParsers } = require('../../../src/fns/getParsers');
-const { formatDescription } = require('../../../src/fns/formatDescription');
-const { formatTags } = require('../../../src/fns/formatTags');
-const { formatTagsTypes } = require('../../../src/fns/formatTagsTypes');
-const { prepareTags } = require('../../../src/fns/prepareTags');
-const { render } = require('../../../src/fns/render');
+import { getParsers } from '../../../src/fns/getParsers.js';
+import { formatDescription } from '../../../src/fns/formatDescription.js';
+import { formatTags } from '../../../src/fns/formatTags.js';
+import { formatTagsTypes } from '../../../src/fns/formatTagsTypes.js';
+import { prepareTags } from '../../../src/fns/prepareTags.js';
+import { render } from '../../../src/fns/render.js';
 
 describe('getParsers', () => {
   beforeEach(() => {
     commentParser.mockReset();
-    babelParser.parsers.babel.parse.mockReset();
-    babelParser.parsers['babel-flow'].parse.mockReset();
-    babelParser.parsers['babel-ts'].parse.mockReset();
-    flowParser.parsers.flow.parse.mockReset();
-    tsParser.parsers.typescript.parse.mockReset();
+    babelParsers.parsers.babel.parse.mockReset();
+    babelParsers.parsers['babel-flow'].parse.mockReset();
+    babelParsers.parsers['babel-ts'].parse.mockReset();
+    flowParsers.parsers.flow.parse.mockReset();
+    tsParsers.parsers.typescript.parse.mockReset();
     formatDescription.mockReset();
     formatTags.mockReset();
     formatTagsTypes.mockReset();
@@ -65,27 +76,27 @@ describe('getParsers', () => {
       {
         name: 'babel',
         ast: R.clone(astBase),
-        uses: babelParser.parsers.babel,
+        uses: babelParsers.parsers.babel,
       },
       {
         name: 'babel-flow',
         ast: R.clone(astBase),
-        uses: babelParser.parsers['babel-flow'],
+        uses: babelParsers.parsers['babel-flow'],
       },
       {
         name: 'babel-ts',
         ast: R.clone(astBase),
-        uses: babelParser.parsers['babel-ts'],
+        uses: babelParsers.parsers['babel-ts'],
       },
       {
         name: 'flow',
         ast: R.clone(astBase),
-        uses: flowParser.parsers.flow,
+        uses: flowParsers.parsers.flow,
       },
       {
         name: 'typescript',
         ast: R.clone(astBase),
-        uses: tsParser.parsers.typescript,
+        uses: tsParsers.parsers.typescript,
       },
     ];
     parsersToTest.forEach((info) => {
@@ -129,27 +140,27 @@ describe('getParsers', () => {
       {
         name: 'babel',
         ast: R.clone(astBase),
-        uses: babelParser.parsers.babel,
+        uses: babelParsers.parsers.babel,
       },
       {
         name: 'babel-flow',
         ast: R.clone(astBase),
-        uses: babelParser.parsers['babel-flow'],
+        uses: babelParsers.parsers['babel-flow'],
       },
       {
         name: 'babel-ts',
         ast: R.clone(astBase),
-        uses: babelParser.parsers['babel-ts'],
+        uses: babelParsers.parsers['babel-ts'],
       },
       {
         name: 'flow',
         ast: R.clone(astBase),
-        uses: flowParser.parsers.flow,
+        uses: flowParsers.parsers.flow,
       },
       {
         name: 'typescript',
         ast: R.clone(astBase),
-        uses: tsParser.parsers.typescript,
+        uses: tsParsers.parsers.typescript,
       },
     ];
     parsersToTest.forEach((info) => {
@@ -193,27 +204,27 @@ describe('getParsers', () => {
       {
         name: 'babel',
         ast: R.clone(astBase),
-        uses: babelParser.parsers.babel,
+        uses: babelParsers.parsers.babel,
       },
       {
         name: 'babel-flow',
         ast: R.clone(astBase),
-        uses: babelParser.parsers['babel-flow'],
+        uses: babelParsers.parsers['babel-flow'],
       },
       {
         name: 'babel-ts',
         ast: R.clone(astBase),
-        uses: babelParser.parsers['babel-ts'],
+        uses: babelParsers.parsers['babel-ts'],
       },
       {
         name: 'flow',
         ast: R.clone(astBase),
-        uses: flowParser.parsers.flow,
+        uses: flowParsers.parsers.flow,
       },
       {
         name: 'typescript',
         ast: R.clone(astBase),
-        uses: tsParser.parsers.typescript,
+        uses: tsParsers.parsers.typescript,
       },
     ];
     parsersToTest.forEach((info) => {
@@ -270,17 +281,17 @@ describe('getParsers', () => {
       },
     ];
     commentParser.mockImplementationOnce(() => parsed);
-    const formatTagsTypesRest = jest.fn((tags) => tags);
+    const formatTagsTypesRest = vi.fn((tags) => tags);
     formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
-    const formatTagsRest = jest.fn((tags) => tags);
+    const formatTagsRest = vi.fn((tags) => tags);
     formatTags.mockImplementationOnce(() => formatTagsRest);
-    const formatDescriptionRest = jest.fn((tags) => tags);
+    const formatDescriptionRest = vi.fn((tags) => tags);
     formatDescription.mockImplementationOnce(() => formatDescriptionRest);
-    const prepareTagsRest = jest.fn((tags) => tags);
+    const prepareTagsRest = vi.fn((tags) => tags);
     prepareTags.mockImplementationOnce(() => prepareTagsRest);
-    const renderRest = jest.fn(() => ['@typedef {string} MyFormattedStr']);
+    const renderRest = vi.fn(() => ['@typedef {string} MyFormattedStr']);
     render.mockImplementationOnce(() => renderRest);
-    tsParser.parsers.typescript.parse.mockImplementationOnce(() => ast);
+    tsParsers.parsers.typescript.parse.mockImplementationOnce(() => ast);
     const text = 'lorem ipsum';
     const parsers = ['ts'];
     const options = {
@@ -365,15 +376,15 @@ describe('getParsers', () => {
       },
     ];
     commentParser.mockImplementationOnce(() => parsed);
-    const formatTagsTypesRest = jest.fn((tags) => tags);
+    const formatTagsTypesRest = vi.fn((tags) => tags);
     formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
-    const formatTagsRest = jest.fn((tags) => tags);
+    const formatTagsRest = vi.fn((tags) => tags);
     formatTags.mockImplementationOnce(() => formatTagsRest);
-    const formatDescriptionRest = jest.fn((tags) => tags);
+    const formatDescriptionRest = vi.fn((tags) => tags);
     formatDescription.mockImplementationOnce(() => formatDescriptionRest);
-    const prepareTagsRest = jest.fn((tags) => tags);
+    const prepareTagsRest = vi.fn((tags) => tags);
     prepareTags.mockImplementationOnce(() => prepareTagsRest);
-    tsParser.parsers.typescript.parse.mockImplementationOnce(() => ast);
+    tsParsers.parsers.typescript.parse.mockImplementationOnce(() => ast);
     const text = 'lorem ipsum';
     const parsers = ['ts'];
     const options = {
@@ -421,18 +432,18 @@ describe('getParsers', () => {
       },
     ];
     commentParser.mockImplementationOnce(() => parsed);
-    const formatTagsTypesRest = jest.fn((tags) => tags);
+    const formatTagsTypesRest = vi.fn((tags) => tags);
     formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
-    const formatTagsRest = jest.fn((tags) => tags);
+    const formatTagsRest = vi.fn((tags) => tags);
     formatTags.mockImplementationOnce(() => formatTagsRest);
-    const formatDescriptionRest = jest.fn((tags) => tags);
+    const formatDescriptionRest = vi.fn((tags) => tags);
     formatDescription.mockImplementationOnce(() => formatDescriptionRest);
-    const prepareTagsRest = jest.fn((tags) => tags);
+    const prepareTagsRest = vi.fn((tags) => tags);
     prepareTags.mockImplementationOnce(() => prepareTagsRest);
-    const renderRest = jest.fn(() => ['@type {MyFormattedStr}']);
+    const renderRest = vi.fn(() => ['@type {MyFormattedStr}']);
     render.mockImplementationOnce(() => renderRest);
 
-    babelParser.parsers['babel-flow'].parse.mockImplementationOnce(() => ast);
+    babelParsers.parsers['babel-flow'].parse.mockImplementationOnce(() => ast);
     const text = 'lorem ipsum';
     const parsers = ['babel'];
     const options = {
@@ -487,18 +498,18 @@ describe('getParsers', () => {
       },
     ];
     commentParser.mockImplementationOnce(() => parsed);
-    const formatTagsTypesRest = jest.fn((tags) => tags);
+    const formatTagsTypesRest = vi.fn((tags) => tags);
     formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
-    const formatTagsRest = jest.fn((tags) => tags);
+    const formatTagsRest = vi.fn((tags) => tags);
     formatTags.mockImplementationOnce(() => formatTagsRest);
-    const formatDescriptionRest = jest.fn((tags) => tags);
+    const formatDescriptionRest = vi.fn((tags) => tags);
     formatDescription.mockImplementationOnce(() => formatDescriptionRest);
-    const prepareTagsRest = jest.fn((tags) => tags);
+    const prepareTagsRest = vi.fn((tags) => tags);
     prepareTags.mockImplementationOnce(() => prepareTagsRest);
-    const renderRest = jest.fn(() => [commentText]);
+    const renderRest = vi.fn(() => [commentText]);
     render.mockImplementationOnce(() => renderRest);
 
-    babelParser.parsers['babel-flow'].parse.mockImplementationOnce(() => ast);
+    babelParsers.parsers['babel-flow'].parse.mockImplementationOnce(() => ast);
     const text = 'lorem ipsum';
     const parsers = ['babel'];
     const options = {
@@ -553,18 +564,18 @@ describe('getParsers', () => {
       },
     ];
     commentParser.mockImplementationOnce(() => parsed);
-    const formatTagsTypesRest = jest.fn((tags) => tags);
+    const formatTagsTypesRest = vi.fn((tags) => tags);
     formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
-    const formatTagsRest = jest.fn((tags) => tags);
+    const formatTagsRest = vi.fn((tags) => tags);
     formatTags.mockImplementationOnce(() => formatTagsRest);
-    const formatDescriptionRest = jest.fn((tags) => tags);
+    const formatDescriptionRest = vi.fn((tags) => tags);
     formatDescription.mockImplementationOnce(() => formatDescriptionRest);
-    const prepareTagsRest = jest.fn((tags) => tags);
+    const prepareTagsRest = vi.fn((tags) => tags);
     prepareTags.mockImplementationOnce(() => prepareTagsRest);
-    const renderRest = jest.fn(() => [commentText]);
+    const renderRest = vi.fn(() => [commentText]);
     render.mockImplementationOnce(() => renderRest);
 
-    babelParser.parsers['babel-flow'].parse.mockImplementationOnce(() => ast);
+    babelParsers.parsers['babel-flow'].parse.mockImplementationOnce(() => ast);
     const text = 'lorem ipsum';
     const parsers = ['babel'];
     const options = {
@@ -615,17 +626,17 @@ describe('getParsers', () => {
       },
     ];
     commentParser.mockImplementationOnce(() => parsed);
-    const formatTagsTypesRest = jest.fn((tags) => tags);
+    const formatTagsTypesRest = vi.fn((tags) => tags);
     formatTagsTypes.mockImplementationOnce(() => formatTagsTypesRest);
-    const formatTagsRest = jest.fn((tags) => tags);
+    const formatTagsRest = vi.fn((tags) => tags);
     formatTags.mockImplementationOnce(() => formatTagsRest);
-    const formatDescriptionRest = jest.fn((tags) => tags);
+    const formatDescriptionRest = vi.fn((tags) => tags);
     formatDescription.mockImplementationOnce(() => formatDescriptionRest);
-    const prepareTagsRest = jest.fn((tags) => tags);
+    const prepareTagsRest = vi.fn((tags) => tags);
     prepareTags.mockImplementationOnce(() => prepareTagsRest);
-    const renderRest = jest.fn(() => ['@typedef {string} MyFormattedStr']);
+    const renderRest = vi.fn(() => ['@typedef {string} MyFormattedStr']);
     render.mockImplementationOnce(() => renderRest);
-    tsParser.parsers.typescript.parse.mockImplementationOnce(() => ast);
+    tsParsers.parsers.typescript.parse.mockImplementationOnce(() => ast);
     const text = 'lorem ipsum';
     const parsers = ['ts'];
     const options = {

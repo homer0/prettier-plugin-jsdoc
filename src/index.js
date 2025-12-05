@@ -1,7 +1,8 @@
-const { get } = require('./fns/app');
-const { getPlugin } = require('./fns/getPlugin');
-const { loadFns } = require('./loader');
+import { get } from './fns/app.js';
+import { getPlugin } from './fns/getPlugin.js';
+import { loadFns } from './loader.js';
 
 loadFns();
 
-module.exports = get(getPlugin)(true);
+const plugin = get(getPlugin)(true);
+export default plugin;

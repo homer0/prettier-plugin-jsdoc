@@ -1,4 +1,4 @@
-const { provider } = require('./app');
+import { createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').PrettierSupportLanguage} PrettierSupportLanguage
@@ -12,7 +12,7 @@ const { provider } = require('./app');
  *
  * @returns {Object.<string, string>}
  */
-const getTagsSynonyms = () => ({
+export const getTagsSynonyms = () => ({
   virtual: 'abstract',
   extends: 'augments',
   constructor: 'class',
@@ -43,7 +43,7 @@ const getTagsSynonyms = () => ({
  *
  * @returns {string[]}
  */
-const getTagsWithDescriptionAsName = () => [
+export const getTagsWithDescriptionAsName = () => [
   'author',
   'classdesc',
   'copyright',
@@ -69,7 +69,7 @@ const getTagsWithDescriptionAsName = () => [
  *
  * @returns {string[]}
  */
-const getTagsThatRequireColumns = () => ['template'];
+export const getTagsThatRequireColumns = () => ['template'];
 /**
  * This is almost the same as {@link getTagsWithDescriptionAsName}; the difference here is
  * that after putting together the `name` and the `description`, instead of saving the
@@ -78,20 +78,26 @@ const getTagsThatRequireColumns = () => ['template'];
  *
  * @returns {string[]}
  */
-const getTagsWithNameAsDescription = () => ['see', 'borrows', 'yields', 'todo', 'since'];
+export const getTagsWithNameAsDescription = () => [
+  'see',
+  'borrows',
+  'yields',
+  'todo',
+  'since',
+];
 /**
  * There are certain tags which description cannot be converted into sentences (upper case
  * and period at the end).
  *
  * @returns {string[]}
  */
-const getTagsWithDescriptionThatCannotBeSentences = () => ['since'];
+export const getTagsWithDescriptionThatCannotBeSentences = () => ['since'];
 /**
  * Gets the list of languages the plugin supports.
  *
  * @returns {PrettierSupportLanguage[]}
  */
-const getSupportedLanguages = () => [
+export const getSupportedLanguages = () => [
   {
     linguistLanguageId: 183,
     name: 'JavaScript',
@@ -238,11 +244,11 @@ const getSupportedLanguages = () => [
   },
 ];
 
-module.exports.getTagsSynonyms = getTagsSynonyms;
-module.exports.getTagsWithDescriptionAsName = getTagsWithDescriptionAsName;
-module.exports.getTagsThatRequireColumns = getTagsThatRequireColumns;
-module.exports.getTagsWithDescriptionThatCannotBeSentences =
-  getTagsWithDescriptionThatCannotBeSentences;
-module.exports.getTagsWithNameAsDescription = getTagsWithNameAsDescription;
-module.exports.getSupportedLanguages = getSupportedLanguages;
-module.exports.provider = provider('constants', module.exports);
+export const provider = createProvider('constants', {
+  getTagsSynonyms,
+  getTagsWithDescriptionAsName,
+  getTagsThatRequireColumns,
+  getTagsWithDescriptionThatCannotBeSentences,
+  getTagsWithNameAsDescription,
+  getSupportedLanguages,
+});

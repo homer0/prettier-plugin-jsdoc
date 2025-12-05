@@ -1,5 +1,5 @@
-const R = require('ramda');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -12,7 +12,7 @@ const { get, provider } = require('./app');
  * @param {CommentTag} tag  The tag to format.
  * @returns {string} The new name for the tag.
  */
-const formatNameForOptionalTag = (tag) => ({
+export const formatNameForOptionalTag = (tag) => ({
   ...tag,
   name: tag.default ? `[${tag.name}=${tag.default}]` : `[${tag.name}]`,
 });
@@ -23,9 +23,10 @@ const formatNameForOptionalTag = (tag) => ({
  * @param {CommentTag} tag  The tag to validate and format.
  * @returns {CommentTag}
  */
-const prepareTagName = (tag) =>
+export const prepareTagName = (tag) =>
   R.when(R.prop('optional'), get(formatNameForOptionalTag), tag);
 
-module.exports.prepareTagName = prepareTagName;
-module.exports.formatNameForOptionalTag = formatNameForOptionalTag;
-module.exports.provider = provider('prepareTagName', module.exports);
+export const provider = createProvider('prepareTagName', {
+  prepareTagName,
+  formatNameForOptionalTag,
+});

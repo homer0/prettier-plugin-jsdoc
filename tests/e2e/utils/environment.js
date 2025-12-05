@@ -1,22 +1,30 @@
-const { default: NodeEnvironment } = require('jest-environment-node');
-const { loadFixtures } = require('./loader');
+import { builtinEnvironments } from 'vitest/environments';
+import { loadFixtures } from './loader.js';
+
+const { node } = builtinEnvironments;
+
 /**
  * A custom environment that loads and injects the E2E fixtures information on the global
  * object.
  *
- * @augments NodeEnvironment
+ * @type {import('vitest/environments').Environment}
  */
-class FixturesEnvironment extends NodeEnvironment {
-  /**
-   * Overrides the setup of the environment, loads and injects the E2E fixtures on the
-   * `e2eFixtures` global object.
-   *
-   * @returns {Promise}
-   */
-  async setup() {
-    await super.setup();
-    this.global.e2eFixtures = await loadFixtures();
-  }
-}
+const fixturesEnvironment = {
+  name: 'fixtures',
+  viteEnvironment: 'ssr',
+  setup: async (...args) => {
+    const baseEnv = await node.setup(...args);
+    const fixtures = await loadFixtures();
 
-module.exports = FixturesEnvironment;
+    globalThis.e2eFixtures = fixtures;
+
+    return {
+      async teardown(...teardownArgs) {
+        delete globalThis.e2eFixtures;
+        await baseEnv.teardown(...teardownArgs);
+      },
+    };
+  },
+};
+
+export default fixturesEnvironment;

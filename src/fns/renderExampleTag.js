@@ -1,6 +1,6 @@
-const R = require('ramda');
-const { splitText } = require('./splitText');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { splitText } from './splitText.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions
@@ -30,7 +30,7 @@ const CAPTION_TAGS_LENGTH = 19;
 /**
  * @type {RenderExampleFn}
  */
-const renderExample = R.curry((width, options, example) => {
+export const renderExample = R.curry((width, options, example) => {
   const lines = [];
   if (example.caption) {
     if (CAPTION_TAGS_LENGTH + example.caption.length >= width) {
@@ -61,7 +61,7 @@ const renderExample = R.curry((width, options, example) => {
  * @param {PrettierOptions} options  The options sent to the plugin.
  * @returns {string[]}
  */
-const renderExampleTag = R.curry((tag, width, options) => {
+export const renderExampleTag = R.curry((tag, width, options) => {
   const lines = [
     `@${tag.tag}`,
     ...new Array(options.jsdocLinesBetweenExampleTagAndCode).fill(''),
@@ -79,6 +79,7 @@ const renderExampleTag = R.curry((tag, width, options) => {
   return lines;
 });
 
-module.exports.renderExampleTag = renderExampleTag;
-module.exports.renderExample = renderExample;
-module.exports.provider = provider('renderExampleTag', module.exports);
+export const provider = createProvider('renderExampleTag', {
+  renderExampleTag,
+  renderExample,
+});

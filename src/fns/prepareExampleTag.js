@@ -1,7 +1,7 @@
-const { format } = require('prettier');
-const R = require('ramda');
-const { isTag, prefixLines, splitLinesAndClean, reduceWithPromise } = require('./utils');
-const { get, provider } = require('./app');
+import { format } from 'prettier';
+import * as R from 'ramda';
+import { isTag, prefixLines, splitLinesAndClean, reduceWithPromise } from './utils.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').PrettierOptions} PrettierOptions
@@ -26,7 +26,7 @@ const COMMENT_PADDING_LENGTH = 3;
  * @param {string}          example  The example code.
  * @returns {Promise<string>}
  */
-const formatExample = async (options, column, example) => {
+export const formatExample = async (options, column, example) => {
   let code;
   let indent;
   try {
@@ -40,7 +40,7 @@ const formatExample = async (options, column, example) => {
       ...options,
       printWidth,
     });
-  } catch (ignore) {
+  } catch {
     code = example;
     indent = options.jsdocIndentUnformattedExamples;
   }
@@ -62,7 +62,7 @@ const formatExample = async (options, column, example) => {
  * @param {string}          example  The example code.
  * @returns {Promise<CommentTagExample[]>}
  */
-const splitExamples = async (options, column, example) => {
+export const splitExamples = async (options, column, example) => {
   const splitLinesAndCleanFn = get(splitLinesAndClean);
   const splitEndFn = splitLinesAndCleanFn(/<\s*\/\s*caption\s*>/i);
   const splitted = splitLinesAndCleanFn(/<\s*caption\s*>/i)(example);
@@ -91,7 +91,7 @@ const splitExamples = async (options, column, example) => {
 /**
  * @type {FormatExampleTagFn}
  */
-const formatExampleTag = R.curry(async (options, column, tag) => {
+export const formatExampleTag = R.curry(async (options, column, tag) => {
   let examples;
   if (tag.description.match(/<\s*caption\s*>/i)) {
     examples = await get(splitExamples)(options, column, tag.description);
@@ -124,12 +124,13 @@ const formatExampleTag = R.curry(async (options, column, tag) => {
 /**
  * @type {PrepareExampleTagFn}
  */
-const prepareExampleTag = R.curry((tag, options, column) =>
+export const prepareExampleTag = R.curry((tag, options, column) =>
   R.when(get(isTag)('example'), get(formatExampleTag)(options, column), tag),
 );
 
-module.exports.prepareExampleTag = prepareExampleTag;
-module.exports.formatExample = formatExample;
-module.exports.splitExamples = splitExamples;
-module.exports.formatExampleTag = formatExampleTag;
-module.exports.provider = provider('prepareExampleTag', module.exports);
+export const provider = createProvider('prepareExampleTag', {
+  prepareExampleTag,
+  formatExample,
+  splitExamples,
+  formatExampleTag,
+});

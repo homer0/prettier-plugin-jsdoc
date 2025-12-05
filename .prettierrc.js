@@ -1,6 +1,6 @@
-const base = require('@homer0/prettier-config');
+import base from '@homer0/prettier-config' with { type: 'json' };
 
-module.exports = {
+export default {
   ...base,
   plugins: ['./src/index.js'],
 };

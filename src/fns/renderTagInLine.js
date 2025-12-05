@@ -1,6 +1,6 @@
-const R = require('ramda');
-const { splitText } = require('./splitText');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { splitText } from './splitText.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -24,7 +24,7 @@ const { get, provider } = require('./app');
  * @type {RenderTagInLineFn}
  * @todo Refactor how the multiline names are handled.
  */
-const renderTagInLine = R.curry((width, typePadding, namePadding, tag) => {
+export const renderTagInLine = R.curry((width, typePadding, namePadding, tag) => {
   const tagHeader = `@${tag.tag}`;
   const useNamePadding = ' '.repeat(namePadding);
   let result;
@@ -74,5 +74,6 @@ const renderTagInLine = R.curry((width, typePadding, namePadding, tag) => {
   return result;
 });
 
-module.exports.renderTagInLine = renderTagInLine;
-module.exports.provider = provider('renderTagInLine', module.exports);
+export const provider = createProvider('renderTagInLine', {
+  renderTagInLine,
+});

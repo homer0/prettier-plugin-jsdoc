@@ -1,6 +1,6 @@
-const R = require('ramda');
-const { getTagsSynonyms } = require('./constants');
-const { get, provider } = require('./app');
+import * as R from 'ramda';
+import { getTagsSynonyms } from './constants.js';
+import { get, createProvider } from './app.js';
 
 /**
  * @typedef {import('../types').CommentTag} CommentTag
@@ -12,7 +12,7 @@ const { get, provider } = require('./app');
  * @param {CommentTag[]} tags  The list of tags where the replacement should happen.
  * @returns {CommentTag[]}
  */
-const replaceTagsSynonyms = (tags) => {
+export const replaceTagsSynonyms = (tags) => {
   const synonyms = get(getTagsSynonyms)();
   return R.map(
     (tag) => ({
@@ -23,5 +23,6 @@ const replaceTagsSynonyms = (tags) => {
   );
 };
 
-module.exports.replaceTagsSynonyms = replaceTagsSynonyms;
-module.exports.provider = provider('replaceTagsSynonyms', module.exports);
+export const provider = createProvider('replaceTagsSynonyms', {
+  replaceTagsSynonyms,
+});

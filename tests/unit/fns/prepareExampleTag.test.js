@@ -1,8 +1,8 @@
-jest.unmock('../../../src/fns/prepareExampleTag');
-jest.mock('prettier');
+vi.mock('prettier');
 
-const { format } = require('prettier');
-const { prepareExampleTag } = require('../../../src/fns/prepareExampleTag');
+import { format } from 'prettier';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { prepareExampleTag } from '../../../src/fns/prepareExampleTag.js';
 
 describe('prepareExampleTag', () => {
   beforeEach(() => {

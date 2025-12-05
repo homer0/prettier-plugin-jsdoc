@@ -1,7 +1,5 @@
-jest.unmock('../../../src/fns/renderTagInColumns');
-jest.unmock('../../../src/fns/splitText');
-
-const { renderTagInColumns } = require('../../../src/fns/renderTagInColumns');
+import { describe, it, expect } from 'vitest';
+import { renderTagInColumns } from '../../../src/fns/renderTagInColumns.js';
 
 describe('renderTagInColumns', () => {
   const cases = [

@@ -1,6 +1,5 @@
-jest.unmock('../../../src/fns/formatAccessTag');
-
-const { formatAccessTag } = require('../../../src/fns/formatAccessTag');
+import { describe, it, expect } from 'vitest';
+import { formatAccessTag } from '../../../src/fns/formatAccessTag.js';
 
 describe('formatAccessTag', () => {
   it('should replace "@access public" with "@public"', () => {
