@@ -17,6 +17,13 @@
     "access": "public"
   },
   "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": {
+      "import": "./src/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "dependencies": {
     "comment-parser": "^1.4.1",
     "ramda": "0.32.0"
@@ -45,7 +52,6 @@
   "engines": {
     "node": ">=20"
   },
-  "main": "src/index.js",
   "scripts": {
     "prepare": "./utils/scripts/prepare",
     "test:unit": "./utils/scripts/test-unit",
