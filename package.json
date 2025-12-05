@@ -18,10 +18,9 @@
   },
   "type": "module",
   "main": "./src/index.js",
+  "module": "./src/index.js",
   "exports": {
-    ".": {
-      "import": "./src/index.js"
-    },
+    ".": "./src/index.js",
     "./src/*.js": "./src/*.js",
     "./package.json": "./package.json"
   },
