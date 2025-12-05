@@ -1,3 +1,26 @@
+# [11.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/10.0.1...11.0.0) (2025-12-05)
+
+
+### Bug Fixes
+
+* add export for src ([13bb020](https://github.com/homer0/prettier-plugin-jsdoc/commit/13bb0203f7bc3c7dc718b73fb2cae1a9871bb863))
+* add exports to the package.json ([ed40962](https://github.com/homer0/prettier-plugin-jsdoc/commit/ed40962159603ccccc4bbc95c48bcf239af4310b))
+* add missing extensions ([e9b5e62](https://github.com/homer0/prettier-plugin-jsdoc/commit/e9b5e62ccf5f49503988386055f56c0050d6921d))
+* add module export ([64da4e9](https://github.com/homer0/prettier-plugin-jsdoc/commit/64da4e96d9cfea36144f39eebf9f726a30f35422))
+* avoid destructuring parsers imports ([791b868](https://github.com/homer0/prettier-plugin-jsdoc/commit/791b868ba30a9568c2900d00d32e75d2a9d58a7f))
+* drop Node v18 ([206743f](https://github.com/homer0/prettier-plugin-jsdoc/commit/206743f871ca56dc15859e49530ae9d41d335925))
+* migrate package to ESM ([c4d8b1e](https://github.com/homer0/prettier-plugin-jsdoc/commit/c4d8b1eb01e9bc09283bcb314b70262c607e1649))
+* update all dependencies ([d80ccce](https://github.com/homer0/prettier-plugin-jsdoc/commit/d80ccce86514110ad9a19e71fbf9aa5014bff06b))
+* update to eslint v9 and solve all reported issues ([b22a929](https://github.com/homer0/prettier-plugin-jsdoc/commit/b22a9297ab9c9922f494add4e919a701e2c85ba0))
+* use fileURLToPath instead of __dirname ([cccf688](https://github.com/homer0/prettier-plugin-jsdoc/commit/cccf688e92d19a88031664bda6da30ada76214b1))
+
+
+### BREAKING CHANGES
+
+* This package is now ESM only.
+* Node v18 is not longer supported. Node v20.19 is the minimum
+required version now.
+
 ## [10.0.1](https://github.com/homer0/prettier-plugin-jsdoc/compare/10.0.0...10.0.1) (2025-12-03)
 
 
