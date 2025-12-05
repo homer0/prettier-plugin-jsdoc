@@ -42,15 +42,19 @@ This is kind of confusing in the official docs, because it's not linked in the "
 Unfortunately, Prettier doesn't have a way to use and extend an existing configuration with a JSON syntax, so you have to change to a JavaScript file:
 
 ```js
-const config = require('@homer0/prettier-config');
+import config from '@homer0/prettier-config';
+// You may need to add the type attribute, depending on your env and the config being imported:
+//
+// import config from '@homer0/prettier-config' with { type: 'json' };
+//
 
-module.exports = {
+export default {
   ...config,
   plugins: [
     ...(config.plugins || []),
     '@homer0/prettier-plugin-jsdoc'
   ],
-};
+}
 ```
 
 ### ⚙️ Options
@@ -949,31 +953,31 @@ First, we have to enable the option `jsdocPluginExtended`, as it will prevent it
 Now, on our JS file, we'll add the following snippet:
 
 ```js
-const { get, override } = require('@homer0/prettier-plugin-jsdoc/src/fns/app');
-const { loadFns } = require('@homer0/prettier-plugin-jsdoc/src/loader');
-const { getPlugin } = require('@homer0/prettier-plugin-jsdoc/src/fns/getPlugin');
+import { get, override } from '@homer0/prettier-plugin-jsdoc/src/fns/app.js';
+import { loadFns } from '@homer0/prettier-plugin-jsdoc/src/loader.js';
+import { getPlugin } from '@homer0/prettier-plugin-jsdoc/src/fns/getPlugin.js';
 
 loadFns();
 
-module.exports = get(getPlugin)();
+export default get(getPlugin)();
 ```
 
 That's all that's needed in order to setup the plugin:
 
 1. `get` is the access to the dependency injection container, you pass the reference of an original function and it will return either the function or an override.
-2. `loadFns` is a utility function that `require`s all the functions of the plugin and loads them on the dependency injection container.
+2. `loadFns` is a utility function that `import`s all the functions of the plugin and loads them on the dependency injection container.
 3. `getPlugin` basically connects all the functions and returns the plugin definition.
 
-Now, in order to modify a function we need to import the original and use `override` before the call to `getPlugin`.
+After that, to modify a function, we need to import the original and use `override` before the call to `getPlugin`.
 
 Let's say you want to add the synonym `params` to `param` (if the plugin finds `@params` it will be converted to `@param`):
 
 ```js
-const { get, override } = require('@homer0/prettier-plugin-jsdoc/src/fns/app');
-const { loadFns } = require('@homer0/prettier-plugin-jsdoc/src/loader');
-const { getPlugin } = require('@homer0/prettier-plugin-jsdoc/src/fns/getPlugin');
+import { get, override } from '@homer0/prettier-plugin-jsdoc/src/fns/app.js';
+import { loadFns } from '@homer0/prettier-plugin-jsdoc/src/loader.js';
+import { getPlugin } from '@homer0/prettier-plugin-jsdoc/src/fns/getPlugin.js';
 // + We add the `require` for the original function.
-const { getTagsSynonyms } = require('@homer0/prettier-plugin-jsdoc/src/fns/constants');
+import { getTagsSynonyms } from '@homer0/prettier-plugin-jsdoc/src/fns/constants.js';
 
 loadFns();
 
@@ -986,7 +990,7 @@ const customGetTagsSynonyms = () => ({
 // + We override the function on the container.
 override(getTagsSynonyms, customGetTagsSynonyms);
 
-module.exports = get(getPlugin)();
+export default get(getPlugin)();
 ```
 
 That's all, the plugin was successfully extended 🎉!
@@ -1103,9 +1107,9 @@ In the case of the functional tests, there's a special environment on `./tests/u
 
 ### Linting && Formatting
 
-I use [ESlint](https://eslint.org) with [my own custom configuration](https://www.npmjs.com/package/@homer0/eslint-plugin) to validate all the JS code. The configuration file for the project code is on `./.eslintrc` and the one for the tests is on `./tests/.eslintrc`. There's also an `./.eslintignore` to exclude some files on the process. The script that runs it is on `./utils/scripts/lint-all`.
+I use [ESlint](https://eslint.org) with [my own custom configuration](https://www.npmjs.com/package/@homer0/eslint-plugin) to validate all the JS code. The configuration file for the project code is on `./eslint.config.js`. The script that runs it is on `./utils/scripts/lint-all`.
 
-For formatting I use [Prettier](https://prettier.io) with [my custom configuration](https://www.npmjs.com/package/@homer0/prettier-config) and this same plugin. The configuration file for the project code is on `./.prettierrc`.
+For formatting I use [Prettier](https://prettier.io) with [my custom configuration](https://www.npmjs.com/package/@homer0/prettier-config), and this plugin. The configuration file for the project code is on `./.prettierrc.js`.
 
 ### To-Dos
 
@@ -1133,7 +1137,7 @@ module.exports = { only: true, jsdocPrintWidth: 70 };
  */
 ```
 
-- The `module.exports` defines the plugin options for that specific case.
+- The `module.exports` defines the plugin options for that specific case. And yes, even though this is now an ESM only project, the fixtures still use `module.exports` for the options, and that's fine, because they are not modules.
 - `only: true` is not a plugin option, but will make the test runner ignore all the other tests, and only run the one you specify.
 - Below `//# input` you can put any number of comment blocks, in the state you would expect the plugin to pick them.
 - Below `//# output` you have to put the expected output after formatting the input with the plugin.
@@ -1143,10 +1147,16 @@ Then, you can just run run the test for the fixture with `pnpm run test:e2e`.
 
 ## Motivation
 
-Let's start with the fact that I really like the functionality of Prettier, but I really dislike their philosophy. I understand what they are trying to achieve and it makes sense, but "just use it the way I tell you" doesn't seem like a valid solution to me.
+Let's start with the fact that I really like the functionality of Prettier, but I really dislike their philosophy. I understand what they are trying to achieve, and it makes sense, but "just use it the way I tell you to" doesn't seem like a valid solution to me.
 
-Ok, there won't accept options requests? that's perfect, it doesn't make sense to just add _"one more"_... but it would be great if it could be open to be extended. The only way to do it is with a plugin, which means an extra parsing.
+Ok, they won't accept options requests? that's perfect, it doesn't make sense to just add _"one more"_... but it would be great if it could be open to be extended, but the only way to do that is with a plugin, which means an extra parsing.
 
-Enough rant; I started using Prettier a couple of weeks ago and being a huge fan of JSDoc, I wanted to use it to format JSDoc blocks too, something I've doing, for sometime now, using a Node script that I was trying to make into a VSCode plugin :P.
+Enough rant; I started using Prettier a couple of weeks ago and being a huge fan of JSDoc, I wanted to use it to format JSDoc blocks too, something I've doing using a Node script that I was trying to make into a VSCode plugin :P.
 
-I found [prettier-plugin-jsdoc](https://github.com/hosseinmd/prettier-plugin-jsdoc/) by [@hosseinmd](https://github.com/hosseinmd), but it (currently) doesn't cover most of the cases I wanted (like columns creations), it's written in TypeScript (which I don't like very much) and if I were to fork and send PRs, it could've taken forever (you can see the commits for this package), and it seemed like the perfect opportunity to try [Ramda](https://ramdajs.com) and functional programming... so I started a new one.
+I found [prettier-plugin-jsdoc](https://github.com/hosseinmd/prettier-plugin-jsdoc/) by [@hosseinmd](https://github.com/hosseinmd), but it (currently) doesn't cover most of the cases I wanted (like columns creations), it's written in TypeScript (which I don't like very much) and if I were to fork and send PRs, it could've taken forever (you can see the commits for this package), also, it seemed like the perfect opportunity to try [Ramda](https://ramdajs.com) and functional programming... so I started a new one.
+
+> 5 years later...
+>
+> - HUGE fan of TypeScript, for a couple of years now.
+> - I hate reading the Ramda code in here.
+> - Still hate Prettier philosophy.
