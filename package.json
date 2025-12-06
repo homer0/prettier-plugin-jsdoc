@@ -13,9 +13,6 @@
     "documentation",
     "javascript"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "type": "module",
   "main": "./src/index.js",
   "module": "./src/index.js",
@@ -47,6 +44,12 @@
   },
   "peerDependencies": {
     "prettier": "^3.5.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest"
   },
   "engine-strict": true,
   "engines": {
