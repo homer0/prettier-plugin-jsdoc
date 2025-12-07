@@ -21,7 +21,6 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
       - name: Install dependencies
         env:
           HUSKY_SKIP_INSTALL: 1
