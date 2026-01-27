@@ -1,3 +1,10 @@
+## [11.0.2](https://github.com/homer0/prettier-plugin-jsdoc/compare/11.0.1...11.0.2) (2026-01-27)
+
+
+### Bug Fixes
+
+* update dependencies ([428aaf0](https://github.com/homer0/prettier-plugin-jsdoc/commit/428aaf0ffff1a3eb73402e25695d0dc7ef824204))
+
 ## [11.0.1](https://github.com/homer0/prettier-plugin-jsdoc/compare/11.0.0...11.0.1) (2025-12-06)
 
 
