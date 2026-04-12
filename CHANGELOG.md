@@ -1,3 +1,15 @@
+# [11.1.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/11.0.2...11.1.0) (2026-04-12)
+
+
+### Bug Fixes
+
+* update dependencies ([2574bbe](https://github.com/homer0/prettier-plugin-jsdoc/commit/2574bbe3583de92ea74d589aad012478299007dc))
+
+
+### Features
+
+* add option to render description in the same line ([7a50e15](https://github.com/homer0/prettier-plugin-jsdoc/commit/7a50e150c312427d809d9191a12b38b2adeb9656))
+
 ## [11.0.2](https://github.com/homer0/prettier-plugin-jsdoc/compare/11.0.1...11.0.2) (2026-01-27)
 
 
