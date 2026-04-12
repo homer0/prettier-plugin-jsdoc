@@ -5,7 +5,7 @@
   "repository": "homer0/prettier-plugin-jsdoc",
   "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
   "license": "MIT",
-  "packageManager": "pnpm@10.26.2",
+  "packageManager": "pnpm@10.33.0",
   "keywords": [
     "jsdoc",
     "prettier",
