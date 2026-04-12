@@ -1,6 +1,9 @@
 import path from 'node:path';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
+vi.mock('../../src/fns/app');
+vi.mock('../../src/fns/getPlugin');
+
 describe('plugin', () => {
   beforeEach(() => {
     vi.resetModules();
@@ -8,8 +11,6 @@ describe('plugin', () => {
 
   it('should load and export its settings', async () => {
     // Given
-    vi.mock('../../src/fns/app');
-    vi.mock('../../src/fns/getPlugin');
     const { loadProviders, get } = await import('../../src/fns/app.js');
     const { getPlugin } = await import('../../src/fns/getPlugin.js');
     get.mockImplementationOnce((fn) => fn);
