@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import { splitText } from './splitText.js';
 import { isTag, ensureSentence } from './utils.js';
 import { renderExampleTag } from './renderExampleTag.js';
-import { renderTagInLine } from './renderTagInLine.js';
+import { renderTagInLine, renderTagInLineWithDescription } from './renderTagInLine.js';
 import { renderTagInColumns } from './renderTagInColumns.js';
 import { renderTagOriginal } from './renderTagOriginal.js';
 import { getTagsWithNameAsDescription, getTagsThatRequireColumns } from './constants.js';
@@ -81,10 +81,21 @@ export const renderTagsInLines = (width, options, tags) => {
         R.ifElse(
           useIsTag('example'),
           get(renderExampleTag)(R.__, width, options),
-          get(renderTagInLine)(
-            width,
-            options.jsdocMinSpacesBetweenTagAndType,
-            options.jsdocMinSpacesBetweenTypeAndName,
+          R.ifElse(
+            () => options.jsdocDescriptionInTheSameLine,
+            get(renderTagInLineWithDescription)({
+              width,
+              typePadding: options.jsdocMinSpacesBetweenTagAndType,
+              namePadding: options.jsdocMinSpacesBetweenTypeAndName,
+              descriptionPadding: options.jsdocMinSpacesBetweenNameAndDescription,
+              descriptionInTheSameLine: options.jsdocDescriptionInTheSameLine,
+              inlineDescriptionMinLength: options.jsdocInlineDescriptionMinLength,
+            }),
+            get(renderTagInLine)(
+              width,
+              options.jsdocMinSpacesBetweenTagAndType,
+              options.jsdocMinSpacesBetweenTypeAndName,
+            ),
           ),
         ),
       ),
