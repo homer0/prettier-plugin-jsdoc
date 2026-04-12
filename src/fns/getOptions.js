@@ -225,6 +225,22 @@ export const getOptions = () => ({
       'Whether or not to try to use columns for type, name and description when possible; if ' +
       '`false`, the descriptions will be moved to a new line.',
   },
+  jsdocDescriptionInTheSameLine: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: false,
+    description:
+      'This is used when `jsdocUseColumns` is `false`, and it should attempt to keep the ' +
+      'description in the same line as the tag, if it fits. If `false`, the description' +
+      'will always be moved to a new line.',
+  },
+  jsdocInlineDescriptionMinLength: {
+    type: 'int',
+    category: 'jsdoc',
+    default: 35,
+    description:
+      'The minimum length a description must have to be kept in the same line as the tag when `jsdocDescriptionInTheSameLine` is `true`.',
+  },
   jsdocGroupColumnsByTag: {
     type: 'boolean',
     category: 'jsdoc',
