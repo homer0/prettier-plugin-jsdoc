@@ -89,6 +89,7 @@ export default {
   - [Use columns](#use-columns)
   - [Group columns](#group-columns)
   - [Consistent columns](#consistent-columns)
+  - [Keep description in the same line when columns are disabled](#keep-description-in-the-same-line-when-columns-are-disabled)
   - [Avoid small columns for descriptions](#avoid-small-columns-for-descriptions)
   - [Tag spacing: Between tag and type](#tag-spacing-between-tag-and-type)
   - [Tag spacing: Between type and name](#tag-spacing-between-type-and-name)
@@ -713,13 +714,64 @@ This is for when the columns are aligned by tags; if `true` and one tag can't us
  */
 ```
 
+##### Keep description in the same line when columns are disabled
+
+| Option                          | Type    | Default |
+| ------------------------------- | ------- | ------- |
+| `jsdocDescriptionInTheSameLine` | boolean | `false` |
+
+Whether or not to try to keep the description in the same line when columns are disabled (`jsdocUseColumns: false`).
+
+```js
+// jsdocDescriptionInTheSameLine: true
+
+/**
+ * @callback CreatePerson
+ * @param {string} name
+ * The name of the person.
+ * @param {number} age
+ * The age of the person.
+ * @param {string[]} pets
+ * A list of the person's pets.
+ * @returns {Person}
+ * @throws {Error}
+ * if something goes wrong
+ * @throws {AnotherTypeOfError}
+ * If something else goes wrong.
+ */
+
+// ->
+
+/**
+ * @callback CreatePerson
+ * @param {string} name The name of the person.
+ * @param {number} age The age of the person.
+ * @param {string[]} pets A list of the person's pets.
+ * @returns {Person}
+ * @throws {Error} if something goes wrong
+ * @throws {AnotherTypeOfError} If something else goes wrong.
+ */
+```
+
 ##### Avoid small columns for descriptions
+
+When `jsdocUseColumns: true`:
 
 | Option                            | Type | Default |
 | --------------------------------- | ---- | ------- |
 | `jsdocDescriptionColumnMinLength` | int  | `35`    |
 
-When using columns, this is the minimum available space the description column must have; if it's less, the description will be moved to a new line and columns will be disabled for the tag, and if consistent columns are enabled, for the entire block.
+When `jsdocUseColumns: false` and `jsdocDescriptionInTheSameLine: true`:
+
+| Option                            | Type | Default |
+| --------------------------------- | ---- | ------- |
+| `jsdocInlineDescriptionMinLength` | int  | `35`    |
+
+When using columns, or when `jsdocDescriptionInTheSameLine` is enabled, this is the minimum available space the description column must have; if it's less, the description will be moved to a new line.
+
+**When columns are enabled** when a description is moved, columns will be disabled for the tag, and if consistent columns are enabled, for the entire block.
+
+> Why two options for the same thing? Columns have a lot of different options and possible configurations, and I wanted the new behavior to not be attached to any of that: if columns have to be disabled, but you still need to configure a "columns option", it would be confusing.
 
 ##### Tag spacing: Between tag and type
 
