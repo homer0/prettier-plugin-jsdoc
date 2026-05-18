@@ -941,6 +941,37 @@ describe('render', () => {
         },
       },
     ],
+    [
+      'should ignore an import tag',
+      {
+        input: {
+          description: '',
+          tags: [
+            {
+              tag: 'import',
+              type: ['', '    VeryLongLongLongLongTypeName', ''].join('\n'),
+              name: 'from',
+              description: '"../very/long/dir/and_file_name"',
+
+              source: [
+                { source: ' * @import {' },
+                { source: ' *     VeryLongLongLongLongTypeName' },
+                {
+                  source: '} from "../very/long/dir/and_file_name"',
+                },
+              ],
+            },
+          ],
+        },
+        output: [
+          '@import {',
+          '    VeryLongLongLongLongTypeName',
+          '} from "../very/long/dir/and_file_name"',
+        ],
+        column: 0,
+        options: defaultOptions,
+      },
+    ],
   ];
 
   it.each(cases)('%s', (_, caseInfo) => {

@@ -5,7 +5,11 @@ import { renderExampleTag } from './renderExampleTag.js';
 import { renderTagInLine, renderTagInLineWithDescription } from './renderTagInLine.js';
 import { renderTagInColumns } from './renderTagInColumns.js';
 import { renderTagOriginal } from './renderTagOriginal.js';
-import { getTagsWithNameAsDescription, getTagsThatRequireColumns } from './constants.js';
+import {
+  getTagsWithNameAsDescription,
+  getTagsThatRequireColumns,
+  getTagsIgnoredByThePlugin,
+} from './constants.js';
 import { get, createProvider } from './app.js';
 
 /**
@@ -67,17 +71,20 @@ const TYPE_WRAPPERS_LENGTH = 2;
  * options and the tag properties.
  *
  * @callback ShouldIgnoreTagFn
- * @param {PrettierOptions} options  The options sent to the plugin.
- * @param {CommentTag}      tag      The tag to validate.
+ * @param {PrettierOptions} options                 The options sent to the plugin.
+ * @param {string[]}        tagsIgnoredByThePlugin  The list of tags that are ignored by
+ *                                                  the plugin, different from the
+ *                                                  `jsdocIgnoreTags` option.
+ * @param {CommentTag}      tag                     The tag to validate.
  * @returns {boolean}
  */
 
 /**
  * @type {ShouldIgnoreTagFn}
  */
-export const shouldIgnoreTag = R.curry((options, tag) => {
+export const shouldIgnoreTag = R.curry((options, tagsIgnoredByThePlugin, tag) => {
   const { jsdocIgnoreTags, jsdocIgnoreTypedefImports } = options;
-  if (jsdocIgnoreTags.includes(tag.tag)) {
+  if (jsdocIgnoreTags.includes(tag.tag) || tagsIgnoredByThePlugin.includes(tag.tag)) {
     return true;
   }
 
@@ -106,7 +113,7 @@ export const renderTagsInLines = (width, options, tags) => {
     R.flatten,
     R.map(
       R.ifElse(
-        get(shouldIgnoreTag)(options),
+        get(shouldIgnoreTag)(options, get(getTagsIgnoredByThePlugin)()),
         get(renderTagOriginal),
         R.ifElse(
           useIsTag('example'),
@@ -149,7 +156,7 @@ export const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) => {
     R.flatten,
     R.map(
       R.ifElse(
-        get(shouldIgnoreTag)(options),
+        get(shouldIgnoreTag)(options, get(getTagsIgnoredByThePlugin)()),
         get(renderTagOriginal),
         R.ifElse(
           useIsTag('example'),
@@ -187,7 +194,7 @@ export const tryToRenderTagsInColumns = (tagsData, width, options, tags) => {
     R.flatten,
     R.map(
       R.ifElse(
-        get(shouldIgnoreTag)(options),
+        get(shouldIgnoreTag)(options, get(getTagsIgnoredByThePlugin)()),
         get(renderTagOriginal),
         R.ifElse(
           useIsTag('example'),
