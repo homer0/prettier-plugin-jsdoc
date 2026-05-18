@@ -100,6 +100,7 @@ export default {
   - [Ignore tags for consistent columns](#ignore-tags-for-consistent-columns)
   - [Use an inline block for a single tag](#use-an-inline-block-for-a-single-tag)
   - [Ignore specific tags](#ignore-specific-tags)
+  - [Ignore typedef import tags](#ignore-typedef-import-tags)
 - [Extras](#extras)
   - [Custom width](#custom-width)
   - [Turn the plugin on and off](#turn-the-plugin-on-and-off)
@@ -929,6 +930,14 @@ Whether or not to use a single line JSDoc block when there\'s only one tag.
 | `jsdocIgnoreTags` | array | _empty_ |
 
 A list of tags that should be ignored when formatting JSDoc comments.
+
+#### Ignore typedef import tags
+
+| Option                           | Type    | Default |
+| -------------------------------- | ------- | ------- |
+| `jsdocIgnoreTypedefImports`      | boolean | `false`  |
+
+Under certain environments, changing the rendering of `@typedef` tags that use `import(...)` can cause types to break, and adding `typedef` to `jsdocIgnoreTags` is not a great solution, as it would take away formatting for ALL `@typedef` tags.
 
 #### Extras
 
