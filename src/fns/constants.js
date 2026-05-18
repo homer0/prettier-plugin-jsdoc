@@ -92,6 +92,21 @@ export const getTagsWithNameAsDescription = () => [
  * @returns {string[]}
  */
 export const getTagsWithDescriptionThatCannotBeSentences = () => ['since'];
+
+/**
+ * A list of tags that should never be formatted by the plugin.
+ *
+ * @returns {string[]}
+ */
+export const getTagsIgnoredByThePlugin = () => [
+  /**
+   * This one is a TypeScript feature and it's basically code syntax, so changing spaces
+   * or casing could break the types.
+   *
+   * @see https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-5.html#the-jsdoc-import-tag
+   */
+  'import',
+];
 /**
  * Gets the list of languages the plugin supports.
  *
@@ -250,5 +265,6 @@ export const provider = createProvider('constants', {
   getTagsThatRequireColumns,
   getTagsWithDescriptionThatCannotBeSentences,
   getTagsWithNameAsDescription,
+  getTagsIgnoredByThePlugin,
   getSupportedLanguages,
 });

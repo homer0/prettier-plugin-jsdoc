@@ -362,6 +362,14 @@ export const getOptions = () => ({
       },
     ],
   },
+  jsdocIgnoreTypedefImports: {
+    type: 'boolean',
+    category: 'jsdoc',
+    default: false,
+    description:
+      'Whether or not to ignore the tags that are typedefs with imports. For example: ' +
+      '@typedef {import("./file").Type} Type.',
+  },
 });
 
 /**

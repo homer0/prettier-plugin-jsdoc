@@ -1,4 +1,4 @@
-import { builtinEnvironments } from 'vitest/environments';
+import { builtinEnvironments } from 'vitest/runtime';
 import { loadFixtures } from './loader.js';
 
 const { node } = builtinEnvironments;
@@ -7,7 +7,7 @@ const { node } = builtinEnvironments;
  * A custom environment that loads and injects the E2E fixtures information on the global
  * object.
  *
- * @type {import('vitest/environments').Environment}
+ * @type {import('vitest/runtime').Environment}
  */
 const fixturesEnvironment = {
   name: 'fixtures',

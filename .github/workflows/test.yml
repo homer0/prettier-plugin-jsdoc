@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['20', '22.14', '24']
+        node: ['22.14', '24']
     name: Run tests and ESLint (Node ${{ matrix.node }})
     steps:
       - uses: actions/checkout@v6
@@ -20,7 +20,7 @@ jobs:
       - run: pnpm run lint:all
       - run: pnpm test --coverage
       - name: Coveralls (unit)
-        if: ${{ matrix.node == '20' }}
+        if: ${{ matrix.node == '22.14' }}
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -28,7 +28,7 @@ jobs:
           flag-name: unit
           path-to-lcov: ./coverage-unit/lcov.info
       - name: Coveralls (e2e)
-        if: ${{ matrix.node == '20' }}
+        if: ${{ matrix.node == '22.14' }}
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

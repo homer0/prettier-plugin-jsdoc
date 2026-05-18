@@ -1,5 +1,9 @@
-onlyBuiltDependencies:
-  - esbuild
-  - unrs-resolver
+allowBuilds:
+  unrs-resolver: true
+
+minimumReleaseAge: 7200 # 5 days
+minimumReleaseAgeExclude:
+  - '@homer0/*'
+
 overrides:
   "undici@5.29.0": "^6.23.0"
