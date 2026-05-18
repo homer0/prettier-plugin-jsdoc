@@ -53,7 +53,7 @@
   },
   "engine-strict": true,
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "scripts": {
     "prepare": "./utils/scripts/prepare",
