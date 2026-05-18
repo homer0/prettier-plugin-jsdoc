@@ -1,3 +1,24 @@
+# [12.0.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/11.1.0...12.0.0) (2026-05-18)
+
+
+### Bug Fixes
+
+* drop Node v20 ([1f9df65](https://github.com/homer0/prettier-plugin-jsdoc/commit/1f9df65cca1cf4a0f0349a0e153344246020505f))
+* ignore import tags ([8fde743](https://github.com/homer0/prettier-plugin-jsdoc/commit/8fde743d8f586fd37b475dcc1442850fc8465ec9))
+* preserve indentation when rendering a multiline tag ([9030bfc](https://github.com/homer0/prettier-plugin-jsdoc/commit/9030bfc69588426ec04399bdb6343b161aa4526a))
+* prevent string literals formatter from picking ts code ([119e9d5](https://github.com/homer0/prettier-plugin-jsdoc/commit/119e9d516d9857eb39fa4cba772392bbef3b66b6))
+
+
+### Features
+
+* add jsdocIgnoreTypedefImports ([127bc5b](https://github.com/homer0/prettier-plugin-jsdoc/commit/127bc5b1846b2e7c9806dfed8dbd8afb7b1d151d))
+
+
+### BREAKING CHANGES
+
+* Node v20 is not longer supported. Node v22 is the minimum
+required version now.
+
 # [11.1.0](https://github.com/homer0/prettier-plugin-jsdoc/compare/11.0.2...11.1.0) (2026-04-12)
 
 
