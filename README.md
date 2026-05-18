@@ -12,7 +12,7 @@ A [Prettier](https://prettier.io) plugin to format [JSDoc](https://jsdoc.app) bl
 
 - 📦 [Installation](#-Installation)
 - ⚙️ [Options](#%EF%B8%8F-options)
-- 🚫 [Ignoring blocks](#-ignoring-blocks)
+- 🚫 [Ignoring blocks and ignored tags](#-ignoring-blocks-and-ignored-tags)
 - ⚡️ [Modifying the functionality](#%EF%B8%8F-modifying-the-functionality)
 - 📖 [Troubleshooting](#-troubleshooting)
 - 🤘 [Development](#-development)
@@ -983,7 +983,7 @@ By default, the plugin will only parse comments with tags. Use this option, at y
 
 Whether or not to ignore the `jsdocUseInlineCommentForASingleTagBlock` option for comments without tags (when `jsdocExperimentalFormatCommentsWithoutTags` is enabled).
 
-### 🚫 Ignoring blocks
+### 🚫 Ignoring blocks and ignored tags
 
 If you have some blocks where you don't the plugin to make any modification, you can add the `@prettierignore` tag and it/they will be skipped:
 
@@ -993,6 +993,12 @@ If you have some blocks where you don't the plugin to make any modification, you
  * @prettierignore
  */
 ```
+
+And while there's an option to ignore specific tags ([`jsdocIgnoreTags`](#ignore-specific-tags)), the plugin also ignores some _non-standard_ tags by default, as changing in their formatting could affect things outside styling.
+
+Here's the list of tags that are ignored by default:
+
+- [`@import`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-5.html#the-jsdoc-import-tag)
 
 ### ⚡️ Modifying the functionality
 
