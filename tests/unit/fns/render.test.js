@@ -876,6 +876,71 @@ describe('render', () => {
         },
       },
     ],
+    [
+      'should render a typedef with an import',
+      {
+        input: {
+          description: '',
+          tags: [
+            {
+              tag: 'typedef',
+              type: 'import("../very/long/dir/and_file_name").VeryLongLongLongLongTypeName',
+              name: 'VeryLongLongLongLongTypeName',
+              description: '',
+            },
+          ],
+        },
+        output: [
+          '@typedef {import("../very/long/dir/and_file_name").VeryLongLongLongLongTypeName}',
+          'VeryLongLongLongLongTypeName',
+        ],
+        column: 0,
+        options: {
+          ...defaultOptions,
+          jsdocPrintWidth: 80,
+        },
+      },
+    ],
+    [
+      'should ignore a typedef with an import',
+      {
+        input: {
+          description: '',
+          tags: [
+            {
+              tag: 'typedef',
+              type: [
+                'import(',
+                '    "../very/long/dir/and_file_name"',
+                ').VeryLongLongLongLongTypeName',
+              ].join('\n'),
+              name: 'VeryLongLongLongLongTypeName',
+              description: '',
+
+              source: [
+                { source: ' * @typedef {import(' },
+                { source: ' *     "../very/long/dir/and_file_name"' },
+                {
+                  source:
+                    ' * ).VeryLongLongLongLongTypeName} VeryLongLongLongLongTypeName',
+                },
+              ],
+            },
+          ],
+        },
+        output: [
+          '@typedef {import(',
+          '    "../very/long/dir/and_file_name"',
+          ').VeryLongLongLongLongTypeName} VeryLongLongLongLongTypeName',
+        ],
+        column: 0,
+        options: {
+          ...defaultOptions,
+          jsdocPrintWidth: 80,
+          jsdocIgnoreTypedefImports: true,
+        },
+      },
+    ],
   ];
 
   it.each(cases)('%s', (_, caseInfo) => {

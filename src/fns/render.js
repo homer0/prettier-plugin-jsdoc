@@ -63,6 +63,36 @@ const TAG_SYMBOL_LENGTH = 1;
 const TYPE_WRAPPERS_LENGTH = 2;
 
 /**
+ * Checks if a tag should be ignored in the rendering process by validating the plugin
+ * options and the tag properties.
+ *
+ * @callback ShouldIgnoreTagFn
+ * @param {PrettierOptions} options  The options sent to the plugin.
+ * @param {CommentTag}      tag      The tag to validate.
+ * @returns {boolean}
+ */
+
+/**
+ * @type {ShouldIgnoreTagFn}
+ */
+export const shouldIgnoreTag = R.curry((options, tag) => {
+  const { jsdocIgnoreTags, jsdocIgnoreTypedefImports } = options;
+  if (jsdocIgnoreTags.includes(tag.tag)) {
+    return true;
+  }
+
+  if (
+    jsdocIgnoreTypedefImports &&
+    tag.tag === 'typedef' &&
+    tag.type.match(/^\s*import\(/i)
+  ) {
+    return true;
+  }
+
+  return false;
+});
+
+/**
  * Renders a list of tags with the description below the tag, name and type (in-lines).
  *
  * @param {number}          width    The available width for the JSDoc block.
@@ -76,7 +106,7 @@ export const renderTagsInLines = (width, options, tags) => {
     R.flatten,
     R.map(
       R.ifElse(
-        useIsTag([...options.jsdocIgnoreTags]),
+        get(shouldIgnoreTag)(options),
         get(renderTagOriginal),
         R.ifElse(
           useIsTag('example'),
@@ -119,7 +149,7 @@ export const renderTagsInColumns = (columnsWidth, fullWidth, options, tags) => {
     R.flatten,
     R.map(
       R.ifElse(
-        useIsTag([...options.jsdocIgnoreTags]),
+        get(shouldIgnoreTag)(options),
         get(renderTagOriginal),
         R.ifElse(
           useIsTag('example'),
@@ -157,7 +187,7 @@ export const tryToRenderTagsInColumns = (tagsData, width, options, tags) => {
     R.flatten,
     R.map(
       R.ifElse(
-        useIsTag([...options.jsdocIgnoreTags]),
+        get(shouldIgnoreTag)(options),
         get(renderTagOriginal),
         R.ifElse(
           useIsTag('example'),
@@ -360,7 +390,6 @@ export const render = R.curry((options, column, block) => {
       lines.push(...new Array(options.jsdocLinesBetweenDescriptionAndTags).fill(''));
     }
   }
-
   if (options.jsdocUseColumns) {
     const data = get(getLengthsData)(block.tags, options);
     if (options.jsdocGroupColumnsByTag) {
