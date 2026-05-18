@@ -5,12 +5,21 @@ describe('formatStringLiterals', () => {
   it("should ignore a type that doesn't use string literals", () => {
     // Given
     const input = 'string';
-    const output = 'string';
     let result = null;
     // When
     result = formatStringLiterals(input, {});
     // Then
-    expect(result).toBe(output);
+    expect(result).toBe(input);
+  });
+
+  it('should ignore a complex type that uses string literals inside', () => {
+    // Given
+    const input = '{Pick<Account, "email" | "password" | "role">} AccountCreationArgs';
+    let result = null;
+    // When
+    result = formatStringLiterals(input, {});
+    // Then
+    expect(result).toBe(input);
   });
 
   it('should change a string literals type to single quotes', () => {

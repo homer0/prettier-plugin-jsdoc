@@ -63,7 +63,7 @@ export const getReducer = (options) => {
  * @returns {string[]}
  */
 export const extractLiterals = (type) =>
-  R.match(/['"][\w\|\-\s'"]+['"](?: +)?(?:$|\|)/g, type);
+  R.match(/^\s*['"][\w\|\-\s'"]+['"](?: +)?(?:$|\|)/g, type);
 /**
  * Formats the styling of string literals inside a type. If the type doesn't use string
  * literals, it will be returned without modification.
